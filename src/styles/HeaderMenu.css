@@ -1,0 +1,19 @@
+.nav {
+    display: flex;
+    align-items: center;
+    background-color: #F5F5F5;
+    padding-left: 10px;
+    padding-right: 10px;
+
+}
+
+.nav-logo {
+    height: 40px;
+    object-fit: contain;
+}
+
+.nav-logo-text {
+    color: #1E53B5;
+    margin-left: 10px;
+    font-style: italic;
+}
