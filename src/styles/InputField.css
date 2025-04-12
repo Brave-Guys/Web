@@ -8,6 +8,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 5px;
+    justify-content: space-between;
 }
 
 .input-label {
@@ -35,8 +36,8 @@
 }
 
 .input-message {
-    margin-top: 5px;
     font-size: 16px;
+    text-align: right;
 }
 
 .input-message.error {

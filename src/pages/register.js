@@ -42,9 +42,9 @@ const Register = () => {
             newMessages.confirmPassword = '비밀번호가 일치하지 않아요.';
         }
 
-        if (!/^.{6,20}$/.test(formData.nickname)) {
+        if (!/^.{3,20}$/.test(formData.nickname)) {
             newStatus.nickname = 'error';
-            newMessages.nickname = '6~20자의 닉네임을 입력해주세요.';
+            newMessages.nickname = '3~20자의 닉네임을 입력해주세요.';
         }
 
         if (!/^\S+@\S+\.\S+$/.test(`${formData.emailId}@${formData.emailDomain}`)) {
@@ -76,14 +76,17 @@ const Register = () => {
                             onChange={handleChange('username')}
                             status={status.username || 'default'}
                             message={messages.username}
+                            rightElement={
+                                <CustomButton
+                                    label="중복 확인"
+                                    size="small"
+                                    color="gray"
+                                    onClick={() => { }}
+                                />
+                            }
                         />
                     </div>
-                    <CustomButton
-                        label="중복 확인"
-                        size="small"
-                        color="gray"
-                        onClick={() => { }}
-                    />
+
                 </div>
 
                 <div className='input-group'>
@@ -95,6 +98,7 @@ const Register = () => {
                         onChange={handleChange('password')}
                         status={status.password || 'default'}
                         message={messages.password}
+                        type='password'
                     />
                 </div>
 
@@ -107,6 +111,7 @@ const Register = () => {
                         onChange={handleChange('confirmPassword')}
                         status={status.confirmPassword || 'default'}
                         message={messages.confirmPassword}
+                        type='password'
                     />
                 </div>
 
@@ -114,20 +119,23 @@ const Register = () => {
                     <div style={{ flex: 1 }}>
                         <InputField
                             label="닉네임"
-                            guide="6-20자"
+                            guide="3-20자"
                             placeholder="닉네임 입력"
                             value={formData.nickname}
                             onChange={handleChange('nickname')}
                             status={status.nickname || 'default'}
                             message={messages.nickname}
+                            rightElement={
+                                <CustomButton
+                                    label="중복 확인"
+                                    size="small"
+                                    color="gray"
+                                    onClick={() => { }}
+                                />
+                            }
                         />
                     </div>
-                    <CustomButton
-                        label="중복 확인"
-                        size="small"
-                        color="gray"
-                        onClick={() => { }}
-                    />
+
                 </div>
 
                 <div className="email-input-wrapper input-group" style={{ display: 'flex', alignItems: 'flex-end', gap: '10px', marginBottom: '50px' }}>
@@ -140,15 +148,20 @@ const Register = () => {
                             onChange={handleChange('emailId')}
                             status={status.emailId || 'default'}
                             message={messages.emailId}
+                            rightElement={
+                                <>
+                                    <span className="email-at" style={{ fontSize: '16px', marginBottom: '8px' }}>@</span>
+                                    <CustomSelect
+                                        value={formData.emailDomain}
+                                        onChange={handleChange('emailDomain')}
+                                        options={['naver.com', 'gmail.com', 'daum.net']}
+                                        width="250px"
+                                    />
+                                </>
+                            }
                         />
                     </div>
-                    <span className="email-at" style={{ fontSize: '16px', marginBottom: '8px' }}>@</span>
-                    <CustomSelect
-                        value={formData.emailDomain}
-                        onChange={handleChange('emailDomain')}
-                        options={['naver.com', 'gmail.com', 'daum.net']}
-                        width="250px"
-                    />
+
                 </div>
 
 

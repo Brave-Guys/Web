@@ -19,7 +19,6 @@
 .email-at {
     font-size: 16px;
     line-height: 38px;
-    /* Input 높이에 맞춤 */
 }
 
 .email-domain {
@@ -31,7 +30,7 @@
 }
 
 
-@media (max-width: 1024px) {
+@media (max-width: 1500px) {
     .register-container {
         padding: 30px 20px;
     }
