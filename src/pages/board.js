@@ -23,13 +23,6 @@ const Board = () => {
                 likeCount={12}
                 commentCount={3}
             />
-            <PostItem
-                title="오늘 운동 갔다가 헬스장 강아지 봄ㅋㅋ"
-                content="오늘 갔다가 트레이너분이 강아지 데려오셨던데 완전 귀엽더라ㅋㅋㅋ 운동하다..."
-                trail="잡담 | 5분 전"
-                likeCount={12}
-                commentCount={3}
-            />
         </div>
     );
 };
