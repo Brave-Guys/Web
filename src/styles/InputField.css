@@ -1,0 +1,48 @@
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.input-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.input-label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+.input-guide {
+    font-size: 16px;
+    color: #888888;
+}
+
+.input-box {
+    padding: 15px;
+    border: 1px solid #6B6B6B;
+    border-radius: 10px;
+    width: 100%;
+    font-size: 16px;
+    outline: none;
+}
+
+.input-box::placeholder {
+    color: #888888;
+}
+
+.input-message {
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+.input-message.error {
+    color: #FF0000;
+}
+
+.input-message.success {
+    color: #00EE00;
+}
