@@ -1,0 +1,48 @@
+.postContainer {
+    padding: 25px;
+    border-bottom: 1px solid #909090;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    flex: 1;
+}
+
+.trail {
+    font-size: 16px;
+    color: #535353;
+    white-space: nowrap;
+}
+
+.content {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #000;
+}
+
+.footer {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.iconGroup {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.count {
+    font-size: 16px;
+    color: #535353;
+}
