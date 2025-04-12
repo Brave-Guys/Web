@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import InputField from '../components/InputField';
 import CustomButton from '../components/CustomButton';
 import PageTitle from '../components/PageTitle';
+import CustomSelect from '../components/CustomSelect';
 import '../styles/Register.css'
 
 const Register = () => {
@@ -129,8 +130,8 @@ const Register = () => {
                     />
                 </div>
 
-                <div className="email-input-wrapper input-group">
-                    <div className="email-id">
+                <div className="email-input-wrapper input-group" style={{ display: 'flex', alignItems: 'flex-end', gap: '10px', marginBottom: '50px' }}>
+                    <div style={{ flex: 1 }}>
                         <InputField
                             label="이메일"
                             guide="이메일 입력"
@@ -141,20 +142,17 @@ const Register = () => {
                             message={messages.emailId}
                         />
                     </div>
-                    <span className="email-at">@</span>
-                    <select
+                    <span className="email-at" style={{ fontSize: '16px', marginBottom: '8px' }}>@</span>
+                    <CustomSelect
                         value={formData.emailDomain}
                         onChange={handleChange('emailDomain')}
-                        className="email-domain"
-                    >
-                        <option value="naver.com">naver.com</option>
-                        <option value="gmail.com">gmail.com</option>
-                        <option value="daum.net">daum.net</option>
-                    </select>
+                        options={['naver.com', 'gmail.com', 'daum.net']}
+                        width="250px"
+                    />
                 </div>
 
 
-                <div className="submit-button">
+                <div className="submit-button" style={{ display: 'flex', justifyContent: 'center' }}>
                     <CustomButton
                         label="회원가입"
                         size="large"
