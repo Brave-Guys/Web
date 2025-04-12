@@ -1,0 +1,24 @@
+.page-title-container {
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.back-button img {
+    width: 30px;
+    height: 30px;
+    margin-right: 20px;
+}
+
+.page-title {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.page-description {
+    font-size: 20px;
+    font-weight: bold;
+    color: #808080;
+    margin: 0;
+}
