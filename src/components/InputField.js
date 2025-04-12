@@ -15,6 +15,12 @@ const InputField = ({
             <div className="input-row">
                 <label className="input-label">{label}</label>
                 <span className="input-guide">{guide}</span>
+                <div style={{ flexGrow: '5' }}></div>
+                {message && (
+                    <p className={`input-message ${status}`}>
+                        {message}
+                    </p>
+                )}
             </div>
             <input
                 className={`input-box ${status}`}
@@ -22,11 +28,6 @@ const InputField = ({
                 value={value}
                 onChange={onChange}
             />
-            {message && (
-                <p className={`input-message ${status}`}>
-                    {message}
-                </p>
-            )}
         </div>
     );
 };
