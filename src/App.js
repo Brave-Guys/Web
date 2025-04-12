@@ -10,19 +10,10 @@ function App() {
       <Header />
       <div className='content'>
 
-        <PageTitle
-          title="페이지 제목"
-          description="해당 페이지에 대한 설명"
-          showBackArrow={true}
-        />
-
         <Routes>
           <Route path="/register" element={<Register />} />
         </Routes>
 
-        <div>
-          <p>asdfasdf</p>
-        </div>
       </div>
     </div>
   );
