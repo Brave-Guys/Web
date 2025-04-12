@@ -1,0 +1,38 @@
+.register-container {
+    padding: 70px 350px;
+}
+
+.input-group {
+    margin-bottom: 24px;
+}
+
+.email-input-wrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.email-id {
+    flex: 1;
+}
+
+.email-at {
+    font-size: 16px;
+    line-height: 38px;
+    /* Input 높이에 맞춤 */
+}
+
+.email-domain {
+    height: 40px;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+
+@media (max-width: 1024px) {
+    .register-container {
+        padding: 30px 20px;
+    }
+}
