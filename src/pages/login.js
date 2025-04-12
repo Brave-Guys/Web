@@ -1,6 +1,5 @@
 import React from 'react';
 import './login.css'; // 스타일 분리 :)
-import PageTitle from '../components/PageTitle';
 import bgImage from '../assets/텅키.jpg';
 
 const Login = () => {
