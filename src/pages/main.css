@@ -1,0 +1,185 @@
+.main-page {
+    padding: 40px 80px;
+    font-family: 'Pretendard', sans-serif;
+    background-color: #fff;
+  }
+  
+  .welcome-text h2 {
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .welcome-text p {
+    color: #666;
+    margin-top: 4px;
+    margin-bottom: 24px;
+  }
+  
+  .pro-badge {
+    color: red;
+    font-weight: bold;
+    margin-left: 4px;
+  }
+  
+  /* 카드 전체 레이아웃 */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .wide {
+    grid-column: span 2;
+  }
+  
+  /* 카드 기본 스타일 */
+  .card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  }
+  
+  .card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .arrow {
+    font-weight: bold;
+  }
+  
+  /* 3월 기록 스타일 */
+
+  .record-section {
+    display: flex;
+    gap: 100px;
+    align-items: flex-start;
+  }  
+  
+  .record-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  
+  .record-cell {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background-color: #e0e0e0;
+  }
+  
+  /* 운동량에 따라 녹색 농도 */
+  .level-1 {
+    background-color: #c8e6c9;
+  }
+  
+  .level-2 {
+    background-color: #81c784;
+  }
+  
+  .level-3 {
+    background-color: #4caf50;
+  }
+  
+  .level-4 {
+    background-color: #388e3c;
+  }
+  
+  .record-info p {
+    font-size: 14px;
+    color: #444;
+    margin: 2px 0;
+  }
+
+  /* 평균운동량 텍스트 보라색 */
+  .record-info .average {
+    font-weight: bold;
+    font-size: 20px;
+    color: purple;
+  }
+
+/* 강조된 텍스트 */
+  .record-info .highlight {
+    font-weight: bold;
+    color: #041327; /* 강조할 색상 (파란색 예시) */
+  }
+  
+  /* Share+ 스타일 */
+  .share-icons {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .circle {
+    width: 100px;
+    height: 100px;
+    background-color: #eee;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 30px;
+  }
+  
+  /* 금주의 운동 썸네일 */
+  .thumbnail-placeholder {
+    background-color: #ddd;
+    border-radius: 8px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+  
+  /* 운동 설명 */
+
+  .exercise-section {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .exercise-name {
+    font-size: 15px;
+    font-weight: bold;
+    white-space: nowrap;
+    margin-top: 2px;
+    margin-left: 80px;
+  }
+  
+  .exercise-list {
+    padding-left: 50px;
+    margin: 0;
+  }
+  
+  
+  /* 게시판 */
+  .board-preview p {
+    font-size: 14px;
+    margin: 6px 0;
+    cursor: pointer;
+    border-bottom: 1px solid #565252; /* 각 게시글 사이에 선 추가 */
+    padding-bottom: 6px; /* 선과 텍스트 사이 여백 추가 */
+}
+
+.board-preview p:hover {
+    text-decoration: underline;
+}
+
+  
+  /* 카드 너비 조정 */
+  .wide {
+    grid-column: span 2;
+  }
+  
