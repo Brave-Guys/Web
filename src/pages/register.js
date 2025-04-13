@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import InputField from '../components/InputField';
 import CustomButton from '../components/CustomButton';
 import PageTitle from '../components/PageTitle';
@@ -18,6 +19,7 @@ const Register = () => {
 
     const [status, setStatus] = useState({});
     const [messages, setMessages] = useState({});
+    const navigate = useNavigate();
 
     const handleChange = (field) => (e) => {
         setFormData({ ...formData, [field]: e.target.value });
@@ -58,11 +60,8 @@ const Register = () => {
 
         if (Object.keys(newStatus).length === 0) {
             try {
-                console.log(formData);
                 const res = await registerUser(formData);
-                alert('회원가입 성공!');
-                // TODO:
-                // 성공 후 페이지 이동이나 초기화 등
+                navigate('/register-success');
             } catch (err) {
                 alert('회원가입 실패: ' + (err.response?.data?.message || '알 수 없는 오류'));
             }
@@ -150,8 +149,8 @@ const Register = () => {
                     <div style={{ flex: 1 }}>
                         <InputField
                             label="이메일"
-                            guide="이메일 입력"
-                            placeholder=""
+                            guide=""
+                            placeholder="이메일 입력"
                             value={formData.emailId}
                             onChange={handleChange('emailId')}
                             status={status.emailId || 'default'}
