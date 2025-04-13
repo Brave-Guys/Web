@@ -3,6 +3,7 @@ import InputField from '../components/InputField';
 import CustomButton from '../components/CustomButton';
 import PageTitle from '../components/PageTitle';
 import CustomSelect from '../components/CustomSelect';
+import { registerUser } from '../apis/registerUser';
 import '../styles/Register.css'
 
 const Register = () => {
@@ -22,7 +23,7 @@ const Register = () => {
         setFormData({ ...formData, [field]: e.target.value });
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const newStatus = {};
         const newMessages = {};
 
@@ -56,8 +57,15 @@ const Register = () => {
         setMessages(newMessages);
 
         if (Object.keys(newStatus).length === 0) {
-            // 모든 필드가 유효한 경우
-            alert('회원가입 성공!');
+            try {
+                console.log(formData);
+                const res = await registerUser(formData);
+                alert('회원가입 성공!');
+                // TODO:
+                // 성공 후 페이지 이동이나 초기화 등
+            } catch (err) {
+                alert('회원가입 실패: ' + (err.response?.data?.message || '알 수 없는 오류'));
+            }
         }
     };
 
