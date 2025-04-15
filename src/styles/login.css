@@ -19,8 +19,8 @@
     position: absolute;
     top: 30%;
     left: 10%;
-    color: rgb(224, 20, 204);
-    font-size: 36px;
+    color: white;
+    font-size: 60px;
     font-weight: bold;
     z-index: 1; 
 }

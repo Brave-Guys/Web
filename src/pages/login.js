@@ -1,8 +1,28 @@
-import React from 'react';
-import '../styles/login.css'; // 스타일 분리 :)
-import bgImage from '../assets/텅키.jpg';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../styles/login.css';
+import bgImage from '../assets/welcome.png';
+import { loginUser } from '../apis/loginUser';
 
 const Login = () => {
+    const [loginData, setLoginData] = useState({ username: '', password: '' });
+    const navigate = useNavigate();
+
+    const handleChange = (field) => (e) => {
+        setLoginData({ ...loginData, [field]: e.target.value });
+    };
+
+    const handleLogin = async () => {
+        try {
+            const data = await loginUser(loginData);
+            localStorage.setItem('token', data.token); // JWT 저장
+            alert('로그인 성공!');
+            navigate('/main'); // 홈 또는 대시보드로 이동
+        } catch (err) {
+            alert('로그인 실패: ' + (err.response?.data?.message || '알 수 없는 오류'));
+        }
+    };
+
     return (
         <div
             className="login-page"
@@ -24,12 +44,26 @@ const Login = () => {
                 <div className="login-right">
                     <div className="login-box">
                         <h2>로그인</h2>
-                        <input type="text" placeholder="ID" />
-                        <input type="password" placeholder="비밀번호" />
+                        <input
+                            type="text"
+                            placeholder="ID"
+                            value={loginData.username}
+                            onChange={handleChange('username')}
+                        />
+                        <input
+                            type="password"
+                            placeholder="비밀번호"
+                            value={loginData.password}
+                            onChange={handleChange('password')}
+                        />
 
                         <div className="login-buttons">
-                            <button className="signup-btn">회원가입</button>
-                            <button className="login-btn">로그인</button>
+                            <button className="signup-btn" onClick={() => navigate('/register')}>
+                                회원가입
+                            </button>
+                            <button className="login-btn" onClick={handleLogin}>
+                                로그인
+                            </button>
                         </div>
 
                         <div className="social-buttons">
