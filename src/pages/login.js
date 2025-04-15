@@ -1,5 +1,5 @@
 import React from 'react';
-import './login.css'; // 스타일 분리 :)
+import '../styles/login.css'; // 스타일 분리 :)
 import bgImage from '../assets/텅키.jpg';
 
 const Login = () => {

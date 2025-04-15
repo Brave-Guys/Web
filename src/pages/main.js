@@ -1,11 +1,15 @@
 import React from 'react';
-import './main.css';
+import '../styles/main.css';
 
 const Main = () => {
     return (
         <div className="main-page">
             <div className="welcome-text">
-                <h2>강인석님 반가워요! <span className="pro-badge">PRO</span></h2>
+                <div style={{ display: 'flex', alignItems: 'space-between' }}>
+                    <h2>강인석님 반가워요!</h2>
+                    <div style={{ flexGrow: '5' }}></div>
+                    <h2 className="pro-badge">PRO</h2>
+                </div>
                 <p>내 운동을 관리해보세요.</p>
             </div>
 
