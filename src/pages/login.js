@@ -37,7 +37,7 @@ const Login = () => {
             <div className="login-container">
                 <div className="login-left">
                     <div className="login-text">
-                        운동 기록을<br />한눈에 확인하세요
+                        운동 기록을<br />한눈에<br />확인하세요
                     </div>
                 </div>
 
