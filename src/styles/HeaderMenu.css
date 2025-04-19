@@ -1,10 +1,15 @@
 .nav {
     display: flex;
+    justify-content: space-between;
+    /* 좌우 정렬 */
     align-items: center;
     background-color: #F5F5F5;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 10px 20px;
+}
 
+.nav-left {
+    display: flex;
+    align-items: center;
 }
 
 .nav-logo {
@@ -16,4 +21,19 @@
     color: #1E53B5;
     margin-left: 10px;
     font-style: italic;
+}
+
+.logout-btn {
+    background-color: #1E53B5;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.logout-btn:hover {
+    background-color: #17439a;
 }
