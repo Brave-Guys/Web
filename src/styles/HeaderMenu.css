@@ -1,7 +1,6 @@
 .nav {
     display: flex;
-    justify-content: space-between;
-    /* 좌우 정렬 */
+    justify-content: space-between;    
     align-items: center;
     background-color: #F5F5F5;
     padding: 10px 20px;
@@ -23,17 +22,24 @@
     font-style: italic;
 }
 
+.nav-buttons {
+    display: flex;
+    align-items: center;    
+    gap: 12px;
+}
+
+.nav-btn,
 .logout-btn {
-    background-color: #1E53B5;
-    color: white;
     border: none;
-    padding: 8px 16px;
+    padding: 8px 14px;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
+    background-color: #F5F5F5;
     transition: background-color 0.2s ease-in-out;
 }
 
+.nav-btn:hover,
 .logout-btn:hover {
-    background-color: #17439a;
+    background-color: #eee;
 }
