@@ -1,45 +1,43 @@
 .nav {
     display: flex;
-    justify-content: space-between;    
+    justify-content: space-between;
     align-items: center;
     background-color: #F5F5F5;
-    padding: 10px 20px;
+    padding: 10px 30px;
 }
 
 .nav-left {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .nav-logo {
     height: 40px;
-    object-fit: contain;
+    margin-right: 10px;
 }
 
 .nav-logo-text {
     color: #1E53B5;
-    margin-left: 10px;
     font-style: italic;
+    font-size: 24px;
 }
 
-.nav-buttons {
+.nav-icons {
     display: flex;
-    align-items: center;    
-    gap: 12px;
+    gap: 30px;
+    align-items: center;
 }
 
-.nav-btn,
-.logout-btn {
-    border: none;
-    padding: 8px 14px;
-    border-radius: 4px;
-    cursor: pointer;
+.icon-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     font-weight: bold;
-    background-color: #F5F5F5;
-    transition: background-color 0.2s ease-in-out;
+    cursor: pointer;
+    color: #000000;
 }
 
-.nav-btn:hover,
-.logout-btn:hover {
-    background-color: #eee;
+.icon {
+    font-size: 22px;
 }
