@@ -2,8 +2,8 @@
     display: flex;
     gap: 24px;
     align-items: center;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .tab-button {
@@ -11,7 +11,7 @@
     height: 50px;
     background: transparent;
     border: none;
-    font-size: 24px;
+    font-size: 20px;
     color: #808080;
     cursor: pointer;
     position: relative;
