@@ -13,6 +13,8 @@ import Masters from './pages/masters.js';
 import SharePlus from './pages/share-plus.js';
 import Inquiry from './pages/inquiry.js';
 import Error from './pages/error.js';
+import WorkoutLog from './pages/workoutlog.js';
+import ExerciseTip from './pages/exercisetip.js';
 import './App.css';
 import { Navigate } from 'react-router-dom';
 
@@ -46,6 +48,8 @@ function App() {
           <Route path="/masters" element={<PrivateRoute><Masters /></PrivateRoute>} />
           <Route path="/share-plus" element={<PrivateRoute><SharePlus /></PrivateRoute>} />
           <Route path="/inquiry" element={<PrivateRoute><Inquiry /></PrivateRoute>} />
+          <Route path="/workoutlog" element={<PrivateRoute><WorkoutLog /></PrivateRoute>} />
+          <Route path="/exercise-tip" element={<PrivateRoute><ExerciseTip /></PrivateRoute>} />
 
           {/* 404 */}
           <Route path="*" element={<Error />} />

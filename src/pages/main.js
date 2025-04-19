@@ -23,10 +23,10 @@ const Main = () => {
             </div>
 
             <div className="card-grid">
-                <Box type={2} showArrow={true} title='기록' />
+                <Box type={2} showArrow={true} title='기록' to='/workoutlog' />
                 <Box type={2} showArrow={true} title='Share+' to='/share-plus' />
                 <Box type={2} showArrow={true} title='금주의 운동' to='/weekly-workout' />
-                <Box type={2} showArrow={true} title='기본 운동 설명서' />
+                <Box type={2} showArrow={true} title='기본 운동 설명서' to='/exercise-tip'/>
                 <Box type={2} showArrow={true} title='게시판' to='/board' />
             </div>
         </div>
