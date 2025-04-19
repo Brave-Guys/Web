@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PageTitle from '../components/PageTitle';
 import Tab from '../components/Tab';
 import PostItem from '../components/PostItem';
 import '../styles/Board.css';
 
 const Board = () => {
+    const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState(0);
 
     return (
@@ -15,6 +17,8 @@ const Board = () => {
                 activeIndex={activeTab}
                 onTabClick={(index) => setActiveTab(index)}
             />
+
+            <button onClick={() => navigate('/writepost')}>글작성</button>
 
             <PostItem
                 title="오늘 운동 갔다가 헬스장 강아지 봄ㅋㅋ"

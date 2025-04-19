@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // ✅ 추가
+import { useNavigate } from 'react-router-dom';
 import '../styles/Box.css';
 import arrow from '../assets/gotodetail.png';
 

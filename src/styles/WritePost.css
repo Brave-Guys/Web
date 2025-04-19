@@ -1,0 +1,79 @@
+.write-post-container {
+    padding: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.write-post-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* 제목 input */
+.write-post-form input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+/* 내용 textarea */
+.write-post-form textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    resize: vertical;
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 300px;
+}
+
+/* 셀렉트 (게시판 선택) */
+.write-post-form select {
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+/* 하단 버튼 영역 */
+.write-post-form .footer-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* 버튼 공통 */
+.write-post-form button {
+    padding: 12px 24px;
+    border-radius: 20px;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* 완료 버튼 (보라색) */
+.write-post-form .submit-btn {
+    background-color: #AC6CFF;
+    color: white;
+}
+
+.write-post-form .submit-btn:hover {
+    background-color: #974dfd;
+}
+
+/* 취소 버튼 (회색) */
+.write-post-form .cancel-btn {
+    background-color: #d5d5d5;
+    color: black;
+}
+
+.write-post-form .cancel-btn:hover {
+    background-color: #c0c0c0;
+}
