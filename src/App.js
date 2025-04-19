@@ -37,6 +37,7 @@ function App() {
           <Route path="/find-account" element={<FindAccount />} />
 
           {/* 보호된 페이지 */}
+          <Route path="/" element={<PrivateRoute><Main /></PrivateRoute>} />
           <Route path="/main" element={<PrivateRoute><Main /></PrivateRoute>} />
           <Route path="/board" element={<PrivateRoute><Board /></PrivateRoute>} />
           <Route path="/challenges" element={<PrivateRoute><Challenges /></PrivateRoute>} />
