@@ -1,15 +1,23 @@
 .box {
     padding: 25px;
     border-radius: 10px;
+    width: 100%; /* ✅ 부모 너비 기준으로 꽉 차게 */
+    box-sizing: border-box;
+}
+
+.box-header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: flex-start; /* ✅ 상단 정렬 */
+    width: 100%;
 }
 
 .box-content {
     display: flex;
     align-items: center;
     gap: 16px;
+    font-size: 25px;
+    font-weight: 700;
 }
 
 .box-arrow {
@@ -17,6 +25,7 @@
     height: 20px;
 }
 
+/* 배경/테두리 스타일 */
 .box-type-1 {
     background-color: #F5F5F5;
     color: #6B6B6B;
@@ -24,12 +33,10 @@
 
 .box-type-2 {
     border: 1px solid #B5B5B5;
-    width: 600px;
-    height: 250px;
 }
 
 .box-type-3 {
     border: 1px solid #B5B5B5;
-    width: 1220px;
-    height: 250px;
 }
+
+/* ✅ width 제거 → 부모에 맞게 늘어남 */
