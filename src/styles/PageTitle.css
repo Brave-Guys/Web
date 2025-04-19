@@ -5,19 +5,19 @@
 }
 
 .back-button img {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     margin-right: 20px;
 }
 
 .page-title {
-    font-size: 48px;
+    font-size: 35px;
     font-weight: bold;
     margin: 0;
 }
 
 .page-description {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     color: #808080;
     margin: 0;
