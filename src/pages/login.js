@@ -14,12 +14,11 @@ const Login = () => {
 
     const handleLogin = async () => {
         try {
-            const data = await loginUser(loginData);
-            localStorage.setItem('token', data.token); // JWT 저장
+            await loginUser(loginData);
             alert('로그인 성공!');
-            navigate('/main'); // 홈 또는 대시보드로 이동
+            navigate('/main');
         } catch (err) {
-            alert('로그인 실패: ' + (err.response?.data?.message || '알 수 없는 오류'));
+            alert('로그인 실패: ' + err.message);
         }
     };
 
