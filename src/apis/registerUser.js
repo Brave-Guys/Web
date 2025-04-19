@@ -9,6 +9,6 @@ export const registerUser = async (formData) => {
         email: email
     };
 
-    const response = await axios.post('http://localhost:8080/register', payload);
+    const response = await axios.post(`${process.env.API_URL}/register`, payload);
     return response.data;
 };
