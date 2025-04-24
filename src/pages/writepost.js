@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageTitle from '../components/PageTitle';
-import '../styles/WritePost.css'; // 필요 시 스타일 분리
-import axios from 'axios';
+import { createPost } from '../apis/createPost';
+import '../styles/WritePost.css';
 
 const WritePost = () => {
     const navigate = useNavigate();
@@ -10,8 +10,20 @@ const WritePost = () => {
     const [form, setForm] = useState({
         title: '',
         content: '',
-        category: '잡담'
+        category: '잡담',
     });
+
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const userData = localStorage.getItem('user');
+        if (userData) {
+            setUser(JSON.parse(userData));
+        } else {
+            alert('로그인이 필요합니다.');
+            navigate('/login');
+        }
+    }, [navigate]);
 
     const handleChange = (field) => (e) => {
         setForm({ ...form, [field]: e.target.value });
@@ -24,18 +36,16 @@ const WritePost = () => {
         }
 
         try {
-            const token = localStorage.getItem('token');
-
-            await axios.post(`${process.env.REACT_APP_API_URL}/posts`, form, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
+            await createPost({
+                writerId: user._id,
+                name: form.title,
+                content: form.content,
+                category: form.category,
             });
-
-            alert('글이 성공적으로 작성되었습니다!');
-            navigate('/board'); // 게시판으로 이동
+            alert('글이 성공적으로 등록되었습니다!');
+            navigate('/board');
         } catch (err) {
-            alert('글 작성 실패: ' + (err.response?.data?.message || '알 수 없는 오류'));
+            alert('글 등록 실패: ' + (err.response?.data?.message || '알 수 없는 오류'));
         }
     };
 
@@ -74,7 +84,9 @@ const WritePost = () => {
                     />
                 </label>
 
-                <button className="submit-btn" onClick={handleSubmit}>글 등록</button>
+                <button className="submit-btn" onClick={handleSubmit}>
+                    글 등록
+                </button>
             </div>
         </div>
     );
