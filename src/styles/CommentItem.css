@@ -1,0 +1,47 @@
+.comment-item {
+    padding: 15px 0;
+    border-top: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.comment-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.comment-nickname {
+    font-weight: bold;
+}
+
+.comment-time {
+    color: #999;
+}
+
+.comment-content {
+    font-size: 16px;
+    margin-left: 50px;
+}
+
+.comment-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 50px;
+    font-size: 14px;
+    color: #666;
+}
+
+.comment-like {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.comment-reply {
+    cursor: pointer;
+    color: #888;
+}

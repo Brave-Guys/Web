@@ -15,7 +15,7 @@ const Board = () => {
         const fetchPosts = async () => {
             try {
                 const data = await getPosts();
-                setPosts(data); // 서버에서 받은 게시글 배열
+                setPosts(data);
             } catch (err) {
                 console.error(err);
                 alert('게시글을 불러오지 못했습니다.');
@@ -49,6 +49,7 @@ const Board = () => {
                 .map((post) => (
                     <PostItem
                         key={post._id}
+                        postId={post._id}
                         title={post.name}
                         content={post.content}
                         trail={`${post.nickname} | ${new Date(post.createDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`}

@@ -1,10 +1,17 @@
 import React from 'react';
 import styles from '../styles/PostItem.module.css';
 import { ThumbsUp, MessageCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-const PostItem = ({ title, content, trail, likeCount, commentCount }) => {
+const PostItem = ({ postId, title, content, trail, likeCount, commentCount }) => {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate(`/post/${postId}`);
+    };
+
     return (
-        <div className={styles.postContainer}>
+        <div className={styles.postContainer} onClick={handleClick} style={{ cursor: 'pointer' }}>
             <div className={styles.header}>
                 <div className={styles.title}>{title}</div>
                 <div className={styles.trail}>{trail}</div>
