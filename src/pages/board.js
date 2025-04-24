@@ -51,10 +51,11 @@ const Board = () => {
                         key={post._id}
                         title={post.name}
                         content={post.content}
-                        trail={`${post.category} | ${new Date(post.createDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`}
+                        trail={`${post.nickname} | ${new Date(post.createDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`}
                         likeCount={post.likeCount || 0}
                         commentCount={post.commentCount || 0}
                     />
+
                 ))}
         </div>
     );
