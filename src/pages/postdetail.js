@@ -1,33 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ThumbsUp, MessageCircle } from 'lucide-react';
 import CommentItem from '../components/CommentItem';
+import { getPostDetail } from '../apis/getPostDetail';
 import '../styles/PostDetail.css';
 
 const PostDetail = () => {
     const { id } = useParams();
+    const [post, setPost] = useState(null);
 
-    const post = {
-        author: '강인석',
-        time: '1시간 전',
-        content: '80→72 운동 안했는데 눈바디 몸 좋아짐 ㄷㄷ',
-        title: '몸무게 몸변화',
-        likes: 10,
-        comments: 2,
-        commentsList: [
-            { id: 1, name: '김희겸', time: '45분 전', content: '생존근육 아니지?', likes: 5 },
-            { id: 2, name: '이민국', time: '30분 전', content: '굿굿', likes: 3 },
-        ]
-    };
+    useEffect(() => {
+        const fetchPost = async () => {
+            try {
+                const data = await getPostDetail(id);
+                setPost(data);
+            } catch (err) {
+                alert('게시글을 불러오는 데 실패했습니다.');
+                console.error(err);
+            }
+        };
+
+        fetchPost();
+    }, [id]);
+
+    if (!post) return <p>로딩 중...</p>;
 
     return (
         <div className="post-detail-container">
-            <h1 className="post-title">{post.title}</h1>
+            <h1 className="post-title">{post.name}</h1>
 
             <div className="post-header">
                 <div className="profile-icon"></div>
-                <div className="nickname">{post.author}</div>
-                <div className="post-time">{post.time}</div>
+                <div className="nickname">{post.nickname}</div>
+                <div className="post-time">{new Date(post.createDate).toLocaleString()}</div>
                 <div className="post-actions">
                     <span>수정</span>
                     <span>|</span>
@@ -39,10 +44,10 @@ const PostDetail = () => {
 
             <div className="post-footer">
                 <div className="reaction">
-                    <ThumbsUp size={20} color="red" /> <span>{post.likes}</span>
+                    <ThumbsUp size={20} color="red" /> <span>{post.likes || 0}</span>
                 </div>
                 <div className="reaction">
-                    <MessageCircle size={20} color="blue" /> <span>{post.comments}</span>
+                    <MessageCircle size={20} color="blue" /> <span>{post.comments?.length || 0}</span>
                 </div>
             </div>
 
@@ -51,8 +56,14 @@ const PostDetail = () => {
                 <button>등록</button>
             </div>
 
-            {post.commentsList.map((comment) => (
-                <CommentItem key={comment.id} {...comment} />
+            {post.comments?.map((comment) => (
+                <CommentItem
+                    key={comment._id}
+                    name={comment.nickname}
+                    time={new Date(comment.createDate).toLocaleString()}
+                    content={comment.content}
+                    likes={comment.likes || 0}
+                />
             ))}
         </div>
     );
