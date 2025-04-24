@@ -2,32 +2,81 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ThumbsUp, MessageCircle } from 'lucide-react';
 import CommentItem from '../components/CommentItem';
+import PageTitle from '../components/PageTitle';
 import { getPostDetail } from '../apis/getPostDetail';
+import { getComments, postComment } from '../apis/getComments'; // postComment 추가
 import '../styles/PostDetail.css';
 
 const PostDetail = () => {
-    const { id } = useParams();
+    const { id: postId } = useParams();
     const [post, setPost] = useState(null);
+    const [comments, setComments] = useState([]);
+    const [commentText, setCommentText] = useState('');
 
     useEffect(() => {
-        const fetchPost = async () => {
-            try {
-                const data = await getPostDetail(id);
-                setPost(data);
-            } catch (err) {
-                alert('게시글을 불러오는 데 실패했습니다.');
-                console.error(err);
-            }
-        };
+        fetchPostAndComments();
+    }, [postId]);
 
-        fetchPost();
-    }, [id]);
+    const fetchPostAndComments = async () => {
+        try {
+            const postData = await getPostDetail(postId);
+            const commentData = await getComments(postId);
+            const nested = nestComments(commentData);
+            setPost(postData);
+            setComments(nested);
+        } catch (err) {
+            alert('게시글 또는 댓글을 불러오는 데 실패했습니다.');
+            console.error(err);
+        }
+    };
+
+    const nestComments = (comments) => {
+        const map = {};
+        const roots = [];
+
+        comments.forEach((c) => {
+            c.replies = [];
+            map[c._id] = c;
+        });
+
+        comments.forEach((c) => {
+            if (c.parentId) {
+                if (map[c.parentId]) map[c.parentId].replies.push(c);
+            } else {
+                roots.push(c);
+            }
+        });
+
+        return roots;
+    };
+
+    const submitReply = async (postId, parentId, text) => {
+        try {
+            const user = JSON.parse(localStorage.getItem('user'));
+            await postComment({
+                postId,
+                parentId,
+                writerId: user._id,
+                content: text,
+            });
+            await fetchPostAndComments(); // 댓글 갱신
+        } catch (err) {
+            alert('댓글 등록에 실패했습니다.');
+            console.error(err);
+        }
+    };
+
+    const handleRootCommentSubmit = async () => {
+        if (!commentText.trim()) return;
+        await submitReply(postId, null, commentText);
+        setCommentText('');
+    };
 
     if (!post) return <p>로딩 중...</p>;
 
     return (
         <div className="post-detail-container">
-            <h1 className="post-title">{post.name}</h1>
+            <PageTitle title={post.name} showBackArrow={true} />
 
             <div className="post-header">
                 <div className="profile-icon"></div>
@@ -47,22 +96,31 @@ const PostDetail = () => {
                     <ThumbsUp size={20} color="red" /> <span>{post.likes || 0}</span>
                 </div>
                 <div className="reaction">
-                    <MessageCircle size={20} color="blue" /> <span>{post.comments?.length || 0}</span>
+                    <MessageCircle size={20} color="blue" /> <span>{comments.length}</span>
                 </div>
             </div>
 
             <div className="comment-input-wrapper">
-                <input type="text" placeholder="댓글을 작성하세요!" />
-                <button>등록</button>
+                <input
+                    type="text"
+                    placeholder="댓글을 작성하세요!"
+                    value={commentText}
+                    onChange={(e) => setCommentText(e.target.value)}
+                />
+                <button onClick={handleRootCommentSubmit}>등록</button>
             </div>
 
-            {post.comments?.map((comment) => (
+            {comments.map((comment) => (
                 <CommentItem
                     key={comment._id}
                     name={comment.nickname}
-                    time={new Date(comment.createDate).toLocaleString()}
+                    time={new Date(comment.writeDate).toLocaleString()}
                     content={comment.content}
                     likes={comment.likes || 0}
+                    replies={comment.replies || []}
+                    onReplySubmit={(text, parentId = comment._id) =>
+                        submitReply(postId, parentId, text)
+                    }
                 />
             ))}
         </div>
