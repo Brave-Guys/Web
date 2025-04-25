@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { ThumbsUp, MessageCircle } from 'lucide-react';
 import CommentItem from '../components/CommentItem';
 import PageTitle from '../components/PageTitle';
@@ -7,18 +7,19 @@ import { getPostDetail } from '../apis/getPostDetail';
 import { getComments, postComment } from '../apis/getComments'; // postComment 추가
 import '../styles/PostDetail.css';
 import { deletePost } from '../apis/deletePost';
-import { useNavigate } from 'react-router-dom';
-
 
 const PostDetail = () => {
     const { id: postId } = useParams();
     const [post, setPost] = useState(null);
     const [comments, setComments] = useState([]);
     const [commentText, setCommentText] = useState('');
+    const [currentUserId, setCurrentUserId] = useState(null);
 
     const navigate = useNavigate();
 
     useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user) setCurrentUserId(user._id);
         fetchPostAndComments();
     }, [postId]);
 
@@ -102,11 +103,13 @@ const PostDetail = () => {
                 <div className="nickname">{post.nickname}</div>
                 <div className="post-time">{new Date(post.createDate).toLocaleString()}</div>
                 <div className="post-actions">
-                    <div className="post-actions">
-                        <span onClick={() => navigate(`/editpost/${post._id}`)}>수정</span>
-                        <span>|</span>
-                        <span onClick={handleDelete}>삭제</span>
-                    </div>
+                    {currentUserId === post.writerId && (
+                        <div className="post-actions">
+                            <span onClick={() => navigate(`/editpost/${post._id}`)}>수정</span>
+                            <span>|</span>
+                            <span onClick={handleDelete}>삭제</span>
+                        </div>
+                    )}
                 </div>
             </div>
 
