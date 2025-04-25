@@ -5,6 +5,7 @@ import CustomButton from '../components/CustomButton';
 import PageTitle from '../components/PageTitle';
 import CustomSelect from '../components/CustomSelect';
 import { registerUser } from '../apis/registerUser';
+import { checkNickname, checkUsername } from '../apis/checkDuplicate';
 import '../styles/Register.css'
 
 const Register = () => {
@@ -23,6 +24,40 @@ const Register = () => {
 
     const handleChange = (field) => (e) => {
         setFormData({ ...formData, [field]: e.target.value });
+    };
+
+    const handleCheckNickname = async () => {
+        if (!formData.nickname) {
+            alert('닉네임을 입력하세요.');
+            return;
+        }
+        try {
+            await checkNickname(formData.nickname);
+            alert('사용 가능한 닉네임입니다!');
+        } catch (err) {
+            if (err.response?.status === 409) {
+                alert('이미 사용 중인 닉네임입니다.');
+            } else {
+                alert('닉네임 확인 중 오류 발생');
+            }
+        }
+    };
+
+    const handleCheckUsername = async () => {
+        if (!formData.username) {
+            alert('아이디를 입력하세요.');
+            return;
+        }
+        try {
+            await checkUsername(formData.username);
+            alert('사용 가능한 아이디입니다!');
+        } catch (err) {
+            if (err.response?.status === 409) {
+                alert('이미 사용 중인 아이디입니다.');
+            } else {
+                alert('아이디 확인 중 오류 발생');
+            }
+        }
     };
 
     const handleSubmit = async () => {
@@ -87,7 +122,7 @@ const Register = () => {
                                     label="중복 확인"
                                     size="small"
                                     color="gray"
-                                    onClick={() => { }}
+                                    onClick={handleCheckUsername}
                                 />
                             }
                         />
@@ -133,7 +168,7 @@ const Register = () => {
                                     label="중복 확인"
                                     size="small"
                                     color="gray"
-                                    onClick={() => { }}
+                                    onClick={handleCheckNickname}
                                 />
                             }
                         />
@@ -172,7 +207,7 @@ const Register = () => {
                         label="회원가입"
                         size="large"
                         color="purple"
-                        onClick={handleSubmit}                        
+                        onClick={handleSubmit}
                     />
                 </div>
             </div>
