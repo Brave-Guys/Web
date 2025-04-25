@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Box from '../components/Box';
+import PageTitle from '../components/PageTitle.js'
 import '../styles/main.css';
 import { getPosts } from '../apis/getPosts'; // 추가
 
@@ -28,12 +29,16 @@ const Main = () => {
     return (
         <div className="main-page">
             <div className="welcome-text">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <h2>{user?.name ?? '사용자'}님 반가워요!</h2>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <PageTitle
+                        title={`${user?.name ?? '사용자'}님 반가워요!`}
+                        description="내 운동을 관리해보세요."
+                    />
                     <h2 className="pro-badge">{user?.userPlanType ?? '사용자'}</h2>
                 </div>
-                <p>내 운동을 관리해보세요.</p>
             </div>
+
+
 
             <div className="card-grid">
                 <Box type={2} showArrow={true} title='기록' to='/workoutlog' />
