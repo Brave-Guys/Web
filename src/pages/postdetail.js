@@ -5,8 +5,9 @@ import CommentItem from '../components/CommentItem';
 import PageTitle from '../components/PageTitle';
 import { getPostDetail } from '../apis/getPostDetail';
 import { getComments, postComment } from '../apis/getComments'; // postComment 추가
-import '../styles/PostDetail.css';
 import { deletePost } from '../apis/deletePost';
+import { toggleLike } from '../apis/toggleLike';
+import '../styles/PostDetail.css';
 
 const PostDetail = () => {
     const { id: postId } = useParams();
@@ -22,6 +23,27 @@ const PostDetail = () => {
         if (user) setCurrentUserId(user._id);
         fetchPostAndComments();
     }, [postId]);
+
+    const handleToggleLike = async () => {
+        try {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const result = await toggleLike({
+                userId: user._id,
+                postId: postId,
+                postType: 'community',
+                postOrComment: 'post',
+            });
+
+            // 상태 갱신
+            setPost((prev) => ({
+                ...prev,
+                likes: result.liked ? prev.likes + 1 : prev.likes - 1,
+            }));
+        } catch (err) {
+            alert('좋아요 처리 중 오류 발생');
+            console.error(err);
+        }
+    };
 
     const handleDelete = async () => {
         const confirm = window.confirm('정말로 이 게시글을 삭제하시겠습니까?');
@@ -116,9 +138,11 @@ const PostDetail = () => {
             <div className="post-content">{post.content}</div>
 
             <div className="post-footer">
-                <div className="reaction">
-                    <ThumbsUp size={20} color="red" /> <span>{post.likes || 0}</span>
+                <div className="reaction" onClick={handleToggleLike} style={{ cursor: 'pointer' }}>
+                    <ThumbsUp size={20} color="red" />
+                    <span>{post.likes || 0}</span>
                 </div>
+
                 <div className="reaction">
                     <MessageCircle size={20} color="blue" /> <span>{comments.length}</span>
                 </div>
