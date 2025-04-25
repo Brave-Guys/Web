@@ -4,6 +4,7 @@ import PageTitle from '../components/PageTitle';
 import Tab from '../components/Tab';
 import PostItem from '../components/PostItem';
 import { getPosts } from '../apis/getPosts';
+import CustomButton from '../components/CustomButton'; // ✅ 버튼 예쁘게 하려면
 import '../styles/Board.css';
 
 const Board = () => {
@@ -21,21 +22,34 @@ const Board = () => {
                 alert('게시글을 불러오지 못했습니다.');
             }
         };
-
         fetchPosts();
     }, []);
 
     return (
         <div className='boardContent'>
-            <PageTitle title="커뮤니티" description="회원들과 운동 이야기를 나누어 보세요" showBackArrow={true} />
+
+            {/* ✅ 상단 제목 + 글쓰기 버튼 */}
+            <div className="board-header">
+                <PageTitle
+                    title="커뮤니티"
+                    description="회원들과 운동 이야기를 나누어 보세요"
+                    showBackArrow={true}
+                />
+                <div style={{flexGrow: '1'}}></div>
+                <CustomButton
+                    label="글작성"
+                    size="small"
+                    color="gray"
+                    onClick={() => navigate('/writepost')}
+                    style={{maxWidth: '120px'}}
+                />
+            </div>
 
             <Tab
                 tabs={['잡담', '식단', '루틴', '공지', '내 게시글']}
                 activeIndex={activeTab}
                 onTabClick={(index) => setActiveTab(index)}
             />
-
-            <button onClick={() => navigate('/writepost')}>글작성</button>
 
             {posts
                 .filter(post => {
@@ -52,11 +66,13 @@ const Board = () => {
                         postId={post._id}
                         title={post.name}
                         content={post.content}
-                        trail={`${post.nickname} | ${new Date(post.createDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`}
+                        trail={`${post.nickname} | ${new Date(post.createDate).toLocaleTimeString([], {
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        })}`}
                         likeCount={post.likeCount || 0}
                         commentCount={post.commentCount || 0}
                     />
-
                 ))}
         </div>
     );

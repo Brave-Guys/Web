@@ -1,3 +1,10 @@
 .boardContent {
     padding: 90px 265px;
 }
+
+.board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+}
