@@ -14,12 +14,30 @@
     position: relative;
 }
 
+.login-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0px;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+
+.error-message {
+    color: red;
+}
+
 .login-text {
     position: absolute;
     top: 30%;
     left: 10%;
     color: white;
-    font-size: 64px;
+    font-size: 80px;
     font-weight: bold;
     line-height: 1.3;
 }

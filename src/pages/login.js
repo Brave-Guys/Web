@@ -11,6 +11,8 @@ import googleIcon from '../assets/google.png';
 
 const Login = () => {
     const [loginData, setLoginData] = useState({ username: '', password: '' });
+    const [errorMessage, setErrorMessage] = useState('');
+
     const navigate = useNavigate();
 
     const handleChange = (field) => (e) => {
@@ -20,10 +22,9 @@ const Login = () => {
     const handleLogin = async () => {
         try {
             await loginUser(loginData);
-            alert('로그인 성공!');
             navigate('/main');
         } catch (err) {
-            alert('로그인 실패: ' + err.message);
+            setErrorMessage(err.message);
         }
     };
 
@@ -47,7 +48,14 @@ const Login = () => {
 
                 <div className="login-right">
                     <div className="login-box">
-                        <h2>로그인</h2>
+                        <div className="login-title-row">
+                            <div style={{fontSize: '30px', fontWeight: 'bold'}}>로그인</div>
+                            {errorMessage && (
+                                <div className="error-message">{errorMessage}</div>
+                            )}
+                        </div>
+
+
 
                         <div className="login-box-inner">
                             <InputField
@@ -84,7 +92,7 @@ const Login = () => {
                                 />
                             </div>
                         </div>
-                        <div style={{marginTop: '20px'}}>
+                        <div style={{ marginTop: '20px' }}>
                             <div className="social-buttons">
                                 <button className="social-button kakao">
                                     <div className="social-content">
