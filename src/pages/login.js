@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/login.css';
 import bgImage from '../assets/welcome.png';
 import { loginUser } from '../apis/loginUser';
+import CustomButton from '../components/CustomButton';
+import InputField from '../components/InputField';
 
 const Login = () => {
     const [loginData, setLoginData] = useState({ username: '', password: '' });
@@ -43,27 +45,40 @@ const Login = () => {
                 <div className="login-right">
                     <div className="login-box">
                         <h2>로그인</h2>
-                        <input
-                            type="text"
-                            placeholder="ID"
+                        <InputField
+                            label="ID"
+                            guide=""
+                            placeholder=""
                             value={loginData.username}
                             onChange={handleChange('username')}
+                            status="default"
                         />
-                        <input
+
+                        <InputField
+                            label="비밀번호"
+                            guide=""
+                            placeholder=""
                             type="password"
-                            placeholder="비밀번호"
                             value={loginData.password}
                             onChange={handleChange('password')}
+                            status="default"
                         />
 
                         <div className="login-buttons">
-                            <button className="signup-btn" onClick={() => navigate('/register')}>
-                                회원가입
-                            </button>
-                            <button className="login-btn" onClick={handleLogin}>
-                                로그인
-                            </button>
+                            <CustomButton
+                                label="회원가입"
+                                size="large"
+                                color="gray"
+                                onClick={() => navigate('/register')}
+                            />
+                            <CustomButton
+                                label="로그인"
+                                size="large"
+                                color="gray"
+                                onClick={handleLogin}
+                            />
                         </div>
+
 
                         <div className="social-buttons">
                             <button className="kakao">카카오로 로그인</button>
