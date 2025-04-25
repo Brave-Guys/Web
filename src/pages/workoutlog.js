@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import PageTitle from '../components/PageTitle.js';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import '../styles/WorkoutLog.css'; // 추가!
+import '../styles/WorkoutLog.css';
 
 const WorkoutLog = () => {
     const today = new Date();
     const [currentDate, setCurrentDate] = useState(new Date(today.getFullYear(), today.getMonth(), 1));
+    const [selectedDate, setSelectedDate] = useState(null); // 팝업에 사용할 날짜
+    const [showPopup, setShowPopup] = useState(false);
 
     const getDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
     const getStartDay = (year, month) => new Date(year, month, 1).getDay();
@@ -42,6 +44,13 @@ const WorkoutLog = () => {
         setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
     };
 
+    const handleDayClick = (day, currentMonth) => {
+        if (!currentMonth) return;
+        const fullDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+        setSelectedDate(fullDate);
+        setShowPopup(true);
+    };
+
     const calendarDays = generateCalendar();
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
@@ -67,11 +76,22 @@ const WorkoutLog = () => {
                     <div
                         key={i}
                         className={`calendar-day ${d.currentMonth ? 'current' : 'inactive'}`}
+                        onClick={() => handleDayClick(d.day, d.currentMonth)}
                     >
                         {d.day}
                     </div>
                 ))}
             </div>
+
+            {showPopup && (
+                <div className="popup-overlay" onClick={() => setShowPopup(false)}>
+                    <div className="popup-box" onClick={(e) => e.stopPropagation()}>
+                        <h3>{selectedDate.toLocaleDateString()}</h3>
+                        <p>운동 기록 또는 메모를 표시할 수 있어요!</p>
+                        <button onClick={() => setShowPopup(false)}>닫기</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
