@@ -78,7 +78,6 @@ const Register = () => {
                         <InputField
                             label="아이디"
                             guide="6-20자"
-                            placeholder="아이디 입력"
                             value={formData.username}
                             onChange={handleChange('username')}
                             status={status.username || 'default'}
@@ -100,7 +99,6 @@ const Register = () => {
                     <InputField
                         label="비밀번호"
                         guide="문자, 숫자, 특수문자 포함 8-20자"
-                        placeholder="비밀번호 입력"
                         value={formData.password}
                         onChange={handleChange('password')}
                         status={status.password || 'default'}
@@ -113,7 +111,6 @@ const Register = () => {
                     <InputField
                         label="비밀번호 확인"
                         guide="비밀번호 재입력"
-                        placeholder="비밀번호 확인"
                         value={formData.confirmPassword}
                         onChange={handleChange('confirmPassword')}
                         status={status.confirmPassword || 'default'}
@@ -127,7 +124,6 @@ const Register = () => {
                         <InputField
                             label="닉네임"
                             guide="3-20자"
-                            placeholder="닉네임 입력"
                             value={formData.nickname}
                             onChange={handleChange('nickname')}
                             status={status.nickname || 'default'}
@@ -150,7 +146,6 @@ const Register = () => {
                         <InputField
                             label="이메일"
                             guide=""
-                            placeholder="이메일 입력"
                             value={formData.emailId}
                             onChange={handleChange('emailId')}
                             status={status.emailId || 'default'}
@@ -172,12 +167,12 @@ const Register = () => {
                 </div>
 
 
-                <div className="submit-button" style={{ display: 'flex', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <CustomButton
                         label="회원가입"
                         size="large"
                         color="purple"
-                        onClick={handleSubmit}
+                        onClick={handleSubmit}                        
                     />
                 </div>
             </div>

@@ -31,9 +31,11 @@ const InputField = ({
                     placeholder={placeholder}
                     value={value}
                     onChange={onChange}
+                    style={{ flex: 5 }}
                 />
                 {rightElement && rightElement}
             </div>
+
         </div>
     );
 };
