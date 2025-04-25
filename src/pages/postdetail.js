@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ThumbsUp, MessageCircle } from 'lucide-react';
+import { ThumbsUp, ThumbsUpIcon, MessageCircle } from 'lucide-react';
 import CommentItem from '../components/CommentItem';
 import PageTitle from '../components/PageTitle';
 import { getPostDetail } from '../apis/getPostDetail';
-import { getComments, postComment } from '../apis/getComments'; // postComment 추가
+import { getComments, postComment } from '../apis/getComments';
 import { deletePost } from '../apis/deletePost';
-import { toggleLike } from '../apis/toggleLike';
+import { toggleLike, checkLikeStatus } from '../apis/toggleLike';
 import '../styles/PostDetail.css';
 
 const PostDetail = () => {
@@ -15,6 +15,7 @@ const PostDetail = () => {
     const [comments, setComments] = useState([]);
     const [commentText, setCommentText] = useState('');
     const [currentUserId, setCurrentUserId] = useState(null);
+    const [liked, setLiked] = useState(false);
 
     const navigate = useNavigate();
 
@@ -22,7 +23,23 @@ const PostDetail = () => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (user) setCurrentUserId(user._id);
         fetchPostAndComments();
+        fetchLikeStatus();
     }, [postId]);
+
+    const fetchLikeStatus = async () => {
+        try {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const result = await checkLikeStatus({
+                userId: user._id,
+                postId,
+                postType: 'community',
+                postOrComment: 'post'
+            });
+            setLiked(result ? true : false);
+        } catch (err) {
+            console.error('좋아요 상태 확인 실패', err);
+        }
+    };
 
     const handleToggleLike = async () => {
         try {
@@ -33,8 +50,7 @@ const PostDetail = () => {
                 postType: 'community',
                 postOrComment: 'post',
             });
-
-            // 상태 갱신
+            setLiked(result.liked);
             setPost((prev) => ({
                 ...prev,
                 like: result.liked ? prev.like + 1 : prev.like - 1,
@@ -52,7 +68,7 @@ const PostDetail = () => {
         try {
             await deletePost(postId);
             alert('게시글이 삭제되었습니다.');
-            navigate(-1); // 🔙 이전 페이지로 이동
+            navigate(-1);
         } catch (err) {
             alert('게시글 삭제 실패');
             console.error(err);
@@ -75,12 +91,10 @@ const PostDetail = () => {
     const nestComments = (comments) => {
         const map = {};
         const roots = [];
-
         comments.forEach((c) => {
             c.replies = [];
             map[c._id] = c;
         });
-
         comments.forEach((c) => {
             if (c.parentId) {
                 if (map[c.parentId]) map[c.parentId].replies.push(c);
@@ -88,20 +102,14 @@ const PostDetail = () => {
                 roots.push(c);
             }
         });
-
         return roots;
     };
 
     const submitReply = async (postId, parentId, text) => {
         try {
             const user = JSON.parse(localStorage.getItem('user'));
-            await postComment({
-                postId,
-                parentId,
-                writerId: user._id,
-                content: text,
-            });
-            await fetchPostAndComments(); // 댓글 갱신
+            await postComment({ postId, parentId, writerId: user._id, content: text });
+            await fetchPostAndComments();
         } catch (err) {
             alert('댓글 등록에 실패했습니다.');
             console.error(err);
@@ -139,10 +147,8 @@ const PostDetail = () => {
 
             <div className="post-footer">
                 <div className="reaction" onClick={handleToggleLike} style={{ cursor: 'pointer' }}>
-                    <ThumbsUp size={20} color="red" />
-                    <span>{post.like || 0}</span>
+                    {liked ? <ThumbsUp fill="red" size={20} /> : <ThumbsUp size={20} color="red" />} <span>{post.like || 0}</span>
                 </div>
-
                 <div className="reaction">
                     <MessageCircle size={20} color="blue" /> <span>{comments.length}</span>
                 </div>

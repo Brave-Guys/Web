@@ -9,3 +9,16 @@ export const toggleLike = async ({ userId, postId, postType, postOrComment }) =>
     });
     return response.data;
 };
+
+export const checkLikeStatus = async ({ userId, postId, postType, postOrComment }) => {
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/likes/check`, {
+        params: {
+            userId,
+            postId,
+            postType,
+            postOrComment,
+        },
+    });
+
+    return response.data.liked; // true or false
+};
