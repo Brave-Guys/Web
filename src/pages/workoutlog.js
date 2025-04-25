@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PageTitle from '../components/PageTitle.js';
+import Modal from '../components/Modal';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import '../styles/WorkoutLog.css';
 
@@ -62,6 +63,7 @@ const WorkoutLog = () => {
                 description="나의 운동 기록을 확인해보세요."
                 showBackArrow={true}
             />
+            
             <div className="calendar-header">
                 <button onClick={goToPrevMonth}><ChevronLeft /></button>
                 <strong>{year}년 {month + 1}월</strong>
@@ -84,14 +86,16 @@ const WorkoutLog = () => {
             </div>
 
             {showPopup && (
-                <div className="popup-overlay" onClick={() => setShowPopup(false)}>
-                    <div className="popup-box" onClick={(e) => e.stopPropagation()}>
-                        <h3>{selectedDate.toLocaleDateString()}</h3>
-                        <p>운동 기록 또는 메모를 표시할 수 있어요!</p>
-                        <button onClick={() => setShowPopup(false)}>닫기</button>
-                    </div>
-                </div>
+                <Modal
+                    visible={showPopup}
+                    onClose={() => setShowPopup(false)}
+                    title={selectedDate?.toLocaleDateString()}
+                >
+                    <p>운동 기록 또는 메모를 표시할 수 있어요!</p>
+                    <button onClick={() => setShowPopup(false)}>닫기</button>
+                </Modal>
             )}
+
         </div>
     );
 };
