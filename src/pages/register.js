@@ -20,42 +20,63 @@ const Register = () => {
 
     const [status, setStatus] = useState({});
     const [messages, setMessages] = useState({});
+    const [isUsernameChecked, setIsUsernameChecked] = useState(false);
+    const [isNicknameChecked, setIsNicknameChecked] = useState(false);
+
     const navigate = useNavigate();
 
     const handleChange = (field) => (e) => {
-        setFormData({ ...formData, [field]: e.target.value });
-    };
+        const value = e.target.value;
+        setFormData({ ...formData, [field]: value });
 
-    const handleCheckNickname = async () => {
-        if (!formData.nickname) {
-            alert('닉네임을 입력하세요.');
-            return;
-        }
-        try {
-            await checkNickname(formData.nickname);
-            alert('사용 가능한 닉네임입니다!');
-        } catch (err) {
-            if (err.response?.status === 409) {
-                alert('이미 사용 중인 닉네임입니다.');
-            } else {
-                alert('닉네임 확인 중 오류 발생');
-            }
-        }
+        if (field === 'username') setIsUsernameChecked(false);
+        if (field === 'nickname') setIsNicknameChecked(false);
     };
 
     const handleCheckUsername = async () => {
         if (!formData.username) {
-            alert('아이디를 입력하세요.');
+            setStatus((prev) => ({ ...prev, username: 'error' }));
+            setMessages((prev) => ({ ...prev, username: '아이디를 입력하세요.' }));
+            setIsUsernameChecked(false);
             return;
         }
         try {
             await checkUsername(formData.username);
-            alert('사용 가능한 아이디입니다!');
+            setStatus((prev) => ({ ...prev, username: 'success' }));
+            setMessages((prev) => ({ ...prev, username: '사용 가능한 아이디입니다.' }));
+            setIsUsernameChecked(true); // ✅ 중복검사 통과!
         } catch (err) {
+            setIsUsernameChecked(false);
             if (err.response?.status === 409) {
-                alert('이미 사용 중인 아이디입니다.');
+                setStatus((prev) => ({ ...prev, username: 'error' }));
+                setMessages((prev) => ({ ...prev, username: '이미 사용 중인 아이디입니다.' }));
             } else {
-                alert('아이디 확인 중 오류 발생');
+                setStatus((prev) => ({ ...prev, username: 'error' }));
+                setMessages((prev) => ({ ...prev, username: '아이디 확인 중 오류 발생' }));
+            }
+        }
+    };
+
+    const handleCheckNickname = async () => {
+        if (!formData.nickname) {
+            setStatus((prev) => ({ ...prev, nickname: 'error' }));
+            setMessages((prev) => ({ ...prev, nickname: '닉네임을 입력하세요.' }));
+            setIsNicknameChecked(false);
+            return;
+        }
+        try {
+            await checkNickname(formData.nickname);
+            setStatus((prev) => ({ ...prev, nickname: 'success' }));
+            setMessages((prev) => ({ ...prev, nickname: '사용 가능한 닉네임입니다.' }));
+            setIsNicknameChecked(true); // ✅ 중복검사 통과!
+        } catch (err) {
+            setIsNicknameChecked(false);
+            if (err.response?.status === 409) {
+                setStatus((prev) => ({ ...prev, nickname: 'error' }));
+                setMessages((prev) => ({ ...prev, nickname: '이미 사용 중인 닉네임입니다.' }));
+            } else {
+                setStatus((prev) => ({ ...prev, nickname: 'error' }));
+                setMessages((prev) => ({ ...prev, nickname: '닉네임 확인 중 오류 발생' }));
             }
         }
     };
@@ -94,6 +115,10 @@ const Register = () => {
         setMessages(newMessages);
 
         if (Object.keys(newStatus).length === 0) {
+            if (!isUsernameChecked || !isNicknameChecked) {
+                alert('아이디 또는 닉네임 중복 확인을 완료해주세요.');
+                return;
+            }
             try {
                 const res = await registerUser(formData);
                 navigate('/register-success');
@@ -101,6 +126,7 @@ const Register = () => {
                 alert('회원가입 실패: ' + (err.response?.data?.message || '알 수 없는 오류'));
             }
         }
+
     };
 
     return (
