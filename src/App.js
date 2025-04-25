@@ -16,9 +16,10 @@ import Error from './pages/error.js';
 import WorkoutLog from './pages/workoutlog.js';
 import ExerciseTip from './pages/exercisetip.js';
 import PostDetail from './pages/postdetail.js';
+import WritePost from './pages/writepost.js';
+import EditPost from './pages/editpost.js';
 import './App.css';
 import { Navigate } from 'react-router-dom';
-import WritePost from './pages/writepost.js';
 
 const isAuthenticated = () => {
   return !!localStorage.getItem('token');
@@ -54,6 +55,7 @@ function App() {
           <Route path="/exercise-tip" element={<PrivateRoute><ExerciseTip /></PrivateRoute>} />
           <Route path="/writepost" element={<PrivateRoute><WritePost /></PrivateRoute>} />
           <Route path="/post/:id" element={<PrivateRoute><PostDetail /></PrivateRoute>} />
+          <Route path="/editpost/:id" element={<PrivateRoute><EditPost /></PrivateRoute>} />
 
           {/* 404 */}
           <Route path="*" element={<Error />} />

@@ -102,9 +102,11 @@ const PostDetail = () => {
                 <div className="nickname">{post.nickname}</div>
                 <div className="post-time">{new Date(post.createDate).toLocaleString()}</div>
                 <div className="post-actions">
-                    <span>수정</span>
-                    <span>|</span>
-                    <span onClick={handleDelete} style={{ cursor: 'pointer' }}>삭제</span>
+                    <div className="post-actions">
+                        <span onClick={() => navigate(`/editpost/${post._id}`)}>수정</span>
+                        <span>|</span>
+                        <span onClick={handleDelete}>삭제</span>
+                    </div>
                 </div>
             </div>
 
