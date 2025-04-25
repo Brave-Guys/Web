@@ -5,14 +5,13 @@
 
 .login-container {
     display: flex;
-    justify-content: flex-end;
     width: 100%;
     height: 100%;
 }
 
 .login-left {
-    position: relative; 
     flex: 1;
+    position: relative;
 }
 
 .login-text {
@@ -20,9 +19,9 @@
     top: 30%;
     left: 10%;
     color: white;
-    font-size: 80px;
+    font-size: 64px;
     font-weight: bold;
-    z-index: 1; 
+    line-height: 1.3;
 }
 
 .login-right {
@@ -30,71 +29,54 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative; 
-    z-index: 2; 
 }
 
 .login-box {
-    width: 100%;               /* 넓이 증가 */
-    max-width: 500px;         /* 최대 크기 확장 */
-    padding: 50px 60px;       /* 내부 여백 증가 */
-    background-color: rgba(255, 255, 255, 0.95);
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 480px;
+    padding: 50px;
+    background-color: rgba(255, 255, 255, 0.96);
+    border-radius: 16px;
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
 }
-
 
 .login-box h2 {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     font-size: 28px;
+    text-align: center;
 }
 
-.login-box input {
-    margin-bottom: 10px;
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    width: 90%;
+.login-box-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
 }
 
 .login-buttons {
     display: flex;
+    gap: 12px;
     justify-content: space-between;
     margin-top: 10px;
 }
 
-.login-buttons button {
-    width: 48%;
-    padding: 10px;
-    font-weight: bold;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.signup-btn {
-    background-color: burlywood;
-    border: 1px solid #e1dddd;
-}
-
-.login-btn {
-    background-color: black;
-    color: white;
+.custom-button {
+    flex: 1;
 }
 
 .social-buttons {
-    margin-top: 20px;
+    margin-top: 30px;
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
 
 .social-buttons button {
-    margin-bottom: 8px;
-    padding: 10px;
+    padding: 12px;
     border-radius: 6px;
-    border: none;
     font-weight: bold;
+    font-size: 15px;
+    border: none;
     cursor: pointer;
 }
 
@@ -108,26 +90,12 @@
 }
 
 .google {
-    background-color: #9f9a9a;
-    border: 1px solid #ddd;
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
 }
 
-.kakao:hover {
-    filter: brightness(80%);
-}
-
-.naver:hover {
-    filter: brightness(80%);
-}
-
+.kakao:hover,
+.naver:hover,
 .google:hover {
-    filter: brightness(80%);
-}
-
-.signup-btn:hover {
-    filter: brightness(80%);
-}
-
-.login-btn:hover {
-    filter: brightness(80%);
+    filter: brightness(85%);
 }

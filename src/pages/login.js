@@ -45,40 +45,42 @@ const Login = () => {
                 <div className="login-right">
                     <div className="login-box">
                         <h2>로그인</h2>
-                        <InputField
-                            label="ID"
-                            guide=""
-                            placeholder=""
-                            value={loginData.username}
-                            onChange={handleChange('username')}
-                            status="default"
-                        />
 
-                        <InputField
-                            label="비밀번호"
-                            guide=""
-                            placeholder=""
-                            type="password"
-                            value={loginData.password}
-                            onChange={handleChange('password')}
-                            status="default"
-                        />
+                        <div className="login-box-inner">
+                            <InputField
+                                label="ID"
+                                guide=""
+                                placeholder=""
+                                value={loginData.username}
+                                onChange={handleChange('username')}
+                                status="default"
+                            />
 
-                        <div className="login-buttons">
-                            <CustomButton
-                                label="회원가입"
-                                size="large"
-                                color="gray"
-                                onClick={() => navigate('/register')}
+                            <InputField
+                                label="비밀번호"
+                                guide=""
+                                placeholder=""
+                                type="password"
+                                value={loginData.password}
+                                onChange={handleChange('password')}
+                                status="default"
                             />
-                            <CustomButton
-                                label="로그인"
-                                size="large"
-                                color="gray"
-                                onClick={handleLogin}
-                            />
+
+                            <div className="login-buttons">
+                                <CustomButton
+                                    label="회원가입"
+                                    size="large"
+                                    color="gray"
+                                    onClick={() => navigate('/register')}
+                                />
+                                <CustomButton
+                                    label="로그인"
+                                    size="large"
+                                    color="gray"
+                                    onClick={handleLogin}
+                                />
+                            </div>
                         </div>
-
 
                         <div className="social-buttons">
                             <button className="kakao">카카오로 로그인</button>
