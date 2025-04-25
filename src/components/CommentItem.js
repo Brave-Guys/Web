@@ -2,7 +2,15 @@ import React, { useState } from 'react';
 import { ThumbsUp } from 'lucide-react';
 import '../styles/CommentItem.css';
 
-const CommentItem = ({ name, time, content, likes, replies = [], onReplySubmit }) => {
+const CommentItem = ({
+    name,
+    time,
+    content,
+    likes,
+    replies = [],
+    onReplySubmit,
+    depth = 0 // 댓글은 0, 답글은 1
+}) => {
     const [showReplyInput, setShowReplyInput] = useState(false);
     const [replyText, setReplyText] = useState('');
 
@@ -12,13 +20,13 @@ const CommentItem = ({ name, time, content, likes, replies = [], onReplySubmit }
 
     const handleReplySubmit = () => {
         if (!replyText.trim()) return;
-        onReplySubmit(replyText);
+        onReplySubmit(replyText); // parentId는 외부에서 지정해줌
         setReplyText('');
         setShowReplyInput(false);
     };
 
     return (
-        <div className="comment-item">
+        <div className={`comment-item ${depth > 0 ? 'reply-item' : ''}`}>
             <div className="comment-top">
                 <div className="avatar-placeholder small"></div>
                 <div className="comment-meta">
@@ -26,12 +34,16 @@ const CommentItem = ({ name, time, content, likes, replies = [], onReplySubmit }
                     <span className="comment-time">{time}</span>
                 </div>
             </div>
+
             <div className="comment-content">{content}</div>
+
             <div className="comment-actions">
                 <div className="comment-like">
                     <ThumbsUp size={16} color="red" /> <span>{likes}</span>
                 </div>
-                <span className="comment-reply" onClick={handleReplyToggle}>답글</span>
+                {depth === 0 && ( // ✅ 댓글만 답글 가능
+                    <span className="comment-reply" onClick={handleReplyToggle}>답글</span>
+                )}
             </div>
 
             {showReplyInput && (
@@ -57,6 +69,7 @@ const CommentItem = ({ name, time, content, likes, replies = [], onReplySubmit }
                             likes={reply.likes || 0}
                             replies={reply.replies || []}
                             onReplySubmit={(text) => onReplySubmit(text, reply._id)}
+                            depth={depth + 1} // 자식의 뎁스 전달
                         />
                     ))}
                 </div>
@@ -64,5 +77,6 @@ const CommentItem = ({ name, time, content, likes, replies = [], onReplySubmit }
         </div>
     );
 };
+
 
 export default CommentItem;

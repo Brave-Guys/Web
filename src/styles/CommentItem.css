@@ -45,3 +45,9 @@
     cursor: pointer;
     color: #888;
 }
+
+.reply-item {
+    margin-left: 40px;
+    border-left: 2px solid #eee;
+    padding-left: 10px;
+}
