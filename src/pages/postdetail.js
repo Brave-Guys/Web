@@ -6,6 +6,9 @@ import PageTitle from '../components/PageTitle';
 import { getPostDetail } from '../apis/getPostDetail';
 import { getComments, postComment } from '../apis/getComments'; // postComment 추가
 import '../styles/PostDetail.css';
+import { deletePost } from '../apis/deletePost';
+import { useNavigate } from 'react-router-dom';
+
 
 const PostDetail = () => {
     const { id: postId } = useParams();
@@ -13,9 +16,25 @@ const PostDetail = () => {
     const [comments, setComments] = useState([]);
     const [commentText, setCommentText] = useState('');
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         fetchPostAndComments();
     }, [postId]);
+
+    const handleDelete = async () => {
+        const confirm = window.confirm('정말로 이 게시글을 삭제하시겠습니까?');
+        if (!confirm) return;
+
+        try {
+            await deletePost(postId);
+            alert('게시글이 삭제되었습니다.');
+            navigate(-1); // 🔙 이전 페이지로 이동
+        } catch (err) {
+            alert('게시글 삭제 실패');
+            console.error(err);
+        }
+    };
 
     const fetchPostAndComments = async () => {
         try {
@@ -85,7 +104,7 @@ const PostDetail = () => {
                 <div className="post-actions">
                     <span>수정</span>
                     <span>|</span>
-                    <span>삭제</span>
+                    <span onClick={handleDelete} style={{ cursor: 'pointer' }}>삭제</span>
                 </div>
             </div>
 
