@@ -5,6 +5,9 @@ import bgImage from '../assets/welcome.png';
 import { loginUser } from '../apis/loginUser';
 import CustomButton from '../components/CustomButton';
 import InputField from '../components/InputField';
+import kakaoIcon from '../assets/kakao.png';
+import naverIcon from '../assets/naver.png';
+import googleIcon from '../assets/google.png';
 
 const Login = () => {
     const [loginData, setLoginData] = useState({ username: '', password: '' });
@@ -81,11 +84,41 @@ const Login = () => {
                                 />
                             </div>
                         </div>
+                        <div style={{marginTop: '20px'}}>
+                            <div className="social-buttons">
+                                <button className="social-button kakao">
+                                    <div className="social-content">
+                                        <div className="icon-area">
+                                            <img src={kakaoIcon} alt="Kakao" className="social-icon" />
+                                        </div>
+                                        <div className="text-area">
+                                            카카오톡 계정으로 로그인
+                                        </div>
+                                    </div>
+                                </button>
 
-                        <div className="social-buttons">
-                            <button className="kakao">카카오로 로그인</button>
-                            <button className="naver">네이버로 로그인</button>
-                            <button className="google">구글로 로그인</button>
+                                <button className="social-button naver">
+                                    <div className="social-content">
+                                        <div className="icon-area">
+                                            <img src={naverIcon} alt="Naver" className="social-icon" />
+                                        </div>
+                                        <div className="text-area">
+                                            네이버 계정으로 로그인
+                                        </div>
+                                    </div>
+                                </button>
+
+                                <button className="social-button google">
+                                    <div className="social-content">
+                                        <div className="icon-area">
+                                            <img src={googleIcon} alt="Google" className="social-icon" />
+                                        </div>
+                                        <div className="text-area">
+                                            구글 계정으로 로그인
+                                        </div>
+                                    </div>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

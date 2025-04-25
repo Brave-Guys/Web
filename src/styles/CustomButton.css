@@ -4,11 +4,10 @@
     font-weight: bold;
 }
 
-/* 사이즈 */
 .btn-large {
     width: 150px;
     height: 60px;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .btn-small {
@@ -17,7 +16,6 @@
     font-size: 16px;
 }
 
-/* 둥근 정도 */
 .btn-square {
     border-radius: 10px;
 }
@@ -26,7 +24,6 @@
     border-radius: 50px;
 }
 
-/* 색상 */
 .btn-purple {
     background-color: #AC6CFF;
     color: white;

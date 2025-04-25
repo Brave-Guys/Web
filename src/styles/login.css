@@ -35,7 +35,7 @@
     width: 90%;
     max-width: 480px;
     padding: 50px;
-    background-color: rgba(255, 255, 255, 0.96);
+    background-color: #FFFFFF;
     border-radius: 16px;
     box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
 }
@@ -64,20 +64,31 @@
     flex: 1;
 }
 
-.social-buttons {
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.social-button {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 12px;
+    background-color: #f0f0f0;
+    transition: filter 0.2s ease;
+    padding: 0;
 }
 
-.social-buttons button {
-    padding: 12px;
-    border-radius: 6px;
-    font-weight: bold;
-    font-size: 15px;
-    border: none;
-    cursor: pointer;
+.social-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
+.social-icon {
+    width: 30px;
+    height: 30px;
 }
 
 .kakao {
@@ -85,17 +96,29 @@
 }
 
 .naver {
-    background-color: #03c75a;
+    background-color: #00BF18;
     color: white;
 }
 
 .google {
-    background-color: #e0e0e0;
-    border: 1px solid #ccc;
+    background-color: #EEE;
+    color: #333;
 }
 
-.kakao:hover,
-.naver:hover,
-.google:hover {
-    filter: brightness(85%);
+.social-button:hover {
+    filter: brightness(90%);
+}
+
+.icon-area {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-area {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
