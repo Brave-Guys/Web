@@ -37,7 +37,7 @@ const PostDetail = () => {
             // 상태 갱신
             setPost((prev) => ({
                 ...prev,
-                likes: result.liked ? prev.likes + 1 : prev.likes - 1,
+                like: result.liked ? prev.like + 1 : prev.like - 1,
             }));
         } catch (err) {
             alert('좋아요 처리 중 오류 발생');
@@ -140,7 +140,7 @@ const PostDetail = () => {
             <div className="post-footer">
                 <div className="reaction" onClick={handleToggleLike} style={{ cursor: 'pointer' }}>
                     <ThumbsUp size={20} color="red" />
-                    <span>{post.likes || 0}</span>
+                    <span>{post.like || 0}</span>
                 </div>
 
                 <div className="reaction">
@@ -164,7 +164,7 @@ const PostDetail = () => {
                     name={comment.nickname}
                     time={new Date(comment.writeDate).toLocaleString()}
                     content={comment.content}
-                    likes={comment.likes || 0}
+                    like={comment.like || 0}
                     replies={comment.replies || []}
                     onReplySubmit={(text, parentId = comment._id) =>
                         submitReply(postId, parentId, text)
