@@ -6,7 +6,8 @@ const CustomButton = ({
     size = 'large',         // 'large' or 'small'
     color = 'purple',        // 'purple' | 'gray' | 'green' | 'red'
     rounded = 'square',      // 'square' or 'pill'
-    onClick,
+    onClick,    
+    style
 }) => {
     const sizeClass = size === 'large' ? 'btn-large' : 'btn-small';
     const colorClass = `btn-${color}`;
@@ -16,6 +17,7 @@ const CustomButton = ({
         <button
             className={`custom-button ${sizeClass} ${colorClass} ${radiusClass}`}
             onClick={onClick}
+            style={style}
         >
             {label}
         </button>
