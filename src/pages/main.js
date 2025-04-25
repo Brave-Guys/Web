@@ -41,16 +41,19 @@ const Main = () => {
                 <Box type={2} showArrow={true} title='금주의 운동' to='/weekly-workout' />
                 <Box type={2} showArrow={true} title='기본 운동 설명서' to='/exercise-tip' />
 
-                <Box type={2} showArrow={true} title='게시판' to='/board' />
+                <Box type={2} showArrow={true} title='게시판' to='/board'>
+                    <div className="preview-posts">
+                        {latestPosts.map((post) => (
+                            <div key={post._id} className="preview-post">
+                                <span className="preview-title">{post.name}</span>
+                                <span className="preview-meta">
+                                    {post.category} | {post.nickname} | {new Date(post.createDate).toLocaleDateString()}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                </Box>
 
-                <div className="preview-posts">
-                    {latestPosts.map((post) => (
-                        <div key={post._id} className="preview-post">
-                            <span className="preview-title">{post.name}</span>
-                            <span className="preview-meta">{post.nickname} | {new Date(post.createDate).toLocaleDateString()}</span>
-                        </div>
-                    ))}
-                </div>
             </div>
         </div>
     );
