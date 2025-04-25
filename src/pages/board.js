@@ -35,13 +35,13 @@ const Board = () => {
                     description="회원들과 운동 이야기를 나누어 보세요"
                     showBackArrow={true}
                 />
-                <div style={{flexGrow: '1'}}></div>
+                <div style={{ flexGrow: '1' }}></div>
                 <CustomButton
                     label="글작성"
                     size="small"
                     color="gray"
                     onClick={() => navigate('/writepost')}
-                    style={{maxWidth: '120px'}}
+                    style={{ maxWidth: '120px' }}
                 />
             </div>
 
@@ -70,8 +70,8 @@ const Board = () => {
                             hour: '2-digit',
                             minute: '2-digit'
                         })}`}
-                        likeCount={post.likeCount || 0}
-                        commentCount={post.commentCount || 0}
+                        likeCount={post.like || 0}
+                        commentCount={post.comment || 0}
                     />
                 ))}
         </div>
