@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
-import PageTitle from '../components/PageTitle.js';
+import React, { useState, useEffect } from 'react';
+import PageTitle from '../components/PageTitle';
 import Modal from '../components/Modal';
 import WorkoutLogModalContent from '../components/WorkoutLogModalContent';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { getWorkoutLogsByDate } from '../apis/getWorkoutLogs'; // ✨ 추가
 import '../styles/WorkoutLog.css';
 
 const WorkoutLog = () => {
     const today = new Date();
     const [currentDate, setCurrentDate] = useState(new Date(today.getFullYear(), today.getMonth(), 1));
-    const [selectedDate, setSelectedDate] = useState(null); // 팝업에 사용할 날짜
+    const [selectedDate, setSelectedDate] = useState(null);
     const [showPopup, setShowPopup] = useState(false);
+    const [logs, setLogs] = useState([]);
 
     const getDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
     const getStartDay = (year, month) => new Date(year, month, 1).getDay();
@@ -46,12 +48,27 @@ const WorkoutLog = () => {
         setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
     };
 
-    const handleDayClick = (day, currentMonth) => {
+    // WorkoutLog.js (handleDayClick 함수 부분)
+    const handleDayClick = async (day, currentMonth) => {
         if (!currentMonth) return;
         const fullDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
         setSelectedDate(fullDate);
         setShowPopup(true);
+
+        try {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const fetchedLogs = await getWorkoutLogsByDate({
+                userId: user._id,
+                date: fullDate.toISOString(), // 서버로 보낼 때 ISO 문자열 형태로!
+            });
+            setLogs(fetchedLogs);
+            console.log(logs);
+        } catch (err) {
+            console.error('운동 기록 불러오기 실패', err);
+            setLogs([]);
+        }
     };
+
 
     const calendarDays = generateCalendar();
     const year = currentDate.getFullYear();
@@ -92,7 +109,7 @@ const WorkoutLog = () => {
                     onClose={() => setShowPopup(false)}
                     title={selectedDate?.toLocaleDateString()}
                 >
-                    <WorkoutLogModalContent />
+                    <WorkoutLogModalContent selectedDate={selectedDate} initialLogs={logs} />
                 </Modal>
             )}
 

@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
+import { saveWorkoutLog } from '../apis/saveWorkoutLog';
 
-const WorkoutLogModalContent = () => {
-    const [logs, setLogs] = useState([
-        '벤치프레스 3세트',
-        '스쿼트 4세트'
-    ]); // 테스트용 임시 기록들
-
+const WorkoutLogModalContent = ({ selectedDate, onClose }) => {
+    const [logs, setLogs] = useState([]);
     const [isAdding, setIsAdding] = useState(false);
     const [newEntry, setNewEntry] = useState('');
 
@@ -13,11 +10,23 @@ const WorkoutLogModalContent = () => {
         setIsAdding(true);
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         if (newEntry.trim()) {
-            setLogs([...logs, newEntry.trim()]);
-            setNewEntry('');
-            setIsAdding(false);
+            try {
+                const user = JSON.parse(localStorage.getItem('user'));
+
+                await saveWorkoutLog({
+                    userId: user._id,
+                    content: newEntry.trim(),
+                    date: selectedDate,
+                });
+
+                setLogs([...logs, newEntry.trim()]);
+                setNewEntry('');
+                setIsAdding(false);
+            } catch (err) {
+                console.error('운동 기록 저장 실패', err);
+            }
         }
     };
 
@@ -57,8 +66,6 @@ const WorkoutLogModalContent = () => {
                     <button onClick={handleAddClick}>+ 추가</button>
                 </div>
             )}
-
-            <hr style={{ margin: '16px 0' }} />
         </div>
     );
 };
