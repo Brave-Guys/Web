@@ -1,0 +1,152 @@
+.exercise-tip-container {
+    display: flex;
+    width: 1920px;
+    height: 970px;
+    padding: 0 50px; 
+    box-sizing: border-box;
+    background-color: #f5f5f5;
+}
+
+.toggle-button {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.toggle-button button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-button button:hover {
+    background-color: #45a049;
+}
+
+.body-map {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.body-image {
+    width: 600px;
+    height: auto;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* 각 부위 클릭 가능한 영역 */
+.area {
+    position: absolute;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.area:hover {
+    background-color: rgba(255, 165, 0, 0.3); /* 호버 시 반투명 주황색 */
+    border-radius: 8px;
+}
+
+/* -------------------- 앞모습 영역 -------------------- */
+.area.chest {
+    top: 200px;
+    left: 270px;
+    width: 100px;
+    height: 60px;
+}
+.area.shoulder {
+    top: 140px;
+    left: 240px;
+    width: 160px;
+    height: 60px;
+}
+.area.bicep {
+    top: 220px;
+    left: 160px;
+    width: 70px;
+    height: 100px;
+}
+.area.abs {
+    top: 300px;
+    left: 270px;
+    width: 100px;
+    height: 120px;
+}
+.area.thigh {
+    top: 440px;
+    left: 250px;
+    width: 140px;
+    height: 180px;
+}
+
+/* 서브페이지용 세부부위 (어깨 파트) */
+.area.front {
+    top: 150px;
+    left: 280px;
+    width: 80px;
+    height: 60px;
+}
+.area.side {
+    top: 150px;
+    left: 370px;
+    width: 80px;
+    height: 60px;
+}
+.area.rear {
+    top: 150px;
+    left: 460px;
+    width: 80px;
+    height: 60px;
+}
+/* 서브페이지용 세부부위 (가슴 파트) */
+/* 서브페이지용 세부부위 (이두 파트) */
+/* 서브페이지용 세부부위 (복근 파트) */
+/* 서브페이지용 세부부위 (허벅지지 파트) */
+
+/* -------------------- 뒷모습 영역 -------------------- */
+.area.back {
+    top: 180px;
+    left: 260px;
+    width: 120px;
+    height: 100px;
+}
+.area.tricep {
+    top: 220px;
+    left: 170px;
+    width: 60px;
+    height: 100px;
+}
+.area.hamstring {
+    top: 460px;
+    left: 250px;
+    width: 140px;
+    height: 180px;
+}
+
+/* 서브페이지용 세부부위 (등 파트) */
+/* 서브페이지용 세부부위 (삼두 파트) */
+/* 서브페이지용 세부부위 (햄스트링링 파트) */
+
+/* 설명창 */
+.hover-description {
+    width: 400px;
+    background: white;
+    border: 1px solid #ccc;
+    margin-left: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    height: fit-content;
+}
+
+.scrollable {
+    height: 400px;
+    overflow-y: auto;
+}

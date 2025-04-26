@@ -18,6 +18,16 @@ import ExerciseTip from './pages/exercisetip.js';
 import PostDetail from './pages/postdetail.js';
 import WritePost from './pages/writepost.js';
 import EditPost from './pages/editpost.js';
+
+import ExerciseTipChest from './pages/exercise-tip-detail/ExerciseTipChest';
+import ExerciseTipShoulder from './pages/exercise-tip-detail/ExerciseTipShoulder';
+import ExerciseTipBack from './pages/exercise-tip-detail/ExerciseTipBack';
+import ExerciseTipBicep from './pages/exercise-tip-detail/ExerciseTipBicep';
+import ExerciseTipAbs from './pages/exercise-tip-detail/ExerciseTipAbs';
+import ExerciseTipThigh from './pages/exercise-tip-detail/ExerciseTipThigh';
+import ExerciseTipTricep from './pages/exercise-tip-detail/ExerciseTipTricep';
+import ExerciseTipHamstring from './pages/exercise-tip-detail/ExerciseTipHamstring';
+
 import './App.css';
 import { Navigate } from 'react-router-dom';
 
@@ -52,10 +62,22 @@ function App() {
           <Route path="/share-plus" element={<PrivateRoute><SharePlus /></PrivateRoute>} />
           <Route path="/inquiry" element={<PrivateRoute><Inquiry /></PrivateRoute>} />
           <Route path="/workoutlog" element={<PrivateRoute><WorkoutLog /></PrivateRoute>} />
+
           <Route path="/exercise-tip" element={<PrivateRoute><ExerciseTip /></PrivateRoute>} />
+          <Route path="/exercise-tip/chest" element={<PrivateRoute><ExerciseTipChest /></PrivateRoute>} />
+          <Route path="/exercise-tip/shoulder" element={<PrivateRoute><ExerciseTipShoulder /></PrivateRoute>} />
+          <Route path="/exercise-tip/back" element={<PrivateRoute><ExerciseTipBack /></PrivateRoute>} />
+          <Route path="/exercise-tip/bicep" element={<PrivateRoute><ExerciseTipBicep /></PrivateRoute>} />
+          <Route path="/exercise-tip/abs" element={<PrivateRoute><ExerciseTipAbs /></PrivateRoute>} />
+          <Route path="/exercise-tip/thigh" element={<PrivateRoute><ExerciseTipThigh /></PrivateRoute>} />
+          <Route path="/exercise-tip/tricep" element={<PrivateRoute><ExerciseTipTricep /></PrivateRoute>} />
+          <Route path="/exercise-tip/hamstring" element={<PrivateRoute><ExerciseTipHamstring /></PrivateRoute>} />
+
           <Route path="/writepost" element={<PrivateRoute><WritePost /></PrivateRoute>} />
           <Route path="/post/:id" element={<PrivateRoute><PostDetail /></PrivateRoute>} />
           <Route path="/editpost/:id" element={<PrivateRoute><EditPost /></PrivateRoute>} />
+
+
 
           {/* 404 */}
           <Route path="*" element={<Error />} />
