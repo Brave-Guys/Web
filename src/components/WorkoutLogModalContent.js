@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { saveWorkoutLog } from '../apis/saveWorkoutLog';
+import { cardioOptions, weightOptions } from '../constants/exerciseOptions';
+import '../styles/WorkoutLogModalContent.css';
 
 const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onClose }) => {
     const [logs, setLogs] = useState([]);
     const [isAdding, setIsAdding] = useState(false);
-    const [name, setName] = useState('');
-    const [intensity, setIntensity] = useState('');
-    const [exerciseType, setExerciseType] = useState('');  // 유산소 or 웨이트
-    const [exerciseName, setExerciseName] = useState('');    
 
-    const cardioOptions = ['런닝', '싸이클', '로잉', '수영', '줄넘기'];
-    const weightOptions = ['벤치프레스', '스쿼트', '데드리프트', '오버헤드프레스', '바벨로우'];
+    const [exerciseType, setExerciseType] = useState('');
+    const [exerciseName, setExerciseName] = useState('');
+    const [intensity, setIntensity] = useState('');
+
+    const [newEntry, setNewEntry] = useState('');
 
     useEffect(() => {
         setLogs(initialLogs);
@@ -19,7 +20,6 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onClose }) => 
     const handleAddClick = () => {
         setIsAdding(true);
     };
-
 
     const handleSave = async () => {
         if (!exerciseType || !exerciseName || !intensity) {
@@ -32,12 +32,16 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onClose }) => 
 
             await saveWorkoutLog({
                 userId: user._id,
-                name: exerciseName,  // 입력 대신 드롭다운 선택값
-                intensity: intensity,
+                name: exerciseName,
+                intensity,
                 date: selectedDate,
             });
 
-            setLogs(prev => [...prev, { name: exerciseName, intensity }]);
+            setLogs(prevLogs => [
+                ...prevLogs,
+                { name: exerciseName, intensity }
+            ]);
+
             // 초기화
             setExerciseType('');
             setExerciseName('');
@@ -48,33 +52,33 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onClose }) => 
         }
     };
 
-
     return (
         <div>
-            <ul style={{ padding: 0, listStyle: 'none', marginBottom: '12px' }}>
+            <ul className="workout-log-list">
                 {logs.map((log, index) => (
-                    <li key={index} style={{
-                        background: '#f9f9f9',
-                        padding: '10px',
-                        borderRadius: '6px',
-                        marginBottom: '6px',
-                        border: '1px solid #eee'
-                    }}>
-                        {log?.name ?? '운동 없음'} - 강도: {log?.intensity ?? 'N/A'}
+                    <li key={index} className="workout-log-item">
+                        {log.name}
+                        <span>강도 {log.intensity}</span>
                     </li>
                 ))}
             </ul>
 
             {isAdding ? (
-                <div>
-                    <select value={exerciseType} onChange={(e) => { setExerciseType(e.target.value); setExerciseName(''); }}>
+                <div className="workout-log-form">
+                    <select
+                        value={exerciseType}
+                        onChange={(e) => { setExerciseType(e.target.value); setExerciseName(''); }}
+                    >
                         <option value="">운동 종류 선택</option>
                         <option value="유산소">유산소</option>
                         <option value="웨이트">웨이트</option>
                     </select>
 
                     {exerciseType && (
-                        <select value={exerciseName} onChange={(e) => setExerciseName(e.target.value)}>
+                        <select
+                            value={exerciseName}
+                            onChange={(e) => setExerciseName(e.target.value)}
+                        >
                             <option value="">운동 이름 선택</option>
                             {(exerciseType === '유산소' ? cardioOptions : weightOptions).map((option, idx) => (
                                 <option key={idx} value={option}>{option}</option>
@@ -84,21 +88,20 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onClose }) => 
 
                     <input
                         type="number"
-                        placeholder="강도(1~10)"
+                        placeholder="강도 (1~10)"
                         value={intensity}
                         onChange={(e) => setIntensity(e.target.value)}
                         min={1}
                         max={10}
                     />
 
-                    <div style={{ textAlign: 'right', marginTop: '10px' }}>
+                    <div className="workout-log-form-buttons">
                         <button onClick={() => setIsAdding(false)}>취소</button>
                         <button onClick={handleSave}>저장</button>
                     </div>
                 </div>
-
             ) : (
-                <div style={{ textAlign: 'right' }}>
+                <div className="add-button">
                     <button onClick={handleAddClick}>+ 추가</button>
                 </div>
             )}
