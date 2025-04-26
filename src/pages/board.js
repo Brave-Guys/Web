@@ -4,7 +4,8 @@ import PageTitle from '../components/PageTitle';
 import Tab from '../components/Tab';
 import PostItem from '../components/PostItem';
 import { getPosts } from '../apis/getPosts';
-import CustomButton from '../components/CustomButton'; // ✅ 버튼 예쁘게 하려면
+import CustomButton from '../components/CustomButton';
+import Box from '../components/Box.js'
 import '../styles/Board.css';
 
 const Board = () => {
@@ -51,29 +52,39 @@ const Board = () => {
                 onTabClick={(index) => setActiveTab(index)}
             />
 
-            {posts
-                .filter(post => {
-                    const category = ['잡담', '식단', '루틴', '공지'][activeTab];
-                    if (activeTab === 4) {
-                        const user = JSON.parse(localStorage.getItem('user'));
-                        return post.uid === user._id;
-                    }
-                    return post.category === category;
-                })
-                .map((post) => (
-                    <PostItem
-                        key={post._id}
-                        postId={post._id}
-                        title={post.name}
-                        content={post.content}
-                        trail={`${post.nickname} | ${new Date(post.createDate).toLocaleTimeString([], {
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        })}`}
-                        likeCount={post.like || 0}
-                        commentCount={post.comment || 0}
-                    />
-                ))}
+            <div style={{ display: 'flex' }}>
+                <div style={{ flexGrow: 2 }}>
+                    {posts
+                        .filter(post => {
+                            const category = ['잡담', '식단', '루틴', '공지'][activeTab];
+                            if (activeTab === 4) {
+                                const user = JSON.parse(localStorage.getItem('user'));
+                                return post.uid === user._id;
+                            }
+                            return post.category === category;
+                        })
+                        .map((post) => (
+                            <PostItem
+                                key={post._id}
+                                postId={post._id}
+                                title={post.name}
+                                content={post.content}
+                                trail={`${post.nickname} | ${new Date(post.createDate).toLocaleTimeString([], {
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                })}`}
+                                likeCount={post.like || 0}
+                                commentCount={post.comment || 0}
+                            />
+                        ))}
+                </div>
+                <div style={{ flexGrow: 1, margin: '20px' }}>
+                    <Box type={2} title='인기글' showArrow={true} />
+                    <div style={{ margin: '10px' }}></div>
+                    <Box type={2} title='공지' showArrow={true} />
+                </div>
+
+            </div>
         </div>
     );
 };
