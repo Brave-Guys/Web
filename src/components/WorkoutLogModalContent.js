@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { saveWorkoutLog } from '../apis/saveWorkoutLog';
 
-const WorkoutLogModalContent = ({ selectedDate, onClose }) => {
+const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onClose }) => {
     const [logs, setLogs] = useState([]);
+
     const [isAdding, setIsAdding] = useState(false);
     const [newEntry, setNewEntry] = useState('');
+
+    // ✨ initialLogs를 초기 세팅해주는 useEffect 추가
+    useEffect(() => {
+        setLogs(initialLogs);
+    }, [initialLogs]);
 
     const handleAddClick = () => {
         setIsAdding(true);
@@ -21,7 +27,10 @@ const WorkoutLogModalContent = ({ selectedDate, onClose }) => {
                     date: selectedDate,
                 });
 
-                setLogs([...logs, newEntry.trim()]);
+                setLogs(prevLogs => [
+                    ...prevLogs,
+                    { content: newEntry.trim(), date: selectedDate } // ✅ 객체 형태로 추가
+                ]);
                 setNewEntry('');
                 setIsAdding(false);
             } catch (err) {
@@ -30,9 +39,9 @@ const WorkoutLogModalContent = ({ selectedDate, onClose }) => {
         }
     };
 
+
     return (
         <div>
-
             <ul style={{ padding: 0, listStyle: 'none', marginBottom: '12px' }}>
                 {logs.map((log, index) => (
                     <li key={index} style={{
@@ -42,7 +51,7 @@ const WorkoutLogModalContent = ({ selectedDate, onClose }) => {
                         marginBottom: '6px',
                         border: '1px solid #eee'
                     }}>
-                        {log}
+                        {log?.content ?? '내용 없음'}
                     </li>
                 ))}
             </ul>

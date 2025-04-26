@@ -109,9 +109,13 @@ const WorkoutLog = () => {
                     onClose={() => setShowPopup(false)}
                     title={selectedDate?.toLocaleDateString()}
                 >
-                    <WorkoutLogModalContent selectedDate={selectedDate} initialLogs={logs} />
+                    <WorkoutLogModalContent
+                        selectedDate={selectedDate}
+                        initialLogs={logs} // ✨ 서버에서 불러온 logs를 넘겨준다!
+                    />
                 </Modal>
             )}
+
 
         </div>
     );
