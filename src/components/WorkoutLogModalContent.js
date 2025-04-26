@@ -3,11 +3,10 @@ import { saveWorkoutLog } from '../apis/saveWorkoutLog';
 
 const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onClose }) => {
     const [logs, setLogs] = useState([]);
-
     const [isAdding, setIsAdding] = useState(false);
-    const [newEntry, setNewEntry] = useState('');
+    const [name, setName] = useState('');
+    const [intensity, setIntensity] = useState('');
 
-    // ✨ initialLogs를 초기 세팅해주는 useEffect 추가
     useEffect(() => {
         setLogs(initialLogs);
     }, [initialLogs]);
@@ -17,28 +16,30 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onClose }) => 
     };
 
     const handleSave = async () => {
-        if (newEntry.trim()) {
+        if (name.trim() && intensity) {
             try {
                 const user = JSON.parse(localStorage.getItem('user'));
 
                 await saveWorkoutLog({
                     userId: user._id,
-                    content: newEntry.trim(),
+                    name: name.trim(),
+                    intensity: parseInt(intensity),
                     date: selectedDate,
                 });
 
                 setLogs(prevLogs => [
                     ...prevLogs,
-                    { content: newEntry.trim(), date: selectedDate } // ✅ 객체 형태로 추가
+                    { name: name.trim(), intensity: parseInt(intensity), date: selectedDate }
                 ]);
-                setNewEntry('');
+
+                setName('');
+                setIntensity('');
                 setIsAdding(false);
             } catch (err) {
                 console.error('운동 기록 저장 실패', err);
             }
         }
     };
-
 
     return (
         <div>
@@ -51,19 +52,26 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onClose }) => 
                         marginBottom: '6px',
                         border: '1px solid #eee'
                     }}>
-                        {log?.content ?? '내용 없음'}
+                        {log?.name ?? '운동 없음'} - 강도: {log?.intensity ?? 'N/A'}
                     </li>
                 ))}
             </ul>
 
             {isAdding ? (
                 <>
-                    <textarea
-                        rows={4}
+                    <input
+                        type="text"
+                        style={{ width: '100%', marginBottom: '8px' }}
+                        placeholder="운동 이름을 입력하세요"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                    <input
+                        type="number"
                         style={{ width: '100%', marginBottom: '12px' }}
-                        placeholder="오늘 운동한 내용을 기록하세요!"
-                        value={newEntry}
-                        onChange={(e) => setNewEntry(e.target.value)}
+                        placeholder="강도 (숫자만 입력)"
+                        value={intensity}
+                        onChange={(e) => setIntensity(e.target.value)}
                     />
                     <div style={{ textAlign: 'right', display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
                         <button onClick={() => setIsAdding(false)}>취소</button>
