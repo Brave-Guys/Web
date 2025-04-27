@@ -107,7 +107,7 @@ const WorkoutLog = () => {
                 showBackArrow={true}
             />
 
-            <div style={{margin: '50px'}}></div>
+            <div style={{ margin: '50px' }}></div>
 
             <div className="calendar-header">
                 <button onClick={goToPrevMonth}><ChevronLeft /></button>
@@ -142,7 +142,7 @@ const WorkoutLog = () => {
                 <Modal
                     visible={showPopup}
                     onClose={() => setShowPopup(false)}
-                    title={selectedDate?.toLocaleDateString()}
+                    title={selectedDate ? selectedDate.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'long' }) : ''}
                 >
                     <WorkoutLogModalContent
                         selectedDate={selectedDate}
