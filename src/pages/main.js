@@ -51,30 +51,34 @@ const Main = () => {
     };
 
     const renderMiniCalendar = () => {
-        const daysInMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
-        const startDay = new Date(new Date().getFullYear(), new Date().getMonth(), 1).getDay();
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const startDay = new Date(year, month, 1).getDay();
 
         const scoresByDay = {};
 
         monthLogs.forEach(log => {
-            const day = new Date(log.date).getDate();
-            if (!scoresByDay[day]) {
-                scoresByDay[day] = 0;
-            }
-            // 예시: 점수 계산은 서버에서 총합만 내려주거나, 각 log마다 점수를 따로 계산하는 식이어야 함
-            // 여기선 단순히 하나라도 기록 있으면 점수 1 준다고 가정할게요
-            scoresByDay[day] += 1;
+            const logDate = new Date(log.date);
+            const logDay = logDate.getDate();
+            if (!scoresByDay[logDay]) scoresByDay[logDay] = 0;
+            scoresByDay[logDay] += 1;
         });
 
         const cells = [];
 
+        // 이번 달 1일 이전 빈 칸
         for (let i = 0; i < startDay; i++) {
-            cells.push(<div key={`empty-${i}`} className="mini-calendar-cell empty" />);
+            cells.push(
+                <div key={`empty-start-${i}`} className="mini-calendar-cell empty" />
+            );
         }
 
+        // 이번 달 날짜들
         for (let day = 1; day <= daysInMonth; day++) {
             const score = scoresByDay[day] || 0;
-            let bgColor = '#D9D9D9'; // 기본 회색
+            let bgColor = '#D9D9D9'; // 기본색
 
             if (score >= 1 && score <= 60) bgColor = '#B3E6B3';
             if (score >= 61 && score <= 100) bgColor = '#80D480';
@@ -87,6 +91,14 @@ const Main = () => {
                     className="mini-calendar-cell"
                     style={{ backgroundColor: bgColor }}
                 />
+            );
+        }
+
+        const totalCells = startDay + daysInMonth;
+        const remaining = 42 - totalCells;
+        for (let i = 0; i < remaining; i++) {
+            cells.push(
+                <div key={`empty-end-${i}`} className="mini-calendar-cell empty" />
             );
         }
 
@@ -111,7 +123,15 @@ const Main = () => {
 
             <div className="card-grid">
                 <Box type={2} showArrow={true} title='기록' to='/workoutlog'>
-                    {renderMiniCalendar()}
+                    <div style={{ display: 'flex' }}>
+                        <div>
+                            {renderMiniCalendar()}
+                        </div>
+                        <div>
+                            asdf
+                        </div>
+                    </div>
+
                 </Box>
                 <Box type={2} showArrow={true} title='Share+' to='/share-plus' />
                 <Box type={2} showArrow={true} title='금주의 운동' to='/weekly-workout' />

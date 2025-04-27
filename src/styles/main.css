@@ -213,18 +213,19 @@
 .mini-calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
-  margin-top: 10px;
+  gap: 2px;
+  margin-top: 8px;
 }
 
 .mini-calendar-cell {
-  width: 100%;
+  width: 45px;
+  height: 35px;
   padding-top: 100%;
-  /* 정사각형 만들기 */
   background-color: #D9D9D9;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 .mini-calendar-cell.empty {
-  background-color: transparent;
+  background-color: #f0f0f0;
+  /* 흐린 회색 */
 }
