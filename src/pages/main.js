@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Box from '../components/Box';
 import PageTitle from '../components/PageTitle.js';
 import { getWorkoutLogsByDateRange } from '../apis/getWorkoutLogs';
+import { calculateCardioScore } from '../utils/calculateCardioScore';
+import { calculateWeightScore } from '../utils/calculateWeightscore';
 import { getPosts } from '../apis/getPosts';
 import '../styles/main.css';
 
@@ -61,9 +63,17 @@ const Main = () => {
 
         monthLogs.forEach(log => {
             const logDate = new Date(log.date);
-            const logDay = logDate.getDate();
-            if (!scoresByDay[logDay]) scoresByDay[logDay] = 0;
-            scoresByDay[logDay] += 1;
+            const day = logDate.getDate();
+
+            let score = 0;
+            if (log.exerciseType === '유산소') {
+                score = calculateCardioScore(log);
+            } else if (log.exerciseType === '웨이트') {
+                score = calculateWeightScore(log);
+            }
+
+            if (!scoresByDay[day]) scoresByDay[day] = 0;
+            scoresByDay[day] += score; // ✨ 점수 누적
         });
 
         const cells = [];
