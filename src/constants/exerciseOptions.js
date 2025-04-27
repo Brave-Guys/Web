@@ -11,7 +11,7 @@ export const cardioOptions = [
 ];
 
 // 웨이트 운동: 부위별
-export const weightOptionsByPart = {
+export const weightOptions = {
     어깨: [
         '오버헤드 프레스', '덤벨 숄더 프레스', '케이블 프론트 레이즈',
         '사이드 레터럴 레이즈', '업 라이트 로', '원 암 케이블 사이드 레터럴 레이즈',

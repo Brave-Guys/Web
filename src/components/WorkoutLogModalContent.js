@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { saveWorkoutLog } from '../apis/saveWorkoutLog';
-import { cardioOptions, weightOptionsByPart } from '../constants/exerciseOptions';
+import { cardioOptions, weightOptions } from '../constants/exerciseOptions';
 import '../styles/WorkoutLogModalContent.css';
 
 const WorkoutLogModalContent = ({ selectedDate, initialLogs = [] }) => {
     const [logs, setLogs] = useState([]);
     const [isAdding, setIsAdding] = useState(false);
 
-    const [exerciseType, setExerciseType] = useState('');
-    const [selectedPart, setSelectedPart] = useState('');
-    const [exerciseName, setExerciseName] = useState('');
+    const [exerciseType, setExerciseType] = useState(''); // 유산소 or 웨이트
+    const [exercisePart, setExercisePart] = useState('');  // 부위
+    const [exerciseName, setExerciseName] = useState(''); // 운동 이름
 
     const [duration, setDuration] = useState('');
     const [distance, setDistance] = useState('');
+    const [sets, setSets] = useState('');
     const [reps, setReps] = useState('');
     const [weight, setWeight] = useState('');
-    const [sets, setSets] = useState('');
 
     useEffect(() => {
         setLogs(initialLogs);
@@ -27,44 +27,64 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [] }) => {
 
     const handleSave = async () => {
         if (!exerciseType || !exerciseName) {
-            alert('운동 종류와 운동 이름을 모두 선택해주세요.');
+            alert('모든 항목을 입력해주세요.');
             return;
         }
 
         try {
             const user = JSON.parse(localStorage.getItem('user'));
-            const payload = {
+
+            await saveWorkoutLog({
                 userId: user._id,
                 name: exerciseName,
                 date: selectedDate,
-            };
+                duration: duration || null,
+                distance: distance || null,
+                sets: sets || null,
+                reps: reps || null,
+                weight: weight || null,
+            });
 
-            if (exerciseType === '유산소') {
-                payload.duration = duration || null;
-                payload.distance = distance || null;
-                payload.reps = reps || null;
-            } else {
-                payload.sets = sets || null;
-                payload.reps = reps || null;
-                payload.weight = weight || null;
-            }
-
-            await saveWorkoutLog(payload);
-
-            setLogs(prevLogs => [...prevLogs, payload]);
+            setLogs(prevLogs => [
+                ...prevLogs,
+                { name: exerciseName, duration, distance, sets, reps, weight }
+            ]);
 
             setExerciseType('');
-            setSelectedPart('');
+            setExercisePart('');
             setExerciseName('');
             setDuration('');
             setDistance('');
+            setSets('');
             setReps('');
             setWeight('');
-            setSets('');
             setIsAdding(false);
         } catch (err) {
             console.error('운동 기록 저장 실패', err);
         }
+    };
+
+    const getFieldsForExercise = (exerciseName) => {
+        if (["트레드 밀", "걷기", "조깅 및 러닝 머신", "사이클 머신", "로잉 머신"].includes(exerciseName)) {
+            return ["duration", "distance"];
+        }
+        if (exerciseName === "스텝 밀") {
+            return ["duration", "reps"];
+        }
+        if (exerciseName === "줄넘기") {
+            return ["duration"];
+        }
+        if (exerciseName === "버피") {
+            return ["sets", "reps"];
+        }
+        const absExercises = [
+            "크런치", "케이블 크런치", "시티드 니업", "플랭크",
+            "행잉 레그레이즈", "리버스 크런치", "바이시클 크런치", "러시안 트위스트", "사이드 밴드"
+        ];
+        if (absExercises.includes(exerciseName)) {
+            return ["sets", "reps"];
+        }
+        return ["sets", "reps", "weight"];
     };
 
     return (
@@ -72,8 +92,14 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [] }) => {
             <ul className="workout-log-list">
                 {logs.map((log, index) => (
                     <li key={index} className="workout-log-item">
-                        {log.name} {log.duration ? `(${log.duration}분)` : ''}
-                        {log.sets ? ` - ${log.sets}세트 ${log.reps}회 ${log.weight}kg` : ''}
+                        {log.name}
+                        <div className="log-details">
+                            {log.duration && <span>시간: {log.duration}분 </span>}
+                            {log.distance && <span>거리: {log.distance}km </span>}
+                            {log.sets && <span>세트: {log.sets} </span>}
+                            {log.reps && <span>횟수: {log.reps} </span>}
+                            {log.weight && <span>중량: {log.weight}kg</span>}
+                        </div>
                     </li>
                 ))}
             </ul>
@@ -84,7 +110,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [] }) => {
                         value={exerciseType}
                         onChange={(e) => {
                             setExerciseType(e.target.value);
-                            setSelectedPart('');
+                            setExercisePart('');
                             setExerciseName('');
                         }}
                     >
@@ -93,78 +119,95 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [] }) => {
                         <option value="웨이트">웨이트</option>
                     </select>
 
-                    {exerciseType === '웨이트' && (
-                        <select
-                            value={selectedPart}
-                            onChange={(e) => {
-                                setSelectedPart(e.target.value);
-                                setExerciseName('');
-                            }}
-                        >
-                            <option value="">부위 선택</option>
-                            {Object.keys(weightOptionsByPart).map((part, idx) => (
-                                <option key={idx} value={part}>{part}</option>
-                            ))}
-                        </select>
-                    )}
-
-                    {(exerciseType === '유산소' || selectedPart) && (
+                    {exerciseType === '유산소' && (
                         <select
                             value={exerciseName}
                             onChange={(e) => setExerciseName(e.target.value)}
                         >
                             <option value="">운동 이름 선택</option>
-                            {(exerciseType === '유산소'
-                                ? cardioOptions
-                                : weightOptionsByPart[selectedPart] || []).map((option, idx) => (
-                                    <option key={idx} value={option}>{option}</option>
-                                ))}
+                            {cardioOptions.map((option, idx) => (
+                                <option key={idx} value={option}>{option}</option>
+                            ))}
                         </select>
-                    )}
-
-                    {exerciseType === '유산소' && (
-                        <>
-                            <input
-                                type="number"
-                                placeholder="시간 (분)"
-                                value={duration}
-                                onChange={(e) => setDuration(e.target.value)}
-                            />
-                            <input
-                                type="number"
-                                placeholder="거리 (km)"
-                                value={distance}
-                                onChange={(e) => setDistance(e.target.value)}
-                            />
-                            <input
-                                type="number"
-                                placeholder="횟수 (회)"
-                                value={reps}
-                                onChange={(e) => setReps(e.target.value)}
-                            />
-                        </>
                     )}
 
                     {exerciseType === '웨이트' && (
                         <>
-                            <input
-                                type="number"
-                                placeholder="세트 수"
-                                value={sets}
-                                onChange={(e) => setSets(e.target.value)}
-                            />
-                            <input
-                                type="number"
-                                placeholder="1세트당 반복 수"
-                                value={reps}
-                                onChange={(e) => setReps(e.target.value)}
-                            />
-                            <input
-                                type="number"
-                                placeholder="중량 (kg)"
-                                value={weight}
-                                onChange={(e) => setWeight(e.target.value)}
-                            />
+                            <select
+                                value={exercisePart}
+                                onChange={(e) => {
+                                    setExercisePart(e.target.value);
+                                    setExerciseName('');
+                                }}
+                            >
+                                <option value="">부위 선택</option>
+                                {Object.keys(weightOptions).map((part, idx) => (
+                                    <option key={idx} value={part}>{part}</option>
+                                ))}
+                            </select>
+
+                            {exercisePart && (
+                                <select
+                                    value={exerciseName}
+                                    onChange={(e) => setExerciseName(e.target.value)}
+                                >
+                                    <option value="">운동 이름 선택</option>
+                                    {weightOptions[exercisePart].map((exercise, idx) => (
+                                        <option key={idx} value={exercise}>{exercise}</option>
+                                    ))}
+                                </select>
+                            )}
+                        </>
+                    )}
+
+                    {exerciseName && (
+                        <>
+                            {getFieldsForExercise(exerciseName).includes("duration") && (
+                                <input
+                                    type="number"
+                                    placeholder="운동 시간 (분)"
+                                    value={duration}
+                                    onChange={(e) => setDuration(e.target.value)}
+                                    min={1}
+                                />
+                            )}
+                            {getFieldsForExercise(exerciseName).includes("distance") && (
+                                <input
+                                    type="number"
+                                    placeholder="거리 (km)"
+                                    value={distance}
+                                    onChange={(e) => setDistance(e.target.value)}
+                                    min={0}
+                                    step={0.1}
+                                />
+                            )}
+                            {getFieldsForExercise(exerciseName).includes("sets") && (
+                                <input
+                                    type="number"
+                                    placeholder="세트 수"
+                                    value={sets}
+                                    onChange={(e) => setSets(e.target.value)}
+                                    min={1}
+                                />
+                            )}
+                            {getFieldsForExercise(exerciseName).includes("reps") && (
+                                <input
+                                    type="number"
+                                    placeholder="반복 횟수"
+                                    value={reps}
+                                    onChange={(e) => setReps(e.target.value)}
+                                    min={1}
+                                />
+                            )}
+                            {getFieldsForExercise(exerciseName).includes("weight") && (
+                                <input
+                                    type="number"
+                                    placeholder="중량 (kg)"
+                                    value={weight}
+                                    onChange={(e) => setWeight(e.target.value)}
+                                    min={0}
+                                />
+                            )}
                         </>
                     )}
 
