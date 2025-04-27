@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { saveWorkoutLog } from '../apis/saveWorkoutLog';
 import { deleteWorkoutLog } from '../apis/deleteWorkoutLog';
+import { updateWorkoutLog } from '../apis/updateWorkoutLog';
 import { cardioOptions, weightOptions } from '../constants/exerciseOptions';
 import { calculateTotalScore } from '../utils/calculateTotalScore';
 import '../styles/WorkoutLogModalContent.css';
@@ -9,6 +10,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
     const [logs, setLogs] = useState([]);
     const [isAdding, setIsAdding] = useState(false);
     const [confirmDeleteId, setConfirmDeleteId] = useState(null);
+    const [editLog, setEditLog] = useState(null);
 
     const [exerciseType, setExerciseType] = useState('');
     const [exercisePart, setExercisePart] = useState('');
@@ -51,27 +53,31 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
         try {
             const user = JSON.parse(localStorage.getItem('user'));
 
-            const newLog = {
+            const logData = {
                 userId: user._id,
                 name: exerciseName,
                 part: exercisePart,
                 exerciseType,
-                date: selectedDate,
-                duration: duration ? Number(duration) : null,
-                distance: distance ? Number(distance) : null,
-                sets: sets ? Number(sets) : null,
-                reps: reps ? Number(reps) : null,
-                weight: weight ? Number(weight) : null,
+                date: selectedDate instanceof Date ? selectedDate.toISOString() : selectedDate,
+                duration: duration ? Number(duration) : 0, // ✨ null 대신 0
+                distance: distance ? Number(distance) : 0,
+                sets: sets ? Number(sets) : 0,
+                reps: reps ? Number(reps) : 0,
+                weight: weight ? Number(weight) : 0,
             };
 
-            await saveWorkoutLog(newLog);
 
+            if (editLog) {
+                await updateWorkoutLog(editLog._id, logData);
+            } else {
+                await saveWorkoutLog(logData);
+            }
 
             if (onLogSaved) {
                 onLogSaved();
             }
 
-            setLogs(prevLogs => [...prevLogs, newLog]);
+            setLogs(prevLogs => [...prevLogs, logData]);
 
             setExerciseType('');
             setExercisePart('');
@@ -136,7 +142,25 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
                                     {details.join(' | ')}
                                 </div>
                             )}
-                            {/* ✨ 휴지통 아이콘 */}
+
+                            <button
+                                className="edit-button"
+                                onClick={() => {
+                                    setEditLog(log);
+                                    setExerciseType(log.exerciseType);
+                                    setExercisePart(log.part || '');
+                                    setExerciseName(log.name);
+                                    setDuration(log.duration ?? '');
+                                    setDistance(log.distance ?? '');
+                                    setSets(log.sets ?? '');
+                                    setReps(log.reps ?? '');
+                                    setWeight(log.weight ?? '');
+                                    setIsAdding(true); // ✨ 폼 열어주기
+                                }}
+                            >
+                                ✏️
+                            </button>
+
                             <button
                                 className="delete-button"
                                 onClick={() => setConfirmDeleteId(log._id)}
