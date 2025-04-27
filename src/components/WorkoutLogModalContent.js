@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { saveWorkoutLog } from '../apis/saveWorkoutLog';
 import { cardioOptions, weightOptions } from '../constants/exerciseOptions';
-import { calculateCardioScore } from '../utils/calculateCardioScore';
+import { calculateCardioScore, calculateTotalScore } from '../utils/calculateCardioScore';
 import '../styles/WorkoutLogModalContent.css';
 
 const WorkoutLogModalContent = ({ selectedDate, initialLogs = [] }) => {
@@ -90,6 +90,12 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [] }) => {
 
     return (
         <div>
+            {logs.length > 0 && (
+                <div className="total-score">
+                    오늘 총 점수: <strong>{calculateTotalScore(logs)}</strong>점
+                </div>
+            )}
+
             <ul className="workout-log-list">
                 {logs.map((log, index) => (
                     <li key={index} className="workout-log-item">
@@ -101,7 +107,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [] }) => {
                             {log.reps && <span>횟수: {log.reps} </span>}
                             {log.weight && <span>중량: {log.weight}kg</span>}
                             <br />
-                            <strong>점수: {calculateCardioScore(log)}점</strong> {/* ✨ 추가! */}
+                            <strong>점수: {calculateCardioScore(log)}점</strong>
                         </div>
                     </li>
                 ))}

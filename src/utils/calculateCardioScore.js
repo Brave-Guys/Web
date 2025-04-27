@@ -31,3 +31,11 @@ export const calculateCardioScore = (log) => {
 
     return Math.round(score);
 };
+
+export const calculateTotalScore = (logs) => {
+    if (!logs || logs.length === 0) return 0;
+
+    return logs.reduce((acc, log) => {
+        return acc + calculateCardioScore(log);
+    }, 0);
+};
