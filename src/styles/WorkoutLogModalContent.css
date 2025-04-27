@@ -6,11 +6,10 @@
 
 .workout-log-item {
     background: #f9f9f9;
-    padding: 12px;
+    border: 1px solid #eee;
     border-radius: 8px;
+    padding: 12px;
     margin-bottom: 8px;
-    border: 1px solid #e0e0e0;
-    font-size: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -86,4 +85,13 @@
     font-weight: bold;
     text-align: right;
     color: #333;
+}
+
+.log-name {
+    font-weight: bold;
+}
+
+.log-details {
+    font-size: 0.9rem;
+    color: #666;
 }

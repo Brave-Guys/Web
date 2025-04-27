@@ -107,18 +107,26 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [] }) => {
             )}
 
             <ul className="workout-log-list">
-                {logs.map((log, index) => (
-                    <li key={index} className="workout-log-item">
-                        {log.name}
-                        <div className="log-details">
-                            {log.duration && <span>시간: {log.duration}분 </span>}
-                            {log.distance && <span>거리: {log.distance}km </span>}
-                            {log.sets && <span>세트: {log.sets} </span>}
-                            {log.reps && <span>횟수: {log.reps} </span>}
-                            {log.weight && <span>중량: {log.weight}kg</span>}
-                        </div>
-                    </li>
-                ))}
+                {logs.map((log, index) => {
+                    const details = [];
+
+                    if (log.duration > 0) details.push(`${log.duration}분`);
+                    if (log.distance > 0) details.push(`${log.distance}km`);
+                    if (log.sets > 0) details.push(`${log.sets}세트`);
+                    if (log.reps > 0) details.push(`${log.reps}회`);
+                    if (log.weight > 0) details.push(`${log.weight}kg`);
+
+                    return (
+                        <li key={index} className="workout-log-item">
+                            <span className="log-name">{log.name}</span>
+                            {details.length > 0 && (
+                                <div className="log-details">
+                                    {details.join(' | ')}
+                                </div>
+                            )}
+                        </li>
+                    );
+                })}
             </ul>
 
             {isAdding ? (
