@@ -121,7 +121,7 @@ const Main = () => {
             </div>
 
             <div className="card-grid">
-                <Box type={2} showArrow={true} title='기록' to='/workoutlog'>
+                <Box type={2} showArrow={true} title='이번 달 운동 기록' to='/workoutlog'>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         {renderMiniCalendar()}
                     </div>
