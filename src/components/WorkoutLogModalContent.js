@@ -38,7 +38,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [] }) => {
             const newLog = {
                 userId: user._id,
                 name: exerciseName,
-                part: exercisePart, // 부위도 함께 저장
+                part: exercisePart,
                 exerciseType,
                 date: selectedDate,
                 duration: duration ? Number(duration) : null,
@@ -50,7 +50,16 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [] }) => {
 
             await saveWorkoutLog(newLog);
 
-            setLogs(prevLogs => [...prevLogs, newLog]);
+            setLogs(prevLogs => [...prevLogs, {
+                name: exerciseName,
+                part: exercisePart,
+                exerciseType,
+                duration: duration ? Number(duration) : null,
+                distance: distance ? Number(distance) : null,
+                sets: sets ? Number(sets) : null,
+                reps: reps ? Number(reps) : null,
+                weight: weight ? Number(weight) : null,
+            }]);
 
             setExerciseType('');
             setExercisePart('');

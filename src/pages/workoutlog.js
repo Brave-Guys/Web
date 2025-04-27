@@ -3,7 +3,8 @@ import PageTitle from '../components/PageTitle';
 import Modal from '../components/Modal';
 import WorkoutLogModalContent from '../components/WorkoutLogModalContent';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { getWorkoutLogsByDate } from '../apis/getWorkoutLogs'; // ✨ 추가
+import { getWorkoutLogsByDateRange } from '../apis/getWorkoutLogs';
+import { calculateTotalScore } from '../utils/calculateTotalScore';
 import '../styles/WorkoutLog.css';
 
 const WorkoutLog = () => {
@@ -12,9 +13,36 @@ const WorkoutLog = () => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [showPopup, setShowPopup] = useState(false);
     const [logs, setLogs] = useState([]);
+    const [monthLogs, setMonthLogs] = useState([]);
 
     const getDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
     const getStartDay = (year, month) => new Date(year, month, 1).getDay();
+
+    const fetchMonthLogs = async () => {
+        try {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+
+            console.log(startDate.toISOString(), endDate.toISOString());
+            
+            const response = await getWorkoutLogsByDateRange(
+                user._id,
+                startDate.toISOString(),
+                endDate.toISOString()
+            );
+
+
+            setMonthLogs(response);
+        } catch (err) {
+            console.error('월별 운동 기록 불러오기 실패', err);
+            setMonthLogs([]);
+        }
+    };
+
+    useEffect(() => {
+        fetchMonthLogs();
+    }, [currentDate]);
 
     const generateCalendar = () => {
         const days = [];
@@ -48,7 +76,6 @@ const WorkoutLog = () => {
         setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
     };
 
-    // WorkoutLog.js (handleDayClick 함수 부분)
     const handleDayClick = async (day, currentMonth) => {
         if (!currentMonth) return;
         const fullDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
@@ -57,21 +84,48 @@ const WorkoutLog = () => {
 
         try {
             const user = JSON.parse(localStorage.getItem('user'));
-            const fetchedLogs = await getWorkoutLogsByDate({
+            const response = await getWorkoutLogsByDateRange({
                 userId: user._id,
-                date: fullDate.toISOString(), // 서버로 보낼 때 ISO 문자열 형태로!
+                startDate: fullDate.toISOString(),
+                endDate: new Date(fullDate.getFullYear(), fullDate.getMonth(), fullDate.getDate() + 1).toISOString(),
             });
-            setLogs(fetchedLogs);
+            setLogs(response);
         } catch (err) {
             console.error('운동 기록 불러오기 실패', err);
             setLogs([]);
         }
     };
 
+    const calculateDailyScores = (logs) => {
+        const scoreMap = {};
+
+        logs.forEach(log => {
+            const date = new Date(log.date);
+            const day = date.getDate();
+            if (!scoreMap[day]) scoreMap[day] = [];
+            scoreMap[day].push(log);
+        });
+
+        const dailyScores = {};
+        Object.keys(scoreMap).forEach(day => {
+            dailyScores[day] = calculateTotalScore(scoreMap[day]);
+        });
+
+        return dailyScores;
+    };
+
+    const getColorByScore = (score) => {
+        if (score === 0) return '#D9D9D9';
+        if (score <= 60) return '#B3E6B3';
+        if (score <= 100) return '#80D480';
+        if (score <= 140) return '#4DC34D';
+        return '#00AA00';
+    };
 
     const calendarDays = generateCalendar();
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
+    const dailyScores = calculateDailyScores(monthLogs);
 
     return (
         <div className="calendar-container">
@@ -91,15 +145,22 @@ const WorkoutLog = () => {
                 {["일", "월", "화", "수", "목", "금", "토"].map(day => (
                     <div key={day} className="calendar-day-name">{day}</div>
                 ))}
-                {calendarDays.map((d, i) => (
-                    <div
-                        key={i}
-                        className={`calendar-day ${d.currentMonth ? 'current' : 'inactive'}`}
-                        onClick={() => handleDayClick(d.day, d.currentMonth)}
-                    >
-                        {d.day}
-                    </div>
-                ))}
+
+                {calendarDays.map((d, i) => {
+                    const dayScore = dailyScores[d.day] || 0;
+                    const backgroundColor = d.currentMonth ? getColorByScore(dayScore) : '#f2f2f2';
+
+                    return (
+                        <div
+                            key={i}
+                            className={`calendar-day ${d.currentMonth ? 'current' : 'inactive'}`}
+                            style={{ backgroundColor }}
+                            onClick={() => handleDayClick(d.day, d.currentMonth)}
+                        >
+                            {d.day}
+                        </div>
+                    );
+                })}
             </div>
 
             {showPopup && (
@@ -110,12 +171,10 @@ const WorkoutLog = () => {
                 >
                     <WorkoutLogModalContent
                         selectedDate={selectedDate}
-                        initialLogs={logs} // ✨ 서버에서 불러온 logs를 넘겨준다!
+                        initialLogs={logs}
                     />
                 </Modal>
             )}
-
-
         </div>
     );
 };
