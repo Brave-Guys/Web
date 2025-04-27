@@ -10,7 +10,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
     const [logs, setLogs] = useState([]);
     const [isAdding, setIsAdding] = useState(false);
     const [confirmDeleteId, setConfirmDeleteId] = useState(null);
-    const [editLog, setEditLog] = useState(null);
+    const [editLog, setEditLog] = useState(null); // ✨ 수정할 log
 
     const [exerciseType, setExerciseType] = useState('');
     const [exercisePart, setExercisePart] = useState('');
@@ -26,7 +26,21 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
         setLogs(initialLogs);
     }, [initialLogs]);
 
+    const resetForm = () => {
+        setExerciseType('');
+        setExercisePart('');
+        setExerciseName('');
+        setDuration('');
+        setDistance('');
+        setSets('');
+        setReps('');
+        setWeight('');
+        setEditLog(null);
+        setIsAdding(false);
+    };
+
     const handleAddClick = () => {
+        resetForm();
         setIsAdding(true);
     };
 
@@ -36,17 +50,16 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
         try {
             await deleteWorkoutLog(confirmDeleteId);
             setLogs(prevLogs => prevLogs.filter(l => l._id !== confirmDeleteId));
-            setConfirmDeleteId(null); // 모달 끄기
-            if (onLogSaved) onLogSaved(); // 부모 갱신
+            setConfirmDeleteId(null);
+            if (onLogSaved) onLogSaved();
         } catch (err) {
             console.error('운동 기록 삭제 실패', err);
         }
     };
 
     const handleSave = async () => {
-
         if (!exerciseType || !exerciseName) {
-            alert('모든 항목을 입력해주세요.');
+            console.error('모든 항목을 입력해주세요.');
             return;
         }
 
@@ -59,35 +72,32 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
                 part: exercisePart,
                 exerciseType,
                 date: selectedDate instanceof Date ? selectedDate.toISOString() : selectedDate,
-                duration: duration ? Number(duration) : 0, // ✨ null 대신 0
+                duration: duration ? Number(duration) : 0,
                 distance: distance ? Number(distance) : 0,
                 sets: sets ? Number(sets) : 0,
                 reps: reps ? Number(reps) : 0,
                 weight: weight ? Number(weight) : 0,
             };
 
-
             if (editLog) {
+                // 수정일 때
                 await updateWorkoutLog(editLog._id, logData);
+
+                setLogs(prevLogs =>
+                    prevLogs.map(log =>
+                        log._id === editLog._id
+                            ? { ...log, ...logData, _id: editLog._id } // id 유지
+                            : log
+                    )
+                );
             } else {
+                // 새로 추가할 때
                 await saveWorkoutLog(logData);
+                setLogs(prevLogs => [...prevLogs, logData]);
             }
 
-            if (onLogSaved) {
-                onLogSaved();
-            }
-
-            setLogs(prevLogs => [...prevLogs, logData]);
-
-            setExerciseType('');
-            setExercisePart('');
-            setExerciseName('');
-            setDuration('');
-            setDistance('');
-            setSets('');
-            setReps('');
-            setWeight('');
-            setIsAdding(false);
+            resetForm();
+            if (onLogSaved) onLogSaved();
         } catch (err) {
             console.error('운동 기록 저장 실패', err);
         }
@@ -138,9 +148,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
                         <li key={index} className="workout-log-item">
                             <span className="log-name">{log.name}</span>
                             {details.length > 0 && (
-                                <div className="log-details">
-                                    {details.join(' | ')}
-                                </div>
+                                <div className="log-details">{details.join(' | ')}</div>
                             )}
 
                             <button
@@ -155,7 +163,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
                                     setSets(log.sets ?? '');
                                     setReps(log.reps ?? '');
                                     setWeight(log.weight ?? '');
-                                    setIsAdding(true); // ✨ 폼 열어주기
+                                    setIsAdding(true);
                                 }}
                             >
                                 ✏️
@@ -172,7 +180,6 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
                 })}
             </ul>
 
-            {/* ✨ 삭제 확인 모달 */}
             {confirmDeleteId && (
                 <div className="confirm-modal-overlay" onClick={() => setConfirmDeleteId(null)}>
                     <div className="confirm-modal" onClick={(e) => e.stopPropagation()}>
@@ -185,7 +192,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
                 </div>
             )}
 
-            {isAdding ? (
+            {isAdding && (
                 <div className="workout-log-form">
                     <select
                         value={exerciseType}
@@ -293,13 +300,9 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
                     )}
 
                     <div className="workout-log-form-buttons">
-                        <button onClick={() => setIsAdding(false)}>취소</button>
-                        <button onClick={handleSave}>저장</button>
+                        <button onClick={resetForm}>취소</button>
+                        <button onClick={handleSave}>{editLog ? "수정" : "저장"}</button>
                     </div>
-                </div>
-            ) : (
-                <div className="add-button">
-                    <button onClick={handleAddClick}>+ 추가</button>
                 </div>
             )}
         </div>
