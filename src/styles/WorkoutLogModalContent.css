@@ -79,3 +79,11 @@
     border-radius: 6px;
     cursor: pointer;
 }
+
+.total-score {
+    margin-bottom: 16px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+    color: #333;
+}

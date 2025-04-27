@@ -62,7 +62,6 @@ const WorkoutLog = () => {
                 date: fullDate.toISOString(), // 서버로 보낼 때 ISO 문자열 형태로!
             });
             setLogs(fetchedLogs);
-            console.log(logs);
         } catch (err) {
             console.error('운동 기록 불러오기 실패', err);
             setLogs([]);

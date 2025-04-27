@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { saveWorkoutLog } from '../apis/saveWorkoutLog';
 import { cardioOptions, weightOptions } from '../constants/exerciseOptions';
-import { calculateCardioScore, calculateTotalScore } from '../utils/calculateCardioScore';
+import { calculateTotalScore } from '../utils/calculateTotalScore';
 import '../styles/WorkoutLogModalContent.css';
 
 const WorkoutLogModalContent = ({ selectedDate, initialLogs = [] }) => {
     const [logs, setLogs] = useState([]);
     const [isAdding, setIsAdding] = useState(false);
 
-    const [exerciseType, setExerciseType] = useState(''); // 유산소 or 웨이트
-    const [exercisePart, setExercisePart] = useState('');  // 부위
-    const [exerciseName, setExerciseName] = useState(''); // 운동 이름
+    const [exerciseType, setExerciseType] = useState('');
+    const [exercisePart, setExercisePart] = useState('');
+    const [exerciseName, setExerciseName] = useState('');
 
     const [duration, setDuration] = useState('');
     const [distance, setDistance] = useState('');
@@ -35,21 +35,22 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [] }) => {
         try {
             const user = JSON.parse(localStorage.getItem('user'));
 
-            await saveWorkoutLog({
+            const newLog = {
                 userId: user._id,
                 name: exerciseName,
+                part: exercisePart, // 부위도 함께 저장
+                exerciseType,
                 date: selectedDate,
-                duration: duration || null,
-                distance: distance || null,
-                sets: sets || null,
-                reps: reps || null,
-                weight: weight || null,
-            });
+                duration: duration ? Number(duration) : null,
+                distance: distance ? Number(distance) : null,
+                sets: sets ? Number(sets) : null,
+                reps: reps ? Number(reps) : null,
+                weight: weight ? Number(weight) : null,
+            };
 
-            setLogs(prevLogs => [
-                ...prevLogs,
-                { name: exerciseName, duration, distance, sets, reps, weight }
-            ]);
+            await saveWorkoutLog(newLog);
+
+            setLogs(prevLogs => [...prevLogs, newLog]);
 
             setExerciseType('');
             setExercisePart('');
@@ -91,8 +92,8 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [] }) => {
     return (
         <div>
             {logs.length > 0 && (
-                <div className="total-score">
-                    오늘 총 점수: <strong>{calculateTotalScore(logs)}</strong>점
+                <div className="workout-log-total-score">
+                    오늘의 운동 점수: <strong>{calculateTotalScore(logs).toFixed(1)}</strong>점
                 </div>
             )}
 
@@ -106,8 +107,6 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [] }) => {
                             {log.sets && <span>세트: {log.sets} </span>}
                             {log.reps && <span>횟수: {log.reps} </span>}
                             {log.weight && <span>중량: {log.weight}kg</span>}
-                            <br />
-                            <strong>점수: {calculateCardioScore(log)}점</strong>
                         </div>
                     </li>
                 ))}
