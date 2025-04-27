@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { saveWorkoutLog } from '../apis/saveWorkoutLog';
-import { cardioOptions, weightOptions } from '../constants/exerciseOptions';
+import { cardioOptions, weightOptionsByPart } from '../constants/exerciseOptions';
 import '../styles/WorkoutLogModalContent.css';
 
 const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onClose }) => {
@@ -8,10 +8,9 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onClose }) => 
     const [isAdding, setIsAdding] = useState(false);
 
     const [exerciseType, setExerciseType] = useState('');
+    const [selectedPart, setSelectedPart] = useState(''); // ✨ 추가
     const [exerciseName, setExerciseName] = useState('');
     const [intensity, setIntensity] = useState('');
-
-    const [newEntry, setNewEntry] = useState('');
 
     useEffect(() => {
         setLogs(initialLogs);
@@ -42,8 +41,8 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onClose }) => 
                 { name: exerciseName, intensity }
             ]);
 
-            // 초기화
             setExerciseType('');
+            setSelectedPart('');
             setExerciseName('');
             setIntensity('');
             setIsAdding(false);
@@ -65,27 +64,63 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onClose }) => 
 
             {isAdding ? (
                 <div className="workout-log-form">
+                    {/* 1. 운동 종류 선택 */}
                     <select
                         value={exerciseType}
-                        onChange={(e) => { setExerciseType(e.target.value); setExerciseName(''); }}
+                        onChange={(e) => {
+                            setExerciseType(e.target.value);
+                            setSelectedPart('');
+                            setExerciseName('');
+                        }}
                     >
                         <option value="">운동 종류 선택</option>
                         <option value="유산소">유산소</option>
                         <option value="웨이트">웨이트</option>
                     </select>
 
-                    {exerciseType && (
+                    {/* 2. 웨이트 선택 시 부위 선택 */}
+                    {exerciseType === '웨이트' && (
+                        <select
+                            value={selectedPart}
+                            onChange={(e) => {
+                                setSelectedPart(e.target.value);
+                                setExerciseName('');
+                            }}
+                        >
+                            <option value="">부위 선택</option>
+                            {Object.keys(weightOptionsByPart).map((part, idx) => (
+                                <option key={idx} value={part}>{part}</option>
+                            ))}
+                        </select>
+                    )}
+
+                    {/* 3. 부위까지 선택했을 때 운동 이름 선택 */}
+                    {exerciseType === '웨이트' && selectedPart && (
                         <select
                             value={exerciseName}
                             onChange={(e) => setExerciseName(e.target.value)}
                         >
                             <option value="">운동 이름 선택</option>
-                            {(exerciseType === '유산소' ? cardioOptions : weightOptions).map((option, idx) => (
-                                <option key={idx} value={option}>{option}</option>
+                            {weightOptionsByPart[selectedPart].map((exercise, idx) => (
+                                <option key={idx} value={exercise}>{exercise}</option>
                             ))}
                         </select>
                     )}
 
+                    {/* 4. 유산소 선택 시 운동 바로 고르기 */}
+                    {exerciseType === '유산소' && (
+                        <select
+                            value={exerciseName}
+                            onChange={(e) => setExerciseName(e.target.value)}
+                        >
+                            <option value="">운동 이름 선택</option>
+                            {cardioOptions.map((exercise, idx) => (
+                                <option key={idx} value={exercise}>{exercise}</option>
+                            ))}
+                        </select>
+                    )}
+
+                    {/* 강도 입력 */}
                     <input
                         type="number"
                         placeholder="강도 (1~10)"
@@ -95,6 +130,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onClose }) => 
                         max={10}
                     />
 
+                    {/* 버튼 */}
                     <div className="workout-log-form-buttons">
                         <button onClick={() => setIsAdding(false)}>취소</button>
                         <button onClick={handleSave}>저장</button>
