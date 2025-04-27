@@ -4,6 +4,8 @@ import { deleteWorkoutLog } from '../apis/deleteWorkoutLog';
 import { updateWorkoutLog } from '../apis/updateWorkoutLog';
 import { cardioOptions, weightOptions } from '../constants/exerciseOptions';
 import { calculateTotalScore } from '../utils/calculateTotalScore';
+import editIcon from '../assets/edit-icon.png'
+import deleteIcon from '../assets/delete-icon.png'
 import '../styles/WorkoutLogModalContent.css';
 
 const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) => {
@@ -129,7 +131,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
         <div>
             {logs.length > 0 && (
                 <div className="workout-log-total-score">
-                    오늘의 운동 점수: <strong>{calculateTotalScore(logs).toFixed(1)}</strong>점
+                    운동 점수: <strong>{calculateTotalScore(logs).toFixed(1)}</strong>점
                 </div>
             )}
 
@@ -137,43 +139,44 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
                 {logs.map((log, index) => {
                     const details = [];
 
+                    if (log.weight > 0) details.push(`${log.weight}kg`);
+                    if (log.sets > 0) details.push(`${log.sets}세트`);
+                    if (log.reps > 0) details.push(`${log.reps}개`);
                     if (log.duration > 0) details.push(`${log.duration}분`);
                     if (log.distance > 0) details.push(`${log.distance}km`);
-                    if (log.sets > 0) details.push(`${log.sets}세트`);
-                    if (log.reps > 0) details.push(`${log.reps}회`);
-                    if (log.weight > 0) details.push(`${log.weight}kg`);
 
                     return (
                         <li key={index} className="workout-log-item">
-                            <span className="log-name">{log.name}</span>
-                            {details.length > 0 && (
+                            <div className="log-texts">
+                                <div className="log-name">{log.name} - {log.part === null ? '유산소' : log.part}</div>
                                 <div className="log-details">{details.join(' | ')}</div>
-                            )}
+                            </div>
 
-                            <button
-                                className="edit-button"
-                                onClick={() => {
-                                    setEditLog(log);
-                                    setExerciseType(log.exerciseType);
-                                    setExercisePart(log.part || '');
-                                    setExerciseName(log.name);
-                                    setDuration(log.duration ?? '');
-                                    setDistance(log.distance ?? '');
-                                    setSets(log.sets ?? '');
-                                    setReps(log.reps ?? '');
-                                    setWeight(log.weight ?? '');
-                                    setIsAdding(true);
-                                }}
-                            >
-                                ✏️
-                            </button>
-
-                            <button
-                                className="delete-button"
-                                onClick={() => setConfirmDeleteId(log._id)}
-                            >
-                                🗑️
-                            </button>
+                            <div className="log-actions">
+                                <img
+                                    src={editIcon}
+                                    alt="수정"
+                                    className="log-action-icon"
+                                    onClick={() => {
+                                        setEditLog(log);
+                                        setExerciseType(log.exerciseType);
+                                        setExercisePart(log.part || '');
+                                        setExerciseName(log.name);
+                                        setDuration(log.duration ?? '');
+                                        setDistance(log.distance ?? '');
+                                        setSets(log.sets ?? '');
+                                        setReps(log.reps ?? '');
+                                        setWeight(log.weight ?? '');
+                                        setIsAdding(true);
+                                    }}
+                                />
+                                <img
+                                    src={deleteIcon}
+                                    alt="삭제"
+                                    className="log-action-icon"
+                                    onClick={() => setConfirmDeleteId(log._id)}
+                                />
+                            </div>
                         </li>
                     );
                 })}
