@@ -145,6 +145,7 @@ const WorkoutLog = () => {
                     <WorkoutLogModalContent
                         selectedDate={selectedDate}
                         initialLogs={logs}
+                        onLogSaved={fetchMonthLogs}
                     />
                 </Modal>
             )}

@@ -4,7 +4,7 @@ import { cardioOptions, weightOptions } from '../constants/exerciseOptions';
 import { calculateTotalScore } from '../utils/calculateTotalScore';
 import '../styles/WorkoutLogModalContent.css';
 
-const WorkoutLogModalContent = ({ selectedDate, initialLogs = [] }) => {
+const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) => {
     const [logs, setLogs] = useState([]);
     const [isAdding, setIsAdding] = useState(false);
 
@@ -27,6 +27,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [] }) => {
     };
 
     const handleSave = async () => {
+
         if (!exerciseType || !exerciseName) {
             alert('모든 항목을 입력해주세요.');
             return;
@@ -50,16 +51,12 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [] }) => {
 
             await saveWorkoutLog(newLog);
 
-            setLogs(prevLogs => [...prevLogs, {
-                name: exerciseName,
-                part: exercisePart,
-                exerciseType,
-                duration: duration ? Number(duration) : null,
-                distance: distance ? Number(distance) : null,
-                sets: sets ? Number(sets) : null,
-                reps: reps ? Number(reps) : null,
-                weight: weight ? Number(weight) : null,
-            }]);
+
+            if (onLogSaved) {
+                onLogSaved();
+            }
+
+            setLogs(prevLogs => [...prevLogs, newLog]);
 
             setExerciseType('');
             setExercisePart('');
