@@ -209,3 +209,22 @@
 .wide {
   grid-column: span 2;
 }
+
+.mini-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-top: 10px;
+}
+
+.mini-calendar-cell {
+  width: 100%;
+  padding-top: 100%;
+  /* 정사각형 만들기 */
+  background-color: #D9D9D9;
+  border-radius: 4px;
+}
+
+.mini-calendar-cell.empty {
+  background-color: transparent;
+}
