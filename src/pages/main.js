@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // ✨ 추가
+import { useNavigate } from 'react-router-dom';
 import Box from '../components/Box';
 import PageTitle from '../components/PageTitle.js';
 import { getWorkoutLogsByDateRange } from '../apis/getWorkoutLogs';
@@ -47,7 +47,7 @@ const Main = () => {
     }, []);
 
     const handlePostClick = (postId) => {
-        navigate(`/post/${postId}`); // ✨ 게시글 상세페이지로 이동
+        navigate(`/post/${postId}`);
     };
 
     const renderMiniCalendar = () => {
@@ -68,17 +68,18 @@ const Main = () => {
 
         const cells = [];
 
-        // 이번 달 1일 이전 빈 칸
+        const totalDaysIncludingStart = startDay + daysInMonth;
+        const totalCells = totalDaysIncludingStart <= 35 ? 35 : 42;
+
         for (let i = 0; i < startDay; i++) {
             cells.push(
                 <div key={`empty-start-${i}`} className="mini-calendar-cell empty" />
             );
         }
 
-        // 이번 달 날짜들
         for (let day = 1; day <= daysInMonth; day++) {
             const score = scoresByDay[day] || 0;
-            let bgColor = '#D9D9D9'; // 기본색
+            let bgColor = '#D9D9D9';
 
             if (score >= 1 && score <= 60) bgColor = '#B3E6B3';
             if (score >= 61 && score <= 100) bgColor = '#80D480';
@@ -94,11 +95,9 @@ const Main = () => {
             );
         }
 
-        const totalCells = startDay + daysInMonth;
-        const remaining = 42 - totalCells;
-        for (let i = 0; i < remaining; i++) {
+        while (cells.length < totalCells) {
             cells.push(
-                <div key={`empty-end-${i}`} className="mini-calendar-cell empty" />
+                <div key={`empty-end-${cells.length}`} className="mini-calendar-cell empty" />
             );
         }
 
@@ -123,16 +122,11 @@ const Main = () => {
 
             <div className="card-grid">
                 <Box type={2} showArrow={true} title='기록' to='/workoutlog'>
-                    <div style={{ display: 'flex' }}>
-                        <div>
-                            {renderMiniCalendar()}
-                        </div>
-                        <div>
-                            asdf
-                        </div>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        {renderMiniCalendar()}
                     </div>
-
                 </Box>
+
                 <Box type={2} showArrow={true} title='Share+' to='/share-plus' />
                 <Box type={2} showArrow={true} title='금주의 운동' to='/weekly-workout' />
                 <Box type={2} showArrow={true} title='기본 운동 설명서' to='/exercise-tip' />
@@ -143,8 +137,8 @@ const Main = () => {
                             <div
                                 key={post._id}
                                 className="preview-post"
-                                onClick={() => handlePostClick(post._id)} // ✨ 여기 클릭 추가
-                                style={{ cursor: 'pointer' }} // ✨ 커서 모양 바꾸기
+                                onClick={() => handlePostClick(post._id)}
+                                style={{ cursor: 'pointer' }}
                             >
                                 <span className="preview-title">{post.name}</span>
                                 <span className="preview-meta">
