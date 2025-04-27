@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { saveWorkoutLog } from '../apis/saveWorkoutLog';
+import { deleteWorkoutLog } from '../apis/deleteWorkoutLog';
 import { cardioOptions, weightOptions } from '../constants/exerciseOptions';
 import { calculateTotalScore } from '../utils/calculateTotalScore';
 import '../styles/WorkoutLogModalContent.css';
@@ -113,9 +114,22 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
                     if (log.reps > 0) details.push(`${log.reps}회`);
                     if (log.weight > 0) details.push(`${log.weight}kg`);
 
+                    const handleDelete = async () => {
+                        try {
+                            await deleteWorkoutLog(log._id);
+                            setLogs(prevLogs => prevLogs.filter(l => l._id !== log._id));
+                            if (onLogSaved) onLogSaved();
+                        } catch (err) {
+                            console.error('운동 기록 삭제 실패', err);
+                        }
+                    };
+
                     return (
-                        <li key={index} className="workout-log-item">
-                            <span className="log-name">{log.name}</span>
+                        <li key={log._id || index} className="workout-log-item">
+                            <div className="log-header">
+                                <span className="log-name">{log.name}</span>
+                                <button onClick={handleDelete} className="delete-button">🗑️</button>
+                            </div>
                             {details.length > 0 && (
                                 <div className="log-details">
                                     {details.join(' | ')}
