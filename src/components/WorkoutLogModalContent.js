@@ -8,6 +8,7 @@ import '../styles/WorkoutLogModalContent.css';
 const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) => {
     const [logs, setLogs] = useState([]);
     const [isAdding, setIsAdding] = useState(false);
+    const [confirmDeleteId, setConfirmDeleteId] = useState(null);
 
     const [exerciseType, setExerciseType] = useState('');
     const [exercisePart, setExercisePart] = useState('');
@@ -25,6 +26,19 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
 
     const handleAddClick = () => {
         setIsAdding(true);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDeleteId) return;
+
+        try {
+            await deleteWorkoutLog(confirmDeleteId);
+            setLogs(prevLogs => prevLogs.filter(l => l._id !== confirmDeleteId));
+            setConfirmDeleteId(null); // 모달 끄기
+            if (onLogSaved) onLogSaved(); // 부모 갱신
+        } catch (err) {
+            console.error('운동 기록 삭제 실패', err);
+        }
     };
 
     const handleSave = async () => {
@@ -114,31 +128,38 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
                     if (log.reps > 0) details.push(`${log.reps}회`);
                     if (log.weight > 0) details.push(`${log.weight}kg`);
 
-                    const handleDelete = async () => {
-                        try {
-                            await deleteWorkoutLog(log._id);
-                            setLogs(prevLogs => prevLogs.filter(l => l._id !== log._id));
-                            if (onLogSaved) onLogSaved();
-                        } catch (err) {
-                            console.error('운동 기록 삭제 실패', err);
-                        }
-                    };
-
                     return (
-                        <li key={log._id || index} className="workout-log-item">
-                            <div className="log-header">
-                                <span className="log-name">{log.name}</span>
-                                <button onClick={handleDelete} className="delete-button">🗑️</button>
-                            </div>
+                        <li key={index} className="workout-log-item">
+                            <span className="log-name">{log.name}</span>
                             {details.length > 0 && (
                                 <div className="log-details">
                                     {details.join(' | ')}
                                 </div>
                             )}
+                            {/* ✨ 휴지통 아이콘 */}
+                            <button
+                                className="delete-button"
+                                onClick={() => setConfirmDeleteId(log._id)}
+                            >
+                                🗑️
+                            </button>
                         </li>
                     );
                 })}
             </ul>
+
+            {/* ✨ 삭제 확인 모달 */}
+            {confirmDeleteId && (
+                <div className="confirm-modal-overlay" onClick={() => setConfirmDeleteId(null)}>
+                    <div className="confirm-modal" onClick={(e) => e.stopPropagation()}>
+                        <p>정말 삭제하시겠습니까?</p>
+                        <div className="confirm-buttons">
+                            <button onClick={() => setConfirmDeleteId(null)}>취소</button>
+                            <button onClick={handleConfirmDelete}>삭제</button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {isAdding ? (
                 <div className="workout-log-form">
