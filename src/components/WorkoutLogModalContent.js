@@ -91,7 +91,6 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
                     )
                 );
             } else {
-                // 새로 추가할 때
                 await saveWorkoutLog(logData);
                 setLogs(prevLogs => [...prevLogs, logData]);
             }
@@ -192,7 +191,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
                 </div>
             )}
 
-            {isAdding && (
+            {isAdding ? (
                 <div className="workout-log-form">
                     <select
                         value={exerciseType}
@@ -303,6 +302,10 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
                         <button onClick={resetForm}>취소</button>
                         <button onClick={handleSave}>{editLog ? "수정" : "저장"}</button>
                     </div>
+                </div>
+            ) : (
+                <div className="add-button">
+                    <button onClick={handleAddClick}>+ 추가</button>
                 </div>
             )}
         </div>
