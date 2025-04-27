@@ -3,7 +3,7 @@ import PageTitle from '../components/PageTitle';
 import Modal from '../components/Modal';
 import WorkoutLogModalContent from '../components/WorkoutLogModalContent';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { getWorkoutLogsByDateRange } from '../apis/getWorkoutLogs';
+import { getWorkoutLogsByDate, getWorkoutLogsByDateRange } from '../apis/getWorkoutLogs';
 import { calculateTotalScore } from '../utils/calculateTotalScore';
 import '../styles/WorkoutLog.css';
 
@@ -15,8 +15,9 @@ const WorkoutLog = () => {
     const [logs, setLogs] = useState([]);
     const [monthLogs, setMonthLogs] = useState([]);
 
-    const getDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
-    const getStartDay = (year, month) => new Date(year, month, 1).getDay();
+    useEffect(() => {
+        fetchMonthLogs();
+    }, [currentDate]);
 
     const fetchMonthLogs = async () => {
         try {
@@ -24,15 +25,7 @@ const WorkoutLog = () => {
             const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
             const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
 
-            console.log(startDate.toISOString(), endDate.toISOString());
-            
-            const response = await getWorkoutLogsByDateRange(
-                user._id,
-                startDate.toISOString(),
-                endDate.toISOString()
-            );
-
-
+            const response = await getWorkoutLogsByDateRange(user._id, startDate.toISOString(), endDate.toISOString());
             setMonthLogs(response);
         } catch (err) {
             console.error('월별 운동 기록 불러오기 실패', err);
@@ -40,9 +33,8 @@ const WorkoutLog = () => {
         }
     };
 
-    useEffect(() => {
-        fetchMonthLogs();
-    }, [currentDate]);
+    const getDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
+    const getStartDay = (year, month) => new Date(year, month, 1).getDay();
 
     const generateCalendar = () => {
         const days = [];
@@ -84,37 +76,18 @@ const WorkoutLog = () => {
 
         try {
             const user = JSON.parse(localStorage.getItem('user'));
-            const response = await getWorkoutLogsByDateRange({
+            const fetchedLogs = await getWorkoutLogsByDate({
                 userId: user._id,
-                startDate: fullDate.toISOString(),
-                endDate: new Date(fullDate.getFullYear(), fullDate.getMonth(), fullDate.getDate() + 1).toISOString(),
+                date: fullDate.toISOString(),
             });
-            setLogs(response);
+            setLogs(fetchedLogs);
         } catch (err) {
             console.error('운동 기록 불러오기 실패', err);
             setLogs([]);
         }
     };
 
-    const calculateDailyScores = (logs) => {
-        const scoreMap = {};
-
-        logs.forEach(log => {
-            const date = new Date(log.date);
-            const day = date.getDate();
-            if (!scoreMap[day]) scoreMap[day] = [];
-            scoreMap[day].push(log);
-        });
-
-        const dailyScores = {};
-        Object.keys(scoreMap).forEach(day => {
-            dailyScores[day] = calculateTotalScore(scoreMap[day]);
-        });
-
-        return dailyScores;
-    };
-
-    const getColorByScore = (score) => {
+    const getCellBackgroundColor = (score) => {
         if (score === 0) return '#D9D9D9';
         if (score <= 60) return '#B3E6B3';
         if (score <= 100) return '#80D480';
@@ -125,7 +98,6 @@ const WorkoutLog = () => {
     const calendarDays = generateCalendar();
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
-    const dailyScores = calculateDailyScores(monthLogs);
 
     return (
         <div className="calendar-container">
@@ -147,15 +119,16 @@ const WorkoutLog = () => {
                 ))}
 
                 {calendarDays.map((d, i) => {
-                    const dayScore = dailyScores[d.day] || 0;
-                    const backgroundColor = d.currentMonth ? getColorByScore(dayScore) : '#f2f2f2';
+                    const dayDate = new Date(year, month, d.day);
+                    const logsForDay = monthLogs.filter(log => new Date(log.date).getDate() === d.day);
+                    const dayScore = calculateTotalScore(logsForDay);
 
                     return (
                         <div
                             key={i}
                             className={`calendar-day ${d.currentMonth ? 'current' : 'inactive'}`}
-                            style={{ backgroundColor }}
                             onClick={() => handleDayClick(d.day, d.currentMonth)}
+                            style={{ backgroundColor: d.currentMonth ? getCellBackgroundColor(dayScore) : undefined }}
                         >
                             {d.day}
                         </div>

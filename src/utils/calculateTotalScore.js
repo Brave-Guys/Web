@@ -2,7 +2,6 @@ import { calculateCardioScore } from './calculateCardioScore.js';
 import { calculateWeightScore } from './calculateWeightscore.js';
 
 export const calculateTotalScore = (logs) => {
-    console.log(logs);
     if (!logs || logs.length === 0) return 0;
 
     return logs.reduce((acc, log) => {
