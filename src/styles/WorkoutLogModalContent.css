@@ -43,17 +43,11 @@
 
 .workout-log-form-buttons {
     display: flex;
-    justify-content: flex-end;
+    padding: 0px 120px;
+    align-items: center;
+    justify-content: center;
     gap: 10px;
     margin-top: 8px;
-}
-
-.workout-log-form-buttons button {
-    padding: 6px 12px;
-    font-size: 14px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
 }
 
 .workout-log-form-buttons button:first-child {
@@ -66,7 +60,8 @@
 }
 
 .add-button {
-    text-align: right;
+    text-align: center;
+    padding: 10px;
 }
 
 .add-button button {

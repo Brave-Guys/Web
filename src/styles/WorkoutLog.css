@@ -1,5 +1,5 @@
 .calendar-container {
-    padding: 20px;
+    padding: 100px 10px;
     max-width: 600px;
     margin: 0 auto;
 }
@@ -8,26 +8,32 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 10px 0;
+    margin: 20px 0;
+    /* ✨ 간격 키움 */
 }
 
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 6px;
+    gap: 10px;
+    /* ✨ 셀 간 간격도 살짝 벌림 */
+    margin-top: 20px;
+    /* ✨ PageTitle과의 간격 추가 */
 }
 
 .calendar-day-name {
     font-weight: bold;
     text-align: center;
+    font-size: 16px;
 }
 
 .calendar-day {
-    height: 40px;
+    height: 60px;
     border: 1px solid #ddd;
-    border-radius: 6px;
+    border-radius: 8px;
     text-align: center;
-    line-height: 40px;
+    line-height: 60px;
+    font-size: 18px;
 }
 
 .calendar-day.current {

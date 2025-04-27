@@ -4,8 +4,10 @@ import { deleteWorkoutLog } from '../apis/deleteWorkoutLog';
 import { updateWorkoutLog } from '../apis/updateWorkoutLog';
 import { cardioOptions, weightOptions } from '../constants/exerciseOptions';
 import { calculateTotalScore } from '../utils/calculateTotalScore';
+import CustomButton from './CustomButton';
 import editIcon from '../assets/edit-icon.png'
 import deleteIcon from '../assets/delete-icon.png'
+import addIcon from '../assets/plus.png'
 import '../styles/WorkoutLogModalContent.css';
 
 const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) => {
@@ -71,7 +73,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
             const logData = {
                 userId: user._id,
                 name: exerciseName,
-                part: exercisePart,
+                part: exercisePart == '' ? '유산소' : exercisePart,
                 exerciseType,
                 date: selectedDate instanceof Date ? selectedDate.toISOString() : selectedDate,
                 duration: duration ? Number(duration) : 0,
@@ -302,13 +304,31 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
                     )}
 
                     <div className="workout-log-form-buttons">
-                        <button onClick={resetForm}>취소</button>
-                        <button onClick={handleSave}>{editLog ? "수정" : "저장"}</button>
+                        <CustomButton
+                            size='small'
+                            label='취소'
+                            onClick={resetForm}
+                            rounded='pill'
+                            style={{ width: '10px', color: 'black' }}
+                        />
+                        <CustomButton
+                            size='small'
+                            label={editLog ? "수정" : "저장"}
+                            onClick={handleSave}
+                            rounded='pill'
+                            style={{ width: '10px' }}
+                        />
                     </div>
                 </div>
             ) : (
                 <div className="add-button">
-                    <button onClick={handleAddClick}>+ 추가</button>
+                    <img
+                        src={addIcon}
+                        alt="삭제"
+                        className="log-action-icon"
+                        style={{ width: '60px', height: '60px' }}
+                        onClick={handleAddClick}
+                    />
                 </div>
             )}
         </div>

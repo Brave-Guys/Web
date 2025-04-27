@@ -107,6 +107,8 @@ const WorkoutLog = () => {
                 showBackArrow={true}
             />
 
+            <div style={{margin: '50px'}}></div>
+
             <div className="calendar-header">
                 <button onClick={goToPrevMonth}><ChevronLeft /></button>
                 <strong>{year}년 {month + 1}월</strong>
