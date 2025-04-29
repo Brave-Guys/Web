@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Box from '../components/Box';
 import PageTitle from '../components/PageTitle.js';
+import exerciseTips from '../constants/exerciseTips';
 import { getWorkoutLogsByDateRange } from '../apis/getWorkoutLogs';
 import { calculateCardioScore } from '../utils/calculateCardioScore';
 import { calculateWeightScore } from '../utils/calculateWeightscore';
@@ -12,6 +13,7 @@ const Main = () => {
     const [user, setUser] = useState(null);
     const [latestPosts, setLatestPosts] = useState([]);
     const [monthLogs, setMonthLogs] = useState([]);
+    const [randomTip, setRandomTip] = useState(null);
 
     const navigate = useNavigate();
 
@@ -43,6 +45,9 @@ const Main = () => {
                 console.error('월별 기록 조회 실패', err);
             }
         };
+
+        const randomIndex = Math.floor(Math.random() * exerciseTips.length);
+        setRandomTip(exerciseTips[randomIndex]);
 
         fetchPosts();
         fetchMonthLogs();
@@ -139,7 +144,25 @@ const Main = () => {
 
                 <Box type={2} showArrow={true} title='Share+' to='/share-plus' />
                 <Box type={2} showArrow={true} title='금주의 운동' to='/weekly-workout' />
-                <Box type={2} showArrow={true} title='기본 운동 설명서' to='/exercise-tip' />
+                {randomTip && (
+                    <Box type={2} showArrow={true} title='기본 운동 설명서' to='/exercise-tip'>
+                        <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <div style={{ padding: '0px 20px' }}>
+                                    <img src={randomTip.img} alt={randomTip.title} style={{ width: '80px', height: '80px', marginBottom: '10px' }} />
+                                </div>
+                                <div style={{ padding: '0px 20px' }}>
+                                    <h3 style={{ marginBottom: '5px' }}>{randomTip.title}</h3>
+                                    <ul style={{ listStyle: 'none', padding: 0 }}>
+                                        {randomTip.tips.map((tip, index) => (
+                                            <li key={index} style={{ marginBottom: '5px' }}>• {tip}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </Box>
+                )}
 
                 <Box type={2} showArrow={true} title='게시판' to='/board'>
                     <div className="preview-posts">
