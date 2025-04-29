@@ -61,7 +61,7 @@ const Board = () => {
                             const category = ['잡담', '식단', '루틴', '공지'][activeTab];
                             if (activeTab === 4) {
                                 const user = JSON.parse(localStorage.getItem('user'));
-                                return post.uid === user._id;
+                                return post.writerId === user._id;
                             }
                             return post.category === category;
                         })
