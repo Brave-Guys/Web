@@ -12,12 +12,14 @@ const Board = () => {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState(0);
     const [posts, setPosts] = useState([]);
+    const [noticePosts, setNoticePosts] = useState([]);
 
     useEffect(() => {
         const fetchPosts = async () => {
             try {
                 const data = await getPosts();
                 setPosts(data);
+                setNoticePosts(data.filter(post => post.category === '공지'));
             } catch (err) {
                 console.error(err);
                 alert('게시글을 불러오지 못했습니다.');
@@ -81,7 +83,21 @@ const Board = () => {
                 <div style={{ flexGrow: 1, margin: '20px' }}>
                     <Box type={2} title='인기글' showArrow={true} />
                     <div style={{ margin: '10px' }}></div>
-                    <Box type={2} title='공지' showArrow={true} />
+                    <Box type={2} title='공지' showArrow={true} to='/notice'>
+                        <div className="notice-preview">
+                            {noticePosts.slice(0, 3).map((post) => (  // 최대 3개만 미리보기로
+                                <div key={post._id} style={{ marginBottom: '8px', cursor: 'pointer' }} onClick={() => navigate(`/post/${post._id}`)}>
+                                    <div style={{ fontWeight: 'bold', fontSize: '14px' }}>{post.name}</div>
+                                    <div style={{ fontSize: '12px', color: 'gray' }}>
+                                        {new Date(post.createDate).toLocaleDateString()}
+                                    </div>
+                                </div>
+                            ))}
+                            {noticePosts.length === 0 && (
+                                <div style={{ fontSize: '12px', color: 'gray' }}>등록된 공지사항이 없습니다.</div>
+                            )}
+                        </div>
+                    </Box>
                 </div>
 
             </div>
