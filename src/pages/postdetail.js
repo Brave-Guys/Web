@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ThumbsUp, ThumbsUpIcon, MessageCircle } from 'lucide-react';
+import { ThumbsUp, MessageCircle } from 'lucide-react';
 import CommentItem from '../components/CommentItem';
 import PageTitle from '../components/PageTitle';
-import ConfirmModal from '../components/ConfirmModal'; // import 꼭 추가해줘!
+import ConfirmModal from '../components/ConfirmModal';
+import Box from '../components/Box';
+import { getPosts } from '../apis/getPosts';
 import { getPostDetail } from '../apis/getPostDetail';
 import { getComments, postComment } from '../apis/getComments';
 import { deletePost } from '../apis/deletePost';
@@ -18,6 +20,7 @@ const PostDetail = () => {
     const [currentUserId, setCurrentUserId] = useState(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [liked, setLiked] = useState(false);
+    const [noticePosts, setNoticePosts] = useState([]);
 
     const navigate = useNavigate();
 
@@ -26,7 +29,18 @@ const PostDetail = () => {
         if (user) setCurrentUserId(user._id);
         fetchPostAndComments();
         fetchLikeStatus();
+        fetchNoticePosts();
     }, [postId]);
+
+    const fetchNoticePosts = async () => {
+        try {
+            const allPosts = await getPosts();
+            const filtered = allPosts.filter(post => post.category === '공지');
+            setNoticePosts(filtered);
+        } catch (err) {
+            console.error('공지글 불러오기 실패', err);
+        }
+    };
 
     const fetchLikeStatus = async () => {
         try {
@@ -65,7 +79,7 @@ const PostDetail = () => {
 
     const handleDelete = async () => {
         try {
-            await deletePost(postId);            
+            await deletePost(postId);
             navigate(-1);
         } catch (err) {
             alert('게시글 삭제 실패');
@@ -124,69 +138,100 @@ const PostDetail = () => {
 
     return (
         <div className="post-detail-container">
-            <div style={{margin: '50px'}}></div>
-            <PageTitle title={post.name} showBackArrow={true} />
-            <div style={{margin: '50px'}}></div>
+            <div style={{ margin: '50px 0' }}>
+                <PageTitle title={post.name} showBackArrow={true} />
+            </div>
 
-            <div className="post-header">
-                <div className="profile-icon"></div>
-                <div className="nickname">{post.nickname}</div>
-                <div className="post-time">{new Date(post.createDate).toLocaleString()}</div>
-                <div className="post-actions">
-                    {currentUserId === post.writerId && (
-                        <div className="post-actions">
-                            <span onClick={() => navigate(`/editpost/${post._id}`)}>수정</span>
-                            <span>|</span>
-                            <span onClick={() => setShowDeleteModal(true)}>삭제</span>
+            {/* 본문 + 공지 flex 배치 */}
+            <div style={{ display: 'flex', gap: '40px' }}>
+
+                {/* 왼쪽: 게시글 본문 */}
+                <div style={{ flex: 2 }}>
+                    <div className="post-detail-wrapper">
+                        <div className="profile-info" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
+                            <div className="profile-icon"></div>
+                            <div>
+                                <div className="nickname" style={{ fontWeight: 'bold' }}>{post.nickname}</div>
+                                <div className="post-time" style={{ fontSize: '12px', color: 'gray' }}>{new Date(post.createDate).toLocaleString()}</div>
+                            </div>
+                            {currentUserId === post.writerId && (
+                                <div className="post-actions" style={{ marginLeft: 'auto', fontSize: '14px', cursor: 'pointer' }}>
+                                    <span onClick={() => navigate(`/editpost/${post._id}`)}>수정</span>
+                                    <span style={{ margin: '0 5px' }}>|</span>
+                                    <span onClick={() => setShowDeleteModal(true)}>삭제</span>
+                                </div>
+                            )}
                         </div>
-                    )}
+
+                        <ConfirmModal
+                            open={showDeleteModal}
+                            onClose={() => setShowDeleteModal(false)}
+                            onConfirm={handleDelete}
+                            title="정말 삭제하시겠습니까?"
+                            description="삭제하면 복구할 수 없습니다."
+                            confirmText="삭제"
+                            cancelText="취소"
+                        />
+
+                        <div className="post-content" style={{ marginBottom: '30px' }}>{post.content}</div>
+
+                        <div className="post-footer" style={{ display: 'flex', gap: '20px', marginBottom: '30px' }}>
+                            <div className="reaction" onClick={handleToggleLike} style={{ display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer' }}>
+                                {liked ? <ThumbsUp fill="red" size={20} /> : <ThumbsUp size={20} color="red" />}
+                                <span>{post.like || 0}</span>
+                            </div>
+                            <div className="reaction" style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                <MessageCircle size={20} color="blue" />
+                                <span>{comments.length}</span>
+                            </div>
+                        </div>
+
+                        {/* 댓글 입력창 */}
+                        <div className="comment-input-wrapper" style={{ marginBottom: '30px' }}>
+                            <input
+                                type="text"
+                                placeholder="댓글을 작성하세요!"
+                                value={commentText}
+                                onChange={(e) => setCommentText(e.target.value)}
+                                style={{ width: '80%', padding: '10px' }}
+                            />
+                            <button onClick={handleRootCommentSubmit} style={{ marginLeft: '10px', padding: '10px 20px' }}>등록</button>
+                        </div>
+
+                        {/* 댓글 리스트 */}
+                        {comments.map((comment) => (
+                            <CommentItem
+                                key={comment._id}
+                                name={comment.nickname}
+                                time={new Date(comment.writeDate).toLocaleString()}
+                                content={comment.content}
+                                like={comment.like || 0}
+                                replies={comment.replies || []}
+                                onReplySubmit={(text, parentId = comment._id) =>
+                                    submitReply(postId, parentId, text)
+                                }
+                            />
+                        ))}
+                    </div>
                 </div>
-            </div>
 
-            <ConfirmModal
-                open={showDeleteModal}
-                onClose={() => setShowDeleteModal(false)}
-                onConfirm={handleDelete}
-                title="정말 삭제하시겠습니까?"
-                description="삭제하면 복구할 수 없습니다."
-                confirmText="삭제"
-                cancelText="취소"
-            />
-
-            <div className="post-content">{post.content}</div>
-
-            <div className="post-footer">
-                <div className="reaction" onClick={handleToggleLike} style={{ cursor: 'pointer' }}>
-                    {liked ? <ThumbsUp fill="red" size={20} /> : <ThumbsUp size={20} color="red" />} <span>{post.like || 0}</span>
+                {/* 오른쪽: 공지사항 */}
+                <div style={{ flex: 1 }}>
+                    <Box type={2} title='공지' showArrow={false} to='/notice'>
+                        <div className="notice-preview">
+                            {noticePosts.slice(0, 3).map((post) => (  // 최대 3개만 미리보기로
+                                <div key={post._id} style={{ marginBottom: '8px', cursor: 'pointer' }} onClick={() => navigate(`/post/${post._id}`)}>
+                                    <div style={{ fontSize: '18px' }}>{post.name}</div>
+                                </div>
+                            ))}
+                            {noticePosts.length === 0 && (
+                                <div style={{ fontSize: '12px', color: 'gray' }}>등록된 공지사항이 없습니다.</div>
+                            )}
+                        </div>
+                    </Box>
                 </div>
-                <div className="reaction">
-                    <MessageCircle size={20} color="blue" /> <span>{comments.length}</span>
-                </div>
-            </div>
 
-            <div className="comment-input-wrapper">
-                <input
-                    type="text"
-                    placeholder="댓글을 작성하세요!"
-                    value={commentText}
-                    onChange={(e) => setCommentText(e.target.value)}
-                />
-                <button onClick={handleRootCommentSubmit}>등록</button>
             </div>
-
-            {comments.map((comment) => (
-                <CommentItem
-                    key={comment._id}
-                    name={comment.nickname}
-                    time={new Date(comment.writeDate).toLocaleString()}
-                    content={comment.content}
-                    like={comment.like || 0}
-                    replies={comment.replies || []}
-                    onReplySubmit={(text, parentId = comment._id) =>
-                        submitReply(postId, parentId, text)
-                    }
-                />
-            ))}
         </div>
     );
 };
