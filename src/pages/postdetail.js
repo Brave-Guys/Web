@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ThumbsUp, ThumbsUpIcon, MessageCircle } from 'lucide-react';
 import CommentItem from '../components/CommentItem';
 import PageTitle from '../components/PageTitle';
+import ConfirmModal from '../components/ConfirmModal'; // import 꼭 추가해줘!
 import { getPostDetail } from '../apis/getPostDetail';
 import { getComments, postComment } from '../apis/getComments';
 import { deletePost } from '../apis/deletePost';
@@ -15,6 +16,7 @@ const PostDetail = () => {
     const [comments, setComments] = useState([]);
     const [commentText, setCommentText] = useState('');
     const [currentUserId, setCurrentUserId] = useState(null);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [liked, setLiked] = useState(false);
 
     const navigate = useNavigate();
@@ -62,12 +64,8 @@ const PostDetail = () => {
     };
 
     const handleDelete = async () => {
-        const confirm = window.confirm('정말로 이 게시글을 삭제하시겠습니까?');
-        if (!confirm) return;
-
         try {
-            await deletePost(postId);
-            alert('게시글이 삭제되었습니다.');
+            await deletePost(postId);            
             navigate(-1);
         } catch (err) {
             alert('게시글 삭제 실패');
@@ -126,7 +124,9 @@ const PostDetail = () => {
 
     return (
         <div className="post-detail-container">
+            <div style={{margin: '50px'}}></div>
             <PageTitle title={post.name} showBackArrow={true} />
+            <div style={{margin: '50px'}}></div>
 
             <div className="post-header">
                 <div className="profile-icon"></div>
@@ -137,11 +137,21 @@ const PostDetail = () => {
                         <div className="post-actions">
                             <span onClick={() => navigate(`/editpost/${post._id}`)}>수정</span>
                             <span>|</span>
-                            <span onClick={handleDelete}>삭제</span>
+                            <span onClick={() => setShowDeleteModal(true)}>삭제</span>
                         </div>
                     )}
                 </div>
             </div>
+
+            <ConfirmModal
+                open={showDeleteModal}
+                onClose={() => setShowDeleteModal(false)}
+                onConfirm={handleDelete}
+                title="정말 삭제하시겠습니까?"
+                description="삭제하면 복구할 수 없습니다."
+                confirmText="삭제"
+                cancelText="취소"
+            />
 
             <div className="post-content">{post.content}</div>
 
