@@ -87,10 +87,7 @@ const Board = () => {
                         <div className="notice-preview">
                             {noticePosts.slice(0, 3).map((post) => (  // 최대 3개만 미리보기로
                                 <div key={post._id} style={{ marginBottom: '8px', cursor: 'pointer' }} onClick={() => navigate(`/post/${post._id}`)}>
-                                    <div style={{ fontWeight: 'bold', fontSize: '14px' }}>{post.name}</div>
-                                    <div style={{ fontSize: '12px', color: 'gray' }}>
-                                        {new Date(post.createDate).toLocaleDateString()}
-                                    </div>
+                                    <div style={{ fontSize: '18px' }}>{post.name}</div>
                                 </div>
                             ))}
                             {noticePosts.length === 0 && (
