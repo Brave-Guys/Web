@@ -5,6 +5,7 @@ import { updateWorkoutLog } from '../apis/updateWorkoutLog';
 import { cardioOptions, weightOptions } from '../constants/exerciseOptions';
 import { calculateTotalScore } from '../utils/calculateTotalScore';
 import CustomButton from './CustomButton';
+import ConfirmModal from './ConfirmModal';
 import editIcon from '../assets/edit-icon.png'
 import deleteIcon from '../assets/delete-icon.png'
 import addIcon from '../assets/plus.png'
@@ -185,15 +186,15 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
             </ul>
 
             {confirmDeleteId && (
-                <div className="confirm-modal-overlay" onClick={() => setConfirmDeleteId(null)}>
-                    <div className="confirm-modal" onClick={(e) => e.stopPropagation()}>
-                        <p>정말 삭제하시겠습니까?</p>
-                        <div className="confirm-buttons">
-                            <button onClick={() => setConfirmDeleteId(null)}>취소</button>
-                            <button onClick={handleConfirmDelete}>삭제</button>
-                        </div>
-                    </div>
-                </div>
+                <ConfirmModal
+                    open={!!confirmDeleteId}
+                    onClose={() => setConfirmDeleteId(null)}
+                    onConfirm={handleConfirmDelete}
+                    title="정말 삭제하시겠습니까?"
+                    description="삭제하면 복구할 수 없습니다."
+                    confirmText="삭제"
+                    cancelText="취소"
+                />
             )}
 
             {isAdding ? (
