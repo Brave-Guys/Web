@@ -83,7 +83,7 @@ const Board = () => {
                 <div style={{ flexGrow: 1, margin: '20px' }}>
                     <Box type={2} title='인기글' showArrow={true} />
                     <div style={{ margin: '10px' }}></div>
-                    <Box type={2} title='공지' showArrow={true} to='/notice'>
+                    <Box type={2} title='공지' showArrow={false} to='/notice'>
                         <div className="notice-preview">
                             {noticePosts.slice(0, 3).map((post) => (  // 최대 3개만 미리보기로
                                 <div key={post._id} style={{ marginBottom: '8px', cursor: 'pointer' }} onClick={() => navigate(`/post/${post._id}`)}>
