@@ -226,7 +226,7 @@ const PostDetail = () => {
                             <CommentItem
                                 commentId={comment._id}
                                 name={comment.nickname}
-                                time={new Date(comment.writeDate).toLocaleString()}
+                                time={comment.writeDate}
                                 content={comment.content}
                                 likes={comment.likes || 0}
                                 replies={comment.replies || []}

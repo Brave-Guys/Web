@@ -4,6 +4,23 @@ import { toggleLike, checkLikeStatus } from '../apis/toggleLike';
 import '../styles/CommentItem.css';
 import DefaultAvatar from '../assets/person.png'; // 기본 이미지
 
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/ko';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(relativeTime);
+dayjs.locale('ko', {
+    ...dayjs.Ls.ko,
+    relativeTime: {
+        ...dayjs.Ls.ko.relativeTime,
+        s: '방금 ',
+    },
+});
+
 const CommentItem = ({
     name,
     time,
@@ -70,6 +87,8 @@ const CommentItem = ({
         checkStatus();
     }, []);
 
+    const formattedTime = dayjs.utc(time).tz('Asia/Seoul').fromNow();
+
     return (
         <div className={`comment-item ${depth > 0 ? 'reply-item' : ''}`}>
             <div className="comment-layout">
@@ -77,7 +96,7 @@ const CommentItem = ({
                 <div className="comment-main">
                     <div className="comment-header">
                         <span className="comment-nickname">{name}</span>
-                        <span className="comment-time">{time}</span>
+                        <span className="comment-time">{formattedTime}</span>
                     </div>
                     <div className="comment-content">{content}</div>
                     <div className="comment-actions">
@@ -86,7 +105,7 @@ const CommentItem = ({
                             <span>{likeCount}</span>
                         </div>
                         {depth === 0 && (
-                            <span className="comment-reply" onClick={handleReplyToggle}>답글</span>
+                            <span className="comment-reply" onClick={handleReplyToggle}>{showReplyInput ? '답글 취소' : '답글'}</span>
                         )}
                     </div>
                     {showReplyInput && (
@@ -107,7 +126,7 @@ const CommentItem = ({
                                     key={reply._id}
                                     commentId={reply._id}
                                     name={reply.nickname}
-                                    time={new Date(reply.writeDate).toLocaleString()}
+                                    time={reply.writeDate}
                                     content={reply.content}
                                     likes={reply.likes || 0}
                                     replies={reply.replies || []}
