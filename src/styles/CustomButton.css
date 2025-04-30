@@ -56,3 +56,18 @@
     transform: scale(0.96);
     filter: brightness(0.95);
 }
+
+.custom-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: none;
+    transform: none;
+}
+
+.custom-button:disabled:hover {
+    filter: none;
+}
+
+.custom-button:disabled:active {
+    transform: none;
+}

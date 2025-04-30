@@ -152,18 +152,22 @@ const Board = () => {
 
                     {/* 페이지네이션: 이전 / 다음 */}
                     <div className="pagination">
-                        <button
+                        <div style={{ flex: 4 }}></div>
+                        <CustomButton
+                            label="이전"
+                            size="small"
+                            color="gray"
                             onClick={() => setPage(prev => Math.max(prev - 1, 1))}
+                            style={{ marginRight: '8px' }}
                             disabled={page === 1}
-                        >
-                            이전
-                        </button>
-                        <button
+                        />
+                        <CustomButton
+                            label="다음"
+                            size="small"
+                            color="gray"
                             onClick={() => setPage(prev => prev + 1)}
                             disabled={!hasMore}
-                        >
-                            다음
-                        </button>
+                        />
                     </div>
                 </div>
 

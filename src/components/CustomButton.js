@@ -3,11 +3,12 @@ import '../styles/CustomButton.css';
 
 const CustomButton = ({
     label,
-    size = 'large',         // 'large' or 'small'
-    color = 'purple',        // 'purple' | 'gray' | 'green' | 'red'
-    rounded = 'square',      // 'square' or 'pill'
-    onClick,    
-    style
+    size = 'large',
+    color = 'purple',
+    rounded = 'square',
+    onClick,
+    style,
+    disabled = false
 }) => {
     const sizeClass = size === 'large' ? 'btn-large' : 'btn-small';
     const colorClass = `btn-${color}`;
@@ -18,10 +19,12 @@ const CustomButton = ({
             className={`custom-button ${sizeClass} ${colorClass} ${radiusClass}`}
             onClick={onClick}
             style={style}
+            disabled={disabled}
         >
             {label}
         </button>
     );
 };
+
 
 export default CustomButton;
