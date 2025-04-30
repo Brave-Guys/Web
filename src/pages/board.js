@@ -8,7 +8,6 @@ import Box from '../components/Box';
 import '../styles/Board.css';
 import { ThumbsUp } from 'lucide-react';
 import dayjs from 'dayjs';
-import 'dayjs/locale/ko';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -43,31 +42,32 @@ const Board = () => {
     const [posts, setPosts] = useState([]);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
-    const [loading, setLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [popularPosts, setPopularPosts] = useState([]);
 
-    const loadMorePosts = async () => {
-        if (loading || !hasMore) return;
-        setLoading(true);
+    const POSTS_PER_PAGE = 10;
+
+    const fetchPosts = async (pageNum = 1) => {
         try {
-            const res = await getPostsByPage(page);
-            if (res.posts.length === 0) {
-                setHasMore(false);
-            } else {
-                setPosts(prev => [...prev, ...res.posts]);
-                setPage(prev => prev + 1);
-            }
+            const res = await getPostsByPage(pageNum);
+            setPosts(res.posts);
+            setHasMore(res.posts.length === POSTS_PER_PAGE);
         } catch (err) {
             console.error('게시글 로딩 실패', err);
         }
-        setLoading(false);
     };
 
-    useEffect(() => {
-        loadMorePosts();
-        fetchPopularPosts();
-    }, []);
+    const handleTabChange = async (index) => {
+        setActiveTab(index);
+        setPage(1);
+        try {
+            const res = await getPostsByPage(1);
+            setPosts(res.posts);
+            setHasMore(res.posts.length === POSTS_PER_PAGE);
+        } catch (err) {
+            console.error('탭 변경 후 게시글 로딩 실패', err);
+        }
+    };
 
     const fetchPopularPosts = async () => {
         try {
@@ -79,13 +79,12 @@ const Board = () => {
     };
 
     useEffect(() => {
-        const handleScroll = () => {
-            const bottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 200;
-            if (bottom) loadMorePosts();
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [hasMore, loading]);
+        fetchPosts(page);
+    }, [page]);
+
+    useEffect(() => {
+        fetchPopularPosts();
+    }, []);
 
     const filteredPosts = posts.filter(post => {
         const category = ['잡담', '식단', '루틴', '공지'][activeTab];
@@ -118,7 +117,7 @@ const Board = () => {
                 <Tab
                     tabs={['잡담', '식단', '루틴', '공지', '내 게시글']}
                     activeIndex={activeTab}
-                    onTabClick={(index) => setActiveTab(index)}
+                    onTabClick={handleTabChange}
                 />
                 <input
                     type="text"
@@ -147,7 +146,22 @@ const Board = () => {
                             commentCount={post.comment || 0}
                         />
                     ))}
-                    {loading && <div style={{ textAlign: 'center', padding: '20px' }}>불러오는 중...</div>}
+
+                    {/* 페이지네이션: 이전 / 다음 */}
+                    <div className="pagination">
+                        <button
+                            onClick={() => setPage(prev => Math.max(prev - 1, 1))}
+                            disabled={page === 1}
+                        >
+                            이전
+                        </button>
+                        <button
+                            onClick={() => setPage(prev => prev + 1)}
+                            disabled={!hasMore}
+                        >
+                            다음
+                        </button>
+                    </div>
                 </div>
 
                 <div style={{ flexGrow: 1, margin: '20px' }}>
