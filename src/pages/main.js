@@ -137,8 +137,51 @@ const Main = () => {
 
             <div className="card-grid">
                 <Box type={2} showArrow={true} title='이번 달 운동 기록' to='/workoutlog'>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                        {renderMiniCalendar()}
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        {/* 왼쪽: 미니 캘린더 */}
+                        <div style={{ flex: 1 }}>{renderMiniCalendar()}</div>
+
+                        {/* 오른쪽: 색상 안내문 */}
+                        <div className="score-legend-box" style={{ flex: 1, marginLeft: '20px' }}>
+                            <h3>운동 강도</h3>
+                            <ul className="score-legend-list">
+                                <li>
+                                    <span style={{ backgroundColor: '#D9D9D9' }} />
+                                    <div className="legend-text">
+                                        <span className="label">운동 기록 없음</span>
+                                        <span className="score">0점</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span style={{ backgroundColor: '#B3E6B3' }} />
+                                    <div className="legend-text">
+                                        <span className="label">가벼운 운동</span>
+                                        <span className="score">1 ~ 60점</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span style={{ backgroundColor: '#80D480' }} />
+                                    <div className="legend-text">
+                                        <span className="label">평균</span>
+                                        <span className="score">61 ~ 100점</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span style={{ backgroundColor: '#4DC34D' }} />
+                                    <div className="legend-text">
+                                        <span className="label">열심히 운동</span>
+                                        <span className="score">101 ~ 140점</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span style={{ backgroundColor: '#00AA00' }} />
+                                    <div className="legend-text">
+                                        <span className="label">최고의 운동</span>
+                                        <span className="score">141점 이상</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </Box>
 

@@ -212,12 +212,12 @@
 
 .mini-calendar-grid {
   display: grid;
-  grid-template-columns: repeat(7, 92px);
+  grid-template-columns: repeat(7, 60px);
   grid-gap: 4px;
 }
 
 .mini-calendar-cell {
-  width: 92px;
+  width: 60px;
   height: 48px;
   border-radius: 3px;
   background-color: #D9D9D9;
