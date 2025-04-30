@@ -18,6 +18,7 @@ import ExerciseTip from './pages/exercisetip.js';
 import PostDetail from './pages/postdetail.js';
 import WritePost from './pages/writepost.js';
 import EditPost from './pages/editpost.js';
+import SearchResult from './pages/searchResult.js';
 
 import ExerciseTipChest from './pages/exercise-tip-detail/ExerciseTipChest';
 import ExerciseTipShoulder from './pages/exercise-tip-detail/ExerciseTipShoulder';
@@ -62,6 +63,7 @@ function App() {
           <Route path="/share-plus" element={<PrivateRoute><SharePlus /></PrivateRoute>} />
           <Route path="/inquiry" element={<PrivateRoute><Inquiry /></PrivateRoute>} />
           <Route path="/workoutlog" element={<PrivateRoute><WorkoutLog /></PrivateRoute>} />
+          <Route path="/search" element={<PrivateRoute><SearchResult /></PrivateRoute>} />
 
           <Route path="/exercise-tip" element={<PrivateRoute><ExerciseTip /></PrivateRoute>} />
           <Route path="/exercise-tip/chest" element={<PrivateRoute><ExerciseTipChest /></PrivateRoute>} />

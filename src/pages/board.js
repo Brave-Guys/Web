@@ -20,19 +20,19 @@ dayjs.extend(relativeTime);
 dayjs.locale('ko', {
     ...dayjs.Ls.ko,
     relativeTime: {
-        future: '%s 후',
-        past: '%s 전',
-        s: '방금 전',
-        m: '1분 전',
+        future: '%s ',
+        past: '%s ',
+        s: '방금 ',
+        m: '1분 ',
         mm: '%d분 ',
-        h: '1시간 ',         // <- 기본값은 '한 시간 전'
-        hh: '%d시간 전',
-        d: '1일 전',           // <- 기본값은 '하루 전'
-        dd: '%d일 전',
-        M: '1개월 전',
-        MM: '%d개월 전',
-        y: '1년 전',
-        yy: '%d년 전'
+        h: '1시간 ',
+        hh: '%d시간 ',
+        d: '1일 ',
+        dd: '%d일 ',
+        M: '1개월 ',
+        MM: '%d개월 ',
+        y: '1년 ',
+        yy: '%d년 '
     }
 });
 
@@ -41,6 +41,7 @@ const Board = () => {
     const [activeTab, setActiveTab] = useState(0);
     const [posts, setPosts] = useState([]);
     const [noticePosts, setNoticePosts] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -81,11 +82,26 @@ const Board = () => {
                 />
             </div>
 
-            <Tab
-                tabs={['잡담', '식단', '루틴', '공지', '내 게시글']}
-                activeIndex={activeTab}
-                onTabClick={(index) => setActiveTab(index)}
-            />
+            {/* 탭 + 검색창 가로 배치 */}
+            <div className="tab-search-row">
+                <Tab
+                    tabs={['잡담', '식단', '루틴', '공지', '내 게시글']}
+                    activeIndex={activeTab}
+                    onTabClick={(index) => setActiveTab(index)}
+                />
+                <input
+                    type="text"
+                    placeholder="게시글 검색"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' && searchTerm.trim()) {
+                            navigate(`/search?query=${encodeURIComponent(searchTerm.trim())}`);
+                        }
+                    }}
+                    className="search-input"
+                />
+            </div>
 
             <div style={{ display: 'flex' }}>
                 <div style={{ flexGrow: 2 }}>
