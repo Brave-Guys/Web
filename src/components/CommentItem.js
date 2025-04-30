@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ThumbsUp } from 'lucide-react';
 import { toggleLike, checkLikeStatus } from '../apis/toggleLike';
 import { deleteComment } from '../apis/deleteComment';
+import { updateComment } from '../apis/updateComment';
 import '../styles/CommentItem.css';
 import DefaultAvatar from '../assets/person.png';
 
@@ -29,8 +30,8 @@ dayjs.locale('ko', {
         M: '1개월 ',
         MM: '%d개월 ',
         y: '1년 ',
-        yy: '%d년 '
-    }
+        yy: '%d년 ',
+    },
 });
 
 const CommentItem = ({
@@ -43,16 +44,19 @@ const CommentItem = ({
     depth = 0,
     commentId,
     writerId,
-    onDeleted,
-    onDeleteSuccess
+    onDeleteSuccess,
+    onEditSuccess,
 }) => {
     const [showReplyInput, setShowReplyInput] = useState(false);
     const [replyText, setReplyText] = useState('');
     const [liked, setLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(likes || 0);
+    const [isEditing, setIsEditing] = useState(false);
+    const [editText, setEditText] = useState(content);
 
     const currentUserId = JSON.parse(localStorage.getItem('user'))?._id;
     const isMine = currentUserId === writerId;
+    const formattedTime = dayjs.utc(time).tz('Asia/Seoul').fromNow();
 
     const handleToggleLike = async () => {
         try {
@@ -67,7 +71,7 @@ const CommentItem = ({
             });
 
             setLiked(result.liked);
-            setLikeCount(prev => result.liked ? prev + 1 : prev - 1);
+            setLikeCount((prev) => (result.liked ? prev + 1 : prev - 1));
         } catch (err) {
             console.error('댓글 좋아요 토글 실패', err);
         }
@@ -77,7 +81,7 @@ const CommentItem = ({
         if (!window.confirm('댓글을 삭제하시겠습니까?')) return;
         try {
             await deleteComment(commentId);
-            onDeleteSuccess()
+            onDeleteSuccess();
         } catch (err) {
             console.error('댓글 삭제 실패', err);
             alert('댓글 삭제 중 오류 발생');
@@ -91,6 +95,18 @@ const CommentItem = ({
         onReplySubmit(replyText);
         setReplyText('');
         setShowReplyInput(false);
+    };
+
+    const handleEdit = async () => {
+        if (!editText.trim()) return;
+        try {
+            await updateComment({ commentId, content: editText });
+            setIsEditing(false);
+            onEditSuccess();
+        } catch (err) {
+            alert('댓글 수정 실패');
+            console.error(err);
+        }
     };
 
     useEffect(() => {
@@ -113,8 +129,6 @@ const CommentItem = ({
         checkStatus();
     }, []);
 
-    const formattedTime = dayjs.utc(time).tz('Asia/Seoul').fromNow();
-
     return (
         <div className={`comment-item ${depth > 0 ? 'reply-item' : ''}`}>
             <div className="comment-layout">
@@ -123,16 +137,30 @@ const CommentItem = ({
                     <div className="comment-header">
                         <span className="comment-nickname">{name}</span>
                         <span className="comment-time">{formattedTime}</span>
-                        {isMine && (
-                            <span
-                                style={{ marginLeft: 'auto', fontSize: '12px', color: '#999', cursor: 'pointer' }}
-                                onClick={handleDelete}
-                            >
-                                삭제
-                            </span>
+                        {isMine && !isEditing && (
+                            <>
+                                <span style={{ marginLeft: 'auto', fontSize: '12px', color: '#999', cursor: 'pointer' }} onClick={() => setIsEditing(true)}>
+                                    수정
+                                </span>
+                                <span style={{ fontSize: '12px', color: '#999', cursor: 'pointer', marginLeft: '8px' }} onClick={handleDelete}>
+                                    삭제
+                                </span>
+                            </>
                         )}
                     </div>
-                    <div className="comment-content">{content}</div>
+
+                    {isEditing ? (
+                        <div className="comment-reply-box" style={{ marginTop: '6px' }}>
+                            <input value={editText} onChange={(e) => setEditText(e.target.value)} />
+                            <button onClick={handleEdit}>저장</button>
+                            <button onClick={() => { setEditText(content); setIsEditing(false); }} style={{ backgroundColor: '#ccc', color: '#000' }}>
+                                취소
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="comment-content">{content}</div>
+                    )}
+
                     <div className="comment-actions">
                         <div className="comment-like" onClick={handleToggleLike}>
                             <ThumbsUp size={16} color={liked ? 'red' : '#999'} fill={liked ? 'red' : 'none'} />
@@ -142,6 +170,7 @@ const CommentItem = ({
                             <span className="comment-reply" onClick={handleReplyToggle}>{showReplyInput ? '답글 취소' : '답글'}</span>
                         )}
                     </div>
+
                     {showReplyInput && (
                         <div className="comment-reply-box">
                             <input
@@ -153,9 +182,10 @@ const CommentItem = ({
                             <button onClick={handleReplySubmit}>등록</button>
                         </div>
                     )}
+
                     {replies.length > 0 && (
                         <div className="comment-replies">
-                            {replies.map(reply => (
+                            {replies.map((reply) => (
                                 <CommentItem
                                     key={reply._id}
                                     commentId={reply._id}
@@ -167,8 +197,8 @@ const CommentItem = ({
                                     onReplySubmit={(text) => onReplySubmit(text, reply._id)}
                                     depth={depth + 1}
                                     writerId={reply.writerId}
-                                    onDeleted={onDeleted}
                                     onDeleteSuccess={onDeleteSuccess}
+                                    onEditSuccess={onEditSuccess}
                                 />
                             ))}
                         </div>

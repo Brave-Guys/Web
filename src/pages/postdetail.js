@@ -266,6 +266,7 @@ const PostDetail = () => {
                                 currentUserId={currentUserId}
                                 writerId={comment.writerId}
                                 onDeleteSuccess={fetchPostAndComments}
+                                onEditSuccess={fetchPostAndComments}
                             />
                         ))}
                     </div>
