@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ThumbsUp } from 'lucide-react';
 import { toggleLike, checkLikeStatus } from '../apis/toggleLike';
 import '../styles/CommentItem.css';
+import DefaultAvatar from '../assets/person.png'; // 기본 이미지
 
 const CommentItem = ({
     name,
@@ -10,24 +11,13 @@ const CommentItem = ({
     likes,
     replies = [],
     onReplySubmit,
-    depth = 0, // 댓글은 0, 답글은 1
+    depth = 0,
     commentId,
 }) => {
     const [showReplyInput, setShowReplyInput] = useState(false);
     const [replyText, setReplyText] = useState('');
     const [liked, setLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(likes || 0);
-
-    const handleReplyToggle = () => {
-        setShowReplyInput(!showReplyInput);
-    };
-
-    const handleReplySubmit = () => {
-        if (!replyText.trim()) return;
-        onReplySubmit(replyText); // parentId는 외부에서 지정해줌
-        setReplyText('');
-        setShowReplyInput(false);
-    };
 
     const handleToggleLike = async () => {
         try {
@@ -45,8 +35,18 @@ const CommentItem = ({
             setLikeCount(prev => result.liked ? prev + 1 : prev - 1);
         } catch (err) {
             console.error('댓글 좋아요 토글 실패', err);
-            alert('좋아요 처리 중 오류 발생');
         }
+    };
+
+    const handleReplyToggle = () => {
+        setShowReplyInput(!showReplyInput);
+    };
+
+    const handleReplySubmit = () => {
+        if (!replyText.trim()) return;
+        onReplySubmit(replyText);
+        setReplyText('');
+        setShowReplyInput(false);
     };
 
     useEffect(() => {
@@ -72,57 +72,55 @@ const CommentItem = ({
 
     return (
         <div className={`comment-item ${depth > 0 ? 'reply-item' : ''}`}>
-            <div className="comment-top">
-                <div className="avatar-placeholder small"></div>
-                <div className="comment-meta">
-                    <span className="comment-nickname">{name}</span>
-                    <span className="comment-time">{time}</span>
+            <div className="comment-layout">
+                <img src={DefaultAvatar} alt="avatar" className="avatar" />
+                <div className="comment-main">
+                    <div className="comment-header">
+                        <span className="comment-nickname">{name}</span>
+                        <span className="comment-time">{time}</span>
+                    </div>
+                    <div className="comment-content">{content}</div>
+                    <div className="comment-actions">
+                        <div className="comment-like" onClick={handleToggleLike}>
+                            <ThumbsUp size={16} color={liked ? 'red' : '#999'} fill={liked ? 'red' : 'none'} />
+                            <span>{likeCount}</span>
+                        </div>
+                        {depth === 0 && (
+                            <span className="comment-reply" onClick={handleReplyToggle}>답글</span>
+                        )}
+                    </div>
+                    {showReplyInput && (
+                        <div className="comment-reply-box">
+                            <input
+                                type="text"
+                                placeholder="답글을 입력하세요"
+                                value={replyText}
+                                onChange={(e) => setReplyText(e.target.value)}
+                            />
+                            <button onClick={handleReplySubmit}>등록</button>
+                        </div>
+                    )}
+                    {replies.length > 0 && (
+                        <div className="comment-replies">
+                            {replies.map(reply => (
+                                <CommentItem
+                                    key={reply._id}
+                                    commentId={reply._id}
+                                    name={reply.nickname}
+                                    time={new Date(reply.writeDate).toLocaleString()}
+                                    content={reply.content}
+                                    likes={reply.likes || 0}
+                                    replies={reply.replies || []}
+                                    onReplySubmit={(text) => onReplySubmit(text, reply._id)}
+                                    depth={depth + 1}
+                                />
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
-
-            <div className="comment-content">{content}</div>
-
-            <div className="comment-actions">
-                <div className="comment-like" onClick={handleToggleLike} style={{ cursor: 'pointer' }}>
-                    <ThumbsUp size={16} color={liked ? 'red' : '#ccc'} fill={liked ? 'red' : 'none'} />
-                    <span>{likeCount}</span>
-                </div>
-                {depth === 0 && ( // ✅ 댓글만 답글 가능
-                    <span className="comment-reply" onClick={handleReplyToggle}>답글</span>
-                )}
-            </div>
-
-            {showReplyInput && (
-                <div className="comment-reply-box">
-                    <input
-                        type="text"
-                        placeholder="답글을 입력하세요"
-                        value={replyText}
-                        onChange={(e) => setReplyText(e.target.value)}
-                    />
-                    <button onClick={handleReplySubmit}>등록</button>
-                </div>
-            )}
-
-            {replies.length > 0 && (
-                <div className="comment-replies">
-                    {replies.map(reply => (
-                        <CommentItem
-                            commentId={reply._id}
-                            name={reply.nickname}
-                            time={new Date(reply.writeDate).toLocaleString()}
-                            content={reply.content}
-                            likes={reply.likes || 0}
-                            replies={reply.replies || []}
-                            onReplySubmit={(text) => onReplySubmit(text, reply._id)}
-                            depth={depth + 1} // 자식의 뎁스 전달
-                        />
-                    ))}
-                </div>
-            )}
         </div>
     );
 };
-
 
 export default CommentItem;
