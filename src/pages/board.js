@@ -6,7 +6,34 @@ import PostItem from '../components/PostItem';
 import { getPosts } from '../apis/getPosts';
 import CustomButton from '../components/CustomButton';
 import Box from '../components/Box.js'
-import '../styles/Board.css';
+import '../styles/Board.css'; import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(relativeTime);
+
+dayjs.locale('ko', {
+    ...dayjs.Ls.ko,
+    relativeTime: {
+        future: '%s 후',
+        past: '%s 전',
+        s: '방금 전',
+        m: '1분 전',
+        mm: '%d분 ',
+        h: '1시간 ',         // <- 기본값은 '한 시간 전'
+        hh: '%d시간 전',
+        d: '1일 전',           // <- 기본값은 '하루 전'
+        dd: '%d일 전',
+        M: '1개월 전',
+        MM: '%d개월 전',
+        y: '1년 전',
+        yy: '%d년 전'
+    }
+});
 
 const Board = () => {
     const navigate = useNavigate();
@@ -71,10 +98,7 @@ const Board = () => {
                                 postId={post._id}
                                 title={post.name}
                                 content={post.content}
-                                trail={`${post.nickname} | ${new Date(post.createDate).toLocaleTimeString([], {
-                                    hour: '2-digit',
-                                    minute: '2-digit'
-                                })}`}
+                                trail={`${post.nickname} | ${dayjs.utc(post.createDate).tz('Asia/Seoul').fromNow()}`}
                                 likeCount={post.like || 0}
                                 commentCount={post.comment || 0}
                             />

@@ -12,6 +12,34 @@ import { getComments, postComment } from '../apis/getComments';
 import { deletePost } from '../apis/deletePost';
 import { toggleLike, checkLikeStatus } from '../apis/toggleLike';
 import '../styles/PostDetail.css';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(relativeTime);
+
+dayjs.locale('ko', {
+    ...dayjs.Ls.ko,
+    relativeTime: {
+        future: '%s 후',
+        past: '%s 전',
+        s: '방금 전',
+        m: '1분 전',
+        mm: '%d분 ',
+        h: '1시간 ',         // <- 기본값은 '한 시간 전'
+        hh: '%d시간 전',
+        d: '1일 전',           // <- 기본값은 '하루 전'
+        dd: '%d일 전',
+        M: '1개월 전',
+        MM: '%d개월 전',
+        y: '1년 전',
+        yy: '%d년 전'
+    }
+});
 
 const PostDetail = () => {
     const { id: postId } = useParams();
@@ -176,7 +204,9 @@ const PostDetail = () => {
                             <div className="profile-icon"></div>
                             <div>
                                 <div className="nickname" style={{ fontWeight: 'bold' }}>{post.nickname}</div>
-                                <div className="post-time" style={{ fontSize: '12px', color: 'gray' }}>{new Date(post.createDate).toLocaleString()}</div>
+                                <div className="post-time" style={{ fontSize: '12px', color: 'gray' }}>
+                                    {dayjs.utc(post.createDate).tz('Asia/Seoul').fromNow()}
+                                </div>
                             </div>
                             {currentUserId === post.writerId && (
                                 <div className="post-actions" style={{ marginLeft: 'auto', fontSize: '14px', cursor: 'pointer' }}>
