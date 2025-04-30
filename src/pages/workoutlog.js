@@ -99,7 +99,7 @@ const WorkoutLog = () => {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
 
-    return (
+    return (        
         <div className="calendar-container">
             <PageTitle
                 title="운동 기록"
@@ -109,48 +109,94 @@ const WorkoutLog = () => {
 
             <div style={{ margin: '50px' }}></div>
 
-            <div className="calendar-header">
-                <button onClick={goToPrevMonth}><ChevronLeft /></button>
-                <strong>{year}년 {month + 1}월</strong>
-                <button onClick={goToNextMonth}><ChevronRight /></button>
-            </div>
+            <div style={{ display: 'flex', gap: '40px' }}>
+                <div style={{ flex: 3 }}>
+                    <div className="calendar-header">
+                        <button onClick={goToPrevMonth}><ChevronLeft /></button>
+                        <strong>{year}년 {month + 1}월</strong>
+                        <button onClick={goToNextMonth}><ChevronRight /></button>
+                    </div>
 
-            <div className="calendar-grid">
-                {["일", "월", "화", "수", "목", "금", "토"].map(day => (
-                    <div key={day} className="calendar-day-name">{day}</div>
-                ))}
+                    <div className="calendar-grid">
+                        {["일", "월", "화", "수", "목", "금", "토"].map(day => (
+                            <div key={day} className="calendar-day-name">{day}</div>
+                        ))}
 
-                {calendarDays.map((d, i) => {
-                    const dayDate = new Date(year, month, d.day);
-                    const logsForDay = monthLogs.filter(log => new Date(log.date).getDate() === d.day);
-                    const dayScore = calculateTotalScore(logsForDay);
+                        {calendarDays.map((d, i) => {
+                            const dayDate = new Date(year, month, d.day);
+                            const logsForDay = monthLogs.filter(log => new Date(log.date).getDate() === d.day);
+                            const dayScore = calculateTotalScore(logsForDay);
 
-                    return (
-                        <div
-                            key={i}
-                            className={`calendar-day ${d.currentMonth ? 'current' : 'inactive'}`}
-                            onClick={() => handleDayClick(d.day, d.currentMonth)}
-                            style={{ backgroundColor: d.currentMonth ? getCellBackgroundColor(dayScore) : undefined }}
+                            return (
+                                <div
+                                    key={i}
+                                    className={`calendar-day ${d.currentMonth ? 'current' : 'inactive'}`}
+                                    onClick={() => handleDayClick(d.day, d.currentMonth)}
+                                    style={{ backgroundColor: d.currentMonth ? getCellBackgroundColor(dayScore) : undefined }}
+                                >
+                                    {d.day}
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    {showPopup && (
+                        <Modal
+                            visible={showPopup}
+                            onClose={() => setShowPopup(false)}
+                            title={selectedDate ? selectedDate.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'long' }) : ''}
                         >
-                            {d.day}
-                        </div>
-                    );
-                })}
+                            <WorkoutLogModalContent
+                                selectedDate={selectedDate}
+                                initialLogs={logs}
+                                onLogSaved={fetchMonthLogs}
+                            />
+                        </Modal>
+                    )}
+                </div>
+                <div style={{ flex: 1 }}>
+                    <div className="score-legend-box">
+                        <h3>운동 강도</h3>
+                        <ul className="score-legend-list">
+                            <li>
+                                <span style={{ backgroundColor: '#D9D9D9' }} />
+                                <div className="legend-text">
+                                    <span className="label">운동 기록 없음</span>
+                                    <span className="score">0점</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span style={{ backgroundColor: '#B3E6B3' }} />
+                                <div className="legend-text">
+                                    <span className="label">가벼운 운동</span>
+                                    <span className="score">1 ~ 60점</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span style={{ backgroundColor: '#80D480' }} />
+                                <div className="legend-text">
+                                    <span className="label">평균</span>
+                                    <span className="score">61 ~ 100점</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span style={{ backgroundColor: '#4DC34D' }} />
+                                <div className="legend-text">
+                                    <span className="label">열심히 운동</span>
+                                    <span className="score">101 ~ 140점</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span style={{ backgroundColor: '#00AA00' }} />
+                                <div className="legend-text">
+                                    <span className="label">최고의 운동</span>
+                                    <span className="score">141점 이상</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-
-            {showPopup && (
-                <Modal
-                    visible={showPopup}
-                    onClose={() => setShowPopup(false)}
-                    title={selectedDate ? selectedDate.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'long' }) : ''}
-                >
-                    <WorkoutLogModalContent
-                        selectedDate={selectedDate}
-                        initialLogs={logs}
-                        onLogSaved={fetchMonthLogs}
-                    />
-                </Modal>
-            )}
         </div>
     );
 };
