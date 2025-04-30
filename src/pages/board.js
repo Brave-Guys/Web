@@ -47,24 +47,29 @@ const Board = () => {
 
     const POSTS_PER_PAGE = 10;
 
-    const fetchPosts = async (pageNum = 1, category = '') => {
-        console.log(`category: ${category}`);
+    const fetchPosts = async (pageNum = 1, categoryIndex = 0) => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const categoryList = ['잡담', '식단', '루틴', '공지'];
+
+        const category = categoryIndex < 4 ? categoryList[categoryIndex] : null;
+        const userId = categoryIndex === 4 ? user?._id : null;
+
         try {
-            const res = await getPostsByPage(pageNum, category);
+            const res = await getPostsByPage(pageNum, category, userId);  // category, userId 전달
             setPosts(res.posts);
-            setHasMore(res.posts.length === POSTS_PER_PAGE); // 마지막 페이지 여부
+            setHasMore(res.posts.length === POSTS_PER_PAGE);
         } catch (err) {
             console.error('게시글 로딩 실패', err);
         }
     };
 
     const handleTabChange = async (index) => {
-        console.log(`index: ${index}`);
         setActiveTab(index);
         setPage(1);
+        const user = JSON.parse(localStorage.getItem('user'));
+        const userId = index === 4 ? user?._id : null;
         try {
-            console.log(`activeTab: ${activeTab}`)
-            const res = await getPostsByPage(1, index);
+            const res = await getPostsByPage(1, index, userId);
             setPosts(res.posts);
             setHasMore(res.posts.length === POSTS_PER_PAGE);
         } catch (err) {

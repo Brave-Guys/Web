@@ -12,12 +12,22 @@ export const getPosts = async () => {
     return response.data;
 };
 
-export const getPostsByPage = async (page = 1, category = '') => {
+export const getPostsByPage = async (page = 1, category, userId) => {
     const token = localStorage.getItem('token');
+
+    const params = new URLSearchParams();
+    if (category) params.append('category', category);
+    if (userId) params.append('userId', userId);
+
     const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/posts/paginated/${page}?category=${encodeURIComponent(category)}`,
-        { headers: { Authorization: `Bearer ${token}` } }
+        `${process.env.REACT_APP_API_URL}/posts/paginated/${page}?${params.toString()}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        }
     );
+
     return response.data;
 };
 
