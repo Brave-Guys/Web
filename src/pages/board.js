@@ -47,21 +47,24 @@ const Board = () => {
 
     const POSTS_PER_PAGE = 10;
 
-    const fetchPosts = async (pageNum = 1) => {
+    const fetchPosts = async (pageNum = 1, category = '') => {
+        console.log(`category: ${category}`);
         try {
-            const res = await getPostsByPage(pageNum);
+            const res = await getPostsByPage(pageNum, category);
             setPosts(res.posts);
-            setHasMore(res.posts.length === POSTS_PER_PAGE);
+            setHasMore(res.posts.length === POSTS_PER_PAGE); // 마지막 페이지 여부
         } catch (err) {
             console.error('게시글 로딩 실패', err);
         }
     };
 
     const handleTabChange = async (index) => {
+        console.log(`index: ${index}`);
         setActiveTab(index);
         setPage(1);
         try {
-            const res = await getPostsByPage(1);
+            console.log(`activeTab: ${activeTab}`)
+            const res = await getPostsByPage(1, index);
             setPosts(res.posts);
             setHasMore(res.posts.length === POSTS_PER_PAGE);
         } catch (err) {
@@ -79,7 +82,7 @@ const Board = () => {
     };
 
     useEffect(() => {
-        fetchPosts(page);
+        fetchPosts(page, activeTab);
     }, [page]);
 
     useEffect(() => {
