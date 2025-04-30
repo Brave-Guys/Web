@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ThumbsUp } from 'lucide-react';
+import { toggleLike, checkLikeStatus } from '../apis/toggleLike';
 import '../styles/CommentItem.css';
 
 const CommentItem = ({
@@ -9,10 +10,13 @@ const CommentItem = ({
     likes,
     replies = [],
     onReplySubmit,
-    depth = 0 // 댓글은 0, 답글은 1
+    depth = 0, // 댓글은 0, 답글은 1
+    commentId,
 }) => {
     const [showReplyInput, setShowReplyInput] = useState(false);
     const [replyText, setReplyText] = useState('');
+    const [liked, setLiked] = useState(false);
+    const [likeCount, setLikeCount] = useState(likes || 0);
 
     const handleReplyToggle = () => {
         setShowReplyInput(!showReplyInput);
@@ -24,6 +28,47 @@ const CommentItem = ({
         setReplyText('');
         setShowReplyInput(false);
     };
+
+    const handleToggleLike = async () => {
+        try {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user) return alert('로그인이 필요합니다.');
+
+            const result = await toggleLike({
+                userId: user._id,
+                postId: commentId,
+                postType: 'community',
+                postOrComment: 'comment',
+            });
+
+            setLiked(result.liked);
+            setLikeCount(prev => result.liked ? prev + 1 : prev - 1);
+        } catch (err) {
+            console.error('댓글 좋아요 토글 실패', err);
+            alert('좋아요 처리 중 오류 발생');
+        }
+    };
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user) return;
+
+        const checkStatus = async () => {
+            try {
+                const result = await checkLikeStatus({
+                    userId: user._id,
+                    postId: commentId,
+                    postType: 'community',
+                    postOrComment: 'comment',
+                });
+                setLiked(result);
+            } catch (err) {
+                console.error('댓글 좋아요 상태 확인 실패', err);
+            }
+        };
+
+        checkStatus();
+    }, []);
 
     return (
         <div className={`comment-item ${depth > 0 ? 'reply-item' : ''}`}>
@@ -38,8 +83,9 @@ const CommentItem = ({
             <div className="comment-content">{content}</div>
 
             <div className="comment-actions">
-                <div className="comment-like">
-                    <ThumbsUp size={16} color="red" /> <span>{likes}</span>
+                <div className="comment-like" onClick={handleToggleLike} style={{ cursor: 'pointer' }}>
+                    <ThumbsUp size={16} color={liked ? 'red' : '#ccc'} fill={liked ? 'red' : 'none'} />
+                    <span>{likeCount}</span>
                 </div>
                 {depth === 0 && ( // ✅ 댓글만 답글 가능
                     <span className="comment-reply" onClick={handleReplyToggle}>답글</span>

@@ -94,6 +94,7 @@ const PostDetail = () => {
             const commentData = await getComments(postId);
             const nested = nestComments(commentData);
             setPost(postData);
+            console.log(nested);
             setComments(nested);
         } catch (err) {
             alert('게시글 또는 댓글을 불러오는 데 실패했습니다.');
@@ -208,11 +209,11 @@ const PostDetail = () => {
                         {/* 댓글 리스트 */}
                         {comments.map((comment) => (
                             <CommentItem
-                                key={comment._id}
+                                commentId={comment._id}
                                 name={comment.nickname}
                                 time={new Date(comment.writeDate).toLocaleString()}
                                 content={comment.content}
-                                like={comment.like || 0}
+                                likes={comment.likes || 0}
                                 replies={comment.replies || []}
                                 onReplySubmit={(text, parentId = comment._id) =>
                                     submitReply(postId, parentId, text)
@@ -237,7 +238,6 @@ const PostDetail = () => {
                         </div>
                     </Box>
                 </div>
-
             </div>
         </div>
     );
