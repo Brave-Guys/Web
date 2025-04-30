@@ -92,6 +92,11 @@
     border: none;
     border-radius: 20px;
     cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.comment-reply-box button:hover {
+    background-color: #974DFD;
 }
 
 .comment-replies {
