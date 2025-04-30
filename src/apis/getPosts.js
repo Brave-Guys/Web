@@ -21,7 +21,7 @@ export const getPostsByPage = async (page = 1) => {
         }
     });
 
-    return response.data; // { posts: [], total }
+    return response.data;
 };
 
 export const getPopularPosts = async () => {
@@ -31,6 +31,6 @@ export const getPopularPosts = async () => {
             Authorization: `Bearer ${token}`
         }
     });
-    return response.data; // posts 배열
+    return response.data;
 };
 

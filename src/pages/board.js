@@ -1,4 +1,3 @@
-// Board.js - 무한 스크롤 적용
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageTitle from '../components/PageTitle';
@@ -13,7 +12,7 @@ import 'dayjs/locale/ko';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { getPostsByPage } from '../apis/getPosts';
+import { getPostsByPage, getPopularPosts } from '../apis/getPosts';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -46,6 +45,7 @@ const Board = () => {
     const [hasMore, setHasMore] = useState(true);
     const [loading, setLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const [popularPosts, setPopularPosts] = useState([]);
 
     const loadMorePosts = async () => {
         if (loading || !hasMore) return;
@@ -66,7 +66,17 @@ const Board = () => {
 
     useEffect(() => {
         loadMorePosts();
+        fetchPopularPosts();
     }, []);
+
+    const fetchPopularPosts = async () => {
+        try {
+            const data = await getPopularPosts();
+            setPopularPosts(data);
+        } catch (err) {
+            console.error('인기글 불러오기 실패', err);
+        }
+    };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -76,11 +86,6 @@ const Board = () => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, [hasMore, loading]);
-
-    const popularPosts = [...posts]
-        .filter(post => post.category !== '공지')
-        .sort((a, b) => (b.like || 0) - (a.like || 0))
-        .slice(0, 3);
 
     const filteredPosts = posts.filter(post => {
         const category = ['잡담', '식단', '루틴', '공지'][activeTab];
@@ -144,6 +149,7 @@ const Board = () => {
                     ))}
                     {loading && <div style={{ textAlign: 'center', padding: '20px' }}>불러오는 중...</div>}
                 </div>
+
                 <div style={{ flexGrow: 1, margin: '20px' }}>
                     <Box type={2} title='인기글' showArrow={false} to='/popular'>
                         <div className="popular-preview">
