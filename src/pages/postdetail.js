@@ -195,15 +195,14 @@ const PostDetail = () => {
                         </div>
 
                         {/* 댓글 입력창 */}
-                        <div className="comment-input-wrapper" style={{ marginBottom: '30px' }}>
+                        <div className="comment-input-wrapper">
                             <input
                                 type="text"
                                 placeholder="댓글을 작성하세요!"
                                 value={commentText}
                                 onChange={(e) => setCommentText(e.target.value)}
-                                style={{ width: '80%', padding: '10px' }}
                             />
-                            <button onClick={handleRootCommentSubmit} style={{ marginLeft: '10px', padding: '10px 20px' }}>등록</button>
+                            <button onClick={handleRootCommentSubmit}>등록</button>
                         </div>
 
                         {/* 댓글 리스트 */}
