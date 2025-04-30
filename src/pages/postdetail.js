@@ -27,11 +27,11 @@ dayjs.locale('ko', {
     relativeTime: {
         future: '%s 후',
         past: '%s 전',
-        s: '방금 전',
+        s: '방금 ',
         m: '1분 전',
         mm: '%d분 ',
         h: '1시간 ',         // <- 기본값은 '한 시간 전'
-        hh: '%d시간 전',
+        hh: '%d시간 ',
         d: '1일 전',           // <- 기본값은 '하루 전'
         dd: '%d일 전',
         M: '1개월 전',
@@ -263,6 +263,9 @@ const PostDetail = () => {
                                 onReplySubmit={(text, parentId = comment._id) =>
                                     submitReply(postId, parentId, text)
                                 }
+                                currentUserId={currentUserId}
+                                writerId={comment.writerId}
+                                onDeleteSuccess={fetchPostAndComments}
                             />
                         ))}
                     </div>

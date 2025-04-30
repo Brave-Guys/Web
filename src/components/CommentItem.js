@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { ThumbsUp } from 'lucide-react';
 import { toggleLike, checkLikeStatus } from '../apis/toggleLike';
+import { deleteComment } from '../apis/deleteComment';
 import '../styles/CommentItem.css';
-import DefaultAvatar from '../assets/person.png'; // 기본 이미지
+import DefaultAvatar from '../assets/person.png';
 
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -16,9 +17,20 @@ dayjs.extend(relativeTime);
 dayjs.locale('ko', {
     ...dayjs.Ls.ko,
     relativeTime: {
-        ...dayjs.Ls.ko.relativeTime,
+        future: '%s 후',
+        past: '%s ',
         s: '방금 ',
-    },
+        m: '1분 ',
+        mm: '%d분 ',
+        h: '1시간 ',
+        hh: '%d시간 ',
+        d: '1일 ',
+        dd: '%d일 ',
+        M: '1개월 ',
+        MM: '%d개월 ',
+        y: '1년 ',
+        yy: '%d년 '
+    }
 });
 
 const CommentItem = ({
@@ -30,11 +42,17 @@ const CommentItem = ({
     onReplySubmit,
     depth = 0,
     commentId,
+    writerId,
+    onDeleted,
+    onDeleteSuccess
 }) => {
     const [showReplyInput, setShowReplyInput] = useState(false);
     const [replyText, setReplyText] = useState('');
     const [liked, setLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(likes || 0);
+
+    const currentUserId = JSON.parse(localStorage.getItem('user'))?._id;
+    const isMine = currentUserId === writerId;
 
     const handleToggleLike = async () => {
         try {
@@ -55,9 +73,18 @@ const CommentItem = ({
         }
     };
 
-    const handleReplyToggle = () => {
-        setShowReplyInput(!showReplyInput);
+    const handleDelete = async () => {
+        if (!window.confirm('댓글을 삭제하시겠습니까?')) return;
+        try {
+            await deleteComment(commentId);
+            onDeleteSuccess()
+        } catch (err) {
+            console.error('댓글 삭제 실패', err);
+            alert('댓글 삭제 중 오류 발생');
+        }
     };
+
+    const handleReplyToggle = () => setShowReplyInput(!showReplyInput);
 
     const handleReplySubmit = () => {
         if (!replyText.trim()) return;
@@ -83,7 +110,6 @@ const CommentItem = ({
                 console.error('댓글 좋아요 상태 확인 실패', err);
             }
         };
-
         checkStatus();
     }, []);
 
@@ -97,6 +123,14 @@ const CommentItem = ({
                     <div className="comment-header">
                         <span className="comment-nickname">{name}</span>
                         <span className="comment-time">{formattedTime}</span>
+                        {isMine && (
+                            <span
+                                style={{ marginLeft: 'auto', fontSize: '12px', color: '#999', cursor: 'pointer' }}
+                                onClick={handleDelete}
+                            >
+                                삭제
+                            </span>
+                        )}
                     </div>
                     <div className="comment-content">{content}</div>
                     <div className="comment-actions">
@@ -132,6 +166,9 @@ const CommentItem = ({
                                     replies={reply.replies || []}
                                     onReplySubmit={(text) => onReplySubmit(text, reply._id)}
                                     depth={depth + 1}
+                                    writerId={reply.writerId}
+                                    onDeleted={onDeleted}
+                                    onDeleteSuccess={onDeleteSuccess}
                                 />
                             ))}
                         </div>
