@@ -108,7 +108,7 @@ const CommentItem = ({
                 <div className="comment-replies">
                     {replies.map(reply => (
                         <CommentItem
-                            key={reply._id}
+                            commentId={reply._id}
                             name={reply.nickname}
                             time={new Date(reply.writeDate).toLocaleString()}
                             content={reply.content}

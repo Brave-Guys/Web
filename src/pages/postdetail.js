@@ -94,6 +94,7 @@ const PostDetail = () => {
             const commentData = await getComments(postId);
             const nested = nestComments(commentData);
             setPost(postData);
+            console.log(commentData);
             console.log(nested);
             setComments(nested);
         } catch (err) {
