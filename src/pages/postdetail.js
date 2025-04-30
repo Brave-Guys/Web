@@ -137,6 +137,20 @@ const PostDetail = () => {
         setCommentText('');
     };
 
+    const countAllComments = (comments) => {
+        let count = 0;
+        const traverse = (list) => {
+            for (const comment of list) {
+                count++;
+                if (comment.replies && comment.replies.length > 0) {
+                    traverse(comment.replies);
+                }
+            }
+        };
+        traverse(comments);
+        return count;
+    };
+
     if (!post) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '300px' }}>
@@ -192,7 +206,7 @@ const PostDetail = () => {
                             </div>
                             <div className="reaction" style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                                 <MessageCircle size={20} color="blue" />
-                                <span>{comments.length}</span>
+                                <span>{countAllComments(comments)}</span>
                             </div>
                         </div>
 
