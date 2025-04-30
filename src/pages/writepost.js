@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageTitle from '../components/PageTitle';
+import CustomButton from '../components/CustomButton';
 import { createPost } from '../apis/createPost';
 import '../styles/WritePost.css';
 
@@ -51,7 +52,7 @@ const WritePost = () => {
 
     return (
         <div className="write-post-container">
-            <PageTitle title="글 작성" description="운동 기록을 나눠보세요" showBackArrow={true} />
+            <PageTitle title="글 작성" description="운동 관련 이야기를 나누어 보세요" showBackArrow={true} />
 
             <div className="write-post-form">
                 <label>
@@ -65,16 +66,6 @@ const WritePost = () => {
                 </label>
 
                 <label>
-                    분류
-                    <select value={form.category} onChange={handleChange('category')}>
-                        <option value="잡담">잡담</option>
-                        <option value="식단">식단</option>
-                        <option value="루틴">루틴</option>
-                        <option value="공지">공지</option>
-                    </select>
-                </label>
-
-                <label>
                     내용
                     <textarea
                         rows={10}
@@ -84,11 +75,37 @@ const WritePost = () => {
                     />
                 </label>
 
-                <button className="submit-btn" onClick={handleSubmit}>
-                    글 등록
-                </button>
+                <div className="footer-buttons">
+                    {/* 분류 셀렉트 박스 */}
+                    <select
+                        className="post-category-select"
+                        value={form.category}
+                        onChange={handleChange('category')}
+                    >
+                        <option value="잡담">잡담</option>
+                        <option value="식단">식단</option>
+                        <option value="루틴">루틴</option>
+                        <option value="공지">공지</option>
+                    </select>
+
+                    {/* 버튼 묶음 */}
+                    <div className="post-button-group">
+                        <CustomButton
+                            label="취소"
+                            size="small"
+                            color="gray"
+                            onClick={() => navigate(-1)}
+                        />
+                        <CustomButton
+                            label="완료"
+                            size="small"
+                            color="purple"
+                            onClick={handleSubmit}
+                        />
+                    </div>
+                </div>
             </div>
-        </div>
+        </div >
     );
 };
 
