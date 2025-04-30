@@ -11,6 +11,7 @@ import 'dayjs/locale/ko';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { ThumbsUp } from 'lucide-react'
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -54,6 +55,11 @@ const Board = () => {
         };
         fetchPosts();
     }, []);
+
+    const popularPosts = [...posts]
+        .filter(post => post.category !== '공지') // 공지는 제외
+        .sort((a, b) => (b.like || 0) - (a.like || 0))
+        .slice(0, 3); // 상위 3개만 미리보기
 
     return (
         <div className='boardContent'>
@@ -105,17 +111,36 @@ const Board = () => {
                         ))}
                 </div>
                 <div style={{ flexGrow: 1, margin: '20px' }}>
-                    <Box type={2} title='인기글' showArrow={true} />
+                    <Box type={2} title='인기글' showArrow={true} to='/popular'>
+                        <div className="popular-preview">
+                            {popularPosts.map((post) => (
+                                <div
+                                    key={post._id}
+                                    className="popular-item"
+                                    onClick={() => navigate(`/post/${post._id}`)}
+                                >
+                                    <div className="popular-title">{post.name}</div>
+                                    <div className="popular-like">
+                                        <ThumbsUp size={16} />
+                                        <span>{post.like ?? 0}</span>
+                                    </div>
+                                </div>
+                            ))}
+                            {popularPosts.length === 0 && (
+                                <div style={{ fontSize: '12px', color: 'gray' }}>인기글이 없습니다.</div>
+                            )}
+                        </div>
+                    </Box>
                     <div style={{ margin: '10px' }}></div>
                     <Box type={2} title='공지' showArrow={false} to='/notice'>
                         <div className="notice-preview">
                             {noticePosts.slice(0, 3).map((post) => (  // 최대 3개만 미리보기로
                                 <div key={post._id} style={{ marginBottom: '8px', cursor: 'pointer' }} onClick={() => navigate(`/post/${post._id}`)}>
-                                    <div style={{ fontSize: '18px' }}>{post.name}</div>
+                                    <div style={{ fontSize: '16px' }}>{post.name}</div>
                                 </div>
                             ))}
                             {noticePosts.length === 0 && (
-                                <div style={{ fontSize: '12px', color: 'gray' }}>등록된 공지사항이 없습니다.</div>
+                                <div style={{ fontSize: '16px', color: 'gray' }}>등록된 공지사항이 없습니다.</div>
                             )}
                         </div>
                     </Box>

@@ -278,7 +278,7 @@ const PostDetail = () => {
                         <div className="notice-preview">
                             {noticePosts.slice(0, 3).map((post) => (  // 최대 3개만 미리보기로
                                 <div key={post._id} style={{ marginBottom: '8px', cursor: 'pointer' }} onClick={() => navigate(`/post/${post._id}`)}>
-                                    <div style={{ fontSize: '18px' }}>{post.name}</div>
+                                    <div style={{ fontSize: '16px' }}>{post.name}</div>
                                 </div>
                             ))}
                             {noticePosts.length === 0 && (
