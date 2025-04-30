@@ -12,7 +12,6 @@ import { getComments, postComment } from '../apis/getComments';
 import { deletePost } from '../apis/deletePost';
 import { toggleLike, checkLikeStatus } from '../apis/toggleLike';
 import '../styles/PostDetail.css';
-import { BounceLoader, DotLoader } from 'react-spinners';
 
 const PostDetail = () => {
     const { id: postId } = useParams();
