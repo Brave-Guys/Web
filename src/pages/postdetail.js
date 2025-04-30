@@ -42,6 +42,8 @@ dayjs.locale('ko', {
 });
 
 const PostDetail = () => {
+    const navigate = useNavigate();
+
     const { id: postId } = useParams();
     const [post, setPost] = useState(null);
     const [comments, setComments] = useState([]);
@@ -50,8 +52,20 @@ const PostDetail = () => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [liked, setLiked] = useState(false);
     const [noticePosts, setNoticePosts] = useState([]);
+    const [popularPosts, setPopularPosts] = useState([]);
 
-    const navigate = useNavigate();
+    const fetchPopularPosts = async () => {
+        try {
+            const all = await getPosts();
+            const sorted = all
+                .filter(p => p.like > 0)
+                .sort((a, b) => b.like - a.like)
+                .slice(0, 5); // 상위 5개만
+            setPopularPosts(sorted);
+        } catch (err) {
+            console.error('인기글 불러오기 실패', err);
+        }
+    };
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('user'));
@@ -59,6 +73,7 @@ const PostDetail = () => {
         fetchPostAndComments();
         fetchLikeStatus();
         fetchNoticePosts();
+        fetchPopularPosts();
     }, [postId]);
 
     const fetchNoticePosts = async () => {
@@ -274,6 +289,29 @@ const PostDetail = () => {
 
                 {/* 오른쪽: 공지사항 */}
                 <div style={{ flex: 1 }}>
+                    <Box type={2} title='인기글' showArrow={false} to='/popular'>
+                        <div className="popular-preview">
+                            {popularPosts.map((post) => (
+                                <div
+                                    key={post._id}
+                                    className="popular-item"
+                                    onClick={() => navigate(`/post/${post._id}`)}
+                                >
+                                    <div className="popular-title">{post.name}</div>
+                                    <div className="popular-like">
+                                        <ThumbsUp size={16} />
+                                        <span>{post.like ?? 0}</span>
+                                    </div>
+                                </div>
+                            ))}
+                            {popularPosts.length === 0 && (
+                                <div style={{ fontSize: '12px', color: 'gray' }}>인기글이 없습니다.</div>
+                            )}
+                        </div>
+                    </Box>
+
+                    <div style={{ margin: '10px' }}></div>
+
                     <Box type={2} title='공지' showArrow={false} to='/notice'>
                         <div className="notice-preview">
                             {noticePosts.slice(0, 3).map((post) => (  // 최대 3개만 미리보기로

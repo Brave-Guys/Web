@@ -111,7 +111,7 @@ const Board = () => {
                         ))}
                 </div>
                 <div style={{ flexGrow: 1, margin: '20px' }}>
-                    <Box type={2} title='인기글' showArrow={true} to='/popular'>
+                    <Box type={2} title='인기글' showArrow={false} to='/popular'>
                         <div className="popular-preview">
                             {popularPosts.map((post) => (
                                 <div
