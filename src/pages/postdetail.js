@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ClipLoader from 'react-spinners/ClipLoader';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ThumbsUp, MessageCircle } from 'lucide-react';
 import CommentItem from '../components/CommentItem';
@@ -11,6 +12,7 @@ import { getComments, postComment } from '../apis/getComments';
 import { deletePost } from '../apis/deletePost';
 import { toggleLike, checkLikeStatus } from '../apis/toggleLike';
 import '../styles/PostDetail.css';
+import { BounceLoader, DotLoader } from 'react-spinners';
 
 const PostDetail = () => {
     const { id: postId } = useParams();
@@ -134,7 +136,14 @@ const PostDetail = () => {
         setCommentText('');
     };
 
-    if (!post) return <p>로딩 중...</p>;
+    if (!post) {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '300px' }}>
+                <ClipLoader size={50} color="#4F46E5" />
+            </div>
+        );
+    }
+
 
     return (
         <div className="post-detail-container">
