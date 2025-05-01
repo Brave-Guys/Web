@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getChallenges } from '../apis/getChallenges';
 import PageTitle from '../components/PageTitle';
 import CustomButton from '../components/CustomButton';
 import ChallengeItem from '../components/ChallengeItem'; // 챌린지 항목 하나를 표시할 컴포넌트
@@ -10,9 +11,17 @@ const ChallengeBoard = () => {
     const [challenges, setChallenges] = useState([]);
 
     useEffect(() => {
-        // TODO: API 호출해서 챌린지 목록 받아오기
-    }, []);
+        const fetchChallenges = async () => {
+            try {
+                const data = await getChallenges();
+                setChallenges(data);
+            } catch (err) {
+                console.error('챌린지 불러오기 실패', err);
+            }
+        };
 
+        fetchChallenges();
+    }, []);
     return (
         <div className="challenge-board">
             <div className="challenge-header">
