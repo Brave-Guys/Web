@@ -104,3 +104,18 @@
 .comment-input-wrapper button:hover {
     background-color: #974dfd;
 }
+
+.post-image-wrapper {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.post-image-wrapper img {
+    max-width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: '10px';
+    display: block;
+}

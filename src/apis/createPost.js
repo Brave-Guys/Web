@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const createPost = async ({ writerId, name, content, category, imageUrl }) => {
+export const createPost = async ({ writerId, name, content, category, imageUrls }) => {
     const token = localStorage.getItem('token');
 
     const response = await axios.post(
@@ -10,7 +10,7 @@ export const createPost = async ({ writerId, name, content, category, imageUrl }
             name,
             content,
             category,
-            imageUrl,
+            imageUrls,
             createDate: new Date().toISOString(),
         },
         {

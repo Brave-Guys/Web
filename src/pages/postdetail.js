@@ -243,18 +243,15 @@ const PostDetail = () => {
                         />
 
                         <div className="post-content" style={{ marginBottom: '30px' }}>
-                            {post.imageUrl && (
-                                <div className="post-image-wrapper" style={{ marginBottom: '30px' }}>
-                                    <img
-                                        src={post.imageUrl}
-                                        alt="게시글 이미지"
-                                        style={{
-                                            maxWidth: '100%',
-                                            borderRadius: '12px',
-                                            border: '1px solid #ccc',
-                                            objectFit: 'cover',
-                                        }}
-                                    />
+                            {post.imageUrls && post.imageUrls.length > 0 && (
+                                <div className="post-image-wrapper">
+                                    {post.imageUrls.map((url, idx) => (
+                                        <img
+                                            key={idx}
+                                            src={url}
+                                            alt={`게시글 이미지 ${idx + 1}`}
+                                        />
+                                    ))}
                                 </div>
                             )}
                             {post.content}
