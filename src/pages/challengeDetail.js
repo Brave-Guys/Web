@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getChallengeDetail } from '../apis/getChallenges';
-import { getParticipants, postParticipant } from '../apis/challengeParticipants';
+import { getParticipants, postParticipant, checkParticipation } from '../apis/challengeParticipants';
 import dayjs from 'dayjs';
 import '../styles/ChallengeDetail.css';
 
@@ -10,12 +10,19 @@ const ChallengeDetail = () => {
     const [challenge, setChallenge] = useState(null);
     const [participants, setParticipants] = useState([]);
     const [commentText, setCommentText] = useState('');
+    const [alreadyParticipated, setAlreadyParticipated] = useState(false);
 
     const fetchAll = async () => {
         const challengeData = await getChallengeDetail(id);
         const participantData = await getParticipants(id);
         setChallenge(challengeData);
         setParticipants(participantData);
+
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+            const exists = await checkParticipation(id, user._id);
+            setAlreadyParticipated(exists);
+        }
     };
 
     const handleSubmit = async () => {
@@ -57,15 +64,17 @@ const ChallengeDetail = () => {
                     </div>
                 ))}
 
-                <div className="participant-form">
-                    <input
-                        type="text"
-                        placeholder="나의 챌린지 수행 내역을 작성하세요"
-                        value={commentText}
-                        onChange={(e) => setCommentText(e.target.value)}
-                    />
-                    <button onClick={handleSubmit}>등록</button>
-                </div>
+                {!alreadyParticipated && (
+                    <div className="participant-form">
+                        <input
+                            type="text"
+                            placeholder="나의 챌린지 수행 내역을 작성하세요"
+                            value={commentText}
+                            onChange={(e) => setCommentText(e.target.value)}
+                        />
+                        <button onClick={handleSubmit}>등록</button>
+                    </div>
+                )}
             </div>
         </div>
     );

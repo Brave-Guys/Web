@@ -18,3 +18,17 @@ export const getParticipants = async (challengeId) => {
     );
     return res.data;
 };
+
+export const checkParticipation = async (challengeId, writerId) => {
+    const token = localStorage.getItem('token');
+    const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/challenge_participants/${challengeId}/check`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            params: { writerId },
+        }
+    );
+    return res.data.exists;
+};

@@ -37,3 +37,59 @@
     padding: 10px 20px;
     font-weight: bold;
 }
+
+.challenge-detail {
+    padding: 40px;
+    max-width: 800px;
+    margin: auto;
+}
+
+.challenge-meta {
+    font-size: 14px;
+    color: gray;
+    margin-bottom: 20px;
+}
+
+.challenge-desc {
+    margin-bottom: 40px;
+    white-space: pre-line;
+}
+
+.participant-section h3 {
+    margin-bottom: 20px;
+}
+
+.participant-item {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.participant-meta {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 4px;
+}
+
+.participant-content {
+    font-size: 16px;
+}
+
+.participant-form {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.participant-form input {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.participant-form button {
+    padding: 10px 16px;
+    background-color: #AC6CFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
