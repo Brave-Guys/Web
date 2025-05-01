@@ -33,7 +33,6 @@
     min-height: 300px;
 }
 
-/* 셀렉트 (게시판 선택) */
 .write-post-form select {
     padding: 12px 14px;
     border-radius: 10px;
@@ -41,14 +40,12 @@
     font-size: 16px;
 }
 
-/* 하단 버튼 영역 */
 .write-post-form .footer-buttons {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
 }
 
-/* 버튼 공통 */
 .write-post-form button {
     padding: 12px 24px;
     border-radius: 20px;
@@ -58,7 +55,6 @@
     cursor: pointer;
 }
 
-/* 완료 버튼 (보라색) */
 .write-post-form .submit-btn {
     background-color: #AC6CFF;
     color: white;
@@ -68,7 +64,6 @@
     background-color: #974dfd;
 }
 
-/* 취소 버튼 (회색) */
 .write-post-form .cancel-btn {
     background-color: #d5d5d5;
     color: black;
@@ -97,4 +92,61 @@
 .write-post-form .post-button-group {
     display: flex;
     gap: 10px;
+}
+
+.image-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.image-square {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f9f9f9;
+}
+
+.image-square img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.remove-icon {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    padding: 2px;
+    color: white;
+    cursor: pointer;
+}
+
+.image-uploader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.uploader-placeholder {
+    text-align: center;
+}
+
+.plus-icon {
+    font-size: 30px;
+    line-height: 1;
+    color: #ccc;
+}
+
+.upload-text {
+    font-size: 12px;
+    color: #999;
+    margin-top: 4px;
 }
