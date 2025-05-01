@@ -1,0 +1,16 @@
+.challenge-board {
+    padding: 90px 265px;
+}
+
+.challenge-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+}
+
+.challenge-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}

@@ -31,6 +31,7 @@ import ExerciseTipHamstring from './pages/exercise-tip-detail/ExerciseTipHamstri
 
 import './App.css';
 import { Navigate } from 'react-router-dom';
+import ChallengeWrite from './pages/challengeWrite.js';
 
 const isAuthenticated = () => {
   return !!localStorage.getItem('token');
@@ -78,8 +79,7 @@ function App() {
           <Route path="/writepost" element={<PrivateRoute><WritePost /></PrivateRoute>} />
           <Route path="/post/:id" element={<PrivateRoute><PostDetail /></PrivateRoute>} />
           <Route path="/editpost/:id" element={<PrivateRoute><EditPost /></PrivateRoute>} />
-
-
+          <Route path="/create-challenge" element={<PrivateRoute><ChallengeWrite /></PrivateRoute>} />
 
           {/* 404 */}
           <Route path="*" element={<Error />} />
