@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import PageTitle from '../components/PageTitle';
 import CustomButton from '../components/CustomButton';
 import { createPost } from '../apis/createPost';
+import { uploadImageToFirebase } from '../utils/uploadImageToFirebase';
 import '../styles/WritePost.css';
 
 const WritePost = () => {
@@ -15,6 +16,7 @@ const WritePost = () => {
     });
 
     const [user, setUser] = useState(null);
+    const [imageFile, setImageFile] = useState(null);
 
     useEffect(() => {
         const userData = localStorage.getItem('user');
@@ -37,12 +39,20 @@ const WritePost = () => {
         }
 
         try {
+            let imageUrl = null;
+
+            if (imageFile) {
+                imageUrl = await uploadImageToFirebase(imageFile);
+            }
+
             await createPost({
                 writerId: user._id,
                 name: form.title,
                 content: form.content,
                 category: form.category,
+                imageUrl,
             });
+
             alert('글이 성공적으로 등록되었습니다!');
             navigate('/board');
         } catch (err) {
@@ -76,7 +86,12 @@ const WritePost = () => {
                 </label>
 
                 <div className="footer-buttons">
-                    {/* 분류 셀렉트 박스 */}
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => setImageFile(e.target.files[0])}
+                    />
+
                     <select
                         className="post-category-select"
                         value={form.category}
@@ -103,6 +118,7 @@ const WritePost = () => {
                             onClick={handleSubmit}
                         />
                     </div>
+
                 </div>
             </div>
         </div >
