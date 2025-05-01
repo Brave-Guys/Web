@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getChallengeDetail } from '../apis/getChallenges';
-import { getParticipants, postParticipant, checkParticipation } from '../apis/challengeParticipants';
+import { deleteParticipant, getParticipants, postParticipant, checkParticipation } from '../apis/challengeParticipants';
 import dayjs from 'dayjs';
 import '../styles/ChallengeDetail.css';
 
@@ -55,14 +55,35 @@ const ChallengeDetail = () => {
 
             <div className="participant-section">
                 <h3>참가자 내역</h3>
-                {participants.map((p) => (
-                    <div key={p._id} className="participant-item">
-                        <div className="participant-meta">
-                            <strong>{p.nickname}</strong> · {dayjs(p.writeDate).fromNow()}
+                {participants.map((p) => {
+                    const isMine = JSON.parse(localStorage.getItem('user'))?._id === p.writerId;
+                    return (
+                        <div key={p._id} className="participant-item">
+                            <div className="participant-meta">
+                                <strong>{p.nickname}</strong> · {dayjs(p.writeDate).fromNow()}
+                                {isMine && (
+                                    <span
+                                        onClick={async () => {
+                                            if (window.confirm('정말 삭제하시겠습니까?')) {
+                                                await deleteParticipant(id, p.writerId);
+                                                fetchAll();
+                                            }
+                                        }}
+                                        style={{
+                                            marginLeft: '10px',
+                                            color: 'red',
+                                            cursor: 'pointer',
+                                            fontSize: '13px'
+                                        }}
+                                    >
+                                        삭제
+                                    </span>
+                                )}
+                            </div>
+                            <div className="participant-content">{p.content}</div>
                         </div>
-                        <div className="participant-content">{p.content}</div>
-                    </div>
-                ))}
+                    );
+                })}
 
                 {!alreadyParticipated && (
                     <div className="participant-form">

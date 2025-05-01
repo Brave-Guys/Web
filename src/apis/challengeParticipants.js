@@ -32,3 +32,18 @@ export const checkParticipation = async (challengeId, writerId) => {
     );
     return res.data.exists;
 };
+
+export const deleteParticipant = async (challengeId, userId) => {
+    const token = localStorage.getItem('token');
+
+    const res = await axios.delete(
+        `${process.env.REACT_APP_API_URL}/challenge_participants/${challengeId}/${userId}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+
+    return res.data;
+};
