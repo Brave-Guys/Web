@@ -28,3 +28,16 @@
     font-size: 16px;
     color: #333;
 }
+
+.challenge-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: gray;
+    margin-bottom: 8px;
+}
+
+.challenge-expire {
+    font-weight: bold;
+    color: #ff4d4f;
+}
