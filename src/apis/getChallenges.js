@@ -11,3 +11,15 @@ export const getChallenges = async () => {
 
     return response.data; // 챌린지 배열 반환
 };
+
+export const getChallengeDetail = async (id) => {
+    const token = localStorage.getItem('token');
+
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/challenges/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    return response.data;
+};
