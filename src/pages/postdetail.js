@@ -242,7 +242,23 @@ const PostDetail = () => {
                             cancelText="취소"
                         />
 
-                        <div className="post-content" style={{ marginBottom: '30px' }}>{post.content}</div>
+                        <div className="post-content" style={{ marginBottom: '30px' }}>
+                            {post.imageUrl && (
+                                <div className="post-image-wrapper" style={{ marginBottom: '30px' }}>
+                                    <img
+                                        src={post.imageUrl}
+                                        alt="게시글 이미지"
+                                        style={{
+                                            maxWidth: '100%',
+                                            borderRadius: '12px',
+                                            border: '1px solid #ccc',
+                                            objectFit: 'cover',
+                                        }}
+                                    />
+                                </div>
+                            )}
+                            {post.content}
+                        </div>
 
                         <div className="post-footer" style={{ display: 'flex', gap: '20px', marginBottom: '30px' }}>
                             <div className="reaction" onClick={handleToggleLike} style={{ display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer' }}>
