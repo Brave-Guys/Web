@@ -93,3 +93,14 @@
     border: none;
     cursor: pointer;
 }
+
+.challenge-video-wrapper {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.challenge-video-wrapper video {
+    max-width: 600px;
+    max-height: 600px;
+    border-radius: 8px;
+}

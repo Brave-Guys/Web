@@ -49,6 +49,20 @@ const ChallengeDetail = () => {
             <p className="challenge-meta">
                 작성자: {challenge.nickname ?? '익명'} | 생성일: {dayjs(challenge.createdAt).format('YYYY.MM.DD')}
             </p>
+
+            {challenge.videoUrl && (
+                <div className="challenge-video-wrapper">
+                    <video
+                        src={challenge.videoUrl}
+                        autoPlay
+                        muted
+                        controls
+                        preload="metadata"  // ▶️ 초반 일부 정보만 로드, 렉 줄이기
+                        style={{ width: '100%', maxWidth: '600px' }}
+                    />
+                </div>
+            )}
+
             <p className="challenge-desc">{challenge.description}</p>
 
             <hr />

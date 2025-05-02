@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import PageTitle from '../components/PageTitle';
 import CustomButton from '../components/CustomButton';
 import { postChallenge } from '../apis/postChallenge';
+import { uploadVideoToFirebase } from '../utils/uploadVideoToFirebase';
 import '../styles/ChallengeWrite.css';
 
 const ChallengeWrite = () => {
@@ -12,6 +13,7 @@ const ChallengeWrite = () => {
     const [description, setDescription] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
+    const [videoFile, setVideoFile] = useState(null);
 
     useEffect(() => {
         const now = new Date();
@@ -37,10 +39,17 @@ const ChallengeWrite = () => {
         }
 
         try {
+            let videoUrl = null;
+
+            if (videoFile) {
+                videoUrl = await uploadVideoToFirebase(videoFile);
+            }
+
             const res = await postChallenge({
                 writerId: user._id,
                 name: title.trim(),
                 description: description.trim(),
+                videoUrl,
             });
 
             alert('챌린지 등록 완료!');
@@ -69,6 +78,13 @@ const ChallengeWrite = () => {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     className="challenge-textarea"
+                />
+
+                <input
+                    type="file"
+                    accept="video/*"
+                    onChange={(e) => setVideoFile(e.target.files[0])}
+                    className="challenge-video-input"
                 />
 
                 <div className="challenge-date-display">
