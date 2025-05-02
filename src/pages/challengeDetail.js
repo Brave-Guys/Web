@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getChallengeDetail } from '../apis/getChallenges';
 import { deleteParticipant, getParticipants, postParticipant, checkParticipation } from '../apis/challengeParticipants';
+import { uploadVideoToFirebase } from '../utils/uploadVideoToFirebase';
 import dayjs from 'dayjs';
 import '../styles/ChallengeDetail.css';
 
@@ -11,6 +12,7 @@ const ChallengeDetail = () => {
     const [participants, setParticipants] = useState([]);
     const [commentText, setCommentText] = useState('');
     const [alreadyParticipated, setAlreadyParticipated] = useState(false);
+    const [videoFile, setVideoFile] = useState(null);
 
     const fetchAll = async () => {
         const challengeData = await getChallengeDetail(id);
@@ -28,12 +30,27 @@ const ChallengeDetail = () => {
     const handleSubmit = async () => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (!user || !commentText.trim()) return;
+
+        let videoUrl = null;
+        if (videoFile) {
+            try {
+                videoUrl = await uploadVideoToFirebase(videoFile);
+            } catch (err) {
+                console.error('영상 업로드 실패', err);
+                alert('영상 업로드 중 오류가 발생했습니다.');
+                return;
+            }
+        }
+
         await postParticipant({
             challengeId: id,
             writerId: user._id,
             content: commentText.trim(),
+            videoUrl,
         });
+
         setCommentText('');
+        setVideoFile(null);
         fetchAll();
     };
 
@@ -57,7 +74,7 @@ const ChallengeDetail = () => {
                         autoPlay
                         muted
                         controls
-                        preload="metadata"  // ▶️ 초반 일부 정보만 로드, 렉 줄이기
+                        preload="metadata"
                         style={{ width: '100%', maxWidth: '600px' }}
                     />
                 </div>
@@ -108,6 +125,11 @@ const ChallengeDetail = () => {
                             onChange={(e) => setCommentText(e.target.value)}
                         />
                         <button onClick={handleSubmit}>등록</button>
+                        <input
+                            type="file"
+                            accept="video/*"
+                            onChange={(e) => setVideoFile(e.target.files[0])}
+                        />
                     </div>
                 )}
             </div>
