@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getChallengeDetail } from '../apis/getChallenges';
 import { deleteParticipant, getParticipants, postParticipant, checkParticipation } from '../apis/challengeParticipants';
 import { uploadVideoToFirebase } from '../utils/uploadVideoToFirebase';
+import ParticipantModal from '../components/ParticipantModal';
 import dayjs from 'dayjs';
 import '../styles/ChallengeDetail.css';
 
@@ -13,6 +14,7 @@ const ChallengeDetail = () => {
     const [commentText, setCommentText] = useState('');
     const [alreadyParticipated, setAlreadyParticipated] = useState(false);
     const [videoFile, setVideoFile] = useState(null);
+    const [selectedParticipant, setSelectedParticipant] = useState(null);
 
     const fetchAll = async () => {
         const challengeData = await getChallengeDetail(id);
@@ -85,16 +87,22 @@ const ChallengeDetail = () => {
             <hr />
 
             <div className="participant-section">
-                <h3>참가자 내역</h3>
+                <h3>참가자 내역</h3>                
                 {participants.map((p) => {
                     const isMine = JSON.parse(localStorage.getItem('user'))?._id === p.writerId;
                     return (
-                        <div key={p._id} className="participant-item">
+                        <div
+                            key={p._id}
+                            className="participant-item"
+                            onClick={() => setSelectedParticipant(p)}
+                            style={{ cursor: 'pointer' }}
+                        >
                             <div className="participant-meta">
                                 <strong>{p.nickname}</strong> · {dayjs(p.writeDate).fromNow()}
                                 {isMine && (
                                     <span
-                                        onClick={async () => {
+                                        onClick={async (e) => {
+                                            e.stopPropagation();
                                             if (window.confirm('정말 삭제하시겠습니까?')) {
                                                 await deleteParticipant(id, p.writerId);
                                                 fetchAll();
@@ -115,6 +123,14 @@ const ChallengeDetail = () => {
                         </div>
                     );
                 })}
+
+                {/* 모달 */}
+                {selectedParticipant && (
+                    <ParticipantModal
+                        participant={selectedParticipant}
+                        onClose={() => setSelectedParticipant(null)}
+                    />
+                )}
 
                 {!alreadyParticipated && (
                     <div className="participant-form">
