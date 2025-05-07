@@ -7,6 +7,7 @@ import { getWorkoutLogsByDateRange } from '../apis/getWorkoutLogs';
 import { calculateCardioScore } from '../utils/calculateCardioScore';
 import { calculateWeightScore } from '../utils/calculateWeightscore';
 import { getPosts } from '../apis/getPosts';
+import { format } from 'date-fns';
 import '../styles/main.css';
 
 const Main = () => {
@@ -38,8 +39,12 @@ const Main = () => {
                 const now = new Date();
                 const start = new Date(now.getFullYear(), now.getMonth(), 1);
                 const end = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-
-                const logs = await getWorkoutLogsByDateRange(user.id, start.toISOString(), end.toISOString());
+        
+                const logs = await getWorkoutLogsByDateRange(
+                    user.id,
+                    format(start, 'yyyy-MM-dd'),
+                    format(end, 'yyyy-MM-dd')
+                );
                 setMonthLogs(logs);
             } catch (err) {
                 console.error('월별 기록 조회 실패', err);

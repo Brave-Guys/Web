@@ -129,8 +129,14 @@ const WorkoutLog = () => {
                         ))}
 
                         {calendarDays.map((d, i) => {
-                            const dayDate = new Date(year, month, d.day);
-                            const logsForDay = monthLogs.filter(log => new Date(log.date).getDate() === d.day);
+                            const logsForDay = monthLogs.filter(log => {
+                                const logDate = new Date(log.date);
+                                return (
+                                    logDate.getFullYear() === year &&
+                                    logDate.getMonth() === month &&
+                                    logDate.getDate() === d.day
+                                );
+                            });
                             const dayScore = calculateTotalScore(logsForDay);
 
                             return (

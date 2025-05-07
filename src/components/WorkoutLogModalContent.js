@@ -4,6 +4,7 @@ import { deleteWorkoutLog } from '../apis/deleteWorkoutLog';
 import { updateWorkoutLog } from '../apis/updateWorkoutLog';
 import { cardioOptions, weightOptions } from '../constants/exerciseOptions';
 import { calculateTotalScore } from '../utils/calculateTotalScore';
+import { format } from 'date-fns';
 import CustomButton from './CustomButton';
 import ConfirmModal from './ConfirmModal';
 import editIcon from '../assets/edit-icon.png'
@@ -27,7 +28,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
     const [reps, setReps] = useState('');
     const [weight, setWeight] = useState('');
 
-    useEffect(() => {        
+    useEffect(() => {
         setLogs(initialLogs);
     }, [initialLogs]);
 
@@ -76,7 +77,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
                 name: exerciseName,
                 part: exercisePart == '' ? '유산소' : exercisePart,
                 exerciseType,
-                date: selectedDate instanceof Date ? selectedDate.toISOString() : selectedDate,
+                date: format(selectedDate, 'yyyy-MM-dd'),
                 duration: duration ? Number(duration) : 0,
                 distance: distance ? Number(distance) : 0,
                 sets: sets ? Number(sets) : 0,
