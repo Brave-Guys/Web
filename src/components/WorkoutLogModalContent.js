@@ -15,7 +15,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
     const [logs, setLogs] = useState([]);
     const [isAdding, setIsAdding] = useState(false);
     const [confirmDeleteId, setConfirmDeleteId] = useState(null);
-    const [editLog, setEditLog] = useState(null); // ✨ 수정할 log
+    const [editLog, setEditLog] = useState(null);
 
     const [exerciseType, setExerciseType] = useState('');
     const [exercisePart, setExercisePart] = useState('');
@@ -27,7 +27,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
     const [reps, setReps] = useState('');
     const [weight, setWeight] = useState('');
 
-    useEffect(() => {
+    useEffect(() => {        
         setLogs(initialLogs);
     }, [initialLogs]);
 
@@ -54,7 +54,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
 
         try {
             await deleteWorkoutLog(confirmDeleteId);
-            setLogs(prevLogs => prevLogs.filter(l => l._id !== confirmDeleteId));
+            setLogs(prevLogs => prevLogs.filter(l => l.id !== confirmDeleteId));
             setConfirmDeleteId(null);
             if (onLogSaved) onLogSaved();
         } catch (err) {
@@ -72,7 +72,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
             const user = JSON.parse(localStorage.getItem('user'));
 
             const logData = {
-                userId: user._id,
+                userId: user.id,
                 name: exerciseName,
                 part: exercisePart == '' ? '유산소' : exercisePart,
                 exerciseType,
@@ -86,12 +86,12 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
 
             if (editLog) {
                 // 수정일 때
-                await updateWorkoutLog(editLog._id, logData);
+                await updateWorkoutLog(editLog.id, logData);
 
                 setLogs(prevLogs =>
                     prevLogs.map(log =>
-                        log._id === editLog._id
-                            ? { ...log, ...logData, _id: editLog._id } // id 유지
+                        log.id === editLog.id
+                            ? { ...log, ...logData, id: editLog.id } // id 유지
                             : log
                     )
                 );
@@ -177,7 +177,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
                                     src={deleteIcon}
                                     alt="삭제"
                                     className="log-action-icon"
-                                    onClick={() => setConfirmDeleteId(log._id)}
+                                    onClick={() => setConfirmDeleteId(log.id)}
                                 />
                             </div>
                         </li>

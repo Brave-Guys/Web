@@ -5,6 +5,7 @@ import WorkoutLogModalContent from '../components/WorkoutLogModalContent';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { getWorkoutLogsByDate, getWorkoutLogsByDateRange } from '../apis/getWorkoutLogs';
 import { calculateTotalScore } from '../utils/calculateTotalScore';
+import { formatDateOnly } from '../utils/dateUtils';
 import '../styles/WorkoutLog.css';
 
 const WorkoutLog = () => {
@@ -25,7 +26,11 @@ const WorkoutLog = () => {
             const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
             const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
 
-            const response = await getWorkoutLogsByDateRange(user._id, startDate.toISOString(), endDate.toISOString());
+            const response = await getWorkoutLogsByDateRange(
+                user.id,
+                formatDateOnly(startDate),
+                formatDateOnly(endDate)
+            );
             setMonthLogs(response);
         } catch (err) {
             console.error('월별 운동 기록 불러오기 실패', err);
@@ -71,14 +76,15 @@ const WorkoutLog = () => {
     const handleDayClick = async (day, currentMonth) => {
         if (!currentMonth) return;
         const fullDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+        const formattedDate = formatDateOnly(fullDate);
         setSelectedDate(fullDate);
         setShowPopup(true);
 
         try {
             const user = JSON.parse(localStorage.getItem('user'));
             const fetchedLogs = await getWorkoutLogsByDate({
-                userId: user._id,
-                date: fullDate.toISOString(),
+                userId: user.id,
+                date: formattedDate,
             });
             setLogs(fetchedLogs);
         } catch (err) {
@@ -99,7 +105,7 @@ const WorkoutLog = () => {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
 
-    return (        
+    return (
         <div className="calendar-container">
             <PageTitle
                 title="운동 기록"

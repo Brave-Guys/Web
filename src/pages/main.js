@@ -39,7 +39,7 @@ const Main = () => {
                 const start = new Date(now.getFullYear(), now.getMonth(), 1);
                 const end = new Date(now.getFullYear(), now.getMonth() + 1, 0);
 
-                const logs = await getWorkoutLogsByDateRange(user._id, start.toISOString(), end.toISOString());
+                const logs = await getWorkoutLogsByDateRange(user.id, start.toISOString(), end.toISOString());
                 setMonthLogs(logs);
             } catch (err) {
                 console.error('월별 기록 조회 실패', err);
