@@ -191,7 +191,7 @@ const Board = () => {
                                     <div className="popular-title">{post.name}</div>
                                     <div className="popular-like">
                                         <ThumbsUp size={16} />
-                                        <span>{post.like ?? 0}</span>
+                                        <span>{post.likes ?? 0}</span>
                                     </div>
                                 </div>
                             ))}

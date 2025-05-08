@@ -6,7 +6,7 @@ import CommentItem from '../components/CommentItem';
 import PageTitle from '../components/PageTitle';
 import ConfirmModal from '../components/ConfirmModal';
 import Box from '../components/Box';
-import { getPosts } from '../apis/getPosts';
+import { getPosts, getPopularPosts } from '../apis/getPosts';
 import { getPostDetail } from '../apis/getPostDetail';
 import { getComments, postComment } from '../apis/getComments';
 import { deletePost } from '../apis/deletePost';
@@ -56,12 +56,8 @@ const PostDetail = () => {
 
     const fetchPopularPosts = async () => {
         try {
-            const all = await getPosts();
-            const sorted = all
-                .filter(p => p.like > 0)
-                .sort((a, b) => b.like - a.like)
-                .slice(0, 5); // 상위 5개만
-            setPopularPosts(sorted);
+            const data = await getPopularPosts();
+            setPopularPosts(data);
         } catch (err) {
             console.error('인기글 불러오기 실패', err);
         }
@@ -110,7 +106,7 @@ const PostDetail = () => {
                 postType: 'community',
                 postOrComment: 'post',
             });
-            await fetchPostAndComments(); 
+            await fetchPostAndComments();
             setLiked(result.liked);
             setPost((prev) => ({
                 ...prev,
@@ -314,7 +310,7 @@ const PostDetail = () => {
                                     <div className="popular-title">{post.name}</div>
                                     <div className="popular-like">
                                         <ThumbsUp size={16} />
-                                        <span>{post.like ?? 0}</span>
+                                        <span>{post.likes ?? 0}</span>
                                     </div>
                                 </div>
                             ))}
