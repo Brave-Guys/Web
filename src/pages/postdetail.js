@@ -110,6 +110,7 @@ const PostDetail = () => {
                 postType: 'community',
                 postOrComment: 'post',
             });
+            await fetchPostAndComments(); 
             setLiked(result.liked);
             setPost((prev) => ({
                 ...prev,
@@ -260,7 +261,7 @@ const PostDetail = () => {
                         <div className="post-footer" style={{ display: 'flex', gap: '20px', marginBottom: '30px' }}>
                             <div className="reaction" onClick={handleToggleLike} style={{ display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer' }}>
                                 {liked ? <ThumbsUp fill="red" size={20} /> : <ThumbsUp size={20} color="red" />}
-                                <span>{post.like || 0}</span>
+                                <span>{post.likes || 0}</span>
                             </div>
                             <div className="reaction" style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                                 <MessageCircle size={20} color="blue" />

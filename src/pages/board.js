@@ -153,7 +153,7 @@ const Board = () => {
                             title={post.name}
                             content={post.content}
                             trail={`${post.nickname} | ${dayjs.utc(post.createDate).tz('Asia/Seoul').fromNow()}`}
-                            likeCount={post.like || 0}
+                            likeCount={post.likes || 0}
                             commentCount={post.commentCount || 0}
                         />
                     ))}
