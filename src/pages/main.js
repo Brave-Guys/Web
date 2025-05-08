@@ -27,6 +27,7 @@ const Main = () => {
         const fetchPosts = async () => {
             try {
                 const allPosts = await getPosts();
+                console.log(allPosts);
                 setLatestPosts(allPosts.slice(0, 3));
             } catch (err) {
                 console.error('게시글을 불러오는 데 실패했습니다.', err);
@@ -39,7 +40,7 @@ const Main = () => {
                 const now = new Date();
                 const start = new Date(now.getFullYear(), now.getMonth(), 1);
                 const end = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-        
+
                 const logs = await getWorkoutLogsByDateRange(
                     user.id,
                     format(start, 'yyyy-MM-dd'),
@@ -216,7 +217,7 @@ const Main = () => {
                     <div className="preview-posts">
                         {latestPosts.map((post) => (
                             <div
-                                key={post._id}
+                                key={post.id}
                                 className="preview-post"
                                 onClick={() => handlePostClick(post._id)}
                                 style={{ cursor: 'pointer' }}

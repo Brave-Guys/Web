@@ -20,10 +20,10 @@ dayjs.extend(relativeTime);
 dayjs.locale('ko', {
     ...dayjs.Ls.ko,
     relativeTime: {
-        future: '%s 후',
-        past: '%s 전',
-        s: '방금 전',
-        m: '1분 전',
+        future: '%s ',
+        past: '%s ',
+        s: '방금 ',
+        m: '1분 ',
         mm: '%d분',
         h: '1시간',
         hh: '%d시간',
@@ -52,7 +52,7 @@ const Board = () => {
         const categoryList = ['잡담', '식단', '루틴', '공지'];
 
         const category = categoryIndex < 4 ? categoryList[categoryIndex] : null;
-        const userId = categoryIndex === 4 ? user?._id : null;
+        const userId = categoryIndex === 4 ? user?.id : null;
 
         try {
             const res = await getPostsByPage(pageNum, category, userId);  // category, userId 전달
@@ -64,12 +64,14 @@ const Board = () => {
     };
 
     const handleTabChange = async (index) => {
+        const categoryList = ['잡담', '식단', '루틴', '공지'];
         setActiveTab(index);
+        const category = index < 4 ? categoryList[index] : null;
         setPage(1);
         const user = JSON.parse(localStorage.getItem('user'));
-        const userId = index === 4 ? user?._id : null;
+        const userId = index === 4 ? user?.id : null;
         try {
-            const res = await getPostsByPage(1, index, userId);
+            const res = await getPostsByPage(1, category, userId);
             setPosts(res.posts);
             setHasMore(res.posts.length === POSTS_PER_PAGE);
         } catch (err) {
@@ -98,7 +100,7 @@ const Board = () => {
         const category = ['잡담', '식단', '루틴', '공지'][activeTab];
         if (activeTab === 4) {
             const user = JSON.parse(localStorage.getItem('user'));
-            return post.writerId === user?._id;
+            return post.writerId === user?.id;
         }
         return post.category === category;
     });
@@ -145,8 +147,8 @@ const Board = () => {
                 <div style={{ flexGrow: 2 }}>
                     {filteredPosts.map(post => (
                         <PostItem
-                            key={post._id}
-                            postId={post._id}
+                            key={post.id}
+                            postId={post.id}
                             title={post.name}
                             content={post.content}
                             trail={`${post.nickname} | ${dayjs.utc(post.createDate).tz('Asia/Seoul').fromNow()}`}
@@ -181,9 +183,9 @@ const Board = () => {
                         <div className="popular-preview">
                             {popularPosts.map(post => (
                                 <div
-                                    key={post._id}
+                                    key={post.id}
                                     className="popular-item"
-                                    onClick={() => navigate(`/post/${post._id}`)}
+                                    onClick={() => navigate(`/post/${post.id}`)}
                                 >
                                     <div className="popular-title">{post.name}</div>
                                     <div className="popular-like">
