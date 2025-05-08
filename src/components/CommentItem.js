@@ -54,7 +54,7 @@ const CommentItem = ({
     const [isEditing, setIsEditing] = useState(false);
     const [editText, setEditText] = useState(content);
 
-    const currentUserId = JSON.parse(localStorage.getItem('user'))?._id;
+    const currentUserId = JSON.parse(localStorage.getItem('user'))?.id;
     const isMine = currentUserId === writerId;
     const formattedTime = dayjs.utc(time).tz('Asia/Seoul').fromNow();
 
@@ -64,7 +64,7 @@ const CommentItem = ({
             if (!user) return alert('로그인이 필요합니다.');
 
             const result = await toggleLike({
-                userId: user._id,
+                userId: user.id,
                 postId: commentId,
                 postType: 'community',
                 postOrComment: 'comment',
@@ -116,7 +116,7 @@ const CommentItem = ({
         const checkStatus = async () => {
             try {
                 const result = await checkLikeStatus({
-                    userId: user._id,
+                    userId: user.id,
                     postId: commentId,
                     postType: 'community',
                     postOrComment: 'comment',
@@ -130,10 +130,10 @@ const CommentItem = ({
     }, []);
 
     return (
-        <div className={`comment-item ${depth > 0 ? 'reply-item' : ''}`}>
+        <div key={commentId} className={`comment-item ${depth > 0 ? 'reply-item' : ''}`}>
             <div className="comment-layout">
                 <img src={DefaultAvatar} alt="avatar" className="avatar" />
-                <div className="comment-main">
+                <div className="comment-main">                    
                     <div className="comment-header">
                         <span className="comment-nickname">{name}</span>
                         <span className="comment-time">{formattedTime}</span>
@@ -187,14 +187,14 @@ const CommentItem = ({
                         <div className="comment-replies">
                             {replies.map((reply) => (
                                 <CommentItem
-                                    key={reply._id}
-                                    commentId={reply._id}
+                                    key={reply.id}
+                                    commentId={reply.id}
                                     name={reply.nickname}
                                     time={reply.writeDate}
                                     content={reply.content}
                                     likes={reply.likes || 0}
                                     replies={reply.replies || []}
-                                    onReplySubmit={(text) => onReplySubmit(text, reply._id)}
+                                    onReplySubmit={(text) => onReplySubmit(text, reply.id)}
                                     depth={depth + 1}
                                     writerId={reply.writerId}
                                     onDeleteSuccess={onDeleteSuccess}
