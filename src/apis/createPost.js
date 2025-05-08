@@ -4,7 +4,7 @@ export const createPost = async ({ writerId, name, content, category, imageUrls 
     const token = localStorage.getItem('token');
 
     const response = await axios.post(
-        `http://localhost:8081/posts`,
+        `${process.env.REACT_APP_API_URL}/posts`,
         {
             writerId,
             name,

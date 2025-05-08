@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const getWorkoutLogsByDate = async ({ userId, date }) => {
-    const response = await axios.get(`http://localhost:8081/workoutlogs`, {
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/workoutlogs`, {
         params: {
             userId,
             date,
@@ -12,7 +12,7 @@ export const getWorkoutLogsByDate = async ({ userId, date }) => {
 
 export const getWorkoutLogsByDateRange = async (userId, startDate, endDate) => {
     console.log(startDate, endDate);
-    const response = await axios.get(`http://localhost:8081/workoutlogs/range`, {
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/workoutlogs/range`, {
         params: {
             userId,
             startDate,

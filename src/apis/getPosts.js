@@ -3,7 +3,7 @@ import axios from 'axios';
 export const getPosts = async () => {
     const token = localStorage.getItem('token');
 
-    const response = await axios.get(`http://localhost:8081/posts`, {
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/posts`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -20,7 +20,7 @@ export const getPostsByPage = async (page = 1, category, userId) => {
     if (userId) params.append('userId', userId);
 
     const response = await axios.get(
-        `http://localhost:8081/posts/paginated/${page}?${params.toString()}`,
+        `${process.env.REACT_APP_API_URL}/posts/paginated/${page}?${params.toString()}`,
         {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -33,7 +33,7 @@ export const getPostsByPage = async (page = 1, category, userId) => {
 
 export const getPopularPosts = async () => {
     const token = localStorage.getItem('token');
-    const response = await axios.get(`http://localhost:8081/posts/popular`, {
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/posts/popular`, {
         headers: {
             Authorization: `Bearer ${token}`
         }

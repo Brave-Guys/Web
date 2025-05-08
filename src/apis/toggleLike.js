@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const toggleLike = async ({ userId, postId, postType, postOrComment }) => {
-    const response = await axios.post(`http://localhost:8081/likes/toggle`, {
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/likes/toggle`, {
         userId,
         postId,
         postType,
@@ -11,7 +11,7 @@ export const toggleLike = async ({ userId, postId, postType, postOrComment }) =>
 };
 
 export const checkLikeStatus = async ({ userId, postId, postType, postOrComment }) => {
-    const response = await axios.get(`http://localhost:8081/likes/check`, {
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/likes/check`, {
         params: {
             userId,
             postId,

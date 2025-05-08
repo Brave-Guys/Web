@@ -218,7 +218,7 @@ const Main = () => {
                             <div
                                 key={post.id}
                                 className="preview-post"
-                                onClick={() => handlePostClick(post._id)}
+                                onClick={() => handlePostClick(post.id)}
                                 style={{ cursor: 'pointer' }}
                             >
                                 <span className="preview-title">{post.name}</span>
