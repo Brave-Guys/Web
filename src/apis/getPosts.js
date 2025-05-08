@@ -20,7 +20,7 @@ export const getPostsByPage = async (page = 1, category, userId) => {
     if (userId) params.append('userId', userId);
 
     const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/posts/paginated/${page}?${params.toString()}`,
+        `http://localhost:8081/posts/paginated/${page}?${params.toString()}`,
         {
             headers: {
                 Authorization: `Bearer ${token}`,
