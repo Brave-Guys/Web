@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const searchPosts = async (query) => {
     try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/search/posts`, {
+        const response = await axios.get(`http://localhost:8081/posts/search`, {
             params: { q: query },
         });
         return response.data;

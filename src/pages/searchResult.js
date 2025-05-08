@@ -59,12 +59,12 @@ const SearchResult = () => {
             ) : (
                 results.map((post) => (
                     <PostItem
-                        key={post._id}
-                        postId={post._id}
+                        key={post.id}
+                        postId={post.id}
                         title={post.name}
                         content={post.content}
                         trail={`${post.nickname} | ${dayjs.utc(post.createDate).tz('Asia/Seoul').fromNow()}`}
-                        likeCount={post.like || 0}
+                        likeCount={post.likes || 0}
                         commentCount={post.comment || 0}
                     />
                 ))
