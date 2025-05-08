@@ -4,7 +4,7 @@ export const updatePost = async (postId, updatedData) => {
     const token = localStorage.getItem('token');
 
     const response = await axios.put(
-        `${process.env.REACT_APP_API_URL}/posts/${postId}`,
+        `http://localhost:8081/posts/${postId}`,
         updatedData,
         {
             headers: {

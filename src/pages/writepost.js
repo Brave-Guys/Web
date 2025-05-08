@@ -59,7 +59,7 @@ const WritePost = () => {
             }
 
             await createPost({
-                writerId: user._id,
+                writerId: user.id,
                 name: form.title,
                 content: form.content,
                 category: form.category,
