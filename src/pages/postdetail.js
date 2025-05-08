@@ -69,7 +69,7 @@ const PostDetail = () => {
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('user'));
-        if (user) setCurrentUserId(user._id);
+        if (user) setCurrentUserId(user.id);
         fetchPostAndComments();
         fetchLikeStatus();
         fetchNoticePosts();
@@ -90,7 +90,7 @@ const PostDetail = () => {
         try {
             const user = JSON.parse(localStorage.getItem('user'));
             const result = await checkLikeStatus({
-                userId: user._id,
+                userId: user.id,
                 postId,
                 postType: 'community',
                 postOrComment: 'post'
@@ -105,7 +105,7 @@ const PostDetail = () => {
         try {
             const user = JSON.parse(localStorage.getItem('user'));
             const result = await toggleLike({
-                userId: user._id,
+                userId: user.id,
                 postId: postId,
                 postType: 'community',
                 postOrComment: 'post',
@@ -151,7 +151,7 @@ const PostDetail = () => {
         const roots = [];
         comments.forEach((c) => {
             c.replies = [];
-            map[c._id] = c;
+            map[c.id] = c;
         });
         comments.forEach((c) => {
             if (c.parentId) {
@@ -166,7 +166,7 @@ const PostDetail = () => {
     const submitReply = async (postId, parentId, text) => {
         try {
             const user = JSON.parse(localStorage.getItem('user'));
-            await postComment({ postId, parentId, writerId: user._id, content: text });
+            await postComment({ postId, parentId, writerId: user.id, content: text });
             await fetchPostAndComments();
         } catch (err) {
             alert('댓글 등록에 실패했습니다.');
@@ -225,7 +225,7 @@ const PostDetail = () => {
                             </div>
                             {currentUserId === post.writerId && (
                                 <div className="post-actions" style={{ marginLeft: 'auto', fontSize: '14px', cursor: 'pointer' }}>
-                                    <span onClick={() => navigate(`/editpost/${post._id}`)}>수정</span>
+                                    <span onClick={() => navigate(`/editpost/${post.id}`)}>수정</span>
                                     <span style={{ margin: '0 5px' }}>|</span>
                                     <span onClick={() => setShowDeleteModal(true)}>삭제</span>
                                 </div>
@@ -243,7 +243,7 @@ const PostDetail = () => {
                         />
 
                         <div className="post-content" style={{ marginBottom: '30px' }}>
-                            {post.imageUrls && post.imageUrls.length > 0 && (
+                            {Array.isArray(post.imageUrls) && post.imageUrls.length > 0 && (
                                 <div className="post-image-wrapper">
                                     {post.imageUrls.map((url, idx) => (
                                         <img
@@ -282,13 +282,13 @@ const PostDetail = () => {
                         {/* 댓글 리스트 */}
                         {comments.map((comment) => (
                             <CommentItem
-                                commentId={comment._id}
+                                commentId={comment.id}
                                 name={comment.nickname}
                                 time={comment.writeDate}
                                 content={comment.content}
                                 likes={comment.likes || 0}
                                 replies={comment.replies || []}
-                                onReplySubmit={(text, parentId = comment._id) =>
+                                onReplySubmit={(text, parentId = comment.id) =>
                                     submitReply(postId, parentId, text)
                                 }
                                 currentUserId={currentUserId}
@@ -306,9 +306,9 @@ const PostDetail = () => {
                         <div className="popular-preview">
                             {popularPosts.map((post) => (
                                 <div
-                                    key={post._id}
+                                    key={post.id}
                                     className="popular-item"
-                                    onClick={() => navigate(`/post/${post._id}`)}
+                                    onClick={() => navigate(`/post/${post.id}`)}
                                 >
                                     <div className="popular-title">{post.name}</div>
                                     <div className="popular-like">
@@ -328,7 +328,7 @@ const PostDetail = () => {
                     <Box type={2} title='공지' showArrow={false} to='/notice'>
                         <div className="notice-preview">
                             {noticePosts.slice(0, 3).map((post) => (  // 최대 3개만 미리보기로
-                                <div key={post._id} style={{ marginBottom: '8px', cursor: 'pointer' }} onClick={() => navigate(`/post/${post._id}`)}>
+                                <div key={post.id} style={{ marginBottom: '8px', cursor: 'pointer' }} onClick={() => navigate(`/post/${post.id}`)}>
                                     <div style={{ fontSize: '16px' }}>{post.name}</div>
                                 </div>
                             ))}

@@ -26,8 +26,7 @@ const Main = () => {
 
         const fetchPosts = async () => {
             try {
-                const allPosts = await getPosts();
-                console.log(allPosts);
+                const allPosts = await getPosts();                
                 setLatestPosts(allPosts.slice(0, 3));
             } catch (err) {
                 console.error('게시글을 불러오는 데 실패했습니다.', err);
