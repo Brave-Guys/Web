@@ -55,7 +55,8 @@ const Board = () => {
         const userId = categoryIndex === 4 ? user?.id : null;
 
         try {
-            const res = await getPostsByPage(pageNum, category, userId);  // category, userId 전달
+            const res = await getPostsByPage(pageNum, category, userId);
+            console.log(res);
             setPosts(res.posts);
             setHasMore(res.posts.length === POSTS_PER_PAGE);
         } catch (err) {
@@ -153,7 +154,7 @@ const Board = () => {
                             content={post.content}
                             trail={`${post.nickname} | ${dayjs.utc(post.createDate).tz('Asia/Seoul').fromNow()}`}
                             likeCount={post.like || 0}
-                            commentCount={post.comment || 0}
+                            commentCount={post.commentCount || 0}
                         />
                     ))}
 
