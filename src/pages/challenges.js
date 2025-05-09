@@ -27,6 +27,7 @@ const ChallengeBoard = () => {
             <div className="challenge-header">
                 <PageTitle
                     title="챌린지"
+                    showBackArrow={true}
                     description="다른 사람들과 함께 도전하고, 기록을 남겨보세요!"
                 />
                 <CustomButton

@@ -6,7 +6,7 @@ import Login from './pages/login.js';
 import Main from './pages/main.js';
 import Board from './pages/board.js';
 import FindAccount from './pages/find-accout.js';
-import Challenges from './pages/challengs.js';
+import Challenges from './pages/challenges.js';
 import Mypage from './pages/mypage.js';
 import WeeklyWorkout from './pages/weekly-workout.js';
 import Masters from './pages/masters.js';
