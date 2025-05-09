@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/StrengthHub/static/css/main.ce9e0349.css",
-    "main.js": "/StrengthHub/static/js/main.13c50f43.js",
-    "static/js/453.8ab44547.chunk.js": "/StrengthHub/static/js/453.8ab44547.chunk.js",
-    "static/media/welcome.png": "/StrengthHub/static/media/welcome.fa3099c036772a6c697c.png",
-    "static/media/body_front.png": "/StrengthHub/static/media/body_front.bead0a00f0378ecd91fa.png",
-    "static/media/body_back.png": "/StrengthHub/static/media/body_back.700adef9d88526b36927.png",
-    "static/media/logo.png": "/StrengthHub/static/media/logo.5d436e07ed6752fe419b.png",
-    "static/media/abs.png": "/StrengthHub/static/media/abs.d0f52ae9007607037395.png",
-    "static/media/naver.png": "/StrengthHub/static/media/naver.21ba3519751ccc5472bb.png",
-    "static/media/shoulder.png": "/StrengthHub/static/media/shoulder.972b48ed57022384ea14.png",
-    "static/media/person.png": "/StrengthHub/static/media/person.40285f3ab1675d2348ef.png",
-    "static/media/lowerBody.png": "/StrengthHub/static/media/lowerBody.3368cfe5819b31eed816.png",
-    "index.html": "/StrengthHub/index.html",
-    "main.ce9e0349.css.map": "/StrengthHub/static/css/main.ce9e0349.css.map",
-    "main.13c50f43.js.map": "/StrengthHub/static/js/main.13c50f43.js.map",
-    "453.8ab44547.chunk.js.map": "/StrengthHub/static/js/453.8ab44547.chunk.js.map"
+    "main.css": "/Web/static/css/main.ce9e0349.css",
+    "main.js": "/Web/static/js/main.69c3755d.js",
+    "static/js/453.8ab44547.chunk.js": "/Web/static/js/453.8ab44547.chunk.js",
+    "static/media/welcome.png": "/Web/static/media/welcome.fa3099c036772a6c697c.png",
+    "static/media/body_front.png": "/Web/static/media/body_front.bead0a00f0378ecd91fa.png",
+    "static/media/body_back.png": "/Web/static/media/body_back.700adef9d88526b36927.png",
+    "static/media/logo.png": "/Web/static/media/logo.5d436e07ed6752fe419b.png",
+    "static/media/abs.png": "/Web/static/media/abs.d0f52ae9007607037395.png",
+    "static/media/naver.png": "/Web/static/media/naver.21ba3519751ccc5472bb.png",
+    "static/media/shoulder.png": "/Web/static/media/shoulder.972b48ed57022384ea14.png",
+    "static/media/person.png": "/Web/static/media/person.40285f3ab1675d2348ef.png",
+    "static/media/lowerBody.png": "/Web/static/media/lowerBody.3368cfe5819b31eed816.png",
+    "index.html": "/Web/index.html",
+    "main.ce9e0349.css.map": "/Web/static/css/main.ce9e0349.css.map",
+    "main.69c3755d.js.map": "/Web/static/js/main.69c3755d.js.map",
+    "453.8ab44547.chunk.js.map": "/Web/static/js/453.8ab44547.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ce9e0349.css",
-    "static/js/main.13c50f43.js"
+    "static/js/main.69c3755d.js"
   ]
 }
