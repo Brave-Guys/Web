@@ -24,7 +24,7 @@ const ChallengeDetail = () => {
 
         const user = JSON.parse(localStorage.getItem('user'));
         if (user) {
-            const exists = await checkParticipation(id, user._id);
+            const exists = await checkParticipation(id, user.id);
             setAlreadyParticipated(exists);
         }
     };
