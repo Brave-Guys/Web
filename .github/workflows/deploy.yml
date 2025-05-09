@@ -13,7 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Use Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
@@ -21,11 +21,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build the project
+      - name: Build with environment variables
         run: CI=false npm run build
+        env:
+          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+          REACT_APP_FIREBASE_API_KEY: ${{ secrets.REACT_APP_FIREBASE_API_KEY }}
+          REACT_APP_FIREBASE_AUTH_DOMAIN: ${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}
+          REACT_APP_FIREBASE_PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
+          REACT_APP_FIREBASE_STORAGE_BUCKET: ${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}
+          REACT_APP_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_ID }}
+          REACT_APP_FIREBASE_APP_ID: ${{ secrets.REACT_APP_FIREBASE_APP_ID }}
+          REACT_APP_FIREBASE_MEASUREMENT_ID: ${{ secrets.REACT_APP_FIREBASE_MEASUREMENT_ID }}
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          personal_token: ${{ secrets.GH_PAGES_DEPLOY_TOKEN }}
           publish_dir: ./build
