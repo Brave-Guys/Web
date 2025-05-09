@@ -12,7 +12,7 @@ const ChallengeItem = ({ challenge }) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(`/challenge/${challenge._id}`);
+        navigate(`/challenges/${challenge.id}`);
     };
 
     // 종료까지 남은 시간 계산

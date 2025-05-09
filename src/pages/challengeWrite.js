@@ -46,7 +46,7 @@ const ChallengeWrite = () => {
             }
 
             const res = await postChallenge({
-                writerId: user._id,
+                writerId: user.id,
                 name: title.trim(),
                 description: description.trim(),
                 videoUrl,

@@ -41,7 +41,7 @@ const ChallengeBoard = () => {
                 {/* 챌린지 아이템들 렌더링 */}
                 {challenges.length > 0 ? (
                     challenges.map((item) => (
-                        <ChallengeItem key={item._id} challenge={item} />
+                        <ChallengeItem key={item.id} challenge={item} />
                     ))
                 ) : (
                     <p>등록된 챌린지가 없습니다.</p>
