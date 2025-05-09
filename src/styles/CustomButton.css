@@ -3,7 +3,10 @@
     cursor: pointer;
     font-weight: bold;
     transition: all 0.2s ease;
+    width: auto;
+    max-width: 150px;
 }
+
 
 /* 크기 */
 .btn-large {
