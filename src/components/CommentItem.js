@@ -46,6 +46,7 @@ const CommentItem = ({
     writerId,
     onDeleteSuccess,
     onEditSuccess,
+    profileImgUrl,
 }) => {
     const [showReplyInput, setShowReplyInput] = useState(false);
     const [replyText, setReplyText] = useState('');
@@ -132,8 +133,12 @@ const CommentItem = ({
     return (
         <div key={commentId} className={`comment-item ${depth > 0 ? 'reply-item' : ''}`}>
             <div className="comment-layout">
-                <img src={DefaultAvatar} alt="avatar" className="avatar" />
-                <div className="comment-main">                    
+                <img
+                    src={profileImgUrl || DefaultAvatar}
+                    alt="avatar"
+                    className="avatar"
+                />
+                <div className="comment-main">
                     <div className="comment-header">
                         <span className="comment-nickname">{name}</span>
                         <span className="comment-time">{formattedTime}</span>

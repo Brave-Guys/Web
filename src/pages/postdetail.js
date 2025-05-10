@@ -17,7 +17,7 @@ import 'dayjs/locale/ko';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { FaUserCircle } from 'react-icons/fa';
+import DefaultAvatar from '../assets/person.png';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -226,7 +226,11 @@ const PostDetail = () => {
                                     }}
                                 />
                             ) : (
-                                <FaUserCircle size={32} color="gray" />
+                                <img
+                                    src={DefaultAvatar}
+                                    alt="avatar"
+                                    className="avatar"
+                                />
                             )}
 
                             <div>
@@ -306,6 +310,7 @@ const PostDetail = () => {
                                 }
                                 currentUserId={currentUserId}
                                 writerId={comment.writerId}
+                                profileImgUrl={comment.profileImgUrl}
                                 onDeleteSuccess={fetchPostAndComments}
                                 onEditSuccess={fetchPostAndComments}
                             />
