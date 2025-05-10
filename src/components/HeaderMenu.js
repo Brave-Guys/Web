@@ -31,7 +31,15 @@ const Header = () => {
                     <span>문의</span>
                 </div>
                 <div className="icon-btn" onClick={() => navigate(user ? '/mypage' : '/login')}>
-                    <FaUserCircle className="icon" />
+                    {user?.imgUrl ? (
+                        <img
+                            src={user.imgUrl}
+                            alt="프로필"
+                            className="profile-image"
+                        />
+                    ) : (
+                        <FaUserCircle className="icon" />
+                    )}
                     <span>{username}</span>
                 </div>
             </div>

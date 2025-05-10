@@ -17,6 +17,7 @@ import 'dayjs/locale/ko';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { FaUserCircle } from 'react-icons/fa';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -213,13 +214,28 @@ const PostDetail = () => {
                 <div style={{ flex: 2 }}>
                     <div className="post-detail-wrapper">
                         <div className="profile-info" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
-                            <div className="profile-icon"></div>
+                            {post.profileImgUrl ? (
+                                <img
+                                    src={post.profileImgUrl}
+                                    alt="프로필"
+                                    style={{
+                                        width: '32px',
+                                        height: '32px',
+                                        borderRadius: '50%',
+                                        objectFit: 'cover'
+                                    }}
+                                />
+                            ) : (
+                                <FaUserCircle size={32} color="gray" />
+                            )}
+
                             <div>
                                 <div className="nickname" style={{ fontWeight: 'bold' }}>{post.nickname}</div>
                                 <div className="post-time" style={{ fontSize: '12px', color: 'gray' }}>
                                     {dayjs.utc(post.createDate).tz('Asia/Seoul').fromNow()}
                                 </div>
                             </div>
+
                             {currentUserId === post.writerId && (
                                 <div className="post-actions" style={{ marginLeft: 'auto', fontSize: '14px', cursor: 'pointer' }}>
                                     <span onClick={() => navigate(`/editpost/${post.id}`)}>수정</span>
