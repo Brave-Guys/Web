@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getParticipantDetail } from '../apis/getParticipantDetail';
 import { postReelsComment } from '../apis/postReelsComment';
+import { getReelsComments } from '../apis/getReelsComments';
 import PageTitle from '../components/PageTitle';
 import dayjs from 'dayjs';
 import '../styles/ParticipantDetail.css';
@@ -9,8 +10,15 @@ import '../styles/ParticipantDetail.css';
 const ParticipantDetail = () => {
     const { challengeId, participantId } = useParams();
     const [participant, setParticipant] = useState(null);
+    const [comments, setComments] = useState([]);
     const [commentText, setCommentText] = useState('');
     const navigate = useNavigate();
+
+    const fetchComments = async () => {
+        const data = await getReelsComments(participantId);
+        setComments(data);
+        console.log(data);
+    };
 
     const handleSubmitComment = async () => {
         const user = JSON.parse(localStorage.getItem('user'));
@@ -23,7 +31,7 @@ const ParticipantDetail = () => {
                 content: commentText,
             });
             setCommentText('');
-            // 필요하면 fetchComments(); 같은 함수로 목록 새로고침
+            fetchComments();
         } catch (err) {
             console.error('댓글 등록 실패', err);
             alert('댓글 등록 중 오류가 발생했습니다.');
@@ -34,6 +42,7 @@ const ParticipantDetail = () => {
         const fetchData = async () => {
             const data = await getParticipantDetail(challengeId, participantId);
             setParticipant(data);
+            fetchComments();
         };
         fetchData();
     }, [challengeId, participantId]);
@@ -61,6 +70,7 @@ const ParticipantDetail = () => {
                     />
                 </div>
             )}
+
             <div className="comment-form">
                 <textarea
                     className="comment-textarea"
@@ -72,6 +82,15 @@ const ParticipantDetail = () => {
                 <button className="comment-submit-btn" onClick={handleSubmitComment}>
                     댓글 등록
                 </button>
+            </div>
+
+            <div className="comment-list">
+                {comments.map((c) => (
+                    <div key={c.rcommentId} className="comment-item">
+                        <strong>{c.nickname}</strong> · {dayjs(c.writeDate).fromNow()}
+                        <p>{c.content}</p>
+                    </div>
+                ))}
             </div>
         </div>
     );
