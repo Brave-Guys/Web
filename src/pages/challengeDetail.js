@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getChallengeDetail } from '../apis/getChallenges';
+import { deleteChallenge } from '../apis/deleteChallenge';
 import { deleteParticipant, getParticipants, postParticipant, checkParticipation } from '../apis/challengeParticipants';
 import { uploadVideoToFirebase } from '../utils/uploadVideoToFirebase';
 import ParticipantModal from '../components/ParticipantModal';
@@ -15,6 +16,8 @@ const ChallengeDetail = () => {
     const [alreadyParticipated, setAlreadyParticipated] = useState(false);
     const [videoFile, setVideoFile] = useState(null);
     const [selectedParticipant, setSelectedParticipant] = useState(null);
+
+    const navigate = useNavigate();
 
     const fetchAll = async () => {
         const challengeData = await getChallengeDetail(id);
@@ -86,8 +89,35 @@ const ChallengeDetail = () => {
 
             <hr />
 
+            {JSON.parse(localStorage.getItem('user'))?.id === challenge.writerId && (
+                <div style={{ marginBottom: '20px' }}>
+                    <button
+                        onClick={() => {
+                            // 수정 페이지로 이동
+                            navigate(`/edit-challenge/${challenge.id}`);
+                        }}
+                        style={{ marginRight: '10px' }}
+                    >
+                        수정
+                    </button>
+                    <button
+                        onClick={async () => {
+                            if (window.confirm('챌린지를 삭제하시겠습니까?')) {
+                                await deleteChallenge(challenge.id);
+                                alert('삭제되었습니다.');
+                                navigate('/challenges');
+                            }
+                        }}
+                        style={{ color: 'red' }}
+                    >
+                        삭제
+                    </button>
+                </div>
+            )}
+
+
             <div className="participant-section">
-                <h3>참가자 내역</h3>                
+                <h3>참가자 내역</h3>
                 {participants.map((p) => {
                     const isMine = JSON.parse(localStorage.getItem('user'))?._id === p.writerId;
                     return (
