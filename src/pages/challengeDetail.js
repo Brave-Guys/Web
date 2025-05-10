@@ -5,6 +5,8 @@ import { deleteChallenge } from '../apis/deleteChallenge';
 import { deleteParticipant, getParticipants, postParticipant, checkParticipation } from '../apis/challengeParticipants';
 import { uploadVideoToFirebase } from '../utils/uploadVideoToFirebase';
 import ParticipantModal from '../components/ParticipantModal';
+import PageTitle from '../components/PageTitle';
+import CustomButton from '../components/CustomButton';
 import dayjs from 'dayjs';
 import '../styles/ChallengeDetail.css';
 
@@ -65,118 +67,120 @@ const ChallengeDetail = () => {
 
     if (!challenge) return <div>로딩 중...</div>;
 
+    const isOwner = JSON.parse(localStorage.getItem('user'))?.id === challenge.writerId;
+
     return (
-        <div className="challenge-detail">
-            <h2>{challenge.name}</h2>
-            <p className="challenge-meta">
-                작성자: {challenge.nickname ?? '익명'} | 생성일: {dayjs(challenge.createdAt).format('YYYY.MM.DD')}
-            </p>
-
-            {challenge.videoUrl && (
-                <div className="challenge-video-wrapper">
-                    <video
-                        src={challenge.videoUrl}
-                        autoPlay
-                        muted
-                        controls
-                        preload="metadata"
-                        style={{ width: '100%', maxWidth: '600px' }}
-                    />
-                </div>
-            )}
-
-            <p className="challenge-desc">{challenge.description}</p>
-
-            <hr />
-
-            {JSON.parse(localStorage.getItem('user'))?.id === challenge.writerId && (
-                <div style={{ marginBottom: '20px' }}>
-                    <button
-                        onClick={() => {
-                            navigate(`/edit-challenge/${challenge.id}`);
-                        }}
-                        style={{ marginRight: '10px' }}
-                    >
-                        수정
-                    </button>
-                    <button
-                        onClick={async () => {
-                            if (window.confirm('챌린지를 삭제하시겠습니까?')) {
-                                await deleteChallenge(challenge.id);
-                                alert('삭제되었습니다.');
-                                navigate('/challenges');
-                            }
-                        }}
-                        style={{ color: 'red' }}
-                    >
-                        삭제
-                    </button>
-                </div>
-            )}
-
-
-            <div className="participant-section">
-                <h3>참가자 내역</h3>
-                {participants.map((p) => {
-                    const isMine = JSON.parse(localStorage.getItem('user'))?._id === p.writerId;
-                    return (
-                        <div
-                            key={p._id}
-                            className="participant-item"
-                            onClick={() => setSelectedParticipant(p)}
-                            style={{ cursor: 'pointer' }}
-                        >
-                            <div className="participant-meta">
-                                <strong>{p.nickname}</strong> · {dayjs(p.writeDate).fromNow()}
-                                {isMine && (
-                                    <span
-                                        onClick={async (e) => {
-                                            e.stopPropagation();
-                                            if (window.confirm('정말 삭제하시겠습니까?')) {
-                                                await deleteParticipant(id, p.writerId);
-                                                fetchAll();
-                                            }
-                                        }}
-                                        style={{
-                                            marginLeft: '10px',
-                                            color: 'red',
-                                            cursor: 'pointer',
-                                            fontSize: '13px'
-                                        }}
-                                    >
-                                        삭제
-                                    </span>
-                                )}
-                            </div>
-                            <div className="participant-content">{p.content}</div>
-                        </div>
-                    );
-                })}
-
-                {/* 모달 */}
-                {selectedParticipant && (
-                    <ParticipantModal
-                        participant={selectedParticipant}
-                        onClose={() => setSelectedParticipant(null)}
-                    />
-                )}
-
-                {!alreadyParticipated && (
-                    <div className="participant-form">
-                        <input
-                            type="text"
-                            placeholder="나의 챌린지 수행 내역을 작성하세요"
-                            value={commentText}
-                            onChange={(e) => setCommentText(e.target.value)}
+        <div className="challenge-detail-container">
+            <div className="challenge-detail-header">
+                <PageTitle
+                    title={challenge.name}
+                    showBackArrow={true}
+                    description={`작성자: ${challenge.nickname ?? '익명'} | 생성일: ${dayjs(challenge.createdAt).format('YYYY.MM.DD')}`}
+                />
+                {isOwner && (
+                    <div className="challenge-action-buttons">
+                        <CustomButton
+                            label="수정"
+                            size="small"
+                            onClick={() => navigate(`/edit-challenge/${challenge.id}`)}
                         />
-                        <button onClick={handleSubmit}>등록</button>
-                        <input
-                            type="file"
-                            accept="video/*"
-                            onChange={(e) => setVideoFile(e.target.files[0])}
+                        <CustomButton
+                            label="삭제"
+                            size="small"
+                            color="red"
+                            onClick={async () => {
+                                if (window.confirm('챌린지를 삭제하시겠습니까?')) {
+                                    await deleteChallenge(challenge.id);
+                                    alert('삭제되었습니다.');
+                                    navigate('/challenges');
+                                }
+                            }}
                         />
                     </div>
                 )}
+            </div>
+
+            <div className="challenge-detail-body">
+                <div className="challenge-content">
+                    {challenge.videoUrl && (
+                        <div className="challenge-video-wrapper">
+                            <video
+                                src={challenge.videoUrl}
+                                autoPlay
+                                muted
+                                controls
+                                preload="metadata"
+                                style={{ width: '100%', maxWidth: '600px' }}
+                            />
+                        </div>
+                    )}
+                    <p className="challenge-desc">{challenge.description}</p>
+                </div>
+
+                <div className="participant-section">
+                    <h3>참가자 내역</h3>
+                    <div className="participant-list">
+                        {participants.map((p) => {
+                            const isMine = JSON.parse(localStorage.getItem('user'))?._id === p.writerId;
+                            return (
+                                <div
+                                    key={p._id}
+                                    className="participant-item"
+                                    onClick={() => setSelectedParticipant(p)}
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    <div className="participant-meta">
+                                        <strong>{p.nickname}</strong> · {dayjs(p.writeDate).fromNow()}
+                                        {isMine && (
+                                            <span
+                                                onClick={async (e) => {
+                                                    e.stopPropagation();
+                                                    if (window.confirm('정말 삭제하시겠습니까?')) {
+                                                        await deleteParticipant(id, p.writerId);
+                                                        fetchAll();
+                                                    }
+                                                }}
+                                                style={{
+                                                    marginLeft: '10px',
+                                                    color: 'red',
+                                                    cursor: 'pointer',
+                                                    fontSize: '13px'
+                                                }}
+                                            >
+                                                삭제
+                                            </span>
+                                        )}
+                                    </div>
+                                    <div className="participant-content">{p.content}</div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    {selectedParticipant && (
+                        <ParticipantModal
+                            participant={selectedParticipant}
+                            onClose={() => setSelectedParticipant(null)}
+                        />
+                    )}
+
+                    {!alreadyParticipated && (
+                        <div className="participant-form">
+                            <input
+                                type="text"
+                                placeholder="나의 챌린지 수행 내역을 작성하세요"
+                                value={commentText}
+                                onChange={(e) => setCommentText(e.target.value)}
+                            />
+                            <button onClick={handleSubmit}>등록</button>
+                            <input
+                                type="file"
+                                accept="video/*"
+                                onChange={(e) => setVideoFile(e.target.files[0])}
+                            />
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );
