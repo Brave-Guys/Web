@@ -28,3 +28,10 @@
 .challenge-item:hover {
     transform: translateY(-5px);
 }
+
+.challenge-list.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+}

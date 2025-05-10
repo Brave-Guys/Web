@@ -4,11 +4,6 @@
     margin: 0 auto;
 }
 
-.challenge-title {
-    font-size: 32px;
-    margin-bottom: 10px;
-}
-
 .challenge-meta {
     display: flex;
     justify-content: space-between;

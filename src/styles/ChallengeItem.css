@@ -1,43 +1,52 @@
 .challenge-item {
-    border: 1px solid #ccc;
-    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background-color: white;
     border-radius: 10px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.2s ease, transform 0.1s ease;
     cursor: pointer;
-    transition: background 0.2s;
 }
 
 .challenge-item:hover {
-    background-color: #f9f9f9;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+
+.challenge-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.challenge-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
 }
 
 .challenge-title {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin: 0;
 }
 
-.challenge-meta {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 10px;
-    display: flex;
-    gap: 16px;
-}
-
-.challenge-description {
-    font-size: 16px;
-    color: #333;
-}
-
-.challenge-meta {
-    display: flex;
-    justify-content: space-between;
+.challenge-nickname {
     font-size: 14px;
     color: gray;
-    margin-bottom: 8px;
 }
 
 .challenge-expire {
-    font-weight: bold;
+    font-size: 14px;
     color: #ff4d4f;
+    font-weight: bold;
+    white-space: nowrap;
 }
