@@ -5,7 +5,6 @@ import { deleteChallenge } from '../apis/deleteChallenge';
 import { deleteParticipant, getParticipants, postParticipant, checkParticipation } from '../apis/challengeParticipants';
 import { uploadVideoToFirebase } from '../utils/uploadVideoToFirebase';
 import DefaultAvatar from '../assets/person.png';
-import ParticipantModal from '../components/ParticipantModal';
 import PageTitle from '../components/PageTitle';
 import CustomButton from '../components/CustomButton';
 import dayjs from 'dayjs';
@@ -18,7 +17,6 @@ const ChallengeDetail = () => {
     const [commentText, setCommentText] = useState('');
     const [alreadyParticipated, setAlreadyParticipated] = useState(false);
     const [videoFile, setVideoFile] = useState(null);
-    const [selectedParticipant, setSelectedParticipant] = useState(null);
 
     const navigate = useNavigate();
 
@@ -173,7 +171,7 @@ const ChallengeDetail = () => {
                                 <div
                                     key={p.id}
                                     className="participant-item"
-                                    onClick={() => setSelectedParticipant(p)}
+                                    onClick={() => navigate(`/challenges/${id}/participants/${p.writerId}`)}
                                 >
                                     <img
                                         className="participant-avatar"
@@ -208,12 +206,6 @@ const ChallengeDetail = () => {
                         })}
                     </div>
 
-                    {selectedParticipant && (
-                        <ParticipantModal
-                            participant={selectedParticipant}
-                            onClose={() => setSelectedParticipant(null)}
-                        />
-                    )}
                 </div>
             </div>
         </div>

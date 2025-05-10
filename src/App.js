@@ -19,6 +19,10 @@ import PostDetail from './pages/postdetail.js';
 import WritePost from './pages/writepost.js';
 import EditPost from './pages/editpost.js';
 import SearchResult from './pages/searchResult.js';
+import ChallengeWrite from './pages/challengeWrite.js';
+import ChallengeDetail from './pages/challengeDetail.js';
+import EditChallenge from './pages/EditChallenge.js';
+import ParticipantDetail from './pages/ParticipantDetail.js';
 
 import ExerciseTipChest from './pages/exercise-tip-detail/ExerciseTipChest';
 import ExerciseTipShoulder from './pages/exercise-tip-detail/ExerciseTipShoulder';
@@ -31,9 +35,6 @@ import ExerciseTipHamstring from './pages/exercise-tip-detail/ExerciseTipHamstri
 
 import './App.css';
 import { Navigate } from 'react-router-dom';
-import ChallengeWrite from './pages/challengeWrite.js';
-import ChallengeDetail from './pages/challengeDetail.js';
-import EditChallenge from './pages/EditChallenge.js';
 
 const isAuthenticated = () => {
   return !!localStorage.getItem('token');
@@ -84,6 +85,7 @@ function App() {
           <Route path="/edit-challenge/:id" element={<PrivateRoute><EditChallenge /></PrivateRoute>} />
           <Route path="/editpost/:id" element={<PrivateRoute><EditPost /></PrivateRoute>} />
           <Route path="/create-challenge" element={<PrivateRoute><ChallengeWrite /></PrivateRoute>} />
+          <Route path="/challenges/:challengeId/participants/:participantId" element={<ParticipantDetail />} />
 
           {/* 404 */}
           <Route path="*" element={<Error />} />
