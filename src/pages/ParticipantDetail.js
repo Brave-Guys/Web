@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getParticipantDetail } from '../apis/getParticipantDetail';
+import { postReelsComment } from '../apis/postReelsComment';
 import PageTitle from '../components/PageTitle';
 import dayjs from 'dayjs';
 import '../styles/ParticipantDetail.css';
@@ -16,7 +17,13 @@ const ParticipantDetail = () => {
         if (!user || !commentText.trim()) return;
 
         try {
-            setCommentText('');            
+            await postReelsComment({
+                reelsId: participantId,
+                writerId: user.id,
+                content: commentText,
+            });
+            setCommentText('');
+            // 필요하면 fetchComments(); 같은 함수로 목록 새로고침
         } catch (err) {
             console.error('댓글 등록 실패', err);
             alert('댓글 등록 중 오류가 발생했습니다.');
