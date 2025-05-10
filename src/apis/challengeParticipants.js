@@ -3,7 +3,7 @@ import axios from 'axios';
 export const postParticipant = async ({ challengeId, writerId, content, videoUrl }) => {
     const token = localStorage.getItem('token');
     const res = await axios.post(
-        `${process.env.REACT_APP_API_URL}/challenge_participants/${challengeId}/participants`,
+        `${process.env.REACT_APP_API_URL}/challenge_participants/${challengeId}`,
         { challengeId, writerId, content, videoUrl },
         { headers: { Authorization: `Bearer ${token}` } }
     );

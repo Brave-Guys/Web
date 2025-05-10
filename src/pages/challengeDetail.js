@@ -51,7 +51,7 @@ const ChallengeDetail = () => {
 
         await postParticipant({
             challengeId: id,
-            writerId: user._id,
+            writerId: user.id,
             content: commentText.trim(),
             videoUrl,
         });
@@ -121,10 +121,10 @@ const ChallengeDetail = () => {
                     <h3>참가자 내역</h3>
                     <div className="participant-list">
                         {participants.map((p) => {
-                            const isMine = JSON.parse(localStorage.getItem('user'))?._id === p.writerId;
+                            const isMine = JSON.parse(localStorage.getItem('user'))?.id === p.writerId;
                             return (
                                 <div
-                                    key={p._id}
+                                    key={p.id}
                                     className="participant-item"
                                     onClick={() => setSelectedParticipant(p)}
                                     style={{ cursor: 'pointer' }}
