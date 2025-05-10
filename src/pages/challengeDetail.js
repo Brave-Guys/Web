@@ -119,22 +119,50 @@ const ChallengeDetail = () => {
                 </div>
 
                 <div className="participant-section">
-                    <h3>참가자 내역</h3>
+                    <h3>참가자</h3>
                     <div className="participant-list">
                         {!alreadyParticipated ? (
                             <div className="participant-form">
-                                <input
-                                    type="text"
-                                    placeholder="나의 챌린지 수행 내역을 작성하세요"
+                                <div className="participant-form-header">
+                                    <span className="participant-form-title">챌린지에 도전해보세요!</span>
+                                    <button onClick={handleSubmit}>등록</button>
+                                </div>
+                                <textarea
+                                    className="participant-textarea"
+                                    placeholder="챌린지 수행 내용을 작성하세요."
                                     value={commentText}
                                     onChange={(e) => setCommentText(e.target.value)}
+                                    maxLength={300}
                                 />
-                                <button onClick={handleSubmit}>등록</button>
-                                <input
-                                    type="file"
-                                    accept="video/*"
-                                    onChange={(e) => setVideoFile(e.target.files[0])}
-                                />
+
+                                <label className="custom-file-upload">
+                                    <input
+                                        type="file"
+                                        accept="video/*"
+                                        onChange={(e) => {
+                                            const file = e.target.files[0];
+                                            if (file) {
+                                                setVideoFile(file);
+                                                e.target.value = '';
+                                            }
+                                        }}
+                                    />
+                                    영상 업로드
+                                </label>
+                                {videoFile && (
+                                    <div className="file-name-display">
+                                        <span>
+                                            선택한 파일: <strong>{videoFile.name}</strong>
+                                        </span>
+                                        <button
+                                            type="button"
+                                            className="file-remove-btn"
+                                            onClick={() => setVideoFile(null)}
+                                        >
+                                            ✕
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         ) : (
                             <p>챌린지를 수행했습니다!</p>
