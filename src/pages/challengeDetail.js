@@ -4,6 +4,7 @@ import { getChallengeDetail } from '../apis/getChallenges';
 import { deleteChallenge } from '../apis/deleteChallenge';
 import { deleteParticipant, getParticipants, postParticipant, checkParticipation } from '../apis/challengeParticipants';
 import { uploadVideoToFirebase } from '../utils/uploadVideoToFirebase';
+import DefaultAvatar from '../assets/person.png';
 import ParticipantModal from '../components/ParticipantModal';
 import PageTitle from '../components/PageTitle';
 import CustomButton from '../components/CustomButton';
@@ -120,6 +121,24 @@ const ChallengeDetail = () => {
                 <div className="participant-section">
                     <h3>참가자 내역</h3>
                     <div className="participant-list">
+                        {!alreadyParticipated ? (
+                            <div className="participant-form">
+                                <input
+                                    type="text"
+                                    placeholder="나의 챌린지 수행 내역을 작성하세요"
+                                    value={commentText}
+                                    onChange={(e) => setCommentText(e.target.value)}
+                                />
+                                <button onClick={handleSubmit}>등록</button>
+                                <input
+                                    type="file"
+                                    accept="video/*"
+                                    onChange={(e) => setVideoFile(e.target.files[0])}
+                                />
+                            </div>
+                        ) : (
+                            <p>챌린지를 수행했습니다!</p>
+                        )}
                         {participants.map((p) => {
                             const isMine = JSON.parse(localStorage.getItem('user'))?.id === p.writerId;
                             return (
@@ -127,31 +146,35 @@ const ChallengeDetail = () => {
                                     key={p.id}
                                     className="participant-item"
                                     onClick={() => setSelectedParticipant(p)}
-                                    style={{ cursor: 'pointer' }}
                                 >
-                                    <div className="participant-meta">
-                                        <strong>{p.nickname}</strong> · {dayjs(p.writeDate).fromNow()}
-                                        {isMine && (
-                                            <span
-                                                onClick={async (e) => {
-                                                    e.stopPropagation();
-                                                    if (window.confirm('정말 삭제하시겠습니까?')) {
-                                                        await deleteParticipant(id, p.writerId);
-                                                        fetchAll();
-                                                    }
-                                                }}
-                                                style={{
-                                                    marginLeft: '10px',
-                                                    color: 'red',
-                                                    cursor: 'pointer',
-                                                    fontSize: '13px'
-                                                }}
-                                            >
-                                                삭제
-                                            </span>
-                                        )}
+                                    <img
+                                        className="participant-avatar"
+                                        src={p.profileImgUrl || DefaultAvatar}
+                                        alt="profile"
+                                    />
+                                    <div className="participant-body">
+                                        <div className="participant-header">
+                                            <div className="participant-user">
+                                                <strong className="participant-nickname">{p.nickname}</strong>
+                                                <span className="participant-date">{dayjs(p.writeDate).fromNow()}</span>
+                                            </div>
+                                            {isMine && (
+                                                <button
+                                                    className="participant-delete"
+                                                    onClick={async (e) => {
+                                                        e.stopPropagation();
+                                                        if (window.confirm('정말 삭제하시겠습니까?')) {
+                                                            await deleteParticipant(id, p.writerId);
+                                                            fetchAll();
+                                                        }
+                                                    }}
+                                                >
+                                                    삭제
+                                                </button>
+                                            )}
+                                        </div>
+                                        <div className="participant-content">{p.content}</div>
                                     </div>
-                                    <div className="participant-content">{p.content}</div>
                                 </div>
                             );
                         })}
@@ -162,23 +185,6 @@ const ChallengeDetail = () => {
                             participant={selectedParticipant}
                             onClose={() => setSelectedParticipant(null)}
                         />
-                    )}
-
-                    {!alreadyParticipated && (
-                        <div className="participant-form">
-                            <input
-                                type="text"
-                                placeholder="나의 챌린지 수행 내역을 작성하세요"
-                                value={commentText}
-                                onChange={(e) => setCommentText(e.target.value)}
-                            />
-                            <button onClick={handleSubmit}>등록</button>
-                            <input
-                                type="file"
-                                accept="video/*"
-                                onChange={(e) => setVideoFile(e.target.files[0])}
-                            />
-                        </div>
                     )}
                 </div>
             </div>

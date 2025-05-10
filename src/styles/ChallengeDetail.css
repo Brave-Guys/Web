@@ -40,6 +40,7 @@
     white-space: pre-wrap;
 }
 
+/* 참가자 영역 */
 .participant-section {
     flex: 1;
     max-height: 800px;
@@ -63,16 +64,59 @@
     gap: 14px;
 }
 
+/* 참가자 아이템 */
 .participant-item {
-    background-color: white;
-    padding: 12px 14px;
-    border-radius: 8px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-    transition: box-shadow 0.2s;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 12px;
+    background-color: #fff;
+    transition: box-shadow 0.2s ease;
+    cursor: pointer;
 }
 
 .participant-item:hover {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* 아바타 */
+.participant-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+/* 내용 박스 */
+.participant-body {
+    flex: 1;
+}
+
+.participant-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.participant-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.participant-nickname {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.participant-date {
+    font-size: 13px;
+    color: gray;
 }
 
 .participant-meta {
@@ -88,8 +132,24 @@
     font-size: 15px;
     color: #333;
     white-space: pre-wrap;
+    word-break: break-word;
 }
 
+/* 삭제 버튼 */
+.participant-delete {
+    background: transparent;
+    color: #ff4d4f;
+    border: none;
+    font-size: 13px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.participant-delete:hover {
+    color: #d9363e;
+}
+
+/* 등록 폼 */
 .participant-form {
     margin-top: 20px;
     display: flex;
