@@ -93,7 +93,6 @@ const ChallengeDetail = () => {
                 <div style={{ marginBottom: '20px' }}>
                     <button
                         onClick={() => {
-                            // 수정 페이지로 이동
                             navigate(`/edit-challenge/${challenge.id}`);
                         }}
                         style={{ marginRight: '10px' }}
