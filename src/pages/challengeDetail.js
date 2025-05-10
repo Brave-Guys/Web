@@ -101,6 +101,7 @@ const ChallengeDetail = () => {
 
             <div className="challenge-detail-body">
                 <div className="challenge-content">
+                    <p className="challenge-desc">{challenge.description}</p>
                     {challenge.videoUrl && (
                         <div className="challenge-video-wrapper">
                             <video
@@ -113,7 +114,6 @@ const ChallengeDetail = () => {
                             />
                         </div>
                     )}
-                    <p className="challenge-desc">{challenge.description}</p>
                 </div>
 
                 <div className="participant-section">

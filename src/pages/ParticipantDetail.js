@@ -8,7 +8,20 @@ import '../styles/ParticipantDetail.css';
 const ParticipantDetail = () => {
     const { challengeId, participantId } = useParams();
     const [participant, setParticipant] = useState(null);
+    const [commentText, setCommentText] = useState('');
     const navigate = useNavigate();
+
+    const handleSubmitComment = async () => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user || !commentText.trim()) return;
+
+        try {
+            setCommentText('');            
+        } catch (err) {
+            console.error('댓글 등록 실패', err);
+            alert('댓글 등록 중 오류가 발생했습니다.');
+        }
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -41,7 +54,18 @@ const ParticipantDetail = () => {
                     />
                 </div>
             )}
-            {/* 향후 댓글, 좋아요 영역도 여기 추가 가능 */}
+            <div className="comment-form">
+                <textarea
+                    className="comment-textarea"
+                    placeholder="댓글을 입력하세요"
+                    value={commentText}
+                    onChange={(e) => setCommentText(e.target.value)}
+                    maxLength={300}
+                />
+                <button className="comment-submit-btn" onClick={handleSubmitComment}>
+                    댓글 등록
+                </button>
+            </div>
         </div>
     );
 };
