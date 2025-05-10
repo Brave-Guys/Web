@@ -1,52 +1,67 @@
-.participant-detail-container {
-    max-width: 800px;
+.participant-detail-wrapper {
+    display: flex;
+    gap: 32px;
+    max-width: 1100px;
     margin: 80px auto;
     padding: 0 24px;
-    background-color: #fff;
+    align-items: flex-start;
+}
+
+.participant-main {
+    flex: 2;
 }
 
 .participant-detail-date {
     font-size: 14px;
-    color: #888;
-    margin-bottom: 8px;
+    color: gray;
+    margin-bottom: 12px;
 }
 
 .participant-detail-content {
     font-size: 16px;
-    color: #333;
     line-height: 1.6;
     white-space: pre-wrap;
-    word-break: break-word;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
+    color: #333;
 }
 
 .participant-video-wrapper {
-    border-radius: 10px;
+    margin-top: 12px;
+    border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    margin-bottom: 32px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.participant-comments {
+    flex: 1;
+    background-color: #fafafa;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    max-height: 800px;
+    overflow-y: auto;
 }
 
 .comment-form {
-    margin-top: 40px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
+    margin-bottom: 20px;
 }
 
 .comment-textarea {
     width: 100%;
     min-height: 80px;
     padding: 10px;
-    font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 6px;
+    font-size: 14px;
     resize: vertical;
 }
 
 .comment-submit-btn {
     align-self: flex-end;
-    padding: 8px 16px;
+    padding: 6px 14px;
     font-size: 14px;
     background-color: #6b46c1;
     color: white;
@@ -58,4 +73,49 @@
 
 .comment-submit-btn:hover {
     background-color: #5936a8;
+}
+
+.comment-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.comment-item {
+    background-color: white;
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    word-break: break-word;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: #555;
+}
+
+.comment-edit-btn,
+.comment-delete-btn {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+.comment-edit-btn:hover,
+.comment-delete-btn:hover {
+    color: #333;
+}
+
+.comment-edit-box {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
