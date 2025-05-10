@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getParticipantDetail } from '../apis/getParticipantDetail';
 import { postReelsComment } from '../apis/postReelsComment';
 import { getReelsComments } from '../apis/getReelsComments';
+import { deleteReelsComment } from '../apis/deleteReelsComment';
 import PageTitle from '../components/PageTitle';
 import dayjs from 'dayjs';
 import '../styles/ParticipantDetail.css';
@@ -13,6 +14,7 @@ const ParticipantDetail = () => {
     const [comments, setComments] = useState([]);
     const [commentText, setCommentText] = useState('');
     const navigate = useNavigate();
+    const currentUserId = JSON.parse(localStorage.getItem('user'))?.id;
 
     const fetchComments = async () => {
         const data = await getReelsComments(participantId);
@@ -85,12 +87,36 @@ const ParticipantDetail = () => {
             </div>
 
             <div className="comment-list">
-                {comments.map((c) => (
-                    <div key={c.rcommentId} className="comment-item">
-                        <strong>{c.nickname}</strong> · {dayjs(c.writeDate).fromNow()}
-                        <p>{c.content}</p>
-                    </div>
-                ))}
+                {comments.map((c) => {
+                    const isMine = currentUserId === c.writerId;
+
+                    return (
+                        <div key={c.rcommentId} className="comment-item">
+                            <div className="comment-header">
+                                <strong>{c.nickname}</strong> · {dayjs(c.writeDate).fromNow()}
+                                {isMine && (
+                                    <button
+                                        onClick={async () => {
+                                            if (window.confirm('댓글을 삭제하시겠습니까?')) {
+                                                try {
+                                                    await deleteReelsComment(c.rcommentId);
+                                                    fetchComments();
+                                                } catch (err) {
+                                                    console.error('댓글 삭제 실패', err);
+                                                    alert('삭제 중 오류 발생');
+                                                }
+                                            }
+                                        }}
+                                        className="comment-delete-btn"
+                                    >
+                                        삭제
+                                    </button>
+                                )}
+                            </div>
+                            <p>{c.content}</p>
+                        </div>
+                    );
+                })}
             </div>
         </div>
     );
