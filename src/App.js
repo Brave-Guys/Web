@@ -37,6 +37,8 @@ import './App.css';
 import { Navigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
+import Footer from './components/Footer';
+
 const isAuthenticated = () => {
   return !!localStorage.getItem('token');
 };
@@ -95,6 +97,7 @@ function App() {
           <Route path="*" element={<Error />} />
         </Routes>
       </div>
+      {!hideHeader && <Footer />}
     </div>
   );
 }
