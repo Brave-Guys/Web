@@ -35,3 +35,31 @@
     align-items: center;
     height: 300px;
 }
+
+@media (max-width: 768px) {
+    .challenge-board {
+        padding: 24px 16px;
+    }
+
+    .challenge-header {
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .challenge-list {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .challenge-item {
+        padding: 16px;
+    }
+
+    .challenge-list.loading {
+        height: 200px;
+    }
+
+    .desktop {
+        display: none;
+    }
+}

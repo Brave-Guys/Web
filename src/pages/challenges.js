@@ -43,7 +43,7 @@ const ChallengeBoard = () => {
                 />
             </div>
 
-            <div style={{ margin: '70px' }}></div>
+            <div className='desktop' style={{ margin: '70px' }}></div>
 
             <div className={isLoading ? 'challenge-list loading' : 'challenge-list'}>
                 {isLoading ? (
