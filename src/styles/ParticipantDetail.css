@@ -51,18 +51,56 @@
 .comment-form {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    margin-bottom: 20px;
+    gap: 10px;
+    transition: all 0.2s ease;
 }
 
 .comment-textarea {
     width: 100%;
-    min-height: 80px;
+    min-height: 50px;
+    max-height: 50px;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 14px;
-    resize: vertical;
+    resize: none;
+    transition: all 0.2s ease;
+    font-family: 'Inter', 'Noto Sans KR', sans-serif;    
+}
+
+.comment-textarea.expanded {
+    min-height: 100px;
+    max-height: 100px;
+    border-color: #6b46c1;
+    box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.15);
+    background-color: #fff;
+}
+
+.comment-action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-6px);
+
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.comment-action-buttons.visible {
+    max-height: 100px;    
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+.comment-textarea:focus {
+    outline: none;
+    border-color: #6b46c1;
+    box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.15);
+    background-color: #fff;
 }
 
 .comment-submit-btn {

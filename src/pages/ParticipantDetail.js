@@ -7,6 +7,7 @@ import { deleteReelsComment } from '../apis/deleteReelsComment';
 import { updateReelsComment } from '../apis/updateReelsComment';
 import DefaultAvatar from '../assets/person.png';
 import PageTitle from '../components/PageTitle';
+import CustomButton from '../components/CustomButton';
 import dayjs from 'dayjs';
 import '../styles/ParticipantDetail.css';
 
@@ -17,6 +18,7 @@ const ParticipantDetail = () => {
     const [commentText, setCommentText] = useState('');
     const [editingCommentId, setEditingCommentId] = useState(null);
     const [editText, setEditText] = useState('');
+    const [isFocused, setIsFocused] = useState(false);
     const navigate = useNavigate();
     const currentUserId = JSON.parse(localStorage.getItem('user'))?.id;
 
@@ -105,16 +107,56 @@ const ParticipantDetail = () => {
                 <div className="participant-comments">
                     <div className="comment-form">
                         <textarea
-                            className="comment-textarea"
+                            className={`comment-textarea ${isFocused || commentText ? 'expanded' : ''}`}
                             placeholder="댓글을 입력하세요"
                             value={commentText}
+                            onFocus={() => setIsFocused(true)}
+                            onBlur={() => {
+                                if (!commentText.trim()) setIsFocused(false);
+                            }}
                             onChange={(e) => setCommentText(e.target.value)}
                             maxLength={300}
                         />
-                        <button className="comment-submit-btn" onClick={handleSubmitComment}>
-                            댓글 등록
-                        </button>
+                        {isFocused && (
+                            <div
+                                className="comment-action-buttons visible"
+                                style={{
+                                    justifyContent: 'flex-end',
+                                    gap: '6px',
+                                    marginTop: '6px'
+                                }}
+                            >
+                                <CustomButton
+                                    label="취소"
+                                    size="small"
+                                    color="gray"
+                                    onClick={() => {
+                                        setCommentText('');
+                                        setIsFocused(false);
+                                    }}
+                                    style={{
+                                        padding: '4px 10px',
+                                        fontSize: '13px',
+                                        height: '32px',
+                                        maxWidth: '20%',
+                                    }}
+                                />
+                                <CustomButton
+                                    label="등록"
+                                    size="small"
+                                    onClick={handleSubmitComment}
+                                    style={{
+                                        padding: '4px 10px',
+                                        fontSize: '13px',
+                                        height: '32px',
+                                        maxWidth: '20%',
+                                    }}
+                                />
+                            </div>
+                        )}
                     </div>
+
+                    <div style={{ margin: '20px' }}></div>
 
                     <div className="comment-list">
                         {comments.map((c) => {
@@ -153,17 +195,22 @@ const ParticipantDetail = () => {
                                                         className="comment-textarea"
                                                     />
                                                     <div>
-                                                        <button className="comment-submit-btn" onClick={() => handleEditSave(c.rcommentId)}>저장</button>
-                                                        <button
-                                                            className="comment-delete-btn"
+                                                        <CustomButton
+                                                            label="저장"
+                                                            size="small"
+                                                            onClick={() => handleEditSave(c.rcommentId)}
+                                                            style={{ padding: '5px', width: '20%', height: '10%', fontSize: '12px' }}
+                                                        />
+                                                        <CustomButton
+                                                            label="취소"
+                                                            size="small"
+                                                            color="gray"
                                                             onClick={() => {
                                                                 setEditingCommentId(null);
                                                                 setEditText('');
                                                             }}
-                                                            style={{ marginLeft: '8px' }}
-                                                        >
-                                                            취소
-                                                        </button>
+                                                            style={{ padding: '5px', marginLeft: '8px', width: '20%', height: '10%', fontSize: '12px' }}
+                                                        />
                                                     </div>
                                                 </div>
                                             ) : (
