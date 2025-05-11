@@ -1,4 +1,3 @@
-import React from 'react';
 import '../styles/InputField.css';
 
 const InputField = ({
@@ -7,36 +6,37 @@ const InputField = ({
     placeholder,
     value,
     onChange,
-    status, // 'default' | 'error' | 'success'
-    message, // 에러/성공 메시지
-    rightElement, // optional: ReactNode
-    type = 'text' // 추가: 'text' | 'password' | 'email' 등등
+    status,
+    message,
+    rightElement,
+    type = 'text'
 }) => {
     return (
         <div className="input-wrapper">
             <div className="input-row">
                 <label className="input-label">{label}</label>
-                <span className="input-guide">{guide}</span>
-                <div style={{ flexGrow: 1 }} />
-                {message && (
-                    <p className={`input-message ${status}`}>
-                        {message}
-                    </p>
-                )}
+                {guide && <span className="input-guide">{guide}</span>}
             </div>
-            <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+
+            <div className="input-field-row">
                 <input
                     type={type}
                     className={`input-box ${status}`}
                     placeholder={placeholder}
                     value={value}
                     onChange={onChange}
-                    style={{ flex: 5 }}
                 />
-                {rightElement && rightElement}
+                {rightElement}
             </div>
 
-        </div>
+            {message && (
+                <p className={`input-message ${status}`}>
+                    {message}
+                </p>
+            )}
+
+
+        </div >
     );
 };
 

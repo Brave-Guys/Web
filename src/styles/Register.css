@@ -1,37 +1,184 @@
 .register-container {
-    padding: 50px 600px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 48px 24px;
+    font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
 .input-group {
-    margin-bottom: 24px;
-}
-
-.email-input-wrapper {
     display: flex;
-    align-items: flex-end;
-    gap: 8px;
+    flex-direction: column;
+    gap: 6px;
 }
 
-.email-id {
+.input-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #555;
+}
+
+.input-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.input-control input {
     flex: 1;
-}
-
-.email-at {
+    padding: 12px 14px;
     font-size: 16px;
-    line-height: 38px;
-}
-
-.email-domain {
-    height: 40px;
-    padding: 0 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
+    transition: border-color 0.2s ease;
+    min-width: 0;
+}
+
+.input-control input:focus {
+    border-color: #AC6CFF;
+    outline: none;
+}
+
+.input-message {
+    font-size: 14px;
+    margin-top: 4px;
+    text-align: right;
+}
+
+.register-submit-button {
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.input-message.error {
+    color: #FF4D4F;
+}
+
+.input-message.success {
+    color: #00C851;
+}
+
+.input-control .email-at {
     font-size: 16px;
+    line-height: 1;
+}
+
+.submit-button-wrapper {
+    margin-top: 32px;
+    display: flex;
+    justify-content: center;
+}
+
+input.error {
+    border-color: #FF4D4F;
+}
+
+input.success {
+    border-color: #00C851;
+}
+
+button {
+    padding: 10px 16px;
+    font-size: 15px;
+    font-weight: 500;
+    background-color: #AC6CFF;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.1s ease;
+}
+
+button:hover {
+    background-color: #974DFD;
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(172, 108, 255, 0.4);
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+button.gray {
+    background-color: #ccc;
+    color: #333;
+}
+
+button.gray:hover {
+    background-color: #bbb;
+}
+
+button.gray:focus {
+    box-shadow: 0 0 0 2px rgba(150, 150, 150, 0.4);
+}
+
+.email-select {
+    height: 42px;
+    font-size: 15px;
+    padding: 0 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+    color: #333;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.email-select:focus {
+    border-color: #AC6CFF;
 }
 
 
-@media (max-width: 1500px) {
+@media (max-width: 768px) {
     .register-container {
-        padding: 30px 20px;
+        padding: 32px 16px;
+    }
+
+    .input-control input {
+        width: 100%;
+    }
+
+    .submit-button-wrapper {
+        margin-top: 24px;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    .input-control {
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .email-select {
+        width: 100%;
+        margin-top: 8px;
+    }
+
+    .email-at,
+    .email-domain,
+    .custom-domain-input {
+        margin-right: 6px;
+    }
+
+    .custom-domain-input {
+        flex: 1;
+        min-width: 0;
     }
 }
