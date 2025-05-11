@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Box from '../components/Box';
 import PageTitle from '../components/PageTitle.js';
+import exerciseTips from '../constants/exerciseTips';
 import { getWorkoutLogsByDateRange } from '../apis/getWorkoutLogs';
 import { calculateCardioScore } from '../utils/calculateCardioScore';
 import { calculateWeightScore } from '../utils/calculateWeightscore';
 import { getPosts } from '../apis/getPosts';
+import { format } from 'date-fns';
 import '../styles/main.css';
 
 const Main = () => {
     const [user, setUser] = useState(null);
     const [latestPosts, setLatestPosts] = useState([]);
     const [monthLogs, setMonthLogs] = useState([]);
+    const [randomTip, setRandomTip] = useState(null);
 
     const navigate = useNavigate();
 
@@ -37,12 +40,19 @@ const Main = () => {
                 const start = new Date(now.getFullYear(), now.getMonth(), 1);
                 const end = new Date(now.getFullYear(), now.getMonth() + 1, 0);
 
-                const logs = await getWorkoutLogsByDateRange(user._id, start.toISOString(), end.toISOString());
+                const logs = await getWorkoutLogsByDateRange(
+                    user.id,
+                    format(start, 'yyyy-MM-dd'),
+                    format(end, 'yyyy-MM-dd')
+                );
                 setMonthLogs(logs);
             } catch (err) {
                 console.error('월별 기록 조회 실패', err);
             }
         };
+
+        const randomIndex = Math.floor(Math.random() * exerciseTips.length);
+        setRandomTip(exerciseTips[randomIndex]);
 
         fetchPosts();
         fetchMonthLogs();
@@ -132,22 +142,82 @@ const Main = () => {
 
             <div className="card-grid">
                 <Box type={2} showArrow={true} title='이번 달 운동 기록' to='/workoutlog'>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                        {renderMiniCalendar()}
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        {/* 왼쪽: 미니 캘린더 */}
+                        <div style={{ flex: 1 }}>{renderMiniCalendar()}</div>
+
+                        <div className="score-legend-box desktop" style={{ flex: 1, marginLeft: '20px' }}>
+                            <h3>운동 강도</h3>
+                            <ul className="score-legend-list">
+                                <li>
+                                    <span style={{ backgroundColor: '#D9D9D9' }} />
+                                    <div className="legend-text">
+                                        <span className="label">운동 기록 없음</span>
+                                        <span className="score">0점</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span style={{ backgroundColor: '#B3E6B3' }} />
+                                    <div className="legend-text">
+                                        <span className="label">가벼운 운동</span>
+                                        <span className="score">1 ~ 60점</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span style={{ backgroundColor: '#80D480' }} />
+                                    <div className="legend-text">
+                                        <span className="label">평균</span>
+                                        <span className="score">61 ~ 100점</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span style={{ backgroundColor: '#4DC34D' }} />
+                                    <div className="legend-text">
+                                        <span className="label">열심히 운동</span>
+                                        <span className="score">101 ~ 140점</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span style={{ backgroundColor: '#00AA00' }} />
+                                    <div className="legend-text">
+                                        <span className="label">최고의 운동</span>
+                                        <span className="score">141점 이상</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </Box>
 
                 <Box type={2} showArrow={true} title='Share+' to='/share-plus' />
                 <Box type={2} showArrow={true} title='금주의 운동' to='/weekly-workout' />
-                <Box type={2} showArrow={true} title='기본 운동 설명서' to='/exercise-tip' />
+                {randomTip && (
+                    <Box type={2} showArrow={true} title='기본 운동 설명서' to='/exercise-tip'>
+                        <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <div class='desktop' style={{ padding: '0px 20px' }}>
+                                    <img src={randomTip.img} alt={randomTip.title} style={{ width: '80px', height: '80px', marginBottom: '10px' }} />
+                                </div>
+                                <div style={{ padding: '0px 20px' }}>
+                                    <h3 style={{ marginBottom: '5px' }}>{randomTip.title}</h3>
+                                    <ul style={{ listStyle: 'none', padding: 0 }}>
+                                        {randomTip.tips.map((tip, index) => (
+                                            <li class='tips' key={index} style={{ marginBottom: '5px' }}>• {tip}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </Box>
+                )}
 
                 <Box type={2} showArrow={true} title='게시판' to='/board'>
                     <div className="preview-posts">
                         {latestPosts.map((post) => (
                             <div
-                                key={post._id}
+                                key={post.id}
                                 className="preview-post"
-                                onClick={() => handlePostClick(post._id)}
+                                onClick={() => handlePostClick(post.id)}
                                 style={{ cursor: 'pointer' }}
                             >
                                 <span className="preview-title">{post.name}</span>

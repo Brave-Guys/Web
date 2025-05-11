@@ -1,0 +1,49 @@
+.challenge-write-container {
+    padding: 60px 300px;
+}
+
+.challenge-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 30px;
+}
+
+.challenge-input {
+    font-size: 20px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.challenge-textarea {
+    height: 160px;
+    font-size: 16px;
+    padding: 12px;
+    border-radius: 8px;
+    resize: none;
+    border: 1px solid #ccc;
+}
+
+.challenge-date-row {
+    display: flex;
+    gap: 16px;
+}
+
+.challenge-date-input {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    flex: 1;
+}
+
+.challenge-submit-row {
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.challenge-date-display {
+    font-size: 16px;
+    color: #555;
+}

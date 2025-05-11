@@ -19,3 +19,54 @@
 .box-children {
     width: 100%;
 }
+
+.popular-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.popular-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.popular-title {
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+}
+
+.popular-like {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #999;
+    font-size: 14px;
+}
+
+.tab-search-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 240px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    gap: 16px;
+}

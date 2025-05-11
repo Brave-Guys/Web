@@ -41,3 +41,47 @@
 .icon {
     font-size: 22px;
 }
+
+.profile-image {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 6px;
+}
+
+@media (max-width: 768px) {
+    .icon-btn span {
+        display: none;
+        /* 메뉴 텍스트 숨김 */
+    }
+
+    .nav {
+        padding: 10px 16px;
+        /* 모바일에 맞춰 여백 축소 */
+    }
+
+    .nav-icons {
+        gap: 16px;
+        /* 아이콘 간격 줄이기 */
+    }
+
+    .icon-btn {
+        padding: 6px;
+        justify-content: center;
+    }
+
+    .icon {
+        font-size: 20px;
+    }
+
+    .profile-image {
+        width: 20px;
+        height: 20px;
+        margin-right: 0;
+    }
+    
+    .nav-logo-text {
+        display: none;
+    }
+}

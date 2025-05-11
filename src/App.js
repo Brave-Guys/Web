@@ -6,7 +6,7 @@ import Login from './pages/login.js';
 import Main from './pages/main.js';
 import Board from './pages/board.js';
 import FindAccount from './pages/find-accout.js';
-import Challenges from './pages/challengs.js';
+import Challenges from './pages/challenges.js';
 import Mypage from './pages/mypage.js';
 import WeeklyWorkout from './pages/weekly-workout.js';
 import Masters from './pages/masters.js';
@@ -18,6 +18,11 @@ import ExerciseTip from './pages/exercisetip.js';
 import PostDetail from './pages/postdetail.js';
 import WritePost from './pages/writepost.js';
 import EditPost from './pages/editpost.js';
+import SearchResult from './pages/searchResult.js';
+import ChallengeWrite from './pages/challengeWrite.js';
+import ChallengeDetail from './pages/challengeDetail.js';
+import EditChallenge from './pages/EditChallenge.js';
+import ParticipantDetail from './pages/ParticipantDetail.js';
 
 import ExerciseTipChest from './pages/exercise-tip-detail/ExerciseTipChest';
 import ExerciseTipShoulder from './pages/exercise-tip-detail/ExerciseTipShoulder';
@@ -30,6 +35,7 @@ import ExerciseTipHamstring from './pages/exercise-tip-detail/ExerciseTipHamstri
 
 import './App.css';
 import { Navigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const isAuthenticated = () => {
   return !!localStorage.getItem('token');
@@ -40,10 +46,13 @@ const PrivateRoute = ({ children }) => {
 };
 
 function App() {
+  const location = useLocation();
+  const hideHeader = location.pathname === '/login';
+
   return (
-    <div>
-      <Header />
-      <div>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      {!hideHeader && <Header />}
+      <div style={{ flex: 1 }}>
         <Routes>
           {/* 공개 페이지 */}
           <Route path="/login" element={<Login />} />
@@ -62,6 +71,7 @@ function App() {
           <Route path="/share-plus" element={<PrivateRoute><SharePlus /></PrivateRoute>} />
           <Route path="/inquiry" element={<PrivateRoute><Inquiry /></PrivateRoute>} />
           <Route path="/workoutlog" element={<PrivateRoute><WorkoutLog /></PrivateRoute>} />
+          <Route path="/search" element={<PrivateRoute><SearchResult /></PrivateRoute>} />
 
           <Route path="/exercise-tip" element={<PrivateRoute><ExerciseTip /></PrivateRoute>} />
           <Route path="/exercise-tip/chest" element={<PrivateRoute><ExerciseTipChest /></PrivateRoute>} />
@@ -75,9 +85,11 @@ function App() {
 
           <Route path="/writepost" element={<PrivateRoute><WritePost /></PrivateRoute>} />
           <Route path="/post/:id" element={<PrivateRoute><PostDetail /></PrivateRoute>} />
+          <Route path="/challenges/:id" element={<PrivateRoute><ChallengeDetail /></PrivateRoute>} />
+          <Route path="/edit-challenge/:id" element={<PrivateRoute><EditChallenge /></PrivateRoute>} />
           <Route path="/editpost/:id" element={<PrivateRoute><EditPost /></PrivateRoute>} />
-
-
+          <Route path="/create-challenge" element={<PrivateRoute><ChallengeWrite /></PrivateRoute>} />
+          <Route path="/challenges/:challengeId/participants/:participantId" element={<ParticipantDetail />} />
 
           {/* 404 */}
           <Route path="*" element={<Error />} />

@@ -7,7 +7,7 @@ export const getWorkoutLogsByDate = async ({ userId, date }) => {
             date,
         },
     });
-    return response.data; // logs 키가 아니라 그냥 배열
+    return response.data;
 };
 
 export const getWorkoutLogsByDateRange = async (userId, startDate, endDate) => {
@@ -19,5 +19,5 @@ export const getWorkoutLogsByDateRange = async (userId, startDate, endDate) => {
             endDate,
         },
     });
-    return response.data.logs; // 서버에서 { logs: [...] } 형태로 받을 예정
+    return response.data.logs;
 };

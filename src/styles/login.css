@@ -1,6 +1,37 @@
+.mobile-title {
+    display: none;
+}
+
+.login-background {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.bg-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    z-index: 0;
+}
+
+.bg-slide.active {
+    opacity: 1;
+    z-index: 1;
+}
+
 .login-page {
     display: flex;
     height: calc(100vh - 60px);
+    position: relative;
+    z-index: 2;
 }
 
 .login-container {
@@ -25,11 +56,7 @@
     color: red;
     font-size: 14px;
     white-space: nowrap;
-}
-
-
-.error-message {
-    color: red;
+    text-align: left;
 }
 
 .login-text {
@@ -103,7 +130,6 @@
     box-sizing: border-box;
 }
 
-
 .social-icon {
     width: 30px;
     height: 30px;
@@ -139,4 +165,86 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media (max-width: 768px) {
+
+    .mobile-title {
+        display: block;
+        text-align: center;
+        font-size: 30px;
+    }
+
+    .login-page {
+        height: auto;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #fff;
+        background-image: none !important;
+    }
+
+    .login-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+    }
+
+    .login-left {
+        display: none;
+    }
+
+    .login-right {
+        width: 100%;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .login-box {
+        width: 100%;
+        max-width: 360px;
+        padding: 32px 24px;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .login-box h2 {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .social-content {
+        flex-direction: row;
+        padding: 16px;
+    }
+
+    .text-area {
+        font-size: 14px;
+    }
+
+    .social-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .login-buttons {
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    .custom-button {
+        width: auto;
+        flex: 1;
+    }
+
+    .login-title-row {
+        justify-content: center;
+        padding: 15px 0;
+    }
+
+    .error-message {
+        text-align: center;
+    }
 }

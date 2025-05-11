@@ -4,7 +4,9 @@ import { deleteWorkoutLog } from '../apis/deleteWorkoutLog';
 import { updateWorkoutLog } from '../apis/updateWorkoutLog';
 import { cardioOptions, weightOptions } from '../constants/exerciseOptions';
 import { calculateTotalScore } from '../utils/calculateTotalScore';
+import { format } from 'date-fns';
 import CustomButton from './CustomButton';
+import ConfirmModal from './ConfirmModal';
 import editIcon from '../assets/edit-icon.png'
 import deleteIcon from '../assets/delete-icon.png'
 import addIcon from '../assets/plus.png'
@@ -14,7 +16,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
     const [logs, setLogs] = useState([]);
     const [isAdding, setIsAdding] = useState(false);
     const [confirmDeleteId, setConfirmDeleteId] = useState(null);
-    const [editLog, setEditLog] = useState(null); // ✨ 수정할 log
+    const [editLog, setEditLog] = useState(null);
 
     const [exerciseType, setExerciseType] = useState('');
     const [exercisePart, setExercisePart] = useState('');
@@ -53,7 +55,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
 
         try {
             await deleteWorkoutLog(confirmDeleteId);
-            setLogs(prevLogs => prevLogs.filter(l => l._id !== confirmDeleteId));
+            setLogs(prevLogs => prevLogs.filter(l => l.id !== confirmDeleteId));
             setConfirmDeleteId(null);
             if (onLogSaved) onLogSaved();
         } catch (err) {
@@ -71,11 +73,11 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
             const user = JSON.parse(localStorage.getItem('user'));
 
             const logData = {
-                userId: user._id,
+                userId: user.id,
                 name: exerciseName,
                 part: exercisePart == '' ? '유산소' : exercisePart,
                 exerciseType,
-                date: selectedDate instanceof Date ? selectedDate.toISOString() : selectedDate,
+                date: format(selectedDate, 'yyyy-MM-dd'),
                 duration: duration ? Number(duration) : 0,
                 distance: distance ? Number(distance) : 0,
                 sets: sets ? Number(sets) : 0,
@@ -85,12 +87,12 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
 
             if (editLog) {
                 // 수정일 때
-                await updateWorkoutLog(editLog._id, logData);
+                await updateWorkoutLog(editLog.id, logData);
 
                 setLogs(prevLogs =>
                     prevLogs.map(log =>
-                        log._id === editLog._id
-                            ? { ...log, ...logData, _id: editLog._id } // id 유지
+                        log.id === editLog.id
+                            ? { ...log, ...logData, id: editLog.id } // id 유지
                             : log
                     )
                 );
@@ -176,7 +178,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
                                     src={deleteIcon}
                                     alt="삭제"
                                     className="log-action-icon"
-                                    onClick={() => setConfirmDeleteId(log._id)}
+                                    onClick={() => setConfirmDeleteId(log.id)}
                                 />
                             </div>
                         </li>
@@ -185,15 +187,15 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
             </ul>
 
             {confirmDeleteId && (
-                <div className="confirm-modal-overlay" onClick={() => setConfirmDeleteId(null)}>
-                    <div className="confirm-modal" onClick={(e) => e.stopPropagation()}>
-                        <p>정말 삭제하시겠습니까?</p>
-                        <div className="confirm-buttons">
-                            <button onClick={() => setConfirmDeleteId(null)}>취소</button>
-                            <button onClick={handleConfirmDelete}>삭제</button>
-                        </div>
-                    </div>
-                </div>
+                <ConfirmModal
+                    open={!!confirmDeleteId}
+                    onClose={() => setConfirmDeleteId(null)}
+                    onConfirm={handleConfirmDelete}
+                    title="정말 삭제하시겠습니까?"
+                    description="삭제하면 복구할 수 없습니다."
+                    confirmText="삭제"
+                    cancelText="취소"
+                />
             )}
 
             {isAdding ? (

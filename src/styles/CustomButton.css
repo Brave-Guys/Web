@@ -1,9 +1,14 @@
 .custom-button {
     border: none;
     cursor: pointer;
-    font-weight: bold;    
+    font-weight: bold;
+    transition: all 0.2s ease;
+    width: auto;
+    max-width: 150px;
 }
 
+
+/* 크기 */
 .btn-large {
     max-width: 200px;
     height: 60px;
@@ -16,6 +21,7 @@
     font-size: 16px;
 }
 
+/* 둥글기 */
 .btn-square {
     border-radius: 10px;
 }
@@ -24,6 +30,7 @@
     border-radius: 50px;
 }
 
+/* 색상 */
 .btn-purple {
     background-color: #AC6CFF;
     color: white;
@@ -42,4 +49,28 @@
 .btn-red {
     background-color: #FF4646;
     color: white;
+}
+
+.custom-button:hover {
+    filter: brightness(1.1);
+}
+
+.custom-button:active {
+    transform: scale(0.96);
+    filter: brightness(0.95);
+}
+
+.custom-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: none;
+    transform: none;
+}
+
+.custom-button:disabled:hover {
+    filter: none;
+}
+
+.custom-button:disabled:active {
+    transform: none;
 }
