@@ -1,4 +1,4 @@
-.register-success-container {    
+.register-success-container {
     padding: 100px 20px;
     text-align: center;
     background-color: #ffffff;
@@ -20,4 +20,24 @@
     font-size: 24px;
     margin-bottom: 40px;
     line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .register-success-container {
+        padding: 60px 16px;
+    }
+
+    .success-icon {
+        width: 100px;
+    }
+
+    .success-title {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .success-message {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
 }
