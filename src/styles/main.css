@@ -227,21 +227,21 @@
   background-color: #EEEEEE;
 }
 
-/* ======= Responsive: 태블릿 이하 (768px) ======= */
+/* ===================== 📱 Mobile First 기반 반응형 ===================== */
 @media (max-width: 768px) {
   .main-page {
     padding: 40px 20px;
   }
 
-  .card-grid {
-    grid-template-columns: 1fr;
-    /* 카드 한 줄씩 */
-    gap: 16px;
-  }
-
   .pro-badge {
     margin-left: 0;
     font-size: 16px;
+  }
+
+  .card-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
   .mini-calendar-grid {
@@ -289,5 +289,38 @@
 
   .welcome-text h2 {
     font-size: 22px;
+  }
+
+  .record-section {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+/* ===================== 💻 태블릿 이상 (중간 크기 대응) ===================== */
+@media (min-width: 769px) and (max-width: 1023px) {
+  .main-page {
+    padding: 50px 40px;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mini-calendar-grid {
+    grid-template-columns: repeat(7, 48px);
+  }
+
+  .mini-calendar-cell {
+    width: 48px;
+    height: 44px;
+  }
+
+  .preview-title {
+    max-width: 80%;
+  }
+
+  .pro-badge {
+    margin-left: 200px;
   }
 }
