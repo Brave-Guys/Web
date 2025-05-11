@@ -156,11 +156,24 @@ const CommentItem = ({
 
                     {isEditing ? (
                         <div className="comment-reply-box" style={{ marginTop: '6px' }}>
-                            <input value={editText} onChange={(e) => setEditText(e.target.value)} />
-                            <button onClick={handleEdit}>저장</button>
-                            <button onClick={() => { setEditText(content); setIsEditing(false); }} style={{ backgroundColor: '#ccc', color: '#000' }}>
-                                취소
-                            </button>
+                            <textarea
+                                className="comment-edit-textarea"
+                                value={editText}
+                                onChange={(e) => setEditText(e.target.value)}
+                                placeholder="댓글을 수정하세요"
+                            />
+                            <div className="comment-reply-buttons">
+                                <button onClick={handleEdit} className="comment-button save">저장</button>
+                                <button
+                                    onClick={() => {
+                                        setEditText(content);
+                                        setIsEditing(false);
+                                    }}
+                                    className="comment-button cancel"
+                                >
+                                    취소
+                                </button>
+                            </div>
                         </div>
                     ) : (
                         <div className="comment-content">{content}</div>

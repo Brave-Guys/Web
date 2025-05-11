@@ -54,6 +54,7 @@ const PostDetail = () => {
     const [liked, setLiked] = useState(false);
     const [noticePosts, setNoticePosts] = useState([]);
     const [popularPosts, setPopularPosts] = useState([]);
+    const [isFocused, setIsFocused] = useState(false);
 
     const fetchPopularPosts = async () => {
         try {
@@ -206,11 +207,7 @@ const PostDetail = () => {
             <div style={{ margin: '50px 0' }}>
                 <PageTitle title={post.name} showBackArrow={true} />
             </div>
-
-            {/* 본문 + 공지 flex 배치 */}
             <div style={{ display: 'flex', gap: '40px' }}>
-
-                {/* 왼쪽: 게시글 본문 */}
                 <div style={{ flex: 2 }}>
                     <div className="post-detail-wrapper">
                         <div className="profile-info" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
@@ -285,41 +282,63 @@ const PostDetail = () => {
                             </div>
                         </div>
 
-                        {/* 댓글 입력창 */}
                         <div className="comment-input-wrapper">
-                            <input
-                                type="text"
+                            <textarea
+                                className="comment-textarea"
                                 placeholder="댓글을 작성하세요!"
                                 value={commentText}
                                 onChange={(e) => setCommentText(e.target.value)}
+                                onFocus={() => setIsFocused(true)}
+                                onBlur={(e) => {
+                                    if (!e.target.value.trim()) setIsFocused(false);
+                                }}
                             />
-                            <button onClick={handleRootCommentSubmit}>등록</button>
+                            {isFocused && (
+                                <div className="comment-action-buttons visible" style={{ padding: '10px 0px' }}>
+                                    <button
+                                        className="comment-button cancel"
+                                        onClick={() => {
+                                            setCommentText('');
+                                            setIsFocused(false);
+                                        }}
+                                    >
+                                        취소
+                                    </button>
+                                    <button
+                                        className="comment-button save"
+                                        onClick={handleRootCommentSubmit}
+                                    >
+                                        등록
+                                    </button>
+                                </div>
+                            )}
                         </div>
 
-                        {/* 댓글 리스트 */}
+                        <div style={{ margin: '5px' }}></div>
                         {comments.map((comment) => (
-                            <CommentItem
-                                commentId={comment.id}
-                                name={comment.nickname}
-                                time={comment.writeDate}
-                                content={comment.content}
-                                likes={comment.likes || 0}
-                                replies={comment.replies || []}
-                                onReplySubmit={(text, parentId = comment.id) =>
-                                    submitReply(postId, parentId, text)
-                                }
-                                currentUserId={currentUserId}
-                                writerId={comment.writerId}
-                                profileImgUrl={comment.profileImgUrl}
-                                onDeleteSuccess={fetchPostAndComments}
-                                onEditSuccess={fetchPostAndComments}
-                            />
+                            <>
+                                <CommentItem
+                                    commentId={comment.id}
+                                    name={comment.nickname}
+                                    time={comment.writeDate}
+                                    content={comment.content}
+                                    likes={comment.likes || 0}
+                                    replies={comment.replies || []}
+                                    onReplySubmit={(text, parentId = comment.id) =>
+                                        submitReply(postId, parentId, text)
+                                    }
+                                    currentUserId={currentUserId}
+                                    writerId={comment.writerId}
+                                    profileImgUrl={comment.profileImgUrl}
+                                    onDeleteSuccess={fetchPostAndComments}
+                                    onEditSuccess={fetchPostAndComments}
+                                />
+                            </>
                         ))}
                     </div>
                 </div>
 
-                {/* 오른쪽: 공지사항 */}
-                <div style={{ flex: 1 }}>
+                <div style={{ flex: 1 }} className='desktop'>
                     <Box type={2} title='인기글' showArrow={false} to='/popular'>
                         <div className="popular-preview">
                             {popularPosts.map((post) => (
