@@ -5,6 +5,7 @@ import { postReelsComment } from '../apis/postReelsComment';
 import { getReelsComments } from '../apis/getReelsComments';
 import { deleteReelsComment } from '../apis/deleteReelsComment';
 import { updateReelsComment } from '../apis/updateReelsComment';
+import DefaultAvatar from '../assets/person.png';
 import PageTitle from '../components/PageTitle';
 import dayjs from 'dayjs';
 import '../styles/ParticipantDetail.css';
@@ -77,104 +78,108 @@ const ParticipantDetail = () => {
     if (!participant) return <div>로딩 중...</div>;
 
     return (
-        <div className="participant-detail-wrapper">
-            <div className="participant-main">
-                <PageTitle
-                    title={`${participant.nickname}님의 수행 내역`}
-                    showBackArrow={true}
-                    onBack={() => navigate(-1)}
-                />
-                <p className="participant-detail-date">{dayjs(participant.writeDate).format('YYYY.MM.DD HH:mm')}</p>
-                <p className="participant-detail-content">{participant.content}</p>
-                {participant.videoUrl && (
-                    <div className="participant-video-wrapper">
-                        <video
-                            src={participant.videoUrl}
-                            autoPlay
-                            muted
-                            controls
-                            preload="metadata"
-                            style={{ width: '100%', maxWidth: '640px' }}
-                        />
-                    </div>
-                )}
-            </div>
-
-            <div className="participant-comments">
-                <div className="comment-form">
-                    <textarea
-                        className="comment-textarea"
-                        placeholder="댓글을 입력하세요"
-                        value={commentText}
-                        onChange={(e) => setCommentText(e.target.value)}
-                        maxLength={300}
-                    />
-                    <button className="comment-submit-btn" onClick={handleSubmitComment}>
-                        댓글 등록
-                    </button>
+        <div className="participant-detail-page">
+            <PageTitle
+                title={`${participant.nickname}님의 수행 내역`}
+                description={dayjs(participant.writeDate).format('YYYY.MM.DD HH:mm')}
+                showBackArrow={true}
+                onBack={() => navigate(-1)}
+            />
+            <div className="participant-detail-wrapper">
+                <div className="participant-main">
+                    <p className="participant-detail-content">{participant.content}</p>
+                    {participant.videoUrl && (
+                        <div className="participant-video-wrapper">
+                            <video
+                                src={participant.videoUrl}
+                                autoPlay
+                                muted
+                                controls
+                                preload="metadata"
+                                style={{ width: '100%', maxWidth: '640px' }}
+                            />
+                        </div>
+                    )}
                 </div>
 
-                <div className="comment-list">
-                    {comments.map((c) => {
-                        const isMine = currentUserId === c.writerId;
-                        const isEditing = editingCommentId === c.rcommentId;
+                <div className="participant-comments">
+                    <div className="comment-form">
+                        <textarea
+                            className="comment-textarea"
+                            placeholder="댓글을 입력하세요"
+                            value={commentText}
+                            onChange={(e) => setCommentText(e.target.value)}
+                            maxLength={300}
+                        />
+                        <button className="comment-submit-btn" onClick={handleSubmitComment}>
+                            댓글 등록
+                        </button>
+                    </div>
 
-                        return (
-                            <div key={c.rcommentId} className="comment-item">
-                                <div className="comment-header">
-                                    <strong>{c.nickname}</strong> · {dayjs(c.writeDate).fromNow()}
-                                    {isMine && !isEditing && (
-                                        <>
-                                            <button
-                                                className="comment-edit-btn"
-                                                onClick={() => {
-                                                    setEditingCommentId(c.rcommentId);
-                                                    setEditText(c.content);
-                                                }}
-                                            >
-                                                수정
-                                            </button>
-                                            <button
-                                                className="comment-delete-btn"
-                                                onClick={() => handleDelete(c.rcommentId)}
-                                            >
-                                                삭제
-                                            </button>
-                                        </>
-                                    )}
-                                </div>
-                                {isEditing ? (
-                                    <div className="comment-edit-box">
-                                        <textarea
-                                            value={editText}
-                                            onChange={(e) => setEditText(e.target.value)}
-                                            className="comment-textarea"
-                                        />
-                                        <div style={{ marginTop: '4px' }}>
-                                            <button
-                                                className="comment-submit-btn"
-                                                onClick={() => handleEditSave(c.rcommentId)}
-                                            >
-                                                저장
-                                            </button>
-                                            <button
-                                                className="comment-delete-btn"
-                                                onClick={() => {
-                                                    setEditingCommentId(null);
-                                                    setEditText('');
-                                                }}
-                                                style={{ marginLeft: '8px' }}
-                                            >
-                                                취소
-                                            </button>
+                    <div className="comment-list">
+                        {comments.map((c) => {
+                            const isMine = currentUserId === c.writerId;
+                            const isEditing = editingCommentId === c.rcommentId;
+
+                            return (
+                                <div key={c.rcommentId} className="comment-item">
+                                    <div className="comment-layout">
+                                        <img src={c.profileImgUrl || DefaultAvatar} alt="avatar" className="avatar" />
+
+                                        <div className="comment-main">
+                                            <div className="comment-header">
+                                                <span className="comment-nickname">{c.nickname}</span>
+                                                <span className="comment-time">{dayjs(c.writeDate).fromNow()}</span>
+                                                {isMine && !isEditing && (
+                                                    <div className="comment-controls">
+                                                        <span className="comment-edit-btn" onClick={() => {
+                                                            setEditingCommentId(c.rcommentId);
+                                                            setEditText(c.content);
+                                                        }}>
+                                                            수정
+                                                        </span>
+                                                        <span className="comment-delete-btn" onClick={() => handleDelete(c.rcommentId)}>
+                                                            삭제
+                                                        </span>
+                                                    </div>
+                                                )}
+                                            </div>
+
+                                            {isEditing ? (
+                                                <div className="comment-edit-box">
+                                                    <textarea
+                                                        value={editText}
+                                                        onChange={(e) => setEditText(e.target.value)}
+                                                        className="comment-textarea"
+                                                    />
+                                                    <div>
+                                                        <button className="comment-submit-btn" onClick={() => handleEditSave(c.rcommentId)}>저장</button>
+                                                        <button
+                                                            className="comment-delete-btn"
+                                                            onClick={() => {
+                                                                setEditingCommentId(null);
+                                                                setEditText('');
+                                                            }}
+                                                            style={{ marginLeft: '8px' }}
+                                                        >
+                                                            취소
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <p>{c.content}</p>
+                                            )}
+
+                                            <div className="comment-actions">
+                                                <div className="comment-like">👍 0</div>
+                                                <span className="comment-reply">답글</span>
+                                            </div>
                                         </div>
                                     </div>
-                                ) : (
-                                    <p>{c.content}</p>
-                                )}
-                            </div>
-                        );
-                    })}
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
         </div>
