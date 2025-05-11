@@ -26,7 +26,7 @@ const Main = () => {
 
         const fetchPosts = async () => {
             try {
-                const allPosts = await getPosts();                
+                const allPosts = await getPosts();
                 setLatestPosts(allPosts.slice(0, 3));
             } catch (err) {
                 console.error('게시글을 불러오는 데 실패했습니다.', err);
@@ -146,8 +146,7 @@ const Main = () => {
                         {/* 왼쪽: 미니 캘린더 */}
                         <div style={{ flex: 1 }}>{renderMiniCalendar()}</div>
 
-                        {/* 오른쪽: 색상 안내문 */}
-                        <div className="score-legend-box" style={{ flex: 1, marginLeft: '20px' }}>
+                        <div className="score-legend-box desktop" style={{ flex: 1, marginLeft: '20px' }}>
                             <h3>운동 강도</h3>
                             <ul className="score-legend-list">
                                 <li>
@@ -196,14 +195,14 @@ const Main = () => {
                     <Box type={2} showArrow={true} title='기본 운동 설명서' to='/exercise-tip'>
                         <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <div style={{ padding: '0px 20px' }}>
+                                <div class='desktop' style={{ padding: '0px 20px' }}>
                                     <img src={randomTip.img} alt={randomTip.title} style={{ width: '80px', height: '80px', marginBottom: '10px' }} />
                                 </div>
                                 <div style={{ padding: '0px 20px' }}>
                                     <h3 style={{ marginBottom: '5px' }}>{randomTip.title}</h3>
                                     <ul style={{ listStyle: 'none', padding: 0 }}>
                                         {randomTip.tips.map((tip, index) => (
-                                            <li key={index} style={{ marginBottom: '5px' }}>• {tip}</li>
+                                            <li class='tips' key={index} style={{ marginBottom: '5px' }}>• {tip}</li>
                                         ))}
                                     </ul>
                                 </div>
