@@ -140,3 +140,85 @@
     justify-content: center;
     align-items: center;
 }
+
+@media (max-width: 768px) {
+    .login-page {
+        height: auto;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #fff;        
+        background-image: none !important;
+    }
+
+    .login-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+    }
+
+    .login-left {
+        display: none;        
+    }
+
+    .login-right {
+        width: 100%;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .login-box {
+        width: 100%;
+        max-width: 360px;
+        padding: 32px 24px;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .login-box h2 {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .social-content {
+        flex-direction: row;
+        padding: 16px;
+    }
+
+    .text-area {
+        font-size: 14px;
+    }
+
+    .social-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .login-buttons {
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    .custom-button {
+        width: auto;
+        flex: 1;
+    }
+
+    .login-title-row {
+        justify-content: center;
+        padding: 15px 0;
+    }
+
+    .login-title-row .error-message {
+        position: absolute;
+        top: 70px;
+        font-size: 13px;
+        text-align: center;
+    }
+
+    .error-message {
+        text-align: center;
+    }
+}

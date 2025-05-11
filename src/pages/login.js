@@ -48,13 +48,14 @@ const Login = () => {
 
                 <div className="login-right">
                     <div className="login-box">
-                        <div className="login-title-row">
-                            <div style={{fontSize: '30px', fontWeight: 'bold'}}>로그인</div>
-                            {errorMessage && (
-                                <div className="error-message">{errorMessage}</div>
-                            )}
-                        </div>
+                        <div className="login-title-row" style={{ padding: '0px' }}>
+                            <div style={{ fontSize: '30px', fontWeight: 'bold' }}>로그인</div>
 
+                        </div>
+                        <div className="error-message">{errorMessage === '' ? '\u00A0' : errorMessage}</div>
+
+
+                        <div style={{ margin: '20px' }}></div>
 
 
                         <div className="login-box-inner">
