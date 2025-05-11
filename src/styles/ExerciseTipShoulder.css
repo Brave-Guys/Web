@@ -1,0 +1,132 @@
+ .shoulder-page {
+    display: flex;
+    background-color: #ddd;
+    height: 100vh;
+    padding-bottom: 100px;
+    gap: 40px;
+  }
+
+  .shoulder-wrapper {
+    padding: 0 200px;
+    background-color: #ddd;
+    height: 100vh;
+    box-sizing: border-box;
+  }
+  
+  
+  .left-section {
+    flex: 1;
+    background-color: #e18c8c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    padding: 30px;
+  }
+  
+  .right-section {
+    flex: 1;
+    background-color: #8d7aff;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .section-title {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+  }
+  
+
+  .shoulder-image {
+    width: 100%;
+    max-width: 700px; 
+    height: auto; 
+    margin: 0 auto 20px; 
+    display: block;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  
+  .exercise-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+    padding-right: 10px;
+    max-height: 80vh;
+  }
+  
+  .exercise-card {
+    background-color: #fff;
+    padding: 12px;
+    border-radius: 12px;
+    display: flex;
+    gap: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .exercise-image {
+    width: 80px;
+    height: 80px;
+    background-color: #ccc;
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+  
+  .exercise-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #333;
+  }
+  
+  .exercise-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .shoulder-image-wrapper {
+    position: relative;
+    width: 100%; /* 더 넓게 */
+    max-width: 650px; /* 이미지 크기에 맞춰 확장 */
+    margin: 0 auto 20px; /* 가운데 정렬 + 여백 */
+  }
+  
+  .area {
+    position: absolute;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0); /* 초기엔 투명 */
+    transition: background-color 0.2s ease;
+  }
+  
+  /* 각 부위의 위치는 이미지 기준으로 조절 필요 */
+  .area.front {
+    top: 80px;
+    left: 200px;
+    width: 120px;
+    height: 150px;
+  }
+  
+  .area.side {
+    top: 80px;
+    left: 320px;
+    width: 120px;
+    height: 150px;
+  }
+  
+  .area.rear {
+    top: 80px;
+    left: 440px;
+    width: 70px;
+    height: 150px;
+  }
+  
+  .area:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+  }
+  
