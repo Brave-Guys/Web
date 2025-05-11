@@ -40,7 +40,6 @@
     white-space: pre-wrap;
 }
 
-/* 참가자 영역 */
 .participant-section {
     flex: 1;
     max-height: 800px;
@@ -252,4 +251,10 @@
     outline: none;
     border-color: #6b46c1;
     background-color: #fefefe;
+}
+
+@media (max-width: 768px) {
+    .challenge-detail-body {
+        flex-direction: column;
+    }
 }
