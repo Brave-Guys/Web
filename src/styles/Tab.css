@@ -32,3 +32,13 @@
     background-color: #000000;
     border-radius: 1.5px;
 }
+
+@media (max-width: 768px) {
+    .tab-button {        
+        font-size: 14px;
+    }    
+
+    .tab-container {
+        gap: 0px;
+    }
+}
