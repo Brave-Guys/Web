@@ -35,6 +35,7 @@ import ExerciseTipHamstring from './pages/exercise-tip-detail/ExerciseTipHamstri
 
 import './App.css';
 import { Navigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const isAuthenticated = () => {
   return !!localStorage.getItem('token');
@@ -45,10 +46,13 @@ const PrivateRoute = ({ children }) => {
 };
 
 function App() {
+  const location = useLocation();
+  const hideHeader = location.pathname === '/login';
+
   return (
-    <div>
-      <Header />
-      <div>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      {!hideHeader && <Header />}
+      <div style={{ flex: 1 }}>
         <Routes>
           {/* 공개 페이지 */}
           <Route path="/login" element={<Login />} />

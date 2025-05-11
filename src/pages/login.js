@@ -37,6 +37,7 @@ const Login = () => {
                 backgroundPosition: 'top center',
                 backgroundRepeat: 'no-repeat',
                 backgroundAttachment: 'fixed',
+                height: '100vh',
             }}
         >
             <div className="login-container">
