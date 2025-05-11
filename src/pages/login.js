@@ -116,7 +116,7 @@ const Login = () => {
                                             <div className="icon-area">
                                                 <img src={kakaoIcon} alt="Kakao" className="social-icon" />
                                             </div>
-                                            <div className="text-area">
+                                            <div className="text-area" style={{ color: 'black' }}>
                                                 카카오톡 계정으로 로그인
                                             </div>
                                         </div>

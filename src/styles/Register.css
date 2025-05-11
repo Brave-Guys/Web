@@ -96,13 +96,13 @@ button {
     border-radius: 8px;
     cursor: pointer;
     transition:
-        background-color 0.2s ease,
+        filter 0.2s ease,
         box-shadow 0.2s ease,
         transform 0.1s ease;
 }
 
 button:hover {
-    background-color: #974DFD;
+    filter: brightness(1.1);
 }
 
 button:focus {
