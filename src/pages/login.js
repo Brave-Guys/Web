@@ -7,6 +7,7 @@ import InputField from '../components/InputField';
 import kakaoIcon from '../assets/kakao.png';
 import naverIcon from '../assets/naver.png';
 import googleIcon from '../assets/google.png';
+import appIcon from '../assets/logo.png'
 
 const Login = () => {
     const [loginData, setLoginData] = useState({ username: '', password: '' });
@@ -52,6 +53,13 @@ const Login = () => {
             ))}
 
             <div className="login-page">
+                <div className='mobile-title'>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <img src={appIcon} style={{ width: '40px', marginRight: '10px' }} />
+                        <p style={{ color: '#1E53B5', fontWeight: 'bold', fontStyle: 'italic' }}>StrengthHub</p>
+                    </div>
+                    <p style={{ fontSize: '15px', color: '#777' }}>운동 기록 및 트레이닝 서비스</p>
+                </div>
                 <div className="login-container">
                     <div className="login-left">
                     </div>
