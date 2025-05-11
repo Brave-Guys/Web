@@ -226,3 +226,68 @@
 .mini-calendar-cell.empty {
   background-color: #EEEEEE;
 }
+
+/* ======= Responsive: 태블릿 이하 (768px) ======= */
+@media (max-width: 768px) {
+  .main-page {
+    padding: 40px 20px;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+    /* 카드 한 줄씩 */
+    gap: 16px;
+  }
+
+  .pro-badge {
+    margin-left: 0;
+    font-size: 16px;
+  }
+
+  .mini-calendar-grid {
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  .mini-calendar-cell {
+    width: 100%;
+    height: 44px;
+  }
+
+  .score-legend-box {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  .exercise-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .exercise-name {
+    margin-left: 0;
+    font-size: 14px;
+  }
+
+  .exercise-list {
+    padding-left: 16px;
+  }
+
+  .preview-post {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .preview-title {
+    max-width: 100%;
+    font-size: 14px;
+  }
+
+  .preview-meta {
+    font-size: 12px;
+  }
+
+  .welcome-text h2 {
+    font-size: 22px;
+  }
+}
