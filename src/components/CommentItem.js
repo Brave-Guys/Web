@@ -3,6 +3,8 @@ import { ThumbsUp } from 'lucide-react';
 import { toggleLike, checkLikeStatus } from '../apis/toggleLike';
 import { deleteComment } from '../apis/deleteComment';
 import { updateComment } from '../apis/updateComment';
+import { deleteReelsComment } from '../apis/deleteReelsComment';
+import { updateReelsComment } from '../apis/updateReelsComment';
 import '../styles/CommentItem.css';
 import DefaultAvatar from '../assets/person.png';
 
@@ -47,6 +49,7 @@ const CommentItem = ({
     onDeleteSuccess,
     onEditSuccess,
     profileImgUrl,
+    isChallenge = false
 }) => {
     const [showReplyInput, setShowReplyInput] = useState(false);
     const [replyText, setReplyText] = useState('');
@@ -81,7 +84,11 @@ const CommentItem = ({
     const handleDelete = async () => {
         if (!window.confirm('댓글을 삭제하시겠습니까?')) return;
         try {
-            await deleteComment(commentId);
+            if (isChallenge) {
+                await deleteReelsComment(commentId);
+            } else {
+                await deleteComment(commentId);
+            }
             onDeleteSuccess();
         } catch (err) {
             console.error('댓글 삭제 실패', err);
@@ -101,7 +108,11 @@ const CommentItem = ({
     const handleEdit = async () => {
         if (!editText.trim()) return;
         try {
-            await updateComment({ commentId, content: editText });
+            if (isChallenge) {
+                await updateReelsComment({ rcommentId: commentId, content: editText });
+            } else {
+                await updateComment({ commentId, content: editText });
+            }
             setIsEditing(false);
             onEditSuccess();
         } catch (err) {
