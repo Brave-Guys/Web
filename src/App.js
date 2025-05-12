@@ -23,6 +23,7 @@ import ChallengeWrite from './pages/challengeWrite.js';
 import ChallengeDetail from './pages/challengeDetail.js';
 import EditChallenge from './pages/EditChallenge.js';
 import ParticipantDetail from './pages/ParticipantDetail.js';
+import MyChallengeHistory from './pages/MyChallengeHistory.js';
 
 import ExerciseTipChest from './pages/exercise-tip-detail/ExerciseTipChest';
 import ExerciseTipShoulder from './pages/exercise-tip-detail/ExerciseTipShoulder';
@@ -91,7 +92,8 @@ function App() {
           <Route path="/edit-challenge/:id" element={<PrivateRoute><EditChallenge /></PrivateRoute>} />
           <Route path="/editpost/:id" element={<PrivateRoute><EditPost /></PrivateRoute>} />
           <Route path="/create-challenge" element={<PrivateRoute><ChallengeWrite /></PrivateRoute>} />
-          <Route path="/challenges/:challengeId/participants/:participantId" element={<ParticipantDetail />} />
+          <Route path="/challenges/:challengeId/participants/:participantId" element={<PrivateRoute><ParticipantDetail /></PrivateRoute>} />
+          <Route path="/mychallengehistory" element={<PrivateRoute><MyChallengeHistory /></PrivateRoute>} />
 
           {/* 404 */}
           <Route path="*" element={<Error />} />

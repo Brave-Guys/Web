@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getChallenges } from '../apis/getChallenges';
+import { CheckSquare } from 'lucide-react';
 import PageTitle from '../components/PageTitle';
 import CustomButton from '../components/CustomButton';
 import ChallengeItem from '../components/ChallengeItem';
@@ -41,6 +42,13 @@ const ChallengeBoard = () => {
                     color="purple"
                     onClick={() => navigate('/create-challenge')}
                 />
+            </div>
+
+            <div className="challenge-link-wrapper">
+                <div className="challenge-link" onClick={() => navigate('/mychallengehistory')}>
+                    <CheckSquare className="challenge-icon" size={18} />
+                    <span className="challenge-text">이전 챌린지 수행 내역</span>
+                </div>
             </div>
 
             <div className='desktop' style={{ margin: '70px' }}></div>
