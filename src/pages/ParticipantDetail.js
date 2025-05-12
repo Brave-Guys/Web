@@ -19,6 +19,7 @@ const ParticipantDetail = () => {
     const [editingCommentId, setEditingCommentId] = useState(null);
     const [editText, setEditText] = useState('');
     const [isFocused, setIsFocused] = useState(false);
+    const [replyingTo, setReplyingTo] = useState(null);  // 답글 작성 중인 댓글 추적
     const navigate = useNavigate();
     const currentUserId = JSON.parse(localStorage.getItem('user'))?.id;
 
@@ -27,7 +28,7 @@ const ParticipantDetail = () => {
         setComments(data);
     };
 
-    const handleSubmitComment = async () => {
+    const handleSubmitComment = async (parentId = null) => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (!user || !commentText.trim()) return;
 
@@ -36,8 +37,10 @@ const ParticipantDetail = () => {
                 reelsId: participantId,
                 writerId: user.id,
                 content: commentText,
+                parentId: parentId,  // parentId 전달
             });
             setCommentText('');
+            setReplyingTo(null);  // 답글 작성 완료 후 초기화
             fetchComments();
         } catch (err) {
             console.error('댓글 등록 실패', err);
@@ -219,7 +222,28 @@ const ParticipantDetail = () => {
 
                                             <div className="comment-actions">
                                                 <div className="comment-like">👍 0</div>
-                                                <span className="comment-reply">답글</span>
+                                                <span
+                                                    className="comment-reply"
+                                                    onClick={() => setReplyingTo(c.rcommentId)}  // 답글 입력창 띄우기
+                                                >
+                                                    답글
+                                                </span>
+
+                                                {/* 답글 입력창 */}
+                                                {replyingTo === c.rcommentId && (
+                                                    <div className="reply-input">
+                                                        <textarea
+                                                            value={commentText}
+                                                            onChange={(e) => setCommentText(e.target.value)}
+                                                            placeholder="답글을 입력하세요"
+                                                        />
+                                                        <CustomButton
+                                                            label="등록"
+                                                            size="small"
+                                                            onClick={() => handleSubmitComment(c.rcommentId)}  // 부모 댓글의 ID를 parentId로 설정
+                                                        />
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
