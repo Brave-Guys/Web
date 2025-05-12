@@ -226,6 +226,7 @@ const CommentItem = ({
                                     onReplySubmit={(text) => onReplySubmit(text, reply.id)} // 부모 댓글의 ID를 전달
                                     depth={depth + 1}
                                     writerId={reply.writerId}
+                                    profileImgUrl={reply.profileImgUrl}
                                     onDeleteSuccess={onDeleteSuccess}
                                     onEditSuccess={onEditSuccess}
                                 />
