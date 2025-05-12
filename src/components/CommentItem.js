@@ -100,7 +100,7 @@ const CommentItem = ({
 
     const handleReplySubmit = () => {
         if (!replyText.trim()) return;
-        onReplySubmit(replyText);
+        onReplySubmit(replyText, commentId);
         setReplyText('');
         setShowReplyInput(false);
     };
@@ -223,7 +223,7 @@ const CommentItem = ({
                                     content={reply.content}
                                     likes={reply.likes || 0}
                                     replies={reply.replies || []}
-                                    onReplySubmit={(text) => onReplySubmit(text, reply.id)}
+                                    onReplySubmit={(text) => onReplySubmit(text, reply.id)} // 부모 댓글의 ID를 전달
                                     depth={depth + 1}
                                     writerId={reply.writerId}
                                     onDeleteSuccess={onDeleteSuccess}
