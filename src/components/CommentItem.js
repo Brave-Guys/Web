@@ -70,7 +70,7 @@ const CommentItem = ({
             const result = await toggleLike({
                 userId: user.id,
                 postId: commentId,
-                postType: 'community',
+                postType: isChallenge ? 'challenge' : 'community',
                 postOrComment: 'comment',
             });
 
@@ -130,7 +130,7 @@ const CommentItem = ({
                 const result = await checkLikeStatus({
                     userId: user.id,
                     postId: commentId,
-                    postType: 'community',
+                    postType: isChallenge ? 'challenge' : 'community',
                     postOrComment: 'comment',
                 });
                 setLiked(result);
@@ -216,19 +216,20 @@ const CommentItem = ({
                         <div className="comment-replies">
                             {replies.map((reply) => (
                                 <CommentItem
-                                    key={reply.id}
-                                    commentId={reply.id}
+                                    key={reply.rcommentId}
+                                    commentId={reply.rcommentId}
                                     name={reply.nickname}
                                     time={reply.writeDate}
                                     content={reply.content}
                                     likes={reply.likes || 0}
                                     replies={reply.replies || []}
-                                    onReplySubmit={(text) => onReplySubmit(text, reply.id)} // 부모 댓글의 ID를 전달
+                                    onReplySubmit={(text) => onReplySubmit(text, reply.id)}
                                     depth={depth + 1}
                                     writerId={reply.writerId}
                                     profileImgUrl={reply.profileImgUrl}
                                     onDeleteSuccess={onDeleteSuccess}
                                     onEditSuccess={onEditSuccess}
+                                    isChallenge={isChallenge}
                                 />
                             ))}
                         </div>
