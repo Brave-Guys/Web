@@ -1,29 +1,45 @@
 import React, { useState } from 'react';
-import '../../styles/ExerciseTip.css';
+import '../../styles/ExerciseTipBack.css';
+import BackImage from '../../assets/back_detail.png';
+import { backExerciseDetails } from '../../constants/exerciseScript'; 
 
 const ExerciseTipBack = () => {
     const [selectedPart, setSelectedPart] = useState('');
 
-    const handleClick = (part) => {
-        setSelectedPart(part);
-    };
-
-    const descriptions = {
-        upperBack: '상부 등 운동: 풀업, 바벨로우',
-        lowerBack: '하부 등 운동: 데드리프트, 백 익스텐션',
-    };
-
     return (
-        <div className="exercise-tip-container">
-            <div className="body-map">
-                <img src="/images/back_detail.png" alt="Back Detail" className="body-image" />
+        <div className="back-wrapper">
+            <div className="back-page">
+                <div className="left-section">
+                    <h2 className="section-title">등 부위</h2>
+                    <div className="back-image-wrapper">
+                        <img src={BackImage} alt="Back Detail" className="back-image" />
+                        <div className="area front" onClick={() => setSelectedPart('등 상부')} />
+                        <div className="area side" onClick={() => setSelectedPart('등 하부')} />
+                    </div>
+                </div>
 
-                <div className="area upperBack" onClick={() => handleClick('upperBack')} />
-                <div className="area lowerBack" onClick={() => handleClick('lowerBack')} />
-            </div>
-
-            <div className="hover-description scrollable">
-                {selectedPart && <p>{descriptions[selectedPart]}</p>}
+                <div className="right-section">
+                    <h2 className="section-title">
+                        {selectedPart ? `${selectedPart} 등 운동` : '등 부위를 선택해보세요!'}
+                    </h2>
+                    {selectedPart && (
+                        <div className="exercise-list">
+                            {backExerciseDetails[selectedPart].map((exercise, idx) => (
+                                <div key={idx} className="exercise-card">
+                                    <div className="exercise-image" />
+                                    <div className="exercise-description">
+                                        <p className="exercise-title">{exercise.name}</p>
+                                        <div className="exercise-steps">
+                                            {exercise.steps.map((step, i) => (
+                                                <div key={i}>{step}</div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );

@@ -1,33 +1,47 @@
 import React, { useState } from 'react';
-import '../../styles/ExerciseTip.css';
+import '../../styles/ExerciseTipAbs.css';
+import AbsImage from '../../assets/abs_detail.png';
+import { absExerciseDetails } from '../../constants/exerciseScript'; 
 
 const ExerciseTipAbs = () => {
     const [selectedPart, setSelectedPart] = useState('');
 
-    const handleClick = (part) => {
-        setSelectedPart(part);
-    };
-
-    const descriptions = {
-        upperAbs: '상복부 운동: 크런치, 싯업',
-        midAbs: '중복부 운동: 크런치 바리에이션',
-        lowerAbs: '하복부 운동: 레그레이즈, 행잉 레그레이즈',
-        side: '옆구리 운동: 러시안 트위스트, 사이드 플랭크',
-    };
-
     return (
-        <div className="exercise-tip-container">
-            <div className="body-map">
-                <img src="/images/abs_detail.png" alt="Abs Detail" className="body-image" />
+        <div className="abs-wrapper">
+            <div className="abs-page">
+                <div className="left-section">
+                    <h2 className="section-title">복근 부위</h2>
+                    <div className="abs-image-wrapper">
+                        <img src={AbsImage} alt="Abs Detail" className="abs-image" />
+                        <div className="area front" onClick={() => setSelectedPart('상부')} />
+                        <div className="area side" onClick={() => setSelectedPart('중부')} />
+                        <div className="area rear" onClick={() => setSelectedPart('하부')} />
+                        <div className="area middle" onClick={() => setSelectedPart('옆구리')} />
+                    </div>
+                </div>
 
-                <div className="area upperAbs" onClick={() => handleClick('upperAbs')} />
-                <div className="area midAbs" onClick={() => handleClick('midAbs')} />
-                <div className="area lowerAbs" onClick={() => handleClick('lowerAbs')} />
-                <div className="area side" onClick={() => handleClick('side')} />
-            </div>
-
-            <div className="hover-description scrollable">
-                {selectedPart && <p>{descriptions[selectedPart]}</p>}
+                <div className="right-section">
+                    <h2 className="section-title">
+                        {selectedPart ? `${selectedPart} 복근 운동` : '복근 부위를 선택해보세요!'}
+                    </h2>
+                    {selectedPart && (
+                        <div className="exercise-list">
+                            {absExerciseDetails[selectedPart].map((exercise, idx) => (
+                                <div key={idx} className="exercise-card">
+                                    <div className="exercise-image" />
+                                    <div className="exercise-description">
+                                        <p className="exercise-title">{exercise.name}</p>
+                                        <div className="exercise-steps">
+                                            {exercise.steps.map((step, i) => (
+                                                <div key={i}>{step}</div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );

@@ -3,79 +3,70 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/ExerciseTip.css';
 import FrontBody from '../assets/body_front.png';
 import BackBody from '../assets/body_back.png';
+import { bodyPartSummaries } from '../constants/exerciseScript';
 
 const ExerciseTip = () => {
-  const [hoverText, setHoverText] = useState('');
-  const [isFront, setIsFront] = useState(true);
+  const [tooltipText, setTooltipText] = useState('');
+  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   const navigate = useNavigate();
 
-  const descriptions = {
-    chest: '이 부위는 가슴입니다.<br />대표 운동: 벤치프레스, 체스트플라이, 딥스',
-    shoulder: '이 부위는 어깨입니다.<br />전면, 측면, 후면으로 구분됩니다.',
-    bicep: '이 부위는 이두입니다.<br />대표 운동: 바벨컬, 덤벨컬',
-    abs: '이 부위는 복근입니다.<br />대표 운동: 크런치, 레그레이즈',
-    thigh: '이 부위는 앞 허벅지입니다.<br />대표 운동: 스쿼트, 런지',
-    back: '이 부위는 등입니다.<br />대표 운동: 데드리프트, 풀업',
-    tricep: '이 부위는 삼두입니다.<br />대표 운동: 트라이셉스 익스텐션',
-    hamstring: '이 부위는 햄스트링입니다.<br />대표 운동: 레그컬, 루마니안 데드리프트',
-  };
-  
+  const handleMouseEnter = (part, e) => {
+    console.log(part); // 여기서 'part' 값 확인
+    const info = bodyPartSummaries[part];
+    if (!info) return; // 'info'가 없으면 반환
 
-  const handleMouseEnter = (part) => {
-    setHoverText(descriptions[part]);
+    const { name, description } = bodyPartSummaries[part];
+    const formatted = `<div class="hover-title">${name}</div><div class="hover-description">${description.replace(/\n/g, '<br>')}</div>`;
+    setTooltipText(formatted);
+    setTooltipPos({ x: e.clientX + 15, y: e.clientY + 15 });
+  };
+
+  const handleMouseMove = (e) => {
+    setTooltipPos({ x: e.clientX + 15, y: e.clientY + 15 });
   };
 
   const handleMouseLeave = () => {
-    setHoverText('');
+    setTooltipText('');
   };
 
   const handleClick = (part) => {
     navigate(`/exercise-tip/${part}`);
   };
 
-  const toggleFrontBack = () => {
-    setIsFront((prev) => !prev);
-    setHoverText('');
-  };
-
   return (
     <div className="exercise-tip-container">
       <div className="body-map-wrapper">
+        {/* 앞모습 */}
         <div className="body-map-area">
-          <img
-            src={isFront ? FrontBody : BackBody}
-            alt={isFront ? 'Front Body' : 'Back Body'}
-            className="body-image"
+          <img src={FrontBody} alt="Front Body" className="body-image" />
+
+          <div className="area chest" onMouseEnter={(e) => handleMouseEnter('chest', e)} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} onClick={() => handleClick('chest')} />
+          <div className="area shoulder" onMouseEnter={(e) => handleMouseEnter('shoulders', e)} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} onClick={() => handleClick('shoulder')} />
+          <div className="area bicep" onMouseEnter={(e) => handleMouseEnter('biceps', e)} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} onClick={() => handleClick('bicep')} />
+          <div className="area abs" onMouseEnter={(e) => handleMouseEnter('abs', e)} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} onClick={() => handleClick('abs')} />
+          <div className="area thigh" onMouseEnter={(e) => handleMouseEnter('thigh', e)} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} onClick={() => handleClick('thigh')} />
+        </div>
+
+        {/* 뒷모습 */}
+        <div className="body-map-area">
+          <img src={BackBody} alt="Back Body" className="body-image" />
+
+          <div className="area back" onMouseEnter={(e) => handleMouseEnter('back', e)} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} onClick={() => handleClick('back')} />
+          <div className="area tricep" onMouseEnter={(e) => handleMouseEnter('triceps', e)} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} onClick={() => handleClick('tricep')} />
+          <div className="area hamstring" onMouseEnter={(e) => handleMouseEnter('hamstring', e)} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} onClick={() => handleClick('hamstring')} />
+        </div>
+
+        {/* 말풍선 */}
+        {tooltipText && (
+          <div
+            className="tooltip"
+            style={{
+              top: tooltipPos.y,
+              left: tooltipPos.x,
+            }}
+            dangerouslySetInnerHTML={{ __html: tooltipText }}
           />
-
-          {/* 부위 오버레이 영역 */}
-          {isFront && (
-            <>
-              <div className="area chest" onMouseEnter={() => handleMouseEnter('chest')} onMouseLeave={handleMouseLeave} onClick={() => handleClick('chest')} />
-              <div className="area shoulder" onMouseEnter={() => handleMouseEnter('shoulder')} onMouseLeave={handleMouseLeave} onClick={() => handleClick('shoulder')} />
-              <div className="area bicep" onMouseEnter={() => handleMouseEnter('bicep')} onMouseLeave={handleMouseLeave} onClick={() => handleClick('bicep')} />
-              <div className="area abs" onMouseEnter={() => handleMouseEnter('abs')} onMouseLeave={handleMouseLeave} onClick={() => handleClick('abs')} />
-              <div className="area thigh" onMouseEnter={() => handleMouseEnter('thigh')} onMouseLeave={handleMouseLeave} onClick={() => handleClick('thigh')} />
-            </>
-          )}
-
-          {!isFront && (
-            <>
-              <div className="area back" onMouseEnter={() => handleMouseEnter('back')} onMouseLeave={handleMouseLeave} onClick={() => handleClick('back')} />
-              <div className="area tricep" onMouseEnter={() => handleMouseEnter('tricep')} onMouseLeave={handleMouseLeave} onClick={() => handleClick('tricep')} />
-              <div className="area hamstring" onMouseEnter={() => handleMouseEnter('hamstring')} onMouseLeave={handleMouseLeave} onClick={() => handleClick('hamstring')} />
-            </>
-          )}
-
-          <button className="toggle-button" onClick={toggleFrontBack}>
-            {isFront ? '뒷모습 보기' : '앞모습 보기'}
-          </button>
-        </div>
-
-        <div className="muscle-info">
-            <p dangerouslySetInnerHTML={{ __html: hoverText || '근육 부위에 마우스를 올려보세요!' }} />
-        </div>
-
+        )}
       </div>
     </div>
   );

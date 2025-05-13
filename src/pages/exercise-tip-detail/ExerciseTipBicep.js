@@ -1,32 +1,47 @@
 import React, { useState } from 'react';
-import '../../styles/ExerciseTip.css';
+import '../../styles/ExerciseTipBicep.css';
+import BicepImage from '../../assets/bicep_detail.png';
+import { armExerciseDetails } from '../../constants/exerciseScript'; 
 
 const ExerciseTipBicep = () => {
     const [selectedPart, setSelectedPart] = useState('');
 
-    const handleClick = (part) => {
-        setSelectedPart(part);
-    };
-
-    const descriptions = {
-        long: '이두 장두 운동: 인클라인 덤벨컬, 해머컬',
-        short: '이두 단두 운동: 컨센트레이션 컬, 바벨컬',
-        forearm: '전완근 운동: 리스트 컬, 리버스 컬',
-    };
-
     return (
-        <div className="exercise-tip-container">
-            <div className="body-map">
-                <img src="/images/bicep_detail.png" alt="Bicep Detail" className="body-image" />
+        <div className="bicep-wrapper">
+            <div className="bicep-page">
+                <div className="left-section">
+                    <h2 className="section-title">이두 부위</h2>
+                    <div className="bicep-image-wrapper">
+                        <img src={BicepImage} alt="Bicep Detail" className="bicep-image" />
+                        {/* 문자열로 정확히 지정 */}
+                        <div className="area front" onClick={() => setSelectedPart('장두')} />
+                        <div className="area side" onClick={() => setSelectedPart('단두')} />
+                        <div className="area rear" onClick={() => setSelectedPart('상완요골근')} />
+                    </div>
+                </div>
 
-                {/* 세부 부위 클릭 영역 */}
-                <div className="area long" onClick={() => handleClick('long')} />
-                <div className="area short" onClick={() => handleClick('short')} />
-                <div className="area forearm" onClick={() => handleClick('forearm')} />
-            </div>
-
-            <div className="hover-description scrollable">
-                {selectedPart && <p>{descriptions[selectedPart]}</p>}
+                <div className="right-section">
+                    <h2 className="section-title">
+                        {selectedPart ? `이두 (${selectedPart}) 운동` : '이두 부위를 선택해보세요!'}
+                    </h2>
+                    {selectedPart && (
+                        <div className="exercise-list">
+                            {armExerciseDetails['이두'][selectedPart].map((exercise, idx) => (
+                                <div key={idx} className="exercise-card">
+                                    <div className="exercise-image" />
+                                    <div className="exercise-description">
+                                        <p className="exercise-title">{exercise.name}</p>
+                                        <div className="exercise-steps">
+                                            {exercise.steps.map((step, i) => (
+                                                <div key={i}>{step}</div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );

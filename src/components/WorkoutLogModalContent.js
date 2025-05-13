@@ -88,7 +88,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
             if (editLog) {
                 // 수정일 때
                 await updateWorkoutLog(editLog.id, logData);
-
+                
                 setLogs(prevLogs =>
                     prevLogs.map(log =>
                         log.id === editLog.id

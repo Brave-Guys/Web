@@ -1,132 +1,155 @@
  .shoulder-page {
-    display: flex;
-    background-color: #ddd;
-    height: 100vh;
-    padding-bottom: 100px;
-    gap: 40px;
-  }
+   display: flex;
+   background-color: #ddd;
+   height: 92vh;
+   padding-bottom: 10px;
+   gap: 40px;
+ }
 
-  .shoulder-wrapper {
-    padding: 0 200px;
-    background-color: #ddd;
-    height: 100vh;
-    box-sizing: border-box;
-  }
-  
-  
-  .left-section {
-    flex: 1;
-    background-color: #e18c8c;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; 
-    padding: 30px;
-  }
-  
-  .right-section {
-    flex: 1;
-    background-color: #8d7aff;
-    padding: 20px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .section-title {
-    color: #fff;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-  }
-  
+ .shoulder-wrapper {
+   padding: 0 200px;
+   background-color: #ddd;
+   height: 92vh;
+   box-sizing: border-box;
+ }
 
-  .shoulder-image {
-    width: 100%;
-    max-width: 700px; 
-    height: auto; 
-    margin: 0 auto 20px; 
-    display: block;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
-  
-  
-  .exercise-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    overflow-y: auto;
-    padding-right: 10px;
-    max-height: 80vh;
-  }
-  
-  .exercise-card {
-    background-color: #fff;
-    padding: 12px;
-    border-radius: 12px;
-    display: flex;
-    gap: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  }
-  
-  .exercise-image {
-    width: 80px;
-    height: 80px;
-    background-color: #ccc;
-    border-radius: 10px;
-    flex-shrink: 0;
-  }
-  
-  .exercise-description {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: #333;
-  }
-  
-  .exercise-title {
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .shoulder-image-wrapper {
-    position: relative;
-    width: 100%; /* 더 넓게 */
-    max-width: 650px; /* 이미지 크기에 맞춰 확장 */
-    margin: 0 auto 20px; /* 가운데 정렬 + 여백 */
-  }
-  
-  .area {
-    position: absolute;
-    cursor: pointer;
-    background-color: rgba(255, 255, 255, 0); /* 초기엔 투명 */
-    transition: background-color 0.2s ease;
-  }
-  
-  /* 각 부위의 위치는 이미지 기준으로 조절 필요 */
-  .area.front {
-    top: 80px;
-    left: 200px;
-    width: 120px;
-    height: 150px;
-  }
-  
-  .area.side {
-    top: 80px;
-    left: 320px;
-    width: 120px;
-    height: 150px;
-  }
-  
-  .area.rear {
-    top: 80px;
-    left: 440px;
-    width: 70px;
-    height: 150px;
-  }
-  
-  .area:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 6px;
-  }
-  
+
+ .left-section {
+   flex: 1;
+   background-color: #e18c8c;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   padding: 10px;
+   min-width: 50%;
+   min-height: 100%;
+   overflow: hidden;
+ }
+
+ .right-section {
+   flex: 1;
+   background-color: #8d7aff;
+   padding: 20px;
+   overflow-y: auto;
+   display: flex;
+   flex-direction: column;
+ }
+
+ .section-title {
+   color: #0f0f10;
+   margin-bottom: 20px;
+   font-size: 2.0rem;
+ }
+
+
+ .shoulder-image {
+   width: 100%;
+   height: auto;
+   margin: 0 auto 20px;
+   display: block;
+   border-radius: 10px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+ }
+
+
+ .exercise-list {
+   display: flex;
+   flex-direction: column;
+   gap: 15px;
+   overflow-y: auto;
+   padding-right: 10px;
+   max-height: 80vh;
+ }
+
+ .exercise-card {
+   background-color: #ddd;
+   display: flex;
+   gap: 16px;
+   align-items: stretch;
+   margin-bottom: 24px;
+ }
+
+ .exercise-image {
+   width: 180px;
+   height: auto;
+   min-height: 180px;
+   background-color: #c37ebc;
+   border-radius: 0 px;
+   flex-shrink: 0;
+ }
+
+ .exercise-description {
+   flex: 1;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+ }
+
+ .exercise-title {
+   font-weight: 700;
+   color: #2e16cd;
+   /* 보라색 */
+   font-size: 20px;
+   margin-bottom: 8px;
+ }
+
+ .exercise-steps p {
+   margin-bottom: 6px;
+   line-height: 1.5;
+ }
+
+
+ .shoulder-image-wrapper {
+   position: relative;
+   width: 100%;
+   /* 더 넓게 */
+   margin: 0 auto 20px;
+   /* 가운데 정렬 + 여백 */
+ }
+
+ .area {
+   position: absolute;
+   cursor: pointer;
+   background-color: rgba(255, 255, 255, 0);
+   /* 초기엔 투명 */
+   transition: background-color 0.2s ease;
+ }
+
+ /* 각 부위의 위치는 이미지 기준으로 조절 필요 */
+ .area.front {
+   top: 80px;
+   left: 200px;
+   width: 120px;
+   height: 150px;
+ }
+
+ .area.side {
+   top: 80px;
+   left: 320px;
+   width: 120px;
+   height: 150px;
+ }
+
+ .area.rear {
+   top: 80px;
+   left: 440px;
+   width: 70px;
+   height: 150px;
+ }
+
+ .area:hover {
+   background-color: rgba(255, 255, 255, 0.2);
+   border-radius: 6px;
+ }
+
+ .exercise-steps {
+   padding-left: 20px;
+   margin: 0;
+   color: #0a0303;
+   line-height: 2.0;
+ }
+
+ .exercise-steps li {
+   margin-bottom: 6px;
+ }
