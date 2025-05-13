@@ -7,7 +7,7 @@ import InputField from '../components/InputField';
 import kakaoIcon from '../assets/kakao.png';
 import naverIcon from '../assets/naver.png';
 import googleIcon from '../assets/google.png';
-import appIcon from '../assets/logo.png'
+import appIcon from '../assets/logo.png';
 
 const Login = () => {
     const [loginData, setLoginData] = useState({ username: '', password: '' });
@@ -32,6 +32,12 @@ const Login = () => {
             navigate('/main');
         } catch (err) {
             setErrorMessage(err.message);
+        }
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            handleLogin();
         }
     };
 
@@ -81,6 +87,7 @@ const Login = () => {
                                     value={loginData.username}
                                     onChange={handleChange('username')}
                                     status="default"
+                                    onKeyDown={handleKeyDown}  // 엔터 키 눌렀을 때 handleLogin 호출
                                 />
 
                                 <InputField
@@ -91,6 +98,7 @@ const Login = () => {
                                     value={loginData.password}
                                     onChange={handleChange('password')}
                                     status="default"
+                                    onKeyDown={handleKeyDown}  // 엔터 키 눌렀을 때 handleLogin 호출
                                 />
 
                                 <div className="login-buttons">

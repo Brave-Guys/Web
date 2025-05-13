@@ -9,7 +9,8 @@ const InputField = ({
     status,
     message,
     rightElement,
-    type = 'text'
+    type = 'text',
+    onKeyDown
 }) => {
     return (
         <div className="input-wrapper">
@@ -25,6 +26,7 @@ const InputField = ({
                     placeholder={placeholder}
                     value={value}
                     onChange={onChange}
+                    onKeyDown={onKeyDown}
                 />
                 {rightElement}
             </div>
