@@ -35,3 +35,59 @@
     align-items: center;
     height: 300px;
 }
+
+.challenge-link-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.challenge-link {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #aaa;
+    gap: 6px;
+    transition: color 0.2s ease;
+}
+
+.challenge-link:hover {
+    color: #6b46c1;
+}
+
+.challenge-icon {
+    stroke-width: 2;
+}
+
+.challenge-text {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+@media (max-width: 768px) {
+    .challenge-board {
+        padding: 24px 16px;
+    }
+
+    .challenge-header {
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .challenge-list {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .challenge-item {
+        padding: 16px;
+    }
+
+    .challenge-list.loading {
+        height: 200px;
+    }
+
+    .desktop {
+        display: none;
+    }
+}

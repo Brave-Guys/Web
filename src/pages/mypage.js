@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { updateUserNickname, updateUserImage } from '../apis/updateUser';
 import { uploadImageToFirebase } from '../utils/uploadImageToFirebase';
-import axios from 'axios';
+import PageTitle from '../components/PageTitle';
+import '../styles/Mypage.css';
 
 const Mypage = () => {
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem('user'));
     const [nickname, setNickname] = useState(user?.name || '');
-    const [profileImage, setProfileImage] = useState(null); // 이미지 파일
-    const [previewUrl, setPreviewUrl] = useState(user?.imgUrl || ''); // 기존 이미지
+    const [profileImage, setProfileImage] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState(user?.imgUrl || '');
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -63,28 +64,43 @@ const Mypage = () => {
     };
 
     return (
-        <div>
-            <h2>마이페이지</h2>
-            <div>
-                <label>닉네임: </label>
-                <input
-                    type="text"
-                    value={nickname}
-                    onChange={(e) => setNickname(e.target.value)}
-                />
-                <button onClick={handleNicknameUpdate}>수정</button>
+        <div className="mypage-container">
+            <PageTitle
+                title='내 정보'
+                showBackArrow={true}
+            />
+
+            <div style={{ margin: '40px' }}></div>
+
+            <div className="nickname-section">
+                <label htmlFor="nickname">닉네임</label>
+                <div className="nickname-input-group">
+                    <input
+                        id="nickname"
+                        type="text"
+                        value={nickname}
+                        onChange={(e) => setNickname(e.target.value)}
+                    />
+                    <button onClick={handleNicknameUpdate}>수정</button>
+                </div>
             </div>
 
-            <div>
-                <label>프로필 이미지:</label>
-                <br />
-                {previewUrl && <img src={previewUrl} alt="프로필" width="120" />}
-                <br />
-                <input type="file" accept="image/*" onChange={handleImageChange} />
-                <button onClick={handleSaveProfileImage}>저장</button>
+            <div className="profile-section">
+                <label>프로필 이미지</label>
+                {previewUrl && (
+                    <div className="profile-preview">
+                        <img src={previewUrl} alt="프로필" />
+                    </div>
+                )}
+                <div className="profile-upload-group">
+                    <input type="file" accept="image/*" onChange={handleImageChange} />
+                    <button onClick={handleSaveProfileImage}>저장</button>
+                </div>
             </div>
 
-            <button onClick={handleLogout}>로그아웃</button>
+            <div className="logout-section">
+                <button className="logout-button" onClick={handleLogout}>로그아웃</button>
+            </div>
         </div>
     );
 };

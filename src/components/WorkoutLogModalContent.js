@@ -311,14 +311,14 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
                             label='취소'
                             onClick={resetForm}
                             rounded='pill'
-                            style={{ width: '10px', color: 'black' }}
+                            style={{ color: 'black', maxWidth: '100px' }}
                         />
                         <CustomButton
                             size='small'
                             label={editLog ? "수정" : "저장"}
                             onClick={handleSave}
                             rounded='pill'
-                            style={{ width: '10px' }}
+                            style={{ maxWidth: '100px' }}
                         />
                     </div>
                 </div>

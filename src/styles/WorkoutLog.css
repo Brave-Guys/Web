@@ -99,9 +99,7 @@
     align-items: center;
     gap: 8px;
     min-width: 0;
-    /* ✨ 줄바꿈 방지용 핵심 */
     word-break: keep-all;
-    /* ✨ 한국어 줄바꿈 방지 */
 }
 
 .score-legend-list .legend-text .label {
@@ -115,4 +113,55 @@
     font-weight: 500;
     font-size: 13px;
     text-align: right;
+}
+
+@media (max-width: 768px) {
+    .calendar-container {
+        padding: 40px 16px;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .calendar-header {
+        gap: 12px;
+        text-align: center;
+    }
+
+    .calendar-grid {
+        gap: 6px;
+        margin-top: 12px;
+    }
+
+    .calendar-day {
+        height: 44px;
+        line-height: 44px;
+        font-size: 14px;
+        border-radius: 6px;
+    }
+
+    .calendar-day-name {
+        font-size: 14px;
+    }
+
+    .score-legend-box {
+        width: 100%;
+        max-width: 100%;
+        font-size: 13px;
+        padding: 16px;
+        margin-top: 24px;
+    }
+
+    .score-legend-box h3 {
+        font-size: 15px;
+    }
+
+    .score-legend-list .legend-text .label {
+        font-size: 13px;
+        width: auto;
+    }
+
+    .score-legend-list .legend-text .score {
+        font-size: 12px;
+        width: auto;
+    }
 }

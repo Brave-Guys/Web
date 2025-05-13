@@ -70,3 +70,52 @@
     margin-top: 30px;
     gap: 16px;
 }
+
+@media (max-width: 768px) {
+    .desktop {
+        display: none;
+    }
+
+    .boardContent {
+        padding: 16px;
+    }
+
+    .board-header {
+        gap: 12px;
+    }
+
+    .tab-search-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        margin-top: 16px;
+    }
+
+    .search-input {
+        width: 100%;
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+
+    .pagination {        
+        align-items: flex-start;
+        gap: 8px;
+        margin-top: 20px;
+    }
+
+    .popular-preview {
+        margin-top: 24px;
+    }
+
+    .boardContent .pagination {
+        justify-content: flex-start;
+    }
+
+    .write-button {
+        min-width: 100px;
+        max-width: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

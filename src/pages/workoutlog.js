@@ -166,7 +166,7 @@ const WorkoutLog = () => {
                         </Modal>
                     )}
                 </div>
-                <div style={{ flex: 1 }}>
+                <div style={{ flex: 1 }} className='desktop'>
                     <div className="score-legend-box">
                         <h3>운동 강도</h3>
                         <ul className="score-legend-list">

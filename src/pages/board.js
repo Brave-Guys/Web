@@ -115,16 +115,18 @@ const Board = () => {
                     showBackArrow={true}
                 />
                 <div style={{ flexGrow: '1' }}></div>
-                <CustomButton
-                    label="글작성"
-                    size="small"
-                    color="gray"
-                    onClick={() => navigate('/writepost')}
-                    style={{ maxWidth: '120px' }}
-                />
+                <div className='write-button'>
+                    <CustomButton
+                        label="글작성"
+                        size="small"
+                        color="gray"
+                        onClick={() => navigate('/writepost')}
+                        style={{ maxWidth: '120px' }}
+                    />
+                </div>
             </div>
 
-            <div className="tab-search-row">
+            <div className="tab-search-row" style={{ display: 'flex', justifyContent: 'space-between', marginTop: '12px' }}>
                 <Tab
                     tabs={['잡담', '식단', '루틴', '공지', '내 게시글']}
                     activeIndex={activeTab}
@@ -179,7 +181,7 @@ const Board = () => {
                     </div>
                 </div>
 
-                <div style={{ flexGrow: 1, margin: '20px' }}>
+                <div className='desktop' style={{ flexGrow: 1, margin: '20px' }}>
                     <Box type={2} title='인기글' showArrow={false} to='/popular'>
                         <div className="popular-preview">
                             {popularPosts.map(post => (
