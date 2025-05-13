@@ -1,0 +1,85 @@
+/* styles/Inquiry.css */
+.inquiry-container {
+    max-width: 600px;
+    margin: 100px auto;
+    padding: 24px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+}
+
+.inquiry-container h2 {
+    margin-bottom: 12px;
+    font-size: 28px;
+    color: #333;
+}
+
+.inquiry-description {
+    margin-bottom: 30px;
+    font-size: 15px;
+    color: #777;
+}
+
+.inquiry-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.inquiry-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.inquiry-field label {
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #444;
+}
+
+.inquiry-field input,
+.inquiry-field textarea {
+    padding: 12px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.inquiry-field input:focus,
+.inquiry-field textarea:focus {
+    border-color: #ac6cff;
+    background-color: #fefeff;
+}
+
+.submit-button {
+    padding: 12px;
+    font-size: 16px;
+    background-color: #ac6cff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.submit-button:hover {
+    background-color: #9a56ff;
+}
+
+.inquiry-thankyou {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.inquiry-thankyou h3 {
+    font-size: 22px;
+    color: #6b46c1;
+    margin-bottom: 10px;
+}
+
+.inquiry-thankyou p {
+    color: #555;
+}
