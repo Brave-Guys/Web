@@ -14,7 +14,7 @@
 }
 
 .participant-main {
-    flex: 2;
+    flex: 3;
 }
 
 .participant-detail-date {
@@ -36,10 +36,18 @@
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    max-width: 100%;
+    width: 100%;
+}
+
+.participant-video-wrapper video {
+    width: 80%;
+    max-width: 640px;
+    height: auto;
 }
 
 .participant-comments {
-    flex: 1;
+    flex: 2;
     background-color: #fafafa;
     padding: 16px;
     border-radius: 12px;
@@ -65,7 +73,7 @@
     font-size: 14px;
     resize: none;
     transition: all 0.2s ease;
-    font-family: 'Inter', 'Noto Sans KR', sans-serif;    
+    font-family: 'Inter', 'Noto Sans KR', sans-serif;
 }
 
 .comment-textarea.expanded {
@@ -90,7 +98,7 @@
 }
 
 .comment-action-buttons.visible {
-    max-height: 100px;    
+    max-height: 100px;
     opacity: 1;
     transform: translateY(0);
 }
