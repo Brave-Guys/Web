@@ -16,16 +16,15 @@ const ParticipantDetail = () => {
     const [commentText, setCommentText] = useState('');
     const [isFocused, setIsFocused] = useState(false);
     const [replyText, setReplyText] = useState('');
-    const [replyingTo, setReplyingTo] = useState(null);  // 답글을 달 댓글의 ID
+    const [replyingTo, setReplyingTo] = useState(null);
     const navigate = useNavigate();
 
-    // 댓글 목록을 가져오는 함수
     const fetchComments = async () => {
         const data = await getReelsComments(participantId);
-        setComments(nestComments(data)); // 댓글과 답글을 계층적으로 변환
+        setComments(nestComments(data));
     };
 
-    // 댓글을 등록하는 함수
+
     const handleSubmitComment = async (parentId = null) => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (!user || !commentText.trim()) return;
@@ -45,7 +44,6 @@ const ParticipantDetail = () => {
         }
     };
 
-    // 답글을 등록하는 함수
     const handleSubmitReply = async (parentId, replyText) => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (!user || !replyText.trim()) return;
@@ -58,7 +56,7 @@ const ParticipantDetail = () => {
                 parentId: parentId,
             });
             setReplyText('');
-            setReplyingTo(null);  // 답글 입력 후 초기화
+            setReplyingTo(null);
             fetchComments();
         } catch (err) {
             console.error('답글 등록 실패', err);
@@ -66,19 +64,18 @@ const ParticipantDetail = () => {
         }
     };
 
-    // 댓글과 답글을 계층적으로 변환하는 함수
     const nestComments = (comments) => {
         const map = {};
         const roots = [];
         comments.forEach((c) => {
-            c.replies = [];  // 각 댓글에 대해 답글 배열을 초기화
+            c.replies = [];
             map[c.rcommentId] = c;
         });
         comments.forEach((c) => {
             if (c.parentId) {
-                if (map[c.parentId]) map[c.parentId].replies.push(c);  // 부모 댓글에 답글을 추가
+                if (map[c.parentId]) map[c.parentId].replies.push(c);
             } else {
-                roots.push(c);  // 부모 댓글은 roots 배열에 추가
+                roots.push(c);
             }
         });
         return roots;
@@ -88,14 +85,13 @@ const ParticipantDetail = () => {
         const fetchData = async () => {
             const data = await getParticipantDetail(challengeId, participantId);
             setParticipant(data);
-            fetchComments();  // 댓글 데이터 가져오기
+            fetchComments();
         };
         fetchData();
     }, [challengeId, participantId]);
 
-    // 답글 작성할 댓글을 선택하는 함수
     const handleReplyClick = (commentId) => {
-        setReplyingTo(commentId);  // 답글 작성할 댓글의 ID를 설정
+        setReplyingTo(commentId);
     };
 
     if (!participant) return <div>로딩 중...</div>;
@@ -165,7 +161,7 @@ const ParticipantDetail = () => {
                                 <CustomButton
                                     label="등록"
                                     size="small"
-                                    onClick={() => handleSubmitComment()}  // 댓글 등록
+                                    onClick={() => handleSubmitComment()}
                                     style={{
                                         padding: '4px 10px',
                                         fontSize: '13px',
@@ -189,14 +185,14 @@ const ParticipantDetail = () => {
                                 content={c.content}
                                 likes={c.likes || 0}
                                 replies={c.replies || []}
-                                onReplySubmit={(replyText) => handleSubmitReply(c.rcommentId, replyText)}  // 답글 제출
+                                onReplySubmit={(replyText) => handleSubmitReply(c.rcommentId, replyText)}
                                 depth={0}
                                 writerId={c.writerId}
                                 onDeleteSuccess={fetchComments}
                                 onEditSuccess={fetchComments}
                                 profileImgUrl={c.profileImgUrl}
                                 isChallenge={true}
-                                onReplyClick={() => handleReplyClick(c.rcommentId)}  // 답글 클릭 시 해당 댓글로 설정
+                                onReplyClick={() => handleReplyClick(c.rcommentId)}
                             />
                         ))}
                     </div>
