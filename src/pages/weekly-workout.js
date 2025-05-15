@@ -39,22 +39,27 @@ const WeeklyWorkout = () => {
     const fetchInitialVideoArray = async () => {
         let arr = [];
         try {
-            for (let i = 0; i < 3; i++) {
+            while (arr.length < 3) {
                 const response = await getRandomParticipant();
                 if (response) {
-                    arr.push(response);
+                    const isDuplicate = arr.some(participant => participant.id === response.id);
+                    if (!isDuplicate) {
+                        arr.push(response);
+                    }
                 } else {
                     alert('랜덤 참가자를 가져오는 데 실패했습니다.');
                 }
-                setParticipant(arr);
             }
             await fetchComments(arr[0].id);
+            setParticipant(arr);
         } catch (error) {
             console.error('랜덤 참가자 가져오기 실패', error);
         } finally {
+            console.log(arr);
             setLoading(false);
         }
-    }
+    };
+
 
     const fetchComments = async (participantId) => {
         const data = await getReelsComments(participantId);
@@ -63,13 +68,18 @@ const WeeklyWorkout = () => {
 
     const handleNextVideo = async () => {
         try {
-            const response = await getRandomParticipant();
-            if (response) {
-                const newArr = [...participant.slice(1), response];
-                setParticipant(newArr);
-                await fetchComments(newArr[0].id);
-            } else {
-                alert('새로운 참가자를 가져오는 데 실패했습니다.');
+            let isDuplicate = true;
+            while (isDuplicate) {
+                const response = await getRandomParticipant();
+                if (response) {
+                    isDuplicate = participant.some(participant => participant.id === response.id);
+                }
+                if (!isDuplicate) {
+                    const newArr = [...participant.slice(1), response];
+                    setParticipant(newArr);
+                    await fetchComments(newArr[0].id);
+                    console.log(newArr);
+                }
             }
         } catch (error) {
             console.error('새로운 참가자 가져오기 실패', error);
