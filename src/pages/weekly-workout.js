@@ -10,15 +10,13 @@ import dayjs from 'dayjs';
 import '../styles/ParticipantDetail.css';
 
 const WeeklyWorkout = () => {
-    const [participant, setParticipant] = useState(null);
+    const [participant, setParticipant] = useState([]);
     const [comments, setComments] = useState([]);
     const [isFocused, setIsFocused] = useState(false);
     const [commentText, setCommentText] = useState('');
     const [loading, setLoading] = useState(true);
     const [replyText, setReplyText] = useState('');
     const [replyingTo, setReplyingTo] = useState(null);
-    const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-    const [videos, setVideos] = useState([]);
     const navigate = useNavigate();
 
     const nestComments = (comments) => {
@@ -38,38 +36,50 @@ const WeeklyWorkout = () => {
         return roots;
     };
 
-    const fetchRandomParticipant = async () => {
+    const fetchInitialVideoArray = async () => {
+        let arr = [];
         try {
-            const response = await getRandomParticipant();
-            if (response && response.length > 0) {
-                const videosArray = response.map(participant => participant.videoUrl);
-                console.log(response);
-                console.log(videosArray);
-                setVideos(videosArray);
-                setParticipant(response[0]);
-                await fetchComments(response[0].id);
-            } else {
-                alert('랜덤 참가자를 가져오는 데 실패했습니다.');
+            for (let i = 0; i < 3; i++) {
+                const response = await getRandomParticipant();
+                if (response) {
+                    arr.push(response);
+                } else {
+                    alert('랜덤 참가자를 가져오는 데 실패했습니다.');
+                }
+                setParticipant(arr);
             }
+            await fetchComments(arr[0].id);
         } catch (error) {
             console.error('랜덤 참가자 가져오기 실패', error);
         } finally {
-            setLoading(false);  // 로딩 완료
+            setLoading(false);
         }
-    };
+    }
 
-
-    // 해당 참가자의 댓글을 가져오는 함수
     const fetchComments = async (participantId) => {
         const data = await getReelsComments(participantId);
-        setComments(nestComments(data));  // 댓글을 계층 구조로 변환
+        setComments(nestComments(data));
+    };
+
+    const handleNextVideo = async () => {
+        try {
+            const response = await getRandomParticipant();
+            if (response) {
+                const newArr = [...participant.slice(1), response];
+                setParticipant(newArr);
+                await fetchComments(newArr[0].id);
+            } else {
+                alert('새로운 참가자를 가져오는 데 실패했습니다.');
+            }
+        } catch (error) {
+            console.error('새로운 참가자 가져오기 실패', error);
+        }
     };
 
     const handleReplyClick = (commentId) => {
         setReplyingTo(commentId);
     };
 
-    // 댓글 등록 함수
     const handleSubmitComment = async (parentId = null) => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (!user || !commentText.trim()) return;
@@ -82,14 +92,13 @@ const WeeklyWorkout = () => {
                 parentId: parentId,
             });
             setCommentText('');
-            fetchComments(participant.id);  // 댓글을 새로 불러옴
+            fetchComments(participant.id);
         } catch (err) {
             console.error('댓글 등록 실패', err);
             alert('댓글 등록 중 오류가 발생했습니다.');
         }
     };
 
-    // 답글 등록 함수
     const handleSubmitReply = async (parentId, replyText) => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (!user || !replyText.trim()) return;
@@ -103,25 +112,15 @@ const WeeklyWorkout = () => {
             });
             setReplyText('');
             setReplyingTo(null);
-            fetchComments(participant.id);  // 댓글을 새로 불러옴
+            fetchComments(participant.id);
         } catch (err) {
             console.error('답글 등록 실패', err);
             alert('답글 등록 중 오류가 발생했습니다.');
         }
     };
 
-    const handleNextVideo = () => {
-        // Move to the next video (looping back to the first video if we're at the last one)
-        setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length);
-    };
-
-    const handlePrevVideo = () => {
-        // Move to the previous video (looping back to the last video if we're at the first one)
-        setCurrentVideoIndex((prevIndex) => (prevIndex - 1 + videos.length) % videos.length);
-    };
-
     useEffect(() => {
-        fetchRandomParticipant();  // 랜덤 참가자 가져오기
+        fetchInitialVideoArray();
     }, []);
 
     if (loading) return <div>로딩 중...</div>;
@@ -138,10 +137,10 @@ const WeeklyWorkout = () => {
             />
             <div className="participant-detail-wrapper">
                 <div className="participant-main">
-                    {videos.length > 0 && (
+                    {participant.length > 0 && (
                         <div className="participant-video-wrapper">
                             <video
-                                src={videos[currentVideoIndex]}  // Show the current video
+                                src={participant[0].videoUrl}  // 현재 동영상 표시
                                 autoPlay
                                 muted
                                 controls
@@ -149,7 +148,6 @@ const WeeklyWorkout = () => {
                                 style={{ width: '100%', maxWidth: '640px' }}
                             />
                             <div className="video-controls">
-                                <button onClick={handlePrevVideo}>이전</button>
                                 <button onClick={handleNextVideo}>다음</button>
                             </div>
                         </div>
