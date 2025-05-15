@@ -43,7 +43,7 @@ const WeeklyWorkout = () => {
             const response = await getRandomParticipant(); // 랜덤 참가자 호출
             if (response) {
                 setParticipant(response);
-                await fetchComments(response.writerId);  // 참가자 ID에 맞는 댓글을 가져옴                
+                await fetchComments(response.id);  // 참가자 ID에 맞는 댓글을 가져옴                
             } else {
                 alert('랜덤 참가자를 가져오는 데 실패했습니다.');
             }
@@ -204,8 +204,8 @@ const WeeklyWorkout = () => {
                                 onReplySubmit={(replyText) => handleSubmitReply(c.rcommentId, replyText)}
                                 depth={0}
                                 writerId={c.writerId}
-                                onDeleteSuccess={fetchComments}
-                                onEditSuccess={fetchComments}
+                                onDeleteSuccess={() => { fetchComments(participant.id) }}
+                                onEditSuccess={() => { fetchComments(participant.id) }}
                                 profileImgUrl={c.profileImgUrl}
                                 isChallenge={true}
                                 onReplyClick={() => handleReplyClick(c.rcommentId)}
