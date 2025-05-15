@@ -14,12 +14,13 @@ const WeeklyWorkout = () => {
     const [comments, setComments] = useState([]);
     const [isFocused, setIsFocused] = useState(false);
     const [commentText, setCommentText] = useState('');
-    const [loading, setLoading] = useState(true);  // 로딩 상태 추가
+    const [loading, setLoading] = useState(true);
     const [replyText, setReplyText] = useState('');
     const [replyingTo, setReplyingTo] = useState(null);
+    const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+    const [videos, setVideos] = useState([]);
     const navigate = useNavigate();
 
-    // 댓글을 계층 구조로 변환하는 함수
     const nestComments = (comments) => {
         const map = {};
         const roots = [];
@@ -37,13 +38,16 @@ const WeeklyWorkout = () => {
         return roots;
     };
 
-    // 랜덤 참가자를 가져오고 그에 맞는 댓글도 가져오는 함수
     const fetchRandomParticipant = async () => {
         try {
-            const response = await getRandomParticipant(); // 랜덤 참가자 호출
-            if (response) {
-                setParticipant(response);
-                await fetchComments(response.id);  // 참가자 ID에 맞는 댓글을 가져옴                
+            const response = await getRandomParticipant();
+            if (response && response.length > 0) {
+                const videosArray = response.map(participant => participant.videoUrl);
+                console.log(response);
+                console.log(videosArray);
+                setVideos(videosArray);
+                setParticipant(response[0]);
+                await fetchComments(response[0].id);
             } else {
                 alert('랜덤 참가자를 가져오는 데 실패했습니다.');
             }
@@ -53,6 +57,7 @@ const WeeklyWorkout = () => {
             setLoading(false);  // 로딩 완료
         }
     };
+
 
     // 해당 참가자의 댓글을 가져오는 함수
     const fetchComments = async (participantId) => {
@@ -105,6 +110,16 @@ const WeeklyWorkout = () => {
         }
     };
 
+    const handleNextVideo = () => {
+        // Move to the next video (looping back to the first video if we're at the last one)
+        setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length);
+    };
+
+    const handlePrevVideo = () => {
+        // Move to the previous video (looping back to the last video if we're at the first one)
+        setCurrentVideoIndex((prevIndex) => (prevIndex - 1 + videos.length) % videos.length);
+    };
+
     useEffect(() => {
         fetchRandomParticipant();  // 랜덤 참가자 가져오기
     }, []);
@@ -123,16 +138,20 @@ const WeeklyWorkout = () => {
             />
             <div className="participant-detail-wrapper">
                 <div className="participant-main">
-                    {participant.videoUrl && (
+                    {videos.length > 0 && (
                         <div className="participant-video-wrapper">
                             <video
-                                src={participant.videoUrl}
+                                src={videos[currentVideoIndex]}  // Show the current video
                                 autoPlay
                                 muted
                                 controls
                                 preload="metadata"
                                 style={{ width: '100%', maxWidth: '640px' }}
                             />
+                            <div className="video-controls">
+                                <button onClick={handlePrevVideo}>이전</button>
+                                <button onClick={handleNextVideo}>다음</button>
+                            </div>
                         </div>
                     )}
                 </div>
