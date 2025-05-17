@@ -42,6 +42,7 @@ import { Navigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 import Footer from './components/Footer';
+import MasterRequestDetail from './pages/MasterRequestDetail.js';
 
 const isAuthenticated = () => {
   return !!localStorage.getItem('token');
@@ -100,6 +101,7 @@ function App() {
           <Route path="/how-to-be-master" element={<PrivateRoute><HowToBeMaster /></PrivateRoute>} />
           <Route path="/apply-master" element={<PrivateRoute><ApplyMaster /></PrivateRoute>} />
           <Route path="/admin" element={<PrivateRoute><AdminRoom /></PrivateRoute>} />
+          <Route path="/admin/apply/:id" element={<PrivateRoute><MasterRequestDetail /></PrivateRoute>} />
 
           {/* 404 */}
           <Route path="*" element={<Error />} />

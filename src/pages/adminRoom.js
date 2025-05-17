@@ -1,60 +1,41 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { getAllMasterRequests } from '../apis/getMasterRequest';
+import PageTitle from '../components/PageTitle';
 import '../styles/AdminRoom.css';
+import { Link } from 'react-router-dom';
 
 const AdminRoom = () => {
     const [requests, setRequests] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            const token = localStorage.getItem('token');
-            try {
-                const res = await axios.get(
-                    `${process.env.REACT_APP_API_URL}/apply-master`,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    }
-                );
-                setRequests(res.data);
-            } catch (err) {
-                console.error('신청서 조회 실패:', err);
-            }
+        const fetch = async () => {
+            const data = await getAllMasterRequests();
+            setRequests(data);
         };
-        fetchData();
+        fetch();
     }, []);
 
     return (
         <div className="admin-wrapper">
-            <h2>상급자 신청 관리</h2>
+            <PageTitle
+                title='관리자의 방'
+                description='운영자만 들어올 수 있는 곳'
+                showBackArrow={true}
+            />
+
+            <div style={{ margin: '50px' }}></div>
+
             <table className="admin-table">
                 <thead>
                     <tr>
-                        <th>이름</th>
-                        <th>연락처</th>
-                        <th>주력 부위</th>
-                        <th>경력</th>
-                        <th>자격증</th>
-                        <th>포트폴리오</th>
+                        <th>상급자 신청 관리</th>
                     </tr>
                 </thead>
                 <tbody>
                     {requests.map((req) => (
                         <tr key={req.id}>
-                            <td>{req.name}</td>
-                            <td>{req.phone}</td>
-                            <td>{req.parts}</td>
-                            <td>{req.career}</td>
                             <td>
-                                {req.certFileUrls?.split(',').map((url, i) => (
-                                    <a key={i} href={url} target="_blank" rel="noreferrer">[파일{i + 1}]</a>
-                                ))}
-                            </td>
-                            <td>
-                                {req.portfolioUrls?.split(',').map((url, i) => (
-                                    <a key={i} href={url} target="_blank" rel="noreferrer">[포트{i + 1}]</a>
-                                ))}
+                                <Link to={`/admin/apply/${req.id}`}>{req.name}</Link>
                             </td>
                         </tr>
                     ))}
