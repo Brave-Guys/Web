@@ -213,6 +213,22 @@
   background-color: #EEEEEE;
 }
 
+.role-room-button {
+  margin-top: 12px;
+  padding: 8px 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.role-room-button:hover {
+  background-color: #388e3c;
+}
+
 @media (max-width: 768px) {
   .main-page {
     padding: 40px 20px;
