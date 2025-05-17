@@ -171,7 +171,7 @@ const ChallengeDetail = () => {
                                 <div
                                     key={p.id}
                                     className="participant-item"
-                                    onClick={() => navigate(`/challenges/${id}/participants/${p.writerId}`)}
+                                    onClick={() => navigate(`/challenges/${id}/participants/${p.id}`)}
                                 >
                                     <img
                                         className="participant-avatar"

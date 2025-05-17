@@ -138,6 +138,18 @@ const Main = () => {
                     />
                     <h2 className="pro-badge">{user?.userPlanType ?? '사용자'}</h2>
                 </div>
+
+                {/* 👇 권한별 방 버튼 */}
+                {user?.role === 'ADMIN' && (
+                    <button className="role-room-button" onClick={() => navigate('/admin')}>
+                        관리자의 방
+                    </button>
+                )}
+                {user?.role === 'SENIOR' && (
+                    <button className="role-room-button" onClick={() => navigate('/masters')}>
+                        상급자의 방
+                    </button>
+                )}
             </div>
 
             <div className="card-grid">

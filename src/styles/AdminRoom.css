@@ -1,0 +1,30 @@
+.admin-wrapper {
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.admin-table th,
+.admin-table td {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.admin-table th {
+    background-color: #f3f4f6;
+    font-weight: bold;
+}
+
+.admin-table a {
+    margin-right: 8px;
+    font-size: 13px;
+    color: #2563eb;
+}

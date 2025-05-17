@@ -24,6 +24,10 @@ import ChallengeDetail from './pages/challengeDetail.js';
 import EditChallenge from './pages/EditChallenge.js';
 import ParticipantDetail from './pages/ParticipantDetail.js';
 import MyChallengeHistory from './pages/MyChallengeHistory.js';
+import HowToBeMaster from './pages/howToBeMaster.js';
+import ApplyMaster from './pages/applyMaster.js';
+import AdminRoom from './pages/adminRoom.js';
+import SeniorDetail from './pages/SeniorDetail.js';
 
 import ExerciseTipChest from './pages/exercise-tip-detail/ExerciseTipChest';
 import ExerciseTipShoulder from './pages/exercise-tip-detail/ExerciseTipShoulder';
@@ -39,6 +43,7 @@ import { Navigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 import Footer from './components/Footer';
+import MasterRequestDetail from './pages/MasterRequestDetail.js';
 
 const isAuthenticated = () => {
   return !!localStorage.getItem('token');
@@ -94,6 +99,11 @@ function App() {
           <Route path="/create-challenge" element={<PrivateRoute><ChallengeWrite /></PrivateRoute>} />
           <Route path="/challenges/:challengeId/participants/:participantId" element={<PrivateRoute><ParticipantDetail /></PrivateRoute>} />
           <Route path="/mychallengehistory" element={<PrivateRoute><MyChallengeHistory /></PrivateRoute>} />
+          <Route path="/how-to-be-master" element={<PrivateRoute><HowToBeMaster /></PrivateRoute>} />
+          <Route path="/apply-master" element={<PrivateRoute><ApplyMaster /></PrivateRoute>} />
+          <Route path="/admin" element={<PrivateRoute><AdminRoom /></PrivateRoute>} />
+          <Route path="/admin/apply/:id" element={<PrivateRoute><MasterRequestDetail /></PrivateRoute>} />
+          <Route path="/masters/:id" element={<PrivateRoute><SeniorDetail /></PrivateRoute>} />
 
           {/* 404 */}
           <Route path="*" element={<Error />} />
