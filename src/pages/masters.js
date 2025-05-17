@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Masters.css';
 import PageTitle from '../components/PageTitle';
-import axios from 'axios';
+import { getApprovedMasters } from '../apis/getMasterRequest';
 
 const Masters = () => {
     const [seniorUsers, setSeniorUsers] = useState([]);
@@ -10,13 +10,8 @@ const Masters = () => {
     useEffect(() => {
         const fetchSeniors = async () => {
             try {
-                const token = localStorage.getItem('token');
-                const res = await axios.get(`${process.env.REACT_APP_API_URL}/users/seniors`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-                setSeniorUsers(res.data);
+                const data = await getApprovedMasters();
+                setSeniorUsers(data);
             } catch (err) {
                 console.error('상급자 정보 불러오기 실패:', err);
             }
@@ -43,7 +38,8 @@ const Masters = () => {
                     seniorUsers.map((user) => (
                         <div key={user.id} className="senior-user-card">
                             <p className="card-name"><strong>{user.name}</strong></p>
-                            <p className="card-email">{user.email}</p>
+                            <p className="card-part">{user.parts}</p>
+                            <p className="card-intro">{user.intro}</p>
                         </div>
                     ))
                 )}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getMasterRequestById } from '../apis/getMasterRequest';
+import { approveMasterRequest, rejectMasterRequest } from '../apis/updateMasterRequest';
 import '../styles/MasterRequestDetail.css';
 import axios from 'axios';
 
@@ -18,39 +19,22 @@ const MasterRequestDetail = () => {
     }, [id]);
 
     const handleApprove = async () => {
-        const token = localStorage.getItem('token');
         try {
-            await axios.patch(
-                `${process.env.REACT_APP_API_URL}/users/${request.userId}/role`,
-                { role: 'SENIOR' },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-                }
-            );
-            alert('승인 완료! 해당 유저의 역할이 SENIOR로 변경되었습니다.');
+            await approveMasterRequest(request.id, request.userId);
+            alert('승인 완료!');
             navigate('/admin');
-        } catch (error) {
-            console.error('승인 실패:', error);
-            alert('승인 중 오류가 발생했습니다.');
+        } catch (e) {
+            alert('승인 실패');
         }
     };
 
     const handleReject = async () => {
-        const token = localStorage.getItem('token');
         try {
-            await axios.delete(`${process.env.REACT_APP_API_URL}/apply-master/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-            alert('신청서가 삭제되었습니다.');
+            await rejectMasterRequest(request.id);
+            alert('거절 완료!');
             navigate('/admin');
-        } catch (error) {
-            console.error('거절 실패:', error);
-            alert('삭제 중 오류가 발생했습니다.');
+        } catch (e) {
+            alert('거절 실패');
         }
     };
 

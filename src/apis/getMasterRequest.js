@@ -19,3 +19,13 @@ export const getAllMasterRequests = async () => {
     });
     return res.data;
 };
+
+export const getApprovedMasters = async () => {
+    const token = localStorage.getItem('token');
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/apply-master/approved`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+    return res.data;
+};
