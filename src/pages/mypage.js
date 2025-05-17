@@ -3,38 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import { updateUserNickname, updateUserImage } from '../apis/updateUser';
 import { uploadImageToFirebase } from '../utils/uploadImageToFirebase';
 import PageTitle from '../components/PageTitle';
+import tempImg from '../assets/person.png'
 import '../styles/Mypage.css';
 
 const Mypage = () => {
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem('user'));
     const [nickname, setNickname] = useState(user?.name || '');
+    const [emailId, setEmailId] = useState(user?.email?.split('@')[0] || '');
+    const [emailDomain, setEmailDomain] = useState(user?.email?.split('@')[1] || 'naver.com');
     const [profileImage, setProfileImage] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(user?.imgUrl || '');
-
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        navigate('/login');
-    };
-
-    const handleNicknameUpdate = async () => {
-        if (!nickname.trim()) {
-            alert('닉네임을 입력하세요.');
-            return;
-        }
-
-        try {
-            await updateUserNickname(user.id, nickname);
-            alert('닉네임이 수정되었습니다.');
-            const updatedUser = { ...user, name: nickname };
-            localStorage.setItem('user', JSON.stringify(updatedUser));
-            window.location.reload();
-        } catch (err) {
-            alert('닉네임 수정 실패');
-            console.error(err);
-        }
-    };
+    const [oldPassword, setOldPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -49,7 +31,6 @@ const Mypage = () => {
             alert('이미지를 선택하세요.');
             return;
         }
-
         try {
             const imgUrl = await uploadImageToFirebase(profileImage);
             await updateUserImage(user.id, imgUrl);
@@ -63,43 +44,124 @@ const Mypage = () => {
         }
     };
 
+    const handleNicknameUpdate = async () => {
+        if (!nickname.trim()) {
+            alert('닉네임을 입력하세요.');
+            return;
+        }
+        try {
+            await updateUserNickname(user.id, nickname);
+            const updatedUser = { ...user, name: nickname };
+            localStorage.setItem('user', JSON.stringify(updatedUser));
+            alert('닉네임이 수정되었습니다.');
+            window.location.reload();
+        } catch (err) {
+            alert('닉네임 수정 실패');
+            console.error(err);
+        }
+    };
+
+    const handleSubmit = () => {
+        handleNicknameUpdate();
+        handleSaveProfileImage();
+    };
+
     return (
         <div className="mypage-container">
-            <PageTitle
-                title='내 정보'
-                showBackArrow={true}
-            />
+            <div className="mypage-header">
+                <PageTitle
+                    title="내 정보"
+                    showBackArrow={true}
+                />
+            </div>
 
-            <div style={{ margin: '40px' }}></div>
+            <div className="mypage-profile-container">
+                <img
+                    src={previewUrl || tempImg}
+                    alt="프로필 이미지"
+                    className="mypage-profile-image"
+                />
+                <label htmlFor="profileUpload" className="mypage-image-button">이미지 변경</label>
+                <input
+                    type="file"
+                    id="profileUpload"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    style={{ display: 'none' }}
+                />
+            </div>
 
-            <div className="nickname-section">
-                <label htmlFor="nickname">닉네임</label>
-                <div className="nickname-input-group">
+            <div className="mypage-form">
+                <div className="mypage-input-row">
+                    <label className="mypage-label" htmlFor="nickname">닉네임</label>
                     <input
                         id="nickname"
-                        type="text"
+                        placeholder="닉네임"
                         value={nickname}
                         onChange={(e) => setNickname(e.target.value)}
+                        className="mypage-input"
                     />
-                    <button onClick={handleNicknameUpdate}>수정</button>
+                    <button onClick={handleNicknameUpdate} className="mypage-check-button">중복 확인</button>
                 </div>
-            </div>
 
-            <div className="profile-section">
-                <label>프로필 이미지</label>
-                {previewUrl && (
-                    <div className="profile-preview">
-                        <img src={previewUrl} alt="프로필" />
-                    </div>
-                )}
-                <div className="profile-upload-group">
-                    <input type="file" accept="image/*" onChange={handleImageChange} />
-                    <button onClick={handleSaveProfileImage}>저장</button>
+                <div className="mypage-input-row">
+                    <label className="mypage-label" htmlFor="emailId">이메일</label>
+                    <input
+                        id="emailId"
+                        placeholder="이메일 아이디"
+                        value={emailId}
+                        onChange={(e) => setEmailId(e.target.value)}
+                        className="mypage-email-input"
+                    />
+                    <span className="email-at">@</span>
+                    <select
+                        value={emailDomain}
+                        onChange={(e) => setEmailDomain(e.target.value)}
+                        className="mypage-domain-select"
+                    >
+                        <option value="naver.com">naver.com</option>
+                        <option value="gmail.com">gmail.com</option>
+                        <option value="daum.net">daum.net</option>
+                    </select>
                 </div>
-            </div>
 
-            <div className="logout-section">
-                <button className="logout-button" onClick={handleLogout}>로그아웃</button>
+                <div className="mypage-input-row">
+                    <label className="mypage-label" htmlFor="oldPassword">기존 비밀번호</label>
+                    <input
+                        id="oldPassword"
+                        placeholder="기존 비밀번호"
+                        type="password"
+                        value={oldPassword}
+                        onChange={(e) => setOldPassword(e.target.value)}
+                        className="mypage-input"
+                    />
+                </div>
+
+                <div className="mypage-input-row">
+                    <label className="mypage-label" htmlFor="newPassword">새 비밀번호</label>
+                    <input
+                        id="newPassword"
+                        placeholder="문자, 숫자, 특수문자 포함 8-20자"
+                        type="password"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        className="mypage-input"
+                    />
+                </div>
+
+                <div className="mypage-input-row">
+                    <label className="mypage-label" htmlFor="confirmPassword">비밀번호 확인</label>
+                    <input
+                        id="confirmPassword"
+                        placeholder="비밀번호 확인"
+                        type="password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        className="mypage-input"
+                    />
+                </div>
+
+                <button onClick={handleSubmit} className="mypage-submit-button">수정</button>
             </div>
         </div>
     );
