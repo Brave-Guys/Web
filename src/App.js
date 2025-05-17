@@ -25,6 +25,8 @@ import EditChallenge from './pages/EditChallenge.js';
 import ParticipantDetail from './pages/ParticipantDetail.js';
 import MyChallengeHistory from './pages/MyChallengeHistory.js';
 import HowToBeMaster from './pages/howToBeMaster.js';
+import ApplyMaster from './pages/applyMaster.js';
+import AdminRoom from './pages/adminRoom.js';
 
 import ExerciseTipChest from './pages/exercise-tip-detail/ExerciseTipChest';
 import ExerciseTipShoulder from './pages/exercise-tip-detail/ExerciseTipShoulder';
@@ -34,7 +36,6 @@ import ExerciseTipAbs from './pages/exercise-tip-detail/ExerciseTipAbs';
 import ExerciseTipThigh from './pages/exercise-tip-detail/ExerciseTipThigh';
 import ExerciseTipTricep from './pages/exercise-tip-detail/ExerciseTipTricep';
 import ExerciseTipHamstring from './pages/exercise-tip-detail/ExerciseTipHamstring';
-import ApplyMaster from './pages/applyMaster.js';
 
 import './App.css';
 import { Navigate } from 'react-router-dom';
@@ -98,6 +99,7 @@ function App() {
           <Route path="/mychallengehistory" element={<PrivateRoute><MyChallengeHistory /></PrivateRoute>} />
           <Route path="/how-to-be-master" element={<PrivateRoute><HowToBeMaster /></PrivateRoute>} />
           <Route path="/apply-master" element={<PrivateRoute><ApplyMaster /></PrivateRoute>} />
+          <Route path="/admin" element={<PrivateRoute><AdminRoom /></PrivateRoute>} />
 
           {/* 404 */}
           <Route path="*" element={<Error />} />
