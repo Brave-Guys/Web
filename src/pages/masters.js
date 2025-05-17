@@ -36,15 +36,14 @@ const Masters = () => {
                     상급자가 되려면 어떻게 해야 하나요?
                 </Link>
             </div>
-
             <div className="senior-user-list">
                 {seniorUsers.length === 0 ? (
                     <p>등록된 상급자가 없습니다.</p>
                 ) : (
                     seniorUsers.map((user) => (
                         <div key={user.id} className="senior-user-card">
-                            <p><strong>{user.name}</strong></p>
-                            <p>{user.email}</p>
+                            <p className="card-name"><strong>{user.name}</strong></p>
+                            <p className="card-email">{user.email}</p>
                         </div>
                     ))
                 )}
