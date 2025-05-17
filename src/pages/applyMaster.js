@@ -34,10 +34,18 @@ const ApplyMaster = () => {
         }
 
         try {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const userId = user?.id;
+            if (!userId) {
+                alert('로그인 정보를 확인할 수 없습니다.');
+                return;
+            }
+
             const certUrls = await uploadMultipleImages(certFiles);
             const portfolioUrls = await uploadMultipleImages(portfolioFiles);
 
             await postApplyMaster({
+                userId,
                 name,
                 phone,
                 career,

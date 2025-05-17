@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const postApplyMaster = async ({
+    userId, // 추가
     name,
     phone,
     certFileUrls,
@@ -14,6 +15,7 @@ export const postApplyMaster = async ({
     const res = await axios.post(
         `${process.env.REACT_APP_API_URL}/apply-master`,
         {
+            userId,
             name,
             phone,
             career,
