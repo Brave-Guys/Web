@@ -27,6 +27,7 @@ import MyChallengeHistory from './pages/MyChallengeHistory.js';
 import HowToBeMaster from './pages/howToBeMaster.js';
 import ApplyMaster from './pages/applyMaster.js';
 import AdminRoom from './pages/adminRoom.js';
+import SeniorDetail from './pages/SeniorDetail.js';
 
 import ExerciseTipChest from './pages/exercise-tip-detail/ExerciseTipChest';
 import ExerciseTipShoulder from './pages/exercise-tip-detail/ExerciseTipShoulder';
@@ -102,6 +103,7 @@ function App() {
           <Route path="/apply-master" element={<PrivateRoute><ApplyMaster /></PrivateRoute>} />
           <Route path="/admin" element={<PrivateRoute><AdminRoom /></PrivateRoute>} />
           <Route path="/admin/apply/:id" element={<PrivateRoute><MasterRequestDetail /></PrivateRoute>} />
+          <Route path="/masters/:id" element={<PrivateRoute><SeniorDetail /></PrivateRoute>} />
 
           {/* 404 */}
           <Route path="*" element={<Error />} />

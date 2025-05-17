@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Masters.css';
 import PageTitle from '../components/PageTitle';
 import { getApprovedMasters } from '../apis/getMasterRequest';
 
 const Masters = () => {
+    const navigate = useNavigate();
     const [seniorUsers, setSeniorUsers] = useState([]);
 
     useEffect(() => {
@@ -36,7 +38,12 @@ const Masters = () => {
                     <p>등록된 상급자가 없습니다.</p>
                 ) : (
                     seniorUsers.map((user) => (
-                        <div key={user.id} className="senior-user-card">
+                        <div
+                            key={user.id}
+                            className="senior-user-card"
+                            onClick={() => navigate(`/masters/${user.id}`)}
+                            style={{ cursor: 'pointer' }}
+                        >
                             <p className="card-name"><strong>{user.name}</strong></p>
                             <p className="card-part">{user.parts}</p>
                             <p className="card-intro">{user.intro}</p>
