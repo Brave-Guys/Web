@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import PageTitle from '../components/PageTitle';
+import { Link } from 'react-router-dom';
 import '../styles/SeniorRoom.css';
 
 const SeniorRoom = () => {
@@ -39,13 +40,9 @@ const SeniorRoom = () => {
                     <p>도착한 신청서가 없습니다.</p>
                 ) : (
                     requests.map((r) => (
-                        <div key={r.id} className="request-card">
-                            <p><strong>신청자:</strong> {r.userId}</p>
-                            <p><strong>나이:</strong> {r.age}</p>
-                            <p><strong>성별:</strong> {r.gender}</p>
-                            <p><strong>키/몸무게:</strong> {r.height} / {r.weight}</p>
-                            <p><strong>전달 메시지:</strong> {r.content || '없음'}</p>
-                        </div>
+                        <Link to={`/senior/requests/${r.id}`} key={r.id} className="request-card">
+                            <p><strong>신청자 ID:</strong> {r.userId}</p>
+                        </Link>
                     ))
                 )}
             </div>
