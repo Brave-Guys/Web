@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import '../styles/SeniorRoom.css';
 
 const SeniorRoom = () => {
-    const [requests, setRequests] = useState([]);
+    const [approvedRequests, setApprovedRequests] = useState([]);
+    const [otherRequests, setOtherRequests] = useState([]);
 
     useEffect(() => {
         const fetchRequests = async () => {
@@ -20,7 +21,10 @@ const SeniorRoom = () => {
                         }
                     }
                 );
-                setRequests(res.data);
+                const approved = res.data.filter(r => r.status === 'APPROVED');
+                const others = res.data.filter(r => r.status !== 'APPROVED');
+                setApprovedRequests(approved);
+                setOtherRequests(others);
             } catch (err) {
                 console.error('Share+ 요청 조회 실패:', err);
             }
@@ -28,20 +32,42 @@ const SeniorRoom = () => {
         fetchRequests();
     }, []);
 
+    const getStatusText = (status) => {
+        if (status === 'PENDING') return '검토 중';
+        if (status === 'REJECTED') return '거절됨';
+        return '';
+    };
+
     return (
         <div className="senior-room-wrapper">
             <PageTitle
                 title="상급자의 방"
-                description="나에게 들어온 Share+ 신청서를 확인해보세요."
+                description="내게 들어온 Share+ 신청서를 관리해보세요."
                 showBackArrow={true}
             />
+
+            <h3>나의 수강생</h3>
             <div className="request-list">
-                {requests.length === 0 ? (
-                    <p>도착한 신청서가 없습니다.</p>
+                {approvedRequests.length === 0 ? (
+                    <p>승인된 요청이 없습니다.</p>
                 ) : (
-                    requests.map((r) => (
+                    approvedRequests.map((r) => (
+                        <Link to={`/share/${r.id}/chat`} key={r.id} className="request-card">
+                            <p><strong>신청자 ID:</strong> {r.userId}</p>
+                        </Link>
+                    ))
+                )}
+            </div>
+
+            <h3 style={{ marginTop: '32px' }}>Share+ 요청</h3>
+            <div className="request-list">
+                {otherRequests.length === 0 ? (
+                    <p>검토 중이거나 거절된 요청이 없습니다.</p>
+                ) : (
+                    otherRequests.map((r) => (
                         <Link to={`/senior/requests/${r.id}`} key={r.id} className="request-card">
                             <p><strong>신청자 ID:</strong> {r.userId}</p>
+                            <p><strong>상태:</strong> {getStatusText(r.status)}</p>
                         </Link>
                     ))
                 )}

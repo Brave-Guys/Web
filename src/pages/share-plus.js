@@ -36,19 +36,23 @@ const ShareComment = () => {
                 showBackArrow={true}
             />
             <div className="my-request-list">
-                {myRequests.length === 0 ? (
-                    <p>신청한 내역이 없습니다.</p>
-                ) : (
-                    myRequests.map((req) => {
-                        const statusText = req.status === 'PENDING' ? '검토 중' : req.status === 'REJECTED' ? '거절됨' : '';
-                        return (
-                            <Link to={`/share/${req.id}/chat`} key={req.id} className="my-request-card">
-                                <p><strong>상급자 ID:</strong> {req.masterId}</p>
-                                <p><strong>신청 상태:</strong> {statusText}</p>
-                            </Link>
-                        );
-                    })
-                )}
+                {myRequests.map((req) => {
+                    const statusText = req.status === 'PENDING' ? '검토 중' : req.status === 'REJECTED' ? '거절됨' : '';
+                    const cardContent = (
+                        <div className="my-request-card" key={req.id}>
+                            <p><strong>상급자 ID:</strong> {req.masterId}</p>
+                            <p><strong>신청 상태:</strong> {statusText}</p>
+                        </div>
+                    );
+
+                    return req.status === 'APPROVED' ? (
+                        <Link to={`/share/${req.id}/chat`} key={req.id}>
+                            {cardContent}
+                        </Link>
+                    ) : (
+                        cardContent
+                    );
+                })}
             </div>
         </div>
     );
