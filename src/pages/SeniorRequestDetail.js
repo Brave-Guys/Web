@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PageTitle from '../components/PageTitle';
 import '../styles/SeniorRoom.css';
 
 const SeniorRequestDetail = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [request, setRequest] = useState(null);
 
     useEffect(() => {
@@ -25,6 +26,27 @@ const SeniorRequestDetail = () => {
         fetchRequest();
     }, [id]);
 
+    const handleUpdateStatus = async (status) => {
+        try {
+            const token = localStorage.getItem('token');
+            await axios.patch(
+                `${process.env.REACT_APP_API_URL}/share-requests/${id}/status`,
+                { status },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+            alert(`신청서가 ${status === 'APPROVED' ? '승인' : '거절'}되었습니다.`);
+            navigate('/senior');
+        } catch (err) {
+            console.error('상태 업데이트 실패:', err);
+            alert('처리 중 오류가 발생했습니다.');
+        }
+    };
+
     if (!request) return <div className="senior-room-wrapper">로딩 중...</div>;
 
     return (
@@ -41,6 +63,10 @@ const SeniorRequestDetail = () => {
                 <p><strong>키:</strong> {request.height}</p>
                 <p><strong>몸무게:</strong> {request.weight}</p>
                 <p><strong>메시지:</strong> {request.content || '없음'}</p>
+            </div>
+            <div className="detail-actions">
+                <button className="approve-button" onClick={() => handleUpdateStatus('APPROVED')}>승인</button>
+                <button className="reject-button" onClick={() => handleUpdateStatus('REJECTED')}>거절</button>
             </div>
         </div>
     );
