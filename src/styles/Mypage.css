@@ -15,7 +15,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    
+
 }
 
 .mypage-profile-image {
@@ -48,10 +48,12 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 18px 0; /* 행 높이 증가 */
+    padding: 18px 0;
+    /* 행 높이 증가 */
     border-bottom: 1px solid #ccc;
     flex-wrap: wrap;
-    min-height: 70px; /* 행 높이 증가 */
+    min-height: 70px;
+    /* 행 높이 증가 */
 }
 
 .mypage-label {
@@ -140,4 +142,19 @@
 
 .mypage-submit-button:hover {
     background-color: #8445f9;
+}
+
+.mypage-logout-button {
+    margin-top: 30px;
+    background-color: #999;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.mypage-logout-button:hover {
+    background-color: #777;
 }

@@ -26,6 +26,13 @@ const Mypage = () => {
         }
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        alert('로그아웃 되었습니다.');
+        navigate('/login');
+    };
+
     const handleSaveProfileImage = async () => {
         if (!profileImage) {
             alert('이미지를 선택하세요.');
@@ -162,6 +169,10 @@ const Mypage = () => {
                 </div>
 
                 <button onClick={handleSubmit} className="mypage-submit-button">수정</button>
+
+                <button onClick={handleLogout} className="mypage-logout-button">
+                    로그아웃
+                </button>
             </div>
         </div>
     );

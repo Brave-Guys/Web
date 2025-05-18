@@ -29,7 +29,7 @@ const SeniorDetail = () => {
 
             <button
                 className="shareplus-button"
-                onClick={() => navigate(`/shareplus/apply/${profile.id}`)}
+                onClick={() => navigate(`/shareplus/apply/${profile.userId}`)}
             >
                 Share+ 신청
             </button>
