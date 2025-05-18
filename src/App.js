@@ -31,6 +31,7 @@ import SeniorDetail from './pages/SeniorDetail.js';
 import SharePlusApply from './pages/SharePlusApply.js';
 import SeniorRoom from './pages/SeniorRoom.js';
 import SeniorRequestDetail from './pages/SeniorRequestDetail.js';
+import ShareChat from './pages/ShareChat.js';
 
 import ExerciseTipChest from './pages/exercise-tip-detail/ExerciseTipChest';
 import ExerciseTipShoulder from './pages/exercise-tip-detail/ExerciseTipShoulder';
@@ -110,6 +111,7 @@ function App() {
           <Route path="/shareplus/apply/:seniorId" element={<PrivateRoute><SharePlusApply /></PrivateRoute>} />
           <Route path="/senior" element={<PrivateRoute><SeniorRoom /></PrivateRoute>} />
           <Route path="/senior/requests/:id" element={<PrivateRoute><SeniorRequestDetail /></PrivateRoute>} />
+          <Route path="/share/:id/chat" element={<PrivateRoute><ShareChat /></PrivateRoute>} />
 
           {/* 404 */}
           <Route path="*" element={<Error />} />

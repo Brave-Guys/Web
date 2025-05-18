@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import PageTitle from '../components/PageTitle';
 import '../styles/SharePlus.css';
 
-const SharePlus = () => {
+const ShareComment = () => {
     const [myRequests, setMyRequests] = useState([]);
 
     useEffect(() => {
@@ -38,16 +39,19 @@ const SharePlus = () => {
                 {myRequests.length === 0 ? (
                     <p>신청한 내역이 없습니다.</p>
                 ) : (
-                    myRequests.map((req) => (
-                        <div key={req.id} className="my-request-card">
-                            <p><strong>상급자 ID:</strong> {req.masterId}</p>
-                            <p><strong>신청 상태:</strong> {req.status === 'PENDING' ? '검토 중' : req.status === 'REJECTED' ? '거절됨' : ''}</p>
-                        </div>
-                    ))
+                    myRequests.map((req) => {
+                        const statusText = req.status === 'PENDING' ? '검토 중' : req.status === 'REJECTED' ? '거절됨' : '';
+                        return (
+                            <Link to={`/share/${req.id}/chat`} key={req.id} className="my-request-card">
+                                <p><strong>상급자 ID:</strong> {req.masterId}</p>
+                                <p><strong>신청 상태:</strong> {statusText}</p>
+                            </Link>
+                        );
+                    })
                 )}
             </div>
         </div>
     );
 };
 
-export default SharePlus;
+export default ShareComment;

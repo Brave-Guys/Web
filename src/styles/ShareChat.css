@@ -1,0 +1,69 @@
+/* ShareChat.css */
+
+.sharechat-wrapper {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px;
+    font-family: sans-serif;
+}
+
+.chat-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.chat-form input[type="date"],
+.chat-form textarea,
+.chat-form input[type="file"] {
+    font-size: 14px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.chat-form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.chat-form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.chat-form button:hover {
+    background-color: #388E3C;
+}
+
+.chat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.chat-item {
+    background: #f9f9f9;
+    padding: 14px 18px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.chat-item p {
+    margin: 6px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.chat-image {
+    margin-top: 8px;
+    max-width: 100%;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
