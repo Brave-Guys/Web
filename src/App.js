@@ -28,6 +28,7 @@ import HowToBeMaster from './pages/howToBeMaster.js';
 import ApplyMaster from './pages/applyMaster.js';
 import AdminRoom from './pages/adminRoom.js';
 import SeniorDetail from './pages/SeniorDetail.js';
+import SharePlusApply from './pages/SharePlusApply.js'
 
 import ExerciseTipChest from './pages/exercise-tip-detail/ExerciseTipChest';
 import ExerciseTipShoulder from './pages/exercise-tip-detail/ExerciseTipShoulder';
@@ -104,6 +105,8 @@ function App() {
           <Route path="/admin" element={<PrivateRoute><AdminRoom /></PrivateRoute>} />
           <Route path="/admin/apply/:id" element={<PrivateRoute><MasterRequestDetail /></PrivateRoute>} />
           <Route path="/masters/:id" element={<PrivateRoute><SeniorDetail /></PrivateRoute>} />
+          <Route path="/shareplus/apply/:seniorId" element={<PrivateRoute><SharePlusApply /></PrivateRoute>} />
+
 
           {/* 404 */}
           <Route path="*" element={<Error />} />
