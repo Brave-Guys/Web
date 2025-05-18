@@ -1,19 +1,37 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { postSharePlusRequest } from '../apis/applySharePlus';
 import '../styles/SharePlusApply.css';
+import axios from 'axios';
 
 const SharePlusApply = () => {
     const { seniorId } = useParams();
+    const navigate = useNavigate();
     const [age, setAge] = useState('');
     const [height, setHeight] = useState('');
     const [weight, setWeight] = useState('');
     const [gender, setGender] = useState('');
     const [message, setMessage] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // TODO: 제출 처리 로직
-        console.log({ seniorId, age, height, weight, gender, message });
+        try {
+            const user = JSON.parse(localStorage.getItem('user'));
+            await postSharePlusRequest({
+                masterId: seniorId,
+                userId: user.id,
+                age,
+                height,
+                weight,
+                gender,
+                content: message
+            });
+            alert('신청이 완료되었습니다!');
+            navigate('/');
+        } catch (error) {
+            console.error('신청 오류:', error);
+            alert('신청 중 오류가 발생했습니다.');
+        }
     };
 
     return (
