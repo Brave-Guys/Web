@@ -14,8 +14,8 @@
 
 .chat-calendar {
     width: 40%;
-    min-height: 470px;
-    max-height: 470px;
+    min-height: 420px;
+    max-height: 420px;
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 16px;

@@ -15,6 +15,22 @@ const ShareChat = () => {
     const [newContent, setNewContent] = useState('');
     const [newImage, setNewImage] = useState(null);
 
+    const formatDateToLocalString = (date) => {
+        const yyyy = date.getFullYear();
+        const mm = String(date.getMonth() + 1).padStart(2, '0');
+        const dd = String(date.getDate()).padStart(2, '0');
+        return `${yyyy}-${mm}-${dd}`;
+    };
+
+    const formatTime = (isoString) => {
+        const date = new Date(isoString);
+        return date.toLocaleTimeString('ko-KR', {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true
+        });
+    };
+
     const fetchComments = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -50,7 +66,7 @@ const ShareChat = () => {
             await axios.post(`${process.env.REACT_APP_API_URL}/share-comments`, {
                 shareId: id,
                 writerId: user.id,
-                date: selectedDate.toISOString().slice(0, 10),
+                date: formatDateToLocalString(selectedDate),
                 content: newContent,
                 picture: pictureUrl
             }, {
@@ -87,7 +103,6 @@ const ShareChat = () => {
 
             <div className="chat-grid">
                 <div className="chat-calendar">
-                    <h4>날짜 선택</h4>
                     <Calendar
                         onChange={setSelectedDate}
                         value={selectedDate}
@@ -101,6 +116,8 @@ const ShareChat = () => {
                             return isToday ? 'highlight' : null;
                         }}
                         formatDay={(locale, date) => String(date.getDate())}
+                        prev2Label={null}
+                        next2Label={null}
                     />
                 </div>
 
@@ -117,17 +134,15 @@ const ShareChat = () => {
                     </form>
 
                     <div className="chat-list">
-                        {filteredComments.length === 0 ? (
-                            <p>이 날짜에는 아직 대화가 없습니다.</p>
-                        ) : (
-                            filteredComments.map((c) => (
-                                <div key={c.id} className="chat-item">
-                                    <p><strong>{c.date}</strong> · 작성자 ID: {c.writerId}</p>
-                                    <p>{c.content}</p>
-                                    {c.picture && <img src={c.picture} alt="첨부" className="chat-image" />}
-                                </div>
-                            ))
-                        )}
+                        {filteredComments.map((c) => (
+                            <div key={c.id} className="chat-item">
+                                <p>
+                                    <strong>작성자 ID: {c.writerId}</strong> · {formatTime(c.createdAt)}
+                                </p>
+                                <p>{c.content}</p>
+                                {c.picture && <img src={c.picture} alt="첨부" className="chat-image" />}
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
