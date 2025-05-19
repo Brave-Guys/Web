@@ -10,9 +10,9 @@ import '../styles/ShareChat.css';
 const ShareChat = () => {
     const { id } = useParams();
     const [comments, setComments] = useState([]);
-    const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedDate, setSelectedDate] = useState(new Date());
+
     const [newContent, setNewContent] = useState('');
-    const [newDate, setNewDate] = useState('');
     const [newImage, setNewImage] = useState(null);
 
     const fetchComments = async () => {
@@ -50,7 +50,7 @@ const ShareChat = () => {
             await axios.post(`${process.env.REACT_APP_API_URL}/share-comments`, {
                 shareId: id,
                 writerId: user.id,
-                date: newDate,
+                date: selectedDate.toISOString().slice(0, 10),
                 content: newContent,
                 picture: pictureUrl
             }, {
@@ -60,7 +60,6 @@ const ShareChat = () => {
                 }
             });
             setNewContent('');
-            setNewDate('');
             setNewImage(null);
             fetchComments();
         } catch (err) {
@@ -101,12 +100,12 @@ const ShareChat = () => {
 
                             return isToday ? 'highlight' : null;
                         }}
+                        formatDay={(locale, date) => String(date.getDate())}
                     />
                 </div>
 
                 <div className="chat-main">
                     <form className="chat-form" onSubmit={handleSubmit}>
-                        <input type="date" value={newDate} onChange={(e) => setNewDate(e.target.value)} required />
                         <textarea
                             value={newContent}
                             onChange={(e) => setNewContent(e.target.value)}
