@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import PageTitle from '../components/PageTitle';
+import DefaultAvatar from '../assets/person.png';
 import '../styles/SharePlus.css';
 
 const ShareComment = () => {
@@ -37,11 +38,21 @@ const ShareComment = () => {
             />
             <div className="my-request-list">
                 {myRequests.map((req) => {
-                    const statusText = req.status === 'PENDING' ? '검토 중' : req.status === 'REJECTED' ? '거절됨' : '';
+                    const statusText =
+                        req.status === 'PENDING' ? '검토 중' :
+                            req.status === 'REJECTED' ? '거절됨' : '';
+
                     const cardContent = (
                         <div className="my-request-card" key={req.id}>
-                            <p><strong>상급자 ID:</strong> {req.masterId}</p>
-                            <p><strong>신청 상태:</strong> {statusText}</p>
+                            <div className="my-request-header">
+                                <img
+                                    src={req.profileImgUrl || DefaultAvatar}
+                                    alt="상급자 이미지"
+                                    className="my-request-profile"
+                                />
+                                <span className="my-request-nickname">{req.nickname}</span>
+                                <span>{statusText || ''}</span>
+                            </div>
                         </div>
                     );
 
@@ -50,7 +61,7 @@ const ShareComment = () => {
                             {cardContent}
                         </Link>
                     ) : (
-                        cardContent
+                        <div key={req.id}>{cardContent}</div>
                     );
                 })}
             </div>
