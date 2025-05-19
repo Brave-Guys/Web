@@ -30,7 +30,7 @@ const Main = () => {
         const fetchPosts = async () => {
             try {
                 const allPosts = await getPosts();
-                setLatestPosts(allPosts.slice(0, 3));
+                setLatestPosts(allPosts.reverse().slice(0, 5));
             } catch (err) {
                 console.error('게시글을 불러오는 데 실패했습니다.', err);
             }
@@ -166,45 +166,45 @@ const Main = () => {
 
             <div className="card-grid">
                 <Box type={2} showArrow={true} title='이번 달 운동 기록' to='/workoutlog'>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div style={{ flex: 1 }}>{renderMiniCalendar()}</div>
+                    <div style={{ display: 'flex' }}>
+                        <div>{renderMiniCalendar()}</div>
 
-                        <div className="score-legend-box desktop" style={{ flex: 1, marginLeft: '20px' }}>
+                        <div className="score-legend-box desktop" style={{ marginLeft: '10px', flex: '1', width: '100%', height: '200px' }}>
                             <h3>운동 강도</h3>
                             <ul className="score-legend-list">
-                                <li>
-                                    <span style={{ backgroundColor: '#D9D9D9' }} />
+                                <li style={{ margin: '0' }}>
+                                    <span style={{ height: '10px', backgroundColor: '#D9D9D9' }} />
                                     <div className="legend-text">
-                                        <span className="label">운동 기록 없음</span>
-                                        <span className="score">0점</span>
+                                        <span style={{ fontSize: '12px' }} className="label">운동 기록 없음</span>
+                                        <span style={{ fontSize: '12px' }} className="score">0점</span>
                                     </div>
                                 </li>
-                                <li>
-                                    <span style={{ backgroundColor: '#B3E6B3' }} />
+                                <li style={{ margin: '0' }}>
+                                    <span style={{ height: '10px', backgroundColor: '#B3E6B3' }} />
                                     <div className="legend-text">
-                                        <span className="label">가벼운 운동</span>
-                                        <span className="score">1 ~ 60점</span>
+                                        <span style={{ fontSize: '12px' }} className="label">가벼운 운동</span>
+                                        <span style={{ fontSize: '12px' }} className="score">1 ~ 60점</span>
                                     </div>
                                 </li>
-                                <li>
-                                    <span style={{ backgroundColor: '#80D480' }} />
+                                <li style={{ margin: '0' }}>
+                                    <span style={{ height: '10px', backgroundColor: '#80D480' }} />
                                     <div className="legend-text">
-                                        <span className="label">평균</span>
-                                        <span className="score">61 ~ 100점</span>
+                                        <span style={{ fontSize: '12px' }} className="label">평균</span>
+                                        <span style={{ fontSize: '12px' }} className="score">61 ~ 100점</span>
                                     </div>
                                 </li>
-                                <li>
-                                    <span style={{ backgroundColor: '#4DC34D' }} />
+                                <li style={{ margin: '0' }}>
+                                    <span style={{ height: '10px', backgroundColor: '#4DC34D' }} />
                                     <div className="legend-text">
-                                        <span className="label">열심히 운동</span>
-                                        <span className="score">101 ~ 140점</span>
+                                        <span style={{ fontSize: '12px' }} className="label">열심히 운동</span>
+                                        <span style={{ fontSize: '12px' }} className="score">101 ~ 140점</span>
                                     </div>
                                 </li>
-                                <li>
-                                    <span style={{ backgroundColor: '#00AA00' }} />
+                                <li style={{ margin: '0' }}>
+                                    <span style={{ height: '10px', backgroundColor: '#00AA00' }} />
                                     <div className="legend-text">
-                                        <span className="label">최고의 운동</span>
-                                        <span className="score">141점 이상</span>
+                                        <span style={{ fontSize: '12px' }} className="label">최고의 운동</span>
+                                        <span style={{ fontSize: '12px' }} className="score">141점 이상</span>
                                     </div>
                                 </li>
                             </ul>

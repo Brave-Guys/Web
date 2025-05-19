@@ -1,14 +1,14 @@
 .box {
     padding: 25px;
     border-radius: 10px;
-    width: 100%; /* ✅ 부모 너비 기준으로 꽉 차게 */
+    width: 100%;
     box-sizing: border-box;
 }
 
 .box-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start; /* ✅ 상단 정렬 */
+    align-items: flex-start;
     width: 100%;
 }
 
