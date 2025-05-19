@@ -101,6 +101,8 @@ const ShareChat = () => {
         <div className="sharechat-wrapper">
             <PageTitle title="상급자와의 소통" description="질문과 답변을 날짜별로 나눠 확인해보세요." showBackArrow={true} />
 
+            <div style={{ margin: '50px' }}></div>
+
             <div className="chat-grid">
                 <div className="chat-calendar">
                     <Calendar
@@ -134,15 +136,25 @@ const ShareChat = () => {
                     </form>
 
                     <div className="chat-list">
-                        {filteredComments.map((c) => (
-                            <div key={c.id} className="chat-item">
-                                <p>
-                                    <strong>작성자 ID: {c.writerId}</strong> · {formatTime(c.createdAt)}
-                                </p>
-                                <p>{c.content}</p>
-                                {c.picture && <img src={c.picture} alt="첨부" className="chat-image" />}
-                            </div>
-                        ))}
+                        {[...filteredComments]
+                            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                            .map((c) => (
+                                <div key={c.id} className="chat-item">
+                                    <div className="chat-meta">
+                                        <img
+                                            src={c.profileImgUrl || '/default-profile.png'}
+                                            alt="프로필"
+                                            className="chat-profile-img"
+                                        />
+                                        <div>
+                                            <p className="chat-writer">{c.nickname || '익명'}</p>
+                                            <p className="chat-time">{formatTime(c.createdAt)}</p>
+                                        </div>
+                                    </div>
+                                    <p>{c.content}</p>
+                                    {c.picture && <img src={c.picture} alt="첨부" className="chat-image" />}
+                                </div>
+                            ))}
                     </div>
                 </div>
             </div>
