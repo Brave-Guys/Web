@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Box from '../components/Box';
 import PageTitle from '../components/PageTitle.js';
 import exerciseTips from '../constants/exerciseTips';
@@ -96,7 +96,7 @@ const Main = () => {
             }
 
             if (!scoresByDay[day]) scoresByDay[day] = 0;
-            scoresByDay[day] += score; // ✨ 점수 누적
+            scoresByDay[day] += score;
         });
 
         const cells = [];
@@ -218,17 +218,20 @@ const Main = () => {
                             <p className="empty-text">신청 내역 없음</p>
                         ) : (
                             <div className="my-request-mini-scroll">
-                                {myRequests.map((req) => (
-                                    <div key={req.id} className="mini-profile">
-                                        <img
-                                            src={req.profileImgUrl || DefaultAvatar}
-                                            alt={req.nickname}
-                                            className="mini-profile-img"
-                                        />
-                                        <span className="mini-profile-name">{req.nickname}</span>
-                                    </div>
-                                ))}
+                                {myRequests
+                                    .filter((req) => req.status === 'APPROVED')
+                                    .map((req) => (
+                                        <Link to={`/share/${req.id}/chat`} key={req.id} className="mini-profile">
+                                            <img
+                                                src={req.profileImgUrl || DefaultAvatar}
+                                                alt={req.nickname}
+                                                className="mini-profile-img"
+                                            />
+                                            <span className="mini-profile-name">{req.nickname}</span>
+                                        </Link>
+                                    ))}
                             </div>
+
                         )}
                     </div>
                 </Box>

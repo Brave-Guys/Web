@@ -23,8 +23,8 @@ const ShareComment = () => {
     return (
         <div className="shareplus-wrapper">
             <PageTitle
-                title="Share+ 신청 내역"
-                description="진행 중인 Share+ 신청서를 확인하세요."
+                title="Share+"
+                description="운동에 도움이 필요하신가요? 상급자와 함께해 보세요."
                 showBackArrow={true}
             />
             <div className="my-request-list">

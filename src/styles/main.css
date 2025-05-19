@@ -274,7 +274,7 @@
 }
 
 .mini-profile-name {
-  margin-top: 8px;
+  margin-top: 8px;  
   font-size: 20px;
   font-weight: 600;
   text-align: center;
@@ -282,7 +282,7 @@
 }
 
 .my-request-mini-item .nickname {
-  font-weight: bold;
+  font-weight: bold;  
 }
 
 .my-request-mini-item .status {
