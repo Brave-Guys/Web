@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Box from '../components/Box';
 import PageTitle from '../components/PageTitle.js';
 import exerciseTips from '../constants/exerciseTips';
+import DefaultAvatar from '../assets/person.png';
 import { getWorkoutLogsByDateRange } from '../apis/getWorkoutLogs';
 import { getMyShareRequests } from '../apis/getSharePlus.js';
 import { getPosts } from '../apis/getPosts';
@@ -151,7 +152,6 @@ const Main = () => {
                     <h2 className="pro-badge">{user?.userPlanType ?? '사용자'}</h2>
                 </div>
 
-                {/* 👇 권한별 방 버튼 */}
                 {user?.role === 'ADMIN' && (
                     <button className="role-room-button" onClick={() => navigate('/admin')}>
                         관리자의 방
@@ -167,7 +167,6 @@ const Main = () => {
             <div className="card-grid">
                 <Box type={2} showArrow={true} title='이번 달 운동 기록' to='/workoutlog'>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        {/* 왼쪽: 미니 캘린더 */}
                         <div style={{ flex: 1 }}>{renderMiniCalendar()}</div>
 
                         <div className="score-legend-box desktop" style={{ flex: 1, marginLeft: '20px' }}>
@@ -218,18 +217,18 @@ const Main = () => {
                         {myRequests.length === 0 ? (
                             <p className="empty-text">신청 내역 없음</p>
                         ) : (
-                            myRequests.map((req) => (
-                                <div key={req.id} className="my-request-mini-item">
-                                    <span className="nickname">{req.nickname}</span>
-                                    <span className="status">
-                                        {req.status === 'PENDING'
-                                            ? '검토 중'
-                                            : req.status === 'REJECTED'
-                                                ? '거절됨'
-                                                : '승인됨'}
-                                    </span>
-                                </div>
-                            ))
+                            <div className="my-request-mini-scroll">
+                                {myRequests.map((req) => (
+                                    <div key={req.id} className="mini-profile">
+                                        <img
+                                            src={req.profileImgUrl || DefaultAvatar}
+                                            alt={req.nickname}
+                                            className="mini-profile-img"
+                                        />
+                                        <span className="mini-profile-name">{req.nickname}</span>
+                                    </div>
+                                ))}
+                            </div>
                         )}
                     </div>
                 </Box>
