@@ -1,5 +1,5 @@
 .exercise-tip-container {
-    width: 100vw;
+    width: 98vw;
     min-height: 80vh;
     background-color: #f3f3f3;
     display: flex;
@@ -120,3 +120,46 @@
   .area.tricep { top: 250px; left: 140px; width: 60px; height: 100px; }
   .area.hamstring { top: 460px; left: 176px; width: 202px; height: 300px; }
   
+  @media (max-width: 768px) {
+  .exercise-tip-container {
+    width: 100vw;
+    padding: 10px;
+  }
+
+  .body-map-wrapper {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px; /* 위아래 간격 */
+  }
+
+  .body-map-area {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .body-image {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .toggle-button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 0;
+  }
+
+  .tooltip {
+    max-width: 95vw;
+    font-size: 1rem;
+    padding: 12px 16px;
+  }
+
+  .muscle-info {
+    max-width: 90vw;
+    font-size: 0.95rem;
+  }
+
+  .area {
+    transform: scale(0.8); 
+  }
+}
