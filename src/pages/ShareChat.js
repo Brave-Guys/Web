@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import PageTitle from '../components/PageTitle';
 import { uploadImageToFirebase } from '../utils/uploadImageToFirebase';
 import '../styles/ShareChat.css';
@@ -67,10 +69,18 @@ const ShareChat = () => {
         }
     };
 
-    const uniqueDates = Array.from(new Set(comments.map(c => c.date))).sort();
     const filteredComments = selectedDate
-        ? comments.filter(c => c.date === selectedDate)
+        ? comments.filter(c => {
+            const d =
+                selectedDate.getFullYear() +
+                '-' +
+                String(selectedDate.getMonth() + 1).padStart(2, '0') +
+                '-' +
+                String(selectedDate.getDate()).padStart(2, '0');
+            return c.date === d;
+        })
         : comments;
+
 
     return (
         <div className="sharechat-wrapper">
@@ -79,17 +89,21 @@ const ShareChat = () => {
             <div className="chat-grid">
                 <div className="chat-calendar">
                     <h4>날짜 선택</h4>
-                    <ul className="calendar-list">
-                        {uniqueDates.map((date) => (
-                            <li
-                                key={date}
-                                className={selectedDate === date ? 'selected' : ''}
-                                onClick={() => setSelectedDate(date)}
-                            >
-                                {date}
-                            </li>
-                        ))}
-                    </ul>
+                    <Calendar
+                        onChange={setSelectedDate}
+                        value={selectedDate}
+                        tileClassName={({ date }) => {
+                            const localDateStr =
+                                date.getFullYear() +
+                                '-' +
+                                String(date.getMonth() + 1).padStart(2, '0') +
+                                '-' +
+                                String(date.getDate()).padStart(2, '0');
+
+                            const hasComment = comments.some(c => c.date === localDateStr);
+                            return hasComment ? 'highlight' : null;
+                        }}
+                    />
                 </div>
 
                 <div className="chat-main">
