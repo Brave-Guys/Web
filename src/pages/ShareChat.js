@@ -93,15 +93,13 @@ const ShareChat = () => {
                         onChange={setSelectedDate}
                         value={selectedDate}
                         tileClassName={({ date }) => {
-                            const localDateStr =
-                                date.getFullYear() +
-                                '-' +
-                                String(date.getMonth() + 1).padStart(2, '0') +
-                                '-' +
-                                String(date.getDate()).padStart(2, '0');
+                            const today = new Date();
+                            const isToday =
+                                date.getFullYear() === today.getFullYear() &&
+                                date.getMonth() === today.getMonth() &&
+                                date.getDate() === today.getDate();
 
-                            const hasComment = comments.some(c => c.date === localDateStr);
-                            return hasComment ? 'highlight' : null;
+                            return isToday ? 'highlight' : null;
                         }}
                     />
                 </div>

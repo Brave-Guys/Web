@@ -37,11 +37,19 @@
 .react-calendar__tile {
     padding: 16px 0 !important;
     font-size: 14px !important;
+    /* margin: 1px !important; */
     transition: background-color 0.2s, color 0.2s !important;
     color: #222 !important;
     border: 1px solid #ddd !important;
     background-color: white !important;
     text-align: center !important;
+}
+
+.react-calendar__month-view__days {
+    margin: 0 auto;
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
 }
 
 .react-calendar__tile:disabled {
@@ -52,28 +60,18 @@
 
 .react-calendar__tile--active,
 .react-calendar__tile--hasActive {
-    background: #a855f7 !important;
-    color: white !important;
+    border: 2px solid #a855f7 !important;
     font-weight: bold !important;
     border: none !important;
-}
-
-.react-calendar__tile:hover {
-    /* background: #ededed !important; */
 }
 
 .react-calendar__navigation button {
     color: black !important;
 }
 
-.react-calendar__navigation button:hover {
-    /* background-color: blue !important; */
-}
-
 .highlight {
-    background-color: #dcedc8 !important;
-    color: #222 !important;
-    font-weight: bold !important;
+    background-color: #a855f7 !important;
+    color: white !important;
 }
 
 .chat-main {
