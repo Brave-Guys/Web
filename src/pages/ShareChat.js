@@ -8,6 +8,7 @@ import '../styles/ShareChat.css';
 const ShareChat = () => {
     const { id } = useParams();
     const [comments, setComments] = useState([]);
+    const [selectedDate, setSelectedDate] = useState(null);
     const [newContent, setNewContent] = useState('');
     const [newDate, setNewDate] = useState('');
     const [newImage, setNewImage] = useState(null);
@@ -66,34 +67,58 @@ const ShareChat = () => {
         }
     };
 
+    const uniqueDates = Array.from(new Set(comments.map(c => c.date))).sort();
+    const filteredComments = selectedDate
+        ? comments.filter(c => c.date === selectedDate)
+        : comments;
+
     return (
         <div className="sharechat-wrapper">
             <PageTitle title="상급자와의 소통" description="질문과 답변을 날짜별로 나눠 확인해보세요." showBackArrow={true} />
 
-            <form className="chat-form" onSubmit={handleSubmit}>
-                <input type="date" value={newDate} onChange={(e) => setNewDate(e.target.value)} required />
-                <textarea
-                    value={newContent}
-                    onChange={(e) => setNewContent(e.target.value)}
-                    placeholder="질문이나 의견을 입력하세요."
-                    required
-                />
-                <input type="file" accept="image/*" onChange={(e) => setNewImage(e.target.files[0])} />
-                <button type="submit">등록</button>
-            </form>
+            <div className="chat-grid">
+                <div className="chat-calendar">
+                    <h4>날짜 선택</h4>
+                    <ul className="calendar-list">
+                        {uniqueDates.map((date) => (
+                            <li
+                                key={date}
+                                className={selectedDate === date ? 'selected' : ''}
+                                onClick={() => setSelectedDate(date)}
+                            >
+                                {date}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
 
-            <div className="chat-list">
-                {comments.length === 0 ? (
-                    <p>아직 댓글이 없습니다.</p>
-                ) : (
-                    comments.map((c) => (
-                        <div key={c.id} className="chat-item">
-                            <p><strong>{c.date}</strong> · 작성자 ID: {c.writerId}</p>
-                            <p>{c.content}</p>
-                            {c.picture && <img src={c.picture} alt="첨부" className="chat-image" />}
-                        </div>
-                    ))
-                )}
+                <div className="chat-main">
+                    <form className="chat-form" onSubmit={handleSubmit}>
+                        <input type="date" value={newDate} onChange={(e) => setNewDate(e.target.value)} required />
+                        <textarea
+                            value={newContent}
+                            onChange={(e) => setNewContent(e.target.value)}
+                            placeholder="질문이나 의견을 입력하세요."
+                            required
+                        />
+                        <input type="file" accept="image/*" onChange={(e) => setNewImage(e.target.files[0])} />
+                        <button type="submit">등록</button>
+                    </form>
+
+                    <div className="chat-list">
+                        {filteredComments.length === 0 ? (
+                            <p>이 날짜에는 아직 대화가 없습니다.</p>
+                        ) : (
+                            filteredComments.map((c) => (
+                                <div key={c.id} className="chat-item">
+                                    <p><strong>{c.date}</strong> · 작성자 ID: {c.writerId}</p>
+                                    <p>{c.content}</p>
+                                    {c.picture && <img src={c.picture} alt="첨부" className="chat-image" />}
+                                </div>
+                            ))
+                        )}
+                    </div>
+                </div>
             </div>
         </div>
     );
