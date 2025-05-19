@@ -1,0 +1,55 @@
+.shareplus-wrapper {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px;
+    font-family: sans-serif;
+}
+
+.my-request-list {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.my-request-card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 16px 20px;
+    background-color: #fdfdfd;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.my-request-card p {
+    margin: 6px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.my-request-card strong {
+    font-weight: 600;
+}
+
+.my-request-card p:nth-child(2) {
+    color: #666;
+    font-style: italic;
+}
+
+.my-request-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.my-request-profile {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.my-request-nickname {
+    font-weight: bold;
+    font-size: 16px;
+}

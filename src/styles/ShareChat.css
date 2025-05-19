@@ -1,0 +1,201 @@
+/* ShareChat.css */
+
+.sharechat-wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px;
+    font-family: sans-serif;
+}
+
+.chat-grid {
+    display: flex;
+    gap: 24px;
+}
+
+.chat-calendar {
+    width: 40%;
+    min-height: 420px;
+    max-height: 420px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #fafafa;
+}
+
+.chat-calendar h4 {
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+.react-calendar {
+    width: 100% !important;
+    border: none !important;
+    font-family: sans-serif !important;
+    line-height: 1.125em !important;
+    background: transparent !important;
+}
+
+.react-calendar__tile {
+    padding: 16px 0 !important;
+    font-size: 14px !important;
+    transition: border 0.2s, color 0.2s !important;
+    color: #222 !important;
+    border: 1px solid #ddd !important;
+    background-color: white !important;
+    text-align: center !important;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 월 선택 뷰에서의 셀 스타일 */
+.react-calendar__year-view__months__month,
+.react-calendar__decade-view__years__year,
+.react-calendar__century-view__decades__decade {
+    width: 80px;
+    height: 80px;
+    margin: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    background-color: white;
+    transition: background-color 0.2s;
+}
+
+.react-calendar__tile:hover {
+    border: 1px solid #999 !important;
+}
+
+.react-calendar__month-view__days {
+    margin: 0 auto;
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.react-calendar__tile:disabled {
+    background-color: #f0f0f0 !important;
+    color: #ccc !important;
+    border: 1px solid #eee !important;
+}
+
+.react-calendar__tile--active,
+.react-calendar__tile--hasActive {
+    border: 4px solid blue !important;
+    font-weight: bold !important;
+    border: none !important;
+    font-size: 16px !important;
+}
+
+.react-calendar__navigation button {
+    color: black !important;
+}
+
+.react-calendar__navigation button:hover {
+    background-color: #CCC !important;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+    color: #888 !important;
+    background-color: #f9f9f9 !important;
+    pointer-events: none;
+}
+
+.highlight {
+    background-color: #a855f7 !important;
+    color: white !important;
+}
+
+.chat-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.chat-form input[type="date"],
+.chat-form textarea,
+.chat-form input[type="file"] {
+    font-size: 14px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.chat-form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.chat-form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.chat-form button:hover {
+    background-color: #388E3C;
+}
+
+.chat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.chat-item {
+    background: #f9f9f9;
+    padding: 14px 18px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.chat-item p {
+    margin: 6px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.chat-image {
+    margin-top: 8px;
+    max-width: 100%;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.chat-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.chat-profile-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.chat-writer {
+    font-weight: bold;
+}
+
+.chat-time {
+    font-size: 12px;
+    color: gray;
+}

@@ -146,7 +146,7 @@ const Main = () => {
                     </button>
                 )}
                 {user?.role === 'SENIOR' && (
-                    <button className="role-room-button" onClick={() => navigate('/masters')}>
+                    <button className="role-room-button" onClick={() => navigate('/senior')}>
                         상급자의 방
                     </button>
                 )}

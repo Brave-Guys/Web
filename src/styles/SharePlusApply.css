@@ -1,0 +1,90 @@
+/* SharePlusApply.css */
+.shareplus-wrapper {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px;
+    font-family: sans-serif;
+}
+
+.shareplus-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 260px;
+}
+
+.form-group label {
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+input[type="text"],
+textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.gender-options {
+    display: flex;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.form-footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.submit-button {
+    background-color: #bb77ff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 28px;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.submit-button:hover {
+    background-color: #a760e6;
+    transform: translateY(-2px);
+}
+
+@media screen and (max-width: 480px) {
+    .row {
+        flex-direction: column;
+    }
+
+    .form-group {
+        width: 100%;
+    }
+
+    .submit-button {
+        width: 100%;
+    }
+}
