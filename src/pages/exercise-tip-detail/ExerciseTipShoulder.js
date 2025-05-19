@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import '../../styles/ExerciseTipShoulder.css';
 import ShoulderImage from '../../assets/shoulder_detail.png';
-import { shoulderExerciseDetails } from '../../constants/exerciseScript'; // 경로는 실제 파일 위치에 맞게 조정하세요
+import { shoulderExerciseDetails } from '../../constants/exerciseScript'; 
+import PageTitle from '../../components/PageTitle';
 
 const ExerciseTipShoulder = () => {
     const [selectedPart, setSelectedPart] = useState('');
 
     return (
         <div className="shoulder-wrapper">
+            <PageTitle
+                        title="어깨 부위"
+                        showBackArrow={true}
+                    />
             <div className="shoulder-page">
                 <div className="left-section">
-                    <h2 className="section-title">어깨 부위</h2>
+                    
                     <div className="shoulder-image-wrapper">
                         <img src={ShoulderImage} alt="Shoulder Detail" className="shoulder-image" />
                         <div className="area front" onClick={() => setSelectedPart('전면')} />

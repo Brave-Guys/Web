@@ -160,3 +160,69 @@
   .exercise-steps li {
     margin-bottom: 6px;
   }
+
+        @media (max-width: 768px) {
+  .abs-wrapper {
+    padding: 0 16px;
+    height: auto;
+  }
+
+  .abs-page {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .left-section {
+    min-width: 100%;
+    height: auto;
+    padding: 10px;
+  }
+
+  .right-section {
+    min-width: 100%;
+    height: auto;
+    padding: 16px;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+  }
+
+  .exercise-list {
+    max-height: none;
+    padding-right: 0;
+  }
+
+  .exercise-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .exercise-image {
+    width: 100%;
+    height: auto;
+    min-height: 150px;
+  }
+
+  .exercise-description {
+    margin-top: 10px;
+  }
+
+  .abs-image-wrapper {
+    width: 100%;
+  }
+
+  .area.front,
+  .area.side,
+  .area.rear,
+  .arear.middle {
+    top: auto;
+    left: auto;
+    width: 30%;
+    height: 100px;
+    position: absolute;
+    transform: scale(0.8); 
+  }
+
+}
