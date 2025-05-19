@@ -1,0 +1,91 @@
+/* SharePlan.css */
+
+.shareplan-wrapper {
+    padding: 30px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.plan-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.plan-card {
+    flex: 1;
+    min-width: 250px;
+    max-width: 320px;
+    border: 1px solid #ddd;
+    padding: 0 20px 30px;
+    text-align: center;
+}
+
+.plan-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.plan-title.beginner {
+    color: #45c16a;
+    font-style: italic;
+}
+
+.plan-title.amateur {
+    color: #9b5de5;
+    font-style: italic;
+}
+
+.plan-title.pro {
+    color: #ef233c;
+    font-style: italic;
+}
+
+.plan-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #888;
+    margin-bottom: 15px;
+}
+
+.plan-features {    
+    padding: 0;
+    margin-bottom: 20px;
+    text-align: left;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+.plan-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.plan-button.disabled {
+    background-color: #eee;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.plan-button.amateur {
+    background-color: #9b5de5;
+    color: white;
+}
+
+.plan-button.pro {
+    background-color: #ef233c;
+    color: white;
+}
+
+.plan-description {
+    display: flex;
+    justify-content: center;
+    min-height: 150px;
+}

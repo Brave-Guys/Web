@@ -27,6 +27,7 @@ const ShareComment = () => {
                 description="운동에 도움이 필요하신가요? 상급자와 함께해 보세요."
                 showBackArrow={true}
             />
+            <Link to='/share-plan'>변경</Link>
             <div className="my-request-list">
                 {myRequests.map((req) => {
                     const statusText =
