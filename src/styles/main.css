@@ -229,6 +229,35 @@
   background-color: #388e3c;
 }
 
+.my-request-mini-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.my-request-mini-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  padding: 4px 0;
+  border-bottom: 1px dashed #ddd;
+}
+
+.my-request-mini-item .nickname {
+  font-weight: bold;
+}
+
+.my-request-mini-item .status {
+  color: #666;
+}
+
+.empty-text {
+  font-size: 14px;
+  color: #999;
+  padding: 6px 0;
+}
+
 @media (max-width: 768px) {
   .main-page {
     padding: 40px 20px;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { getMyShareRequests } from '../apis/getSharePlus';
 import PageTitle from '../components/PageTitle';
 import DefaultAvatar from '../assets/person.png';
 import '../styles/SharePlus.css';
@@ -11,17 +11,8 @@ const ShareComment = () => {
     useEffect(() => {
         const fetchMyRequests = async () => {
             try {
-                const token = localStorage.getItem('token');
-                const user = JSON.parse(localStorage.getItem('user'));
-                const res = await axios.get(
-                    `${process.env.REACT_APP_API_URL}/share-requests/user/${user.id}`,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    }
-                );
-                setMyRequests(res.data);
+                const requests = await getMyShareRequests();
+                setMyRequests(requests);
             } catch (err) {
                 console.error('나의 Share+ 신청서 불러오기 실패:', err);
             }

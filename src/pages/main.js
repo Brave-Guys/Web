@@ -4,9 +4,10 @@ import Box from '../components/Box';
 import PageTitle from '../components/PageTitle.js';
 import exerciseTips from '../constants/exerciseTips';
 import { getWorkoutLogsByDateRange } from '../apis/getWorkoutLogs';
+import { getMyShareRequests } from '../apis/getSharePlus.js';
+import { getPosts } from '../apis/getPosts';
 import { calculateCardioScore } from '../utils/calculateCardioScore';
 import { calculateWeightScore } from '../utils/calculateWeightscore';
-import { getPosts } from '../apis/getPosts';
 import { format } from 'date-fns';
 import '../styles/main.css';
 
@@ -15,6 +16,7 @@ const Main = () => {
     const [latestPosts, setLatestPosts] = useState([]);
     const [monthLogs, setMonthLogs] = useState([]);
     const [randomTip, setRandomTip] = useState(null);
+    const [myRequests, setMyRequests] = useState([]);
 
     const navigate = useNavigate();
 
@@ -30,6 +32,15 @@ const Main = () => {
                 setLatestPosts(allPosts.slice(0, 3));
             } catch (err) {
                 console.error('게시글을 불러오는 데 실패했습니다.', err);
+            }
+        };
+
+        const fetchMyRequests = async () => {
+            try {
+                const requests = await getMyShareRequests();
+                setMyRequests(requests);
+            } catch (err) {
+                console.error('나의 Share+ 신청서 불러오기 실패:', err);
             }
         };
 
@@ -52,10 +63,11 @@ const Main = () => {
         };
 
         const randomIndex = Math.floor(Math.random() * exerciseTips.length);
-        setRandomTip(exerciseTips[randomIndex]);
 
+        setRandomTip(exerciseTips[randomIndex]);
         fetchPosts();
         fetchMonthLogs();
+        fetchMyRequests();
     }, []);
 
     const handlePostClick = (postId) => {
@@ -201,7 +213,26 @@ const Main = () => {
                     </div>
                 </Box>
 
-                <Box type={2} showArrow={true} title='Share+' to='/share-plus' />
+                <Box type={2} showArrow={true} title='Share+' to='/share-plus'>
+                    <div className="my-request-mini-list">
+                        {myRequests.length === 0 ? (
+                            <p className="empty-text">신청 내역 없음</p>
+                        ) : (
+                            myRequests.map((req) => (
+                                <div key={req.id} className="my-request-mini-item">
+                                    <span className="nickname">{req.nickname}</span>
+                                    <span className="status">
+                                        {req.status === 'PENDING'
+                                            ? '검토 중'
+                                            : req.status === 'REJECTED'
+                                                ? '거절됨'
+                                                : '승인됨'}
+                                    </span>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                </Box>
                 <Box type={2} showArrow={true} title='금주의 운동' to='/weekly-workout' />
                 {randomTip && (
                     <Box type={2} showArrow={true} title='기본 운동 설명서' to='/exercise-tip'>
