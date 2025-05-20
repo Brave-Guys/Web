@@ -1,55 +1,109 @@
-.shareplus-wrapper {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 24px;
-    font-family: sans-serif;
-}
-
-.my-request-list {
-    margin-top: 24px;
+.shareplus-header {
     display: flex;
-    flex-direction: column;
-    gap: 16px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-.my-request-card {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 16px 20px;
-    background-color: #fdfdfd;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-
-.my-request-card p {
-    margin: 6px 0;
-    font-size: 14px;
-    color: #333;
-}
-
-.my-request-card strong {
-    font-weight: 600;
-}
-
-.my-request-card p:nth-child(2) {
-    color: #666;
-    font-style: italic;
-}
-
-.my-request-header {
+.plan-info {
+    font-size: 18px;
+    font-weight: bold;
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 6px;
 }
 
-.my-request-profile {
+.plan-name {
+    font-weight: bold;
+    font-size: 18px;
+    color: #43B97F;
+}
+
+.change-plan-btn {
+    background: transparent;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 12px;
+    text-decoration: none;
+    color: #555;
+    width: 80px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: all 0.2s ease;
+}
+
+.section-title {    
+    font-weight: bold;
+    margin: 40px 0 16px;
+}
+
+.change-plan-btn:hover {
+    background-color: #f0f0f0;
+    border-color: #999;
+    color: #222;
+}
+
+.change-plan-btn:active {
+    background-color: #e0e0e0;
+    transform: scale(0.98);
+}
+
+.my-request-list-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.my-request-card2 {
+    background: #f6f6f6;
+    border-radius: 12px;
+    padding: 12px;
+    width: 280px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.my-request-card2:hover {
+    background-color: #ececec;
+}
+
+.my-request-profile2 {
     width: 36px;
     height: 36px;
     border-radius: 50%;
     object-fit: cover;
 }
 
-.my-request-nickname {
-    font-weight: bold;
-    font-size: 16px;
+.my-request-nickname2 {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.my-request-status {
+    position: absolute;
+    bottom: 8px;
+    right: 12px;
+    font-size: 12px;
+    background: #e2e2e2;
+    padding: 2px 8px;
+    border-radius: 12px;
+    color: #777;
+}
+
+.my-request-card2.disabled {
+    cursor: default;
+    opacity: 0.8;
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
 }

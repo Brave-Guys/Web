@@ -20,43 +20,73 @@ const SharePlus = () => {
         fetchMyRequests();
     }, []);
 
-    return (
-        <div className="shareplus-wrapper">
-            <PageTitle
-                title="Share+"
-                description="운동에 도움이 필요하신가요? 상급자와 함께해 보세요."
-                showBackArrow={true}
-            />
-            <Link to='/share-plan'>플랜 변경</Link>
-            <div className="my-request-list">
-                {myRequests.map((req) => {
-                    const statusText =
-                        req.status === 'PENDING' ? '검토 중' :
-                            req.status === 'REJECTED' ? '거절됨' : '';
+    const approved = myRequests.filter((r) => r.status === 'APPROVED');
+    const pending = myRequests.filter((r) => r.status === 'PENDING');
+    const rejected = myRequests.filter((r) => r.status === 'REJECTED');
 
-                    const cardContent = (
-                        <div className="my-request-card" key={req.id}>
-                            <div className="my-request-header">
-                                <img
-                                    src={req.profileImgUrl || DefaultAvatar}
-                                    alt="상급자 이미지"
-                                    className="my-request-profile"
-                                />
-                                <span className="my-request-nickname">{req.nickname}</span>
-                                <span>{statusText || ''}</span>
-                            </div>
-                        </div>
-                    );
+    const renderCard = (req, clickable = false) => {
+        const statusText =
+            req.status === 'PENDING' ? '검토 중' :
+                req.status === 'REJECTED' ? '거절됨' : '';
 
-                    return req.status === 'APPROVED' ? (
-                        <Link to={`/share/${req.id}/chat`} key={req.id}>
-                            {cardContent}
-                        </Link>
-                    ) : (
-                        <div key={req.id}>{cardContent}</div>
-                    );
-                })}
+        const card = (
+            <div className={`my-request-card2 ${req.status !== 'APPROVED' ? 'disabled' : ''}`} key={req.id}>
+                <img
+                    src={req.profileImgUrl || DefaultAvatar}
+                    alt="상급자 이미지"
+                    className="my-request-profile2"
+                />
+                <span className="my-request-nickname2">{req.nickname}</span>
+                {statusText && <span className="my-request-status">{statusText}</span>}
             </div>
+        );
+
+        return clickable
+            ? <Link to={`/share/${req.id}/chat`} className="card-link" key={req.id}>{card}</Link>
+            : card;
+    };
+
+    return (
+        <div style={{ padding: '50px 150px' }}>
+            <div className="shareplus-header">
+                <PageTitle
+                    title="Share+"
+                    description="운동에 도움이 필요하신가요? 상급자와 함께해 보세요."
+                    showBackArrow={true}
+                />
+                <div className="plan-info">
+                    <span>내 플랜: <span className="plan-name">{JSON.parse(localStorage.getItem('user'))?.userPlanType}</span></span>
+                    <Link to="/share-plan" className="change-plan-btn">변경</Link>
+                </div>
+            </div>
+
+            <div style={{ margin: '50px' }}></div>
+
+            {approved.length > 0 && (
+                <section>
+                    <div className="my-request-list-grid">
+                        {approved.map((r) => renderCard(r, true))}
+                    </div>
+                </section>
+            )}
+
+            {pending.length > 0 && (
+                <section>
+                    <h3 style={{ fontSize: '18px' }} className="section-title">검토 중</h3>
+                    <div className="my-request-list-grid">
+                        {pending.map((r) => renderCard(r))}
+                    </div>
+                </section>
+            )}
+
+            {rejected.length > 0 && (
+                <section>
+                    <h3 style={{ fontSize: '18px' }} className="section-title">거절됨</h3>
+                    <div className="my-request-list-grid">
+                        {rejected.map((r) => renderCard(r))}
+                    </div>
+                </section>
+            )}
         </div>
     );
 };
