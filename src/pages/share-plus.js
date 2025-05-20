@@ -5,7 +5,7 @@ import PageTitle from '../components/PageTitle';
 import DefaultAvatar from '../assets/person.png';
 import '../styles/SharePlus.css';
 
-const ShareComment = () => {
+const SharePlus = () => {
     const [myRequests, setMyRequests] = useState([]);
 
     useEffect(() => {
@@ -27,7 +27,7 @@ const ShareComment = () => {
                 description="운동에 도움이 필요하신가요? 상급자와 함께해 보세요."
                 showBackArrow={true}
             />
-            <Link to='/share-plan'>변경</Link>
+            <Link to='/share-plan'>플랜 변경</Link>
             <div className="my-request-list">
                 {myRequests.map((req) => {
                     const statusText =
@@ -61,4 +61,4 @@ const ShareComment = () => {
     );
 };
 
-export default ShareComment;
+export default SharePlus;

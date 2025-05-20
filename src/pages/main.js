@@ -146,22 +146,24 @@ const Main = () => {
             <div className="welcome-text">
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <PageTitle
-                        title={`${user?.name ?? '사용자'}님 반가워요!`}
+                        title={`${user?.role === 'ADMIN' ? '👑' : ''} ${user?.role === 'SENIOR' ? '💪' : ''} ${user?.name ?? '사용자'}님 반가워요!`}
                         description="내 운동을 관리해보세요."
                     />
+                    <div style={{ padding: '10px' }}>
+                        {user?.role === 'ADMIN' && (
+                            <button className="role-room-button" onClick={() => navigate('/admin')}>
+                                관리자의 방
+                            </button>
+                        )}
+                        {user?.role === 'SENIOR' && (
+                            <button className="role-room-button" onClick={() => navigate('/senior')}>
+                                상급자의 방
+                            </button>
+                        )}
+                    </div>
+                    <div style={{ flex: '1' }}></div>
                     <h2 className="pro-badge">{user?.userPlanType ?? '사용자'}</h2>
                 </div>
-
-                {user?.role === 'ADMIN' && (
-                    <button className="role-room-button" onClick={() => navigate('/admin')}>
-                        관리자의 방
-                    </button>
-                )}
-                {user?.role === 'SENIOR' && (
-                    <button className="role-room-button" onClick={() => navigate('/senior')}>
-                        상급자의 방
-                    </button>
-                )}
             </div>
 
             <div className="card-grid">
