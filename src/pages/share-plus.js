@@ -20,6 +20,7 @@ const SharePlus = () => {
         fetchMyRequests();
     }, []);
 
+    const userPlanType = JSON.parse(localStorage.getItem('user'))?.userPlanType ?? '사용자';
     const approved = myRequests.filter((r) => r.status === 'APPROVED');
     const pending = myRequests.filter((r) => r.status === 'PENDING');
     const rejected = myRequests.filter((r) => r.status === 'REJECTED');
@@ -55,7 +56,11 @@ const SharePlus = () => {
                     showBackArrow={true}
                 />
                 <div className="plan-info">
-                    <span>내 플랜: <span className="plan-name">{JSON.parse(localStorage.getItem('user'))?.userPlanType}</span></span>
+                    <span>내 플랜:
+                        <span className={`plan-name ${userPlanType.toLowerCase()}`}>
+                            {userPlanType}
+                        </span>
+                    </span>
                     <Link to="/share-plan" className="change-plan-btn">변경</Link>
                 </div>
             </div>

@@ -162,7 +162,9 @@ const Main = () => {
                         )}
                     </div>
                     <div style={{ flex: '1' }}></div>
-                    <h2 className="pro-badge">{user?.userPlanType ?? '사용자'}</h2>
+                    <h2 className={`pro-badge ${user?.userPlanType?.toLowerCase()}`}>
+                        {user?.userPlanType ?? '사용자'}
+                    </h2>
                 </div>
             </div>
 

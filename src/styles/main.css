@@ -20,10 +20,27 @@
 }
 
 .pro-badge {
-  color: red;
+  padding: 8px 16px;
+  border-radius: 20px;
+  color: black;
+  font-size: 14px;
+  display: inline-block;
   font-weight: bold;
-  /* margin-left: 600px; */
 }
+
+.pro-badge.beginner {
+  color: #4CAF50;
+  /* 녹색 */
+}
+
+.pro-badge.amateur {
+  color: #2196F3;
+}
+
+.pro-badge.pro {
+  color: #F44336;
+}
+
 
 .card-grid {
   display: grid;
@@ -274,7 +291,7 @@
 }
 
 .mini-profile-name {
-  margin-top: 8px;  
+  margin-top: 8px;
   font-size: 20px;
   font-weight: 600;
   text-align: center;
@@ -282,7 +299,7 @@
 }
 
 .my-request-mini-item .nickname {
-  font-weight: bold;  
+  font-weight: bold;
 }
 
 .my-request-mini-item .status {
@@ -325,7 +342,7 @@
 
   .score-legend-box {
     margin-left: 0;
-    margin-top: 20px;    
+    margin-top: 20px;
   }
 
   .exercise-section {

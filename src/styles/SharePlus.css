@@ -19,6 +19,26 @@
     color: #43B97F;
 }
 
+.plan-name {
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 12px;
+    color: black;
+}
+
+.plan-name.beginner {
+    color: #4CAF50;
+}
+
+.plan-name.amateur {
+    color: #2196F3;
+}
+
+.plan-name.pro {
+    color: #F44336;
+}
+
+
 .change-plan-btn {
     background: transparent;
     border: 1px solid #ccc;
@@ -36,7 +56,7 @@
     transition: all 0.2s ease;
 }
 
-.section-title {    
+.section-title {
     font-weight: bold;
     margin: 40px 0 16px;
 }
