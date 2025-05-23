@@ -71,6 +71,12 @@ const Header = () => {
                         <FaUserCircle className="icon" />
                     )}
                     <span>{username}</span>
+
+                    {user?.userPlanType && (
+                        <span className={`plan-badge ${user.userPlanType.toLowerCase()}`}>
+                            {user.userPlanType}
+                        </span>
+                    )}
                 </div>
             </div>
         </div>
