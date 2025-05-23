@@ -145,15 +145,11 @@ const Main = () => {
     return (
         <div className="main-page">
             <div className="welcome-text">
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <SloganSlider />
-                    <div style={{ flex: '1' }}></div>
-                    <h2 className={`pro-badge ${user?.userPlanType?.toLowerCase()}`}>
-                        {user?.userPlanType ?? '사용자'}
-                    </h2>
                 </div>
             </div>
-            
+
             {user?.role === 'ADMIN' && (
                 <button className="role-room-button" onClick={() => navigate('/admin')}>
                     관리자의 방

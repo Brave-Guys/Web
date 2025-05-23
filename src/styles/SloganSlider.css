@@ -1,27 +1,31 @@
 .slogan-slider {
     position: relative;
-    height: 36px;
+    height: 40px;
     overflow: hidden;
     border-radius: 6px;
-    margin: 12px 0;
+    margin: 20px 0;
 }
 
-.slogan-track-vertical {
+.slogan-track {
     display: flex;
     flex-direction: column;
+    height: 80px;
+    transform: translateY(0);
+}
+
+.slogan-track.animate {
+    transform: translateY(-40px);
     transition: transform 0.4s ease-in-out;
 }
 
-.slogan-slide-vertical {
-    height: 36px;
-    display: flex;
-    align-items: center;
-    font-size: 25px;
-    font-weight: 600;
+.slogan-slide {
+    height: 40px;
+    line-height: 40px;
+    font-size: 30px;
+    font-weight: bold;
     color: #333;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    flex-shrink: 0;
-    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

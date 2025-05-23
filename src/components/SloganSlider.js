@@ -1,32 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/SloganSlider.css';
 
-const slogans = [
-    "🏋️ 운동을 관리해보세요!",
-    "🎯 상급자에게 가이드를 받아보세요!",
-    "📘 초보자이신가요? 운동 설명서를 읽어봅시다!",
-    "🔥 챌린지를 통해 꾸준함을 기를 수 있어요!",
+const initialSlogans = [
+    "📝 나만의 작은 운동 루틴을 만들어보세요.",
+    "🎯 상급자와 함께 운동 계획을 세워봐요!",
+    "📖 운동이 처음이신가요? 설명서를 먼저 살펴보세요.",
+    "🔥 지금부터 매일 한 걸음, 챌린지가 시작됩니다.",
 ];
 
 const SloganSlider = () => {
-    const [index, setIndex] = useState(0);
+    const [slogans, setSlogans] = useState(initialSlogans);
+    const [animate, setAnimate] = useState(false);
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            setIndex((prev) => (prev + 1) % slogans.length);
-        }, 3000); // 3초 간격
+        const interval = setInterval(() => {
+            setAnimate(true);
+            setTimeout(() => {
+                setAnimate(false);
+                setSlogans((prev) => {
+                    const [first, ...rest] = prev;
+                    return [...rest, first];
+                });
+            }, 400);
+        }, 2000);
 
-        return () => clearInterval(timer);
+        return () => clearInterval(interval);
     }, []);
 
     return (
         <div className="slogan-slider">
-            <div
-                className="slogan-track-vertical"
-                style={{ transform: `translateY(-${index * 36}px)` }} // 1줄당 36px
-            >
-                {slogans.map((text, i) => (
-                    <div className="slogan-slide-vertical" key={i}>
+            <div className={`slogan-track ${animate ? 'animate' : ''}`}>
+                {slogans.slice(0, 2).map((text, i) => (
+                    <div className="slogan-slide" key={i}>
                         {text}
                     </div>
                 ))}
