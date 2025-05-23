@@ -1,0 +1,33 @@
+.slogan-slider {
+    position: relative;
+    height: 36px;
+    /* 고정 높이 */
+    overflow: hidden;
+    background-color: #e6f0ff;
+    border-radius: 6px;
+    margin: 12px 0;
+}
+
+.slogan-track-vertical {
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.4s ease-in-out;
+}
+
+.slogan-slide-vertical {
+    height: 36px;
+    /* 슬라이드 개별 높이 = 컨테이너 높이 */
+    display: flex;
+    align-items: center;
+    /* ✅ 수직 중앙 정렬 */
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1E53B5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0;
+    line-height: 1;
+    /* ✅ 줄 높이 제거 → align-items로만 정렬 */
+}

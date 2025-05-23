@@ -9,6 +9,7 @@ import { getMyShareRequests } from '../apis/getSharePlus.js';
 import { getPosts } from '../apis/getPosts';
 import { calculateCardioScore } from '../utils/calculateCardioScore';
 import { calculateWeightScore } from '../utils/calculateWeightscore';
+import SloganSlider from '../components/SloganSlider';
 import { format } from 'date-fns';
 import '../styles/main.css';
 
@@ -145,28 +146,23 @@ const Main = () => {
         <div className="main-page">
             <div className="welcome-text">
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <PageTitle
-                        title={`${user?.role === 'ADMIN' ? '👑' : ''} ${user?.role === 'SENIOR' ? '💪' : ''} ${user?.name ?? '사용자'}님 반가워요!`}
-                        description="내 운동을 관리해보세요."
-                    />
-                    <div style={{ padding: '10px' }}>
-                        {user?.role === 'ADMIN' && (
-                            <button className="role-room-button" onClick={() => navigate('/admin')}>
-                                관리자의 방
-                            </button>
-                        )}
-                        {user?.role === 'SENIOR' && (
-                            <button className="role-room-button" onClick={() => navigate('/senior')}>
-                                상급자의 방
-                            </button>
-                        )}
-                    </div>
+                    <SloganSlider />
                     <div style={{ flex: '1' }}></div>
                     <h2 className={`pro-badge ${user?.userPlanType?.toLowerCase()}`}>
                         {user?.userPlanType ?? '사용자'}
                     </h2>
                 </div>
             </div>
+            {user?.role === 'ADMIN' && (
+                <button className="role-room-button" onClick={() => navigate('/admin')}>
+                    관리자의 방
+                </button>
+            )}
+            {user?.role === 'SENIOR' && (
+                <button className="role-room-button" onClick={() => navigate('/senior')}>
+                    상급자의 방
+                </button>
+            )}
 
             <div className="card-grid">
                 <Box type={2} showArrow={true} title='이번 달 운동 기록' to='/workoutlog'>
