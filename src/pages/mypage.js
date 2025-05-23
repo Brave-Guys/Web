@@ -97,6 +97,17 @@ const Mypage = () => {
                     <button onClick={handleSaveProfileImage}>저장</button>
                 </div>
             </div>
+            
+            {user?.role === 'ADMIN' && (
+                <button className="role-room-button" onClick={() => navigate('/admin')}>
+                    관리자의 방
+                </button>
+            )}
+            {user?.role === 'SENIOR' && (
+                <button className="role-room-button" onClick={() => navigate('/senior')}>
+                    상급자의 방
+                </button>
+            )}
 
             <div className="logout-section">
                 <button className="logout-button" onClick={handleLogout}>로그아웃</button>
