@@ -65,7 +65,7 @@ function App() {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {!hideHeader && <Header />}
-      <div style={{ flex: 1 }}>
+      <div style={{ flex: 1 }} className='content'>
         <Routes>
           {/* 공개 페이지 */}
           <Route path="/login" element={<Login />} />

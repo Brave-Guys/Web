@@ -204,7 +204,11 @@ const PostDetail = () => {
 
     return (
         <div className="post-detail-container">
-            <PageTitle title={post.name} showBackArrow={true} />
+            <PageTitle
+                title={post.name}
+                description='게시글 상세 정보'
+                showBackArrow={true}
+            />
             <div style={{ display: 'flex', gap: '40px' }}>
                 <div style={{ flex: 2 }}>
                     <div className="post-detail-wrapper">
