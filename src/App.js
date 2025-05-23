@@ -60,12 +60,12 @@ const PrivateRoute = ({ children }) => {
 
 function App() {
   const location = useLocation();
-  const hideHeader = location.pathname === '/login';
+  const isLoginPage = location.pathname === '/login';
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {!hideHeader && <Header />}
-      <div style={{ flex: 1 }} className='content'>
+      {!isLoginPage && <Header />}
+      <div className={`content ${isLoginPage ? 'no-padding' : ''}`} style={{ flex: 1 }}>
         <Routes>
           {/* 공개 페이지 */}
           <Route path="/login" element={<Login />} />
@@ -119,7 +119,7 @@ function App() {
           <Route path="*" element={<Error />} />
         </Routes>
       </div>
-      {!hideHeader && <Footer />}
+      {!isLoginPage && <Footer />}
     </div>
   );
 }
