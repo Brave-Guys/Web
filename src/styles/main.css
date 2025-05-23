@@ -210,10 +210,6 @@
   white-space: nowrap;
 }
 
-.wide {
-  grid-column: span 2;
-}
-
 .score-legend-list {
   list-style: none;
   padding: 0;
@@ -345,65 +341,6 @@
 
 .score {
   font-size: 12px;
-}
-
-@media (max-width: 768px) {
-  .main-page {
-    padding: 40px 20px;
-  }
-
-  .pro-badge {
-    margin-left: 0;
-    font-size: 16px;
-  }
-
-  .card-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .mini-calendar-grid {
-    grid-template-columns: repeat(7, 1fr);
-  }
-
-  .exercise-section {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .exercise-name {
-    margin-left: 0;
-    font-size: 14px;
-  }
-
-  .exercise-list {
-    padding-left: 16px;
-  }
-
-  .preview-post {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-  }
-
-  .preview-title {
-    max-width: 100%;
-    font-size: 14px;
-  }
-
-  .preview-meta {
-    font-size: 12px;
-  }
-
-  .welcome-text h2 {
-    font-size: 22px;
-  }
-
-  .record-section {
-    flex-direction: column;
-    gap: 20px;
-  }
 }
 
 @media (max-width: 768px) {
