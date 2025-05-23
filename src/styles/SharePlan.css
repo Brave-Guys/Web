@@ -1,7 +1,4 @@
-/* SharePlan.css */
-
 .shareplan-wrapper {
-    padding: 30px 20px;
     max-width: 1000px;
     margin: 0 auto;
 }
@@ -51,7 +48,7 @@
     margin-bottom: 15px;
 }
 
-.plan-features {    
+.plan-features {
     padding: 0;
     margin-bottom: 20px;
     text-align: left;

@@ -204,9 +204,7 @@ const PostDetail = () => {
 
     return (
         <div className="post-detail-container">
-            <div style={{ margin: '50px 0' }}>
-                <PageTitle title={post.name} showBackArrow={true} />
-            </div>
+            <PageTitle title={post.name} showBackArrow={true} />
             <div style={{ display: 'flex', gap: '40px' }}>
                 <div style={{ flex: 2 }}>
                     <div className="post-detail-wrapper">

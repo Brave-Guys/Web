@@ -1,7 +1,7 @@
 .find-account-container {
   max-width: 600px;
   margin: 0 auto;
-  padding: 160px 20px;
+  /* padding: 160px 20px; */
   transform: scale(1.4);
 }
 

@@ -48,7 +48,7 @@ const SharePlus = () => {
     };
 
     return (
-        <div style={{ padding: '50px 150px' }}>
+        <div>
             <div className="shareplus-header">
                 <PageTitle
                     title="Share+"

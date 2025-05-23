@@ -239,7 +239,6 @@ const Main = () => {
                         )}
                     </div>
                 </Box>
-                <Box type={2} showArrow={true} title='금주의 운동' to='/weekly-workout' />
                 {randomTip && (
                     <Box type={2} showArrow={true} title='기본 운동 설명서' to='/exercise-tip'>
                         <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
