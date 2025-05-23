@@ -3,7 +3,9 @@
     justify-content: space-between;
     align-items: center;
     background-color: #F5F5F5;
-    padding: 10px 30px;
+    padding: 6px 16px;
+    /* 전체 padding 축소 */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .nav-left {
@@ -13,75 +15,86 @@
 }
 
 .nav-logo {
-    height: 40px;
-    margin-right: 10px;
+    height: 28px;
+    /* 로고 축소 */
+    margin-right: 8px;
 }
 
 .nav-logo-text {
     color: #1E53B5;
     font-style: italic;
-    font-size: 24px;
+    font-size: 18px;
+    /* 폰트 축소 */
 }
 
 .nav-icons {
     display: flex;
-    gap: 30px;
     align-items: center;
+    gap: 16px;
+    /* 간격 축소 */
 }
 
 .icon-btn {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-weight: bold;
+    gap: 4px;
+    /* 텍스트와 아이콘 간격 축소 */
+    font-weight: 500;
+    font-size: 13px;
+    /* 폰트 크기 축소 */
     cursor: pointer;
-    color: #000000;
+    color: #000;
+    padding: 4px 6px;
+    /* 내부 여백 축소 */
+    border-radius: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.icon-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #1E53B5;
 }
 
 .icon {
-    font-size: 22px;
+    font-size: 16px;
+    /* 아이콘 크기 축소 */
 }
 
 .profile-image {
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     object-fit: cover;
-    margin-right: 6px;
+    margin-right: 4px;
 }
 
 @media (max-width: 768px) {
     .icon-btn span {
         display: none;
-        /* 메뉴 텍스트 숨김 */
     }
 
     .nav {
-        padding: 10px 16px;
-        /* 모바일에 맞춰 여백 축소 */
+        padding: 6px 12px;
     }
 
     .nav-icons {
-        gap: 16px;
-        /* 아이콘 간격 줄이기 */
-    }
-
-    .icon-btn {
-        padding: 6px;
-        justify-content: center;
+        gap: 10px;
     }
 
     .icon {
-        font-size: 20px;
+        font-size: 14px;
     }
 
     .profile-image {
-        width: 20px;
-        height: 20px;
-        margin-right: 0;
+        width: 16px;
+        height: 16px;
     }
-    
+
     .nav-logo-text {
         display: none;
+    }
+
+    .nav-logo {
+        height: 24px;
     }
 }
