@@ -10,6 +10,40 @@
   padding: 0 16px;
 }
 
+.category-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 10px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.category-badge.공지 {
+  background-color: #f44336;
+}
+
+.category-badge.루틴 {
+  background-color: #4caf50;
+}
+
+.category-badge.식단 {
+  background-color: #ff9800;
+}
+
+.category-badge.잡담 {
+  background-color: #607d8b;
+}
+
+.post-title-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
 .welcome-text h2 {
   font-size: 28px;
   font-weight: bold;

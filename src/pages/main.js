@@ -155,7 +155,7 @@ const Main = () => {
                     <div style={{ display: 'flex' }}>
                         <div>{renderMiniCalendar()}</div>
 
-                        <div className="score-legend-box desktop" style={{width: '45%', padding: '15px', marginLeft: '10px'}}>
+                        <div className="score-legend-box desktop" style={{ width: '45%', padding: '15px', marginLeft: '10px' }}>
                             <ul className="score-legend-list">
                                 {[
                                     { label: '운동 기록 없음', score: '0점', color: '#D9D9D9' },
@@ -229,9 +229,14 @@ const Main = () => {
                                 onClick={() => handlePostClick(post.id)}
                                 style={{ cursor: 'pointer' }}
                             >
-                                <span className="preview-title">{post.name}</span>
+                                <div className="preview-title">
+                                    <span className={`category-badge ${post.category.toLowerCase()}`}>
+                                        {post.category}
+                                    </span>
+                                    <span className="post-title-text">{post.name}</span>
+                                </div>
                                 <span className="preview-meta">
-                                    {post.category} | {post.nickname} | {new Date(post.createDate).toLocaleDateString()}
+                                    {new Date(post.createDate).toLocaleDateString()}
                                 </span>
                             </div>
                         ))}
