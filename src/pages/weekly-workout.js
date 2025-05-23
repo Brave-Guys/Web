@@ -10,14 +10,18 @@ import dayjs from 'dayjs';
 import '../styles/ParticipantDetail.css';
 
 const WeeklyWorkout = () => {
-    const [participant, setParticipant] = useState([]);
+    const [videos, setVideos] = useState([])
+    const [excludeIds, setExcludeIds] = useState([]);
     const [comments, setComments] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    let currentVideo = videos[videos.length - 1];
+
     const [isFocused, setIsFocused] = useState(false);
     const [commentText, setCommentText] = useState('');
-    const [loading, setLoading] = useState(true);
     const [replyText, setReplyText] = useState('');
     const [replyingTo, setReplyingTo] = useState(null);
-    const [excludeIds, setExcludeIds] = useState([]);
+
     const navigate = useNavigate();
 
     const nestComments = (comments) => {
@@ -37,23 +41,18 @@ const WeeklyWorkout = () => {
         return roots;
     };
 
-    const fetchInitialVideoArray = async () => {
-        let arr = [];
+    const fetchInitialVideo = async () => {
         try {
-            while (arr.length < 3) {
-                const response = await getRandomParticipant(excludeIds);
-                if (response) {
-                    arr.push(response);
-                    setExcludeIds(prev => [...prev, response.id].slice(-100));
-                }
+            const response = await getRandomParticipant([]);
+            if (response) {
+                setVideos([response]);
+                setExcludeIds([response.id]);
+                await fetchComments(response.id);
             }
-            await fetchComments(arr[0].id);
-            setParticipant(arr);
-            console.log(excludeIds);
-        } catch (error) {
-            console.error('랜덤 참가자 가져오기 실패', error);
+            console.log([response]);
+        } catch (err) {
+            console.error('초기 참가자 로드 실패', err);
         } finally {
-            console.log(arr);
             setLoading(false);
         }
     };
@@ -66,19 +65,20 @@ const WeeklyWorkout = () => {
 
     const handleNextVideo = async () => {
         try {
-            let isDuplicate = true;
-            while (isDuplicate) {
-                const response = await getRandomParticipant(excludeIds);
-                if (response) {
-                    const newArr = [...participant.slice(1), response];
-                    setParticipant(newArr);
-                    setExcludeIds(prev => [...prev, response.id].slice(-100));
-                    await fetchComments(response.id);
-                }
-                console.log(excludeIds);
+            const response = await getRandomParticipant(videos.map(v => v.id));
+            if (!response) {
+                alert('더 이상 보여줄 영상이 없습니다.');
+                return;
             }
+
+            const updatedVideos = [...videos, response];
+            if (updatedVideos.length > 10) updatedVideos.shift();
+
+            setVideos(updatedVideos);
+            await fetchComments(response.id);
+            console.log(updatedVideos);
         } catch (error) {
-            console.error('새로운 참가자 가져오기 실패', error);
+            console.error('새 영상 로딩 실패', error);
         }
     };
 
@@ -91,14 +91,15 @@ const WeeklyWorkout = () => {
         if (!user || !commentText.trim()) return;
 
         try {
+            currentVideo = videos[videos.length - 1];
             await postReelsComment({
-                reelsId: participant.id,
+                reelsId: currentVideo.id,
                 writerId: user.id,
                 content: commentText,
                 parentId: parentId,
             });
             setCommentText('');
-            fetchComments(participant.id);
+            fetchComments(currentVideo.id);
         } catch (err) {
             console.error('댓글 등록 실패', err);
             alert('댓글 등록 중 오류가 발생했습니다.');
@@ -106,19 +107,20 @@ const WeeklyWorkout = () => {
     };
 
     const handleSubmitReply = async (parentId, replyText) => {
+        currentVideo = videos[videos.length - 1];
         const user = JSON.parse(localStorage.getItem('user'));
         if (!user || !replyText.trim()) return;
 
         try {
             await postReelsComment({
-                reelsId: participant.id,
+                reelsId: currentVideo.id,
                 writerId: user.id,
                 content: replyText,
                 parentId: parentId,
             });
             setReplyText('');
             setReplyingTo(null);
-            fetchComments(participant.id);
+            fetchComments(currentVideo.id);
         } catch (err) {
             console.error('답글 등록 실패', err);
             alert('답글 등록 중 오류가 발생했습니다.');
@@ -126,27 +128,27 @@ const WeeklyWorkout = () => {
     };
 
     useEffect(() => {
-        fetchInitialVideoArray();
+        fetchInitialVideo();
     }, []);
 
     if (loading) return <div>로딩 중...</div>;
 
-    if (!participant) return <div>참가자가 없습니다.</div>;
+    if (!videos) return <div>참가자가 없습니다.</div>;
 
     return (
         <div className="participant-detail-page">
             <PageTitle
                 title='금주의 운동'
-                description={dayjs(participant.writeDate).format('YYYY.MM.DD HH:mm')}
+                description="릴스"
                 showBackArrow={true}
                 onBack={() => navigate(-1)}
             />
             <div className="participant-detail-wrapper">
                 <div className="participant-main">
-                    {participant.length > 0 && (
+                    {videos.length > 0 && (
                         <div className="participant-video-wrapper">
                             <video
-                                src={participant[0].videoUrl}  // 현재 동영상 표시
+                                src={currentVideo.videoUrl}
                                 autoPlay
                                 muted
                                 controls
@@ -227,8 +229,8 @@ const WeeklyWorkout = () => {
                                 onReplySubmit={(replyText) => handleSubmitReply(c.rcommentId, replyText)}
                                 depth={0}
                                 writerId={c.writerId}
-                                onDeleteSuccess={() => { fetchComments(participant.id) }}
-                                onEditSuccess={() => { fetchComments(participant.id) }}
+                                onDeleteSuccess={() => { fetchComments(currentVideo.id) }}
+                                onEditSuccess={() => { fetchComments(currentVideo.id) }}
                                 profileImgUrl={c.profileImgUrl}
                                 isChallenge={true}
                                 onReplyClick={() => handleReplyClick(c.rcommentId)}
