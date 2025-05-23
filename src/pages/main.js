@@ -153,6 +153,7 @@ const Main = () => {
                     </h2>
                 </div>
             </div>
+            
             {user?.role === 'ADMIN' && (
                 <button className="role-room-button" onClick={() => navigate('/admin')}>
                     관리자의 방

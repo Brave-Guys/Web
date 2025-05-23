@@ -6,6 +6,10 @@ p {
   margin: 0 !important;
 }
 
+h2 {
+  margin: 0 !important;
+}
+
 a {
   text-decoration: none;
   color: inherit;
