@@ -4,6 +4,7 @@ import PageTitle from '../components/PageTitle';
 import Tab from '../components/Tab';
 import PostItem from '../components/PostItem';
 import CustomButton from '../components/CustomButton';
+import PopularPostSlider from '../components/PopularPostSlider';
 import Box from '../components/Box';
 import '../styles/Board.css';
 import { ThumbsUp } from 'lucide-react';
@@ -132,6 +133,7 @@ const Board = () => {
                     activeIndex={activeTab}
                     onTabClick={handleTabChange}
                 />
+                <PopularPostSlider />
                 <input
                     type="text"
                     placeholder="게시글 검색"
@@ -160,7 +162,6 @@ const Board = () => {
                         />
                     ))}
 
-                    {/* 페이지네이션: 이전 / 다음 */}
                     <div className="pagination">
                         <div style={{ flex: 4 }}></div>
                         <CustomButton
@@ -179,26 +180,6 @@ const Board = () => {
                             disabled={!hasMore}
                         />
                     </div>
-                </div>
-
-                <div className='desktop' style={{ flexGrow: 1, margin: '20px' }}>
-                    <Box type={2} title='인기글' showArrow={false} to='/popular'>
-                        <div className="popular-preview">
-                            {popularPosts.map(post => (
-                                <div
-                                    key={post.id}
-                                    className="popular-item"
-                                    onClick={() => navigate(`/post/${post.id}`)}
-                                >
-                                    <div className="popular-title">{post.name}</div>
-                                    <div className="popular-like">
-                                        <ThumbsUp size={16} />
-                                        <span>{post.likes ?? 0}</span>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </Box>
                 </div>
             </div>
         </div>
