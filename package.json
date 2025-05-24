@@ -12,6 +12,7 @@
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
     "firebase": "^11.6.1",
+    "framer-motion": "^12.12.2",
     "lucide-react": "^0.487.0",
     "react": "^19.0.0",
     "react-calendar": "^5.1.0",

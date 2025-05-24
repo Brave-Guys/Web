@@ -3,6 +3,7 @@ import '../styles/login.css';
 import appIcon from '../assets/logo.png';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const LoginPage = () => {
     const [bgIndex, setBgIndex] = useState(0);
@@ -42,11 +43,29 @@ const LoginPage = () => {
                 <div className="login-container">
                     <div className="login-left"></div>
                     <div className="login-right">
-                        {mode === 'login' ? (
-                            <LoginForm onSwitchToRegister={() => setMode('register')} />
-                        ) : (
-                            <RegisterForm onSwitchToLogin={() => setMode('login')} />
-                        )}
+                        <AnimatePresence mode="wait">
+                            {mode === 'login' ? (
+                                <motion.div
+                                    key="login"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.1 }}
+                                >
+                                    <LoginForm onSwitchToRegister={() => setMode('register')} />
+                                </motion.div>
+                            ) : (
+                                <motion.div
+                                    key="register"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.1 }}
+                                >
+                                    <RegisterForm onSwitchToLogin={() => setMode('login')} />
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                 </div>
             </div>

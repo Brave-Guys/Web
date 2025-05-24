@@ -1,20 +1,52 @@
 .register-container {
-    background-color: white;
     max-width: 480px;
     margin: 0 auto;
     padding: 40px 16px;
 }
 
 .register-form {
+    background-color: white;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding: 50px;
+    border-radius: 16px;
+    max-width: 480px;
+    max-height: 600px;
 }
 
 .input-with-button {
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+.register-header {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 24px;
+}
+
+.back-to-login {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    font-size: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    padding: 0;
+}
+
+.back-to-login:hover {
+    color: #103e94;
+}
+
+.back-arrow-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
 }
 
 .register-check-button {

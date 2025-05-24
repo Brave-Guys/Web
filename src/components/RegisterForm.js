@@ -4,8 +4,9 @@ import FloatingInput from '../components/FloatingInput';
 import { registerUser } from '../apis/registerUser';
 import { checkNickname, checkUsername } from '../apis/checkDuplicate';
 import '../styles/Register.css';
+import backArrow from '../assets/back-arrow.png';
 
-const RegisterForm = () => {
+const RegisterForm = ({ onSwitchToLogin }) => {
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -110,6 +111,12 @@ const RegisterForm = () => {
 
     return (
         <div className='register-form'>
+            <div className="register-header">
+                <button className="back-to-login" onClick={onSwitchToLogin}>
+                    <img src={backArrow} alt="뒤로가기" className="back-arrow-icon" />
+                    회원가입
+                </button>
+            </div>
             <div className="input-with-button">
                 <FloatingInput
                     id="username"

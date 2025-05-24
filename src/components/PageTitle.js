@@ -1,13 +1,13 @@
 import React from 'react';
 import '../styles/PageTitle.css';
 import backArrow from '../assets/back-arrow.png';
-import { useNavigate } from 'react-router-dom'; // ✅ 추가
+import { useNavigate } from 'react-router-dom';
 
 const PageTitle = ({ title, description, showBackArrow = false }) => {
-    const navigate = useNavigate(); // ✅ 훅 사용
+    const navigate = useNavigate();
 
     const handleBack = () => {
-        navigate(-1); // ✅ 이전 페이지로 이동
+        navigate(-1);
     };
 
     return (

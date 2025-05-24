@@ -74,11 +74,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: opacity 0.4s ease;
+}
+
+.fade-in {
+    opacity: 1;
+}
+
+.fade-out {
+    opacity: 0;
 }
 
 .login-box {
-    width: 90%;
     max-width: 480px;
+    max-height: 600px;
     padding: 50px;
     background-color: #FFFFFF;
     border-radius: 16px;
