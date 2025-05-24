@@ -27,7 +27,7 @@ const SharePlusApply = () => {
                 content: message
             });
             alert('신청이 완료되었습니다!');
-            navigate('/');
+            navigate('/share-plus');
         } catch (error) {
             console.error('신청 오류:', error);
             alert('신청 중 오류가 발생했습니다.');
