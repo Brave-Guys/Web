@@ -41,8 +41,7 @@ const LoginPage = () => {
                     <p style={{ fontSize: '15px', color: '#777' }}>운동 기록 및 트레이닝 서비스</p>
                 </div>
                 <div className="login-container">
-                    <div className="login-left"></div>
-                    <div className="login-right">
+                    <div className="login-right temp">
                         <AnimatePresence mode="wait">
                             {mode === 'login' ? (
                                 <motion.div

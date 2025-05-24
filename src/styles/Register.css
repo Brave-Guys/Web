@@ -1,18 +1,12 @@
+.register-form>* {
+    margin-bottom: 22px;
+}
+
+
 .register-container {
     max-width: 480px;
     margin: 0 auto;
     padding: 40px 16px;
-}
-
-.register-form {
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 50px;
-    border-radius: 16px;
-    max-width: 480px;
-    max-height: 600px;
 }
 
 .input-with-button {
