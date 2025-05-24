@@ -135,7 +135,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
         <div>
             {logs.length > 0 && (
                 <div className="workout-log-total-score">
-                    운동 점수: <strong>{calculateTotalScore(logs).toFixed(1)}</strong>점
+                    운동 점수: <strong>{calculateTotalScore(logs).toFixed(0)}</strong>점
                 </div>
             )}
 

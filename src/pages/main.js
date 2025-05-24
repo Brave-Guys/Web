@@ -10,6 +10,7 @@ import { getPosts } from '../apis/getPosts';
 import { calculateCardioScore } from '../utils/calculateCardioScore';
 import { calculateWeightScore } from '../utils/calculateWeightscore';
 import SloganSlider from '../components/SloganSlider';
+import Tooltip from '../components/ToolTip.js';
 import { format } from 'date-fns';
 import '../styles/main.css';
 
@@ -19,6 +20,7 @@ const Main = () => {
     const [monthLogs, setMonthLogs] = useState([]);
     const [randomTip, setRandomTip] = useState(null);
     const [myRequests, setMyRequests] = useState([]);
+    const [tooltip, setTooltip] = useState(null);
 
     const navigate = useNavigate();
 
@@ -112,9 +114,19 @@ const Main = () => {
         }
 
         for (let day = 1; day <= daysInMonth; day++) {
+            const logsForDay = monthLogs.filter(log => new Date(log.date).getDate() === day);
             const score = scoresByDay[day] || 0;
-            let bgColor = '#D9D9D9';
 
+            const tooltipText = logsForDay.length > 0
+                ? logsForDay.map(log => {
+                    const logScore = log.exerciseType === '유산소'
+                        ? calculateCardioScore(log)
+                        : calculateWeightScore(log);
+                    return `${log.name} (${logScore.toFixed(0)}점)`;
+                }).join('\n')
+                : '기록 없음';
+
+            let bgColor = '#D9D9D9';
             if (score >= 1 && score <= 60) bgColor = '#B3E6B3';
             if (score >= 61 && score <= 100) bgColor = '#80D480';
             if (score >= 101 && score <= 140) bgColor = '#4DC34D';
@@ -125,6 +137,11 @@ const Main = () => {
                     key={`day-${day}`}
                     className="mini-calendar-cell"
                     style={{ backgroundColor: bgColor }}
+                    onMouseEnter={(e) => {
+                        const rect = e.target.getBoundingClientRect();
+                        setTooltip({ x: rect.left, y: rect.top, content: tooltipText });
+                    }}
+                    onMouseLeave={() => setTooltip(null)}
                 />
             );
         }
@@ -243,6 +260,7 @@ const Main = () => {
                     </div>
                 </Box>
             </div>
+            {tooltip && <Tooltip x={tooltip.x} y={tooltip.y} content={tooltip.content} />}
         </div>
     );
 };
