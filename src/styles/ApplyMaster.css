@@ -1,4 +1,4 @@
-.apply-wrapper {    
+.apply-wrapper {
     max-width: 600px;
     margin: 0 auto;
 }
@@ -11,19 +11,6 @@
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 12px;
-}
-
-input[type="text"],
-input[type="file"],
-select,
-textarea {
-    width: 100%;
-    padding: 10px 12px;
-    margin-bottom: 16px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 14px;
-    box-sizing: border-box;
 }
 
 select {

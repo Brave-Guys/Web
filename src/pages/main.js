@@ -220,7 +220,7 @@ const Main = () => {
                     </Box>
                 )}
 
-                <Box type={2} showArrow={true} title='게시판' to='/board'>
+                <Box type={2} showArrow={true} title='커뮤니티' to='/board'>
                     <div className="preview-posts">
                         {latestPosts.map((post) => (
                             <div

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/login.css';
 import { loginUser } from '../apis/loginUser';
 import CustomButton from '../components/CustomButton';
-import InputField from '../components/InputField';
+import FloatingInput from '../components/FloatingInput';
 import kakaoIcon from '../assets/kakao.png';
 import naverIcon from '../assets/naver.png';
 import googleIcon from '../assets/google.png';
@@ -80,27 +80,21 @@ const Login = () => {
                             <div style={{ margin: '20px' }}></div>
 
                             <div className="login-box-inner">
-                                <InputField
+                                <FloatingInput
+                                    id="username"
                                     label="ID"
-                                    guide=""
-                                    placeholder=""
                                     value={loginData.username}
                                     onChange={handleChange('username')}
-                                    status="default"
-                                    onKeyDown={handleKeyDown}  // 엔터 키 눌렀을 때 handleLogin 호출
+                                    onKeyDown={handleKeyDown}
                                 />
-
-                                <InputField
+                                <FloatingInput
+                                    id="password"
                                     label="비밀번호"
-                                    guide=""
-                                    placeholder=""
                                     type="password"
                                     value={loginData.password}
                                     onChange={handleChange('password')}
-                                    status="default"
-                                    onKeyDown={handleKeyDown}  // 엔터 키 눌렀을 때 handleLogin 호출
+                                    onKeyDown={handleKeyDown}
                                 />
-
                                 <div className="login-buttons">
                                     <CustomButton
                                         label="회원가입"

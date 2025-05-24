@@ -28,14 +28,6 @@
     font-weight: 500;
 }
 
-input[type="text"],
-textarea {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
-}
-
 textarea {
     min-height: 100px;
     resize: vertical;
