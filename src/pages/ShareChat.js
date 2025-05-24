@@ -117,6 +117,11 @@ const ShareChat = () => {
 
                             return isToday ? 'highlight' : null;
                         }}
+                        tileContent={({ date }) => {
+                            const formatted = formatDateToLocalString(date);
+                            const hasComment = comments.some(c => c.date === formatted);
+                            return hasComment ? <div className="dot" /> : null;
+                        }}
                         formatDay={(locale, date) => String(date.getDate())}
                         prev2Label={null}
                         next2Label={null}

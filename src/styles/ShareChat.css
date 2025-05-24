@@ -24,6 +24,16 @@
     font-size: 16px;
 }
 
+.react-calendar .dot {
+    position: absolute;
+    top: 6px;
+    left: 3px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #4caf50;
+}
+
 .react-calendar {
     width: 100% !important;
     border: none !important;
@@ -33,6 +43,7 @@
 }
 
 .react-calendar__tile {
+    position: relative !important;
     padding: 16px 0 !important;
     font-size: 14px !important;
     transition: border 0.2s, color 0.2s !important;
@@ -82,9 +93,8 @@
 
 .react-calendar__tile--active,
 .react-calendar__tile--hasActive {
-    border: 4px solid blue !important;
-    font-weight: bold !important;
-    border: none !important;
+    border: 1px solid #a855f7 !important;
+    font-weight: bold !important;    
     font-size: 16px !important;
 }
 
