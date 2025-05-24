@@ -70,11 +70,11 @@
 
 
 .input-message.error {
-    color: #e53935;
+    color: #FF0000;
 }
 
 .input-message.success {
-    color: #2e7d32;
+    color: #00DD00;
 }
 
 .email-input-row {

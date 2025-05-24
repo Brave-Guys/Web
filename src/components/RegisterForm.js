@@ -109,6 +109,12 @@ const RegisterForm = ({ onSwitchToLogin }) => {
         }
     };
 
+    const renderMessage = (field) => (
+        <p className={`input-message ${status[field] || ''} ${messages[field] ? '' : 'hidden'}`}>
+            {messages[field] || '⠀'}
+        </p>
+    );
+
     return (
         <div className='register-form'>
             <div className="register-header">
@@ -127,9 +133,7 @@ const RegisterForm = ({ onSwitchToLogin }) => {
                 />
                 <button className="register-check-button" onClick={handleCheckUsername}>중복 확인</button>
             </div>
-            <p className={`input-message ${messages.username ? '' : 'hidden'}`}>
-                {messages.username || '⠀'}
-            </p>
+            {renderMessage('username')}
 
             <FloatingInput
                 id="password"
@@ -138,9 +142,7 @@ const RegisterForm = ({ onSwitchToLogin }) => {
                 value={formData.password}
                 onChange={handleChange('password')}
             />
-            <p className={`input-message ${messages.password ? '' : 'hidden'}`}>
-                {messages.password || '⠀'}
-            </p>
+            {renderMessage('password')}
 
             <FloatingInput
                 id="confirmPassword"
@@ -149,9 +151,7 @@ const RegisterForm = ({ onSwitchToLogin }) => {
                 value={formData.confirmPassword}
                 onChange={handleChange('confirmPassword')}
             />
-            <p className={`input-message ${messages.confirmPassword ? '' : 'hidden'}`}>
-                {messages.confirmPassword || '⠀'}
-            </p>
+            {renderMessage('confirmPassword')}
 
             <div className="input-with-button">
                 <FloatingInput
@@ -162,9 +162,7 @@ const RegisterForm = ({ onSwitchToLogin }) => {
                 />
                 <button className="register-check-button" onClick={handleCheckNickname}>중복 확인</button>
             </div>
-            <p className={`input-message ${messages.nickname ? '' : 'hidden'}`}>
-                {messages.nickname || '⠀'}
-            </p>
+            {renderMessage('nickname')}
 
             <div className="email-input-row">
                 <FloatingInput
@@ -204,9 +202,7 @@ const RegisterForm = ({ onSwitchToLogin }) => {
                     <option value="custom">직접 입력</option>
                 </select>
             </div>
-            <p className={`input-message ${messages.emailId ? '' : 'hidden'}`}>
-                {messages.emailId || '⠀'}
-            </p>
+            {renderMessage('emailId')}
 
             <div className="submit-button-wrapper">
                 <button className="register-submit-button" onClick={handleSubmit}>회원가입</button>
