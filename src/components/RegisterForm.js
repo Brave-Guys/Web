@@ -117,6 +117,7 @@ const RegisterForm = ({ onSwitchToLogin }) => {
                     회원가입
                 </button>
             </div>
+
             <div className="input-with-button">
                 <FloatingInput
                     id="username"
@@ -125,8 +126,10 @@ const RegisterForm = ({ onSwitchToLogin }) => {
                     onChange={handleChange('username')}
                 />
                 <button className="register-check-button" onClick={handleCheckUsername}>중복 확인</button>
-                {messages.username && <p className={`input-message ${status.username}`}>{messages.username}</p>}
             </div>
+            <p className={`input-message ${messages.username ? '' : 'hidden'}`}>
+                {messages.username || '⠀'}
+            </p>
 
             <FloatingInput
                 id="password"
@@ -135,7 +138,9 @@ const RegisterForm = ({ onSwitchToLogin }) => {
                 value={formData.password}
                 onChange={handleChange('password')}
             />
-            {messages.password && <p className={`input-message ${status.password}`}>{messages.password}</p>}
+            <p className={`input-message ${messages.password ? '' : 'hidden'}`}>
+                {messages.password || '⠀'}
+            </p>
 
             <FloatingInput
                 id="confirmPassword"
@@ -144,7 +149,9 @@ const RegisterForm = ({ onSwitchToLogin }) => {
                 value={formData.confirmPassword}
                 onChange={handleChange('confirmPassword')}
             />
-            {messages.confirmPassword && <p className={`input-message ${status.confirmPassword}`}>{messages.confirmPassword}</p>}
+            <p className={`input-message ${messages.confirmPassword ? '' : 'hidden'}`}>
+                {messages.confirmPassword || '⠀'}
+            </p>
 
             <div className="input-with-button">
                 <FloatingInput
@@ -154,8 +161,10 @@ const RegisterForm = ({ onSwitchToLogin }) => {
                     onChange={handleChange('nickname')}
                 />
                 <button className="register-check-button" onClick={handleCheckNickname}>중복 확인</button>
-                {messages.nickname && <p className={`input-message ${status.nickname}`}>{messages.nickname}</p>}
             </div>
+            <p className={`input-message ${messages.nickname ? '' : 'hidden'}`}>
+                {messages.nickname || '⠀'}
+            </p>
 
             <div className="email-input-row">
                 <FloatingInput
@@ -194,8 +203,10 @@ const RegisterForm = ({ onSwitchToLogin }) => {
                     <option value="tistory.com">tistory.com</option>
                     <option value="custom">직접 입력</option>
                 </select>
-                {messages.emailId && <p className={`input-message ${status.emailId}`}>{messages.emailId}</p>}
             </div>
+            <p className={`input-message ${messages.emailId ? '' : 'hidden'}`}>
+                {messages.emailId || '⠀'}
+            </p>
 
             <div className="submit-button-wrapper">
                 <button className="register-submit-button" onClick={handleSubmit}>회원가입</button>
