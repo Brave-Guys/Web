@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageTitle from '../components/PageTitle';
-import CustomSelect from '../components/CustomSelect';
+import FloatingInput from '../components/FloatingInput';
 import { registerUser } from '../apis/registerUser';
 import { checkNickname, checkUsername } from '../apis/checkDuplicate';
 import '../styles/Register.css';
@@ -75,7 +75,7 @@ const Register = () => {
             newStatus.username = 'error';
             newMessages.username = '6~20자의 아이디를 입력해주세요.';
         }
-        if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-={}\[\]:;"'<>,.?]).{8,20}$/.test(formData.password)) {
+        if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-={}[\]:;"'<>,.?]).{8,20}$/.test(formData.password)) {
             newStatus.password = 'error';
             newMessages.password = '비밀번호가 짧거나 형식에 맞지 않아요.';
         }
@@ -87,7 +87,7 @@ const Register = () => {
             newStatus.nickname = 'error';
             newMessages.nickname = '3~20자의 닉네임을 입력해주세요.';
         }
-        if (!/^\S+@\S+\.\S+$/.test(`${formData.emailId}@${formData.emailDomain}`)) {
+        if (!/^\S+@\S+\.\S+$/.test(`${formData.emailId}@${formData.emailDomain === 'custom' ? formData.customEmailDomain : formData.emailDomain}`)) {
             newStatus.emailId = 'error';
             newMessages.emailId = '이메일 형식으로 입력해주세요.';
         }
@@ -111,99 +111,89 @@ const Register = () => {
 
     return (
         <div className='register-container'>
-            <PageTitle title="회원가입" showBackArrow />
+            <PageTitle
+                title="회원가입"
+                description='꾸준함이 쌓이면, 변화가 시작됩니다.'
+                showBackArrow />
             <div style={{ margin: '30px' }}></div>
             <div className='register-form'>
-                {[{
-                    label: '아이디',
-                    guide: '6-20자',
-                    name: 'username',
-                    type: 'text',
-                    right: (
-                        <button className="register-check-button" onClick={handleCheckUsername}>중복 확인</button>
-                    )
-                }, {
-                    label: '비밀번호',
-                    guide: '문자, 숫자, 특수문자 포함 8-20자',
-                    name: 'password',
-                    type: 'password'
-                }, {
-                    label: '비밀번호 확인',
-                    guide: '비밀번호 재입력',
-                    name: 'confirmPassword',
-                    type: 'password'
-                }, {
-                    label: '닉네임',
-                    guide: '3-20자',
-                    name: 'nickname',
-                    type: 'text',
-                    right: (
-                        <button className="register-check-button" onClick={handleCheckNickname}>중복 확인</button>
-                    )
-                }].map(({ label, guide, name, type, right }) => (
-                    <div className="input-group" key={name}>
-                        <div className="input-header">
-                            <label>{label}</label>
-                            <span>{guide}</span>
-                        </div>
-                        <div className="input-control">
-                            <input
-                                type={type}
-                                value={formData[name]}
-                                onChange={handleChange(name)}
-                                className={status[name] || ''}
-                                placeholder={label}
-                            />
-                            {right && right}
-                        </div>
-                        {messages[name] && <p className={`input-message ${status[name]}`}>{messages[name]}</p>}
-                    </div>
-                ))}
+                <div className="input-with-button">
+                    <FloatingInput
+                        id="username"
+                        label="아이디"
+                        value={formData.username}
+                        onChange={handleChange('username')}
+                    />
+                    <button className="register-check-button" onClick={handleCheckUsername}>중복 확인</button>
+                    {messages.username && <p className={`input-message ${status.username}`}>{messages.username}</p>}
+                </div>
 
-                <div className="input-group">
-                    <div className="input-header">
-                        <label>이메일</label>
-                    </div>
-                    <div className="input-control">
-                        <input
-                            type="text"
-                            value={formData.emailId}
-                            onChange={handleChange('emailId')}
-                            className={status.emailId || ''}
-                            placeholder="이메일 아이디"
+                <FloatingInput
+                    id="password"
+                    label="비밀번호"
+                    type="password"
+                    value={formData.password}
+                    onChange={handleChange('password')}
+                />
+                {messages.password && <p className={`input-message ${status.password}`}>{messages.password}</p>}
+
+                <FloatingInput
+                    id="confirmPassword"
+                    label="비밀번호 확인"
+                    type="password"
+                    value={formData.confirmPassword}
+                    onChange={handleChange('confirmPassword')}
+                />
+                {messages.confirmPassword && <p className={`input-message ${status.confirmPassword}`}>{messages.confirmPassword}</p>}
+
+                <div className="input-with-button">
+                    <FloatingInput
+                        id="nickname"
+                        label="닉네임"
+                        value={formData.nickname}
+                        onChange={handleChange('nickname')}
+                    />
+                    <button className="register-check-button" onClick={handleCheckNickname}>중복 확인</button>
+                    {messages.nickname && <p className={`input-message ${status.nickname}`}>{messages.nickname}</p>}
+                </div>
+
+                <div className="email-input-row">
+                    <FloatingInput
+                        id="emailId"
+                        label="이메일 아이디"
+                        value={formData.emailId}
+                        onChange={handleChange('emailId')}
+                    />
+                    <span className="email-at">@</span>
+                    {formData.emailDomain === 'custom' ? (
+                        <FloatingInput
+                            id="customDomain"
+                            label="도메인"
+                            value={formData.customEmailDomain || ''}
+                            onChange={handleChange('customEmailDomain')}
                         />
-                        <span className="email-at">@</span>
-                        {formData.emailDomain === 'custom' ? (
-                            <input
-                                type="text"
-                                value={formData.customEmailDomain || ''}
-                                onChange={handleChange('customEmailDomain')}
-                                placeholder="도메인 "
-                                className="custom-domain-input"
-                            />
-                        ) : (
-                            <span className="email-domain">{formData.emailDomain}</span>
-                        )}
-                        <select
-                            value={formData.emailDomain}
-                            onChange={handleChange('emailDomain')}
-                            className="email-select"
-                        >
-                            <option value="naver.com">naver.com</option>
-                            <option value="gmail.com">gmail.com</option>
-                            <option value="daum.net">daum.net</option>
-                            <option value="nate.com">nate.com</option>
-                            <option value="yahoo.com">yahoo.com</option>
-                            <option value="hotmail.com">hotmail.com</option>
-                            <option value="outlook.com">outlook.com</option>
-                            <option value="icloud.com">icloud.com</option>
-                            <option value="kakao.com">kakao.com</option>
-                            <option value="hanmail.net">hanmail.net</option>
-                            <option value="proton.me">proton.me</option>
-                            <option value="tistory.com">tistory.com</option>
-                            <option value="custom">직접 입력</option>
-                        </select>
-                    </div>
+                    ) : (
+                        <span className="email-domain">{formData.emailDomain}</span>
+                    )}
+                    <select
+                        value={formData.emailDomain}
+                        onChange={handleChange('emailDomain')}
+                        className="email-select"
+                    >
+                        <option value="naver.com">naver.com</option>
+                        <option value="gmail.com">gmail.com</option>
+                        <option value="daum.net">daum.net</option>
+                        <option value="nate.com">nate.com</option>
+                        <option value="yahoo.com">yahoo.com</option>
+                        <option value="hotmail.com">hotmail.com</option>
+                        <option value="outlook.com">outlook.com</option>
+                        <option value="icloud.com">icloud.com</option>
+                        <option value="kakao.com">kakao.com</option>
+                        <option value="hanmail.net">hanmail.net</option>
+                        <option value="proton.me">proton.me</option>
+                        <option value="tistory.com">tistory.com</option>
+                        <option value="custom">직접 입력</option>
+                    </select>
                     {messages.emailId && <p className={`input-message ${status.emailId}`}>{messages.emailId}</p>}
                 </div>
 
