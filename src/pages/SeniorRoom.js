@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import PageTitle from '../components/PageTitle';
+import DefaultAvatar from '../assets/person.png';
 import { Link } from 'react-router-dom';
 import '../styles/SeniorRoom.css';
 
 const SeniorRoom = () => {
     const [approvedRequests, setApprovedRequests] = useState([]);
     const [otherRequests, setOtherRequests] = useState([]);
+    const [userMap, setUserMap] = useState({});
 
     useEffect(() => {
         const fetchRequests = async () => {
@@ -15,26 +17,39 @@ const SeniorRoom = () => {
                 const user = JSON.parse(localStorage.getItem('user'));
                 const res = await axios.get(
                     `${process.env.REACT_APP_API_URL}/share-requests/master/${user.id}`,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    }
+                    { headers: { Authorization: `Bearer ${token}` } }
                 );
                 const approved = res.data.filter(r => r.status === 'APPROVED');
                 const others = res.data.filter(r => r.status !== 'APPROVED');
                 setApprovedRequests(approved);
                 setOtherRequests(others);
+
+                const allUserIds = [...approved, ...others].map(r => r.userId);
+                const uniqueUserIds = [...new Set(allUserIds)];
+                const userResponses = await Promise.all(
+                    uniqueUserIds.map(id =>
+                        axios.get(`${process.env.REACT_APP_API_URL}/users/${id}`, {
+                            headers: { Authorization: `Bearer ${token}` }
+                        })
+                    )
+                );
+                const userInfoMap = {};
+                uniqueUserIds.forEach((id, i) => {
+                    userInfoMap[id] = userResponses[i].data;
+                });
+                setUserMap(userInfoMap);
+
             } catch (err) {
-                console.error('Share+ 요청 조회 실패:', err);
+                console.error('요청 또는 유저 정보 조회 실패:', err);
             }
         };
         fetchRequests();
     }, []);
 
+
     const getStatusText = (status) => {
-        if (status === 'PENDING') return '검토 중';
-        if (status === 'REJECTED') return '거절됨';
+        if (status === 'PENDING') return '신청자가 승인을 기다리고 있어요!';
+        if (status === 'REJECTED') return '이 신청서를 거절했습니다.';
         return '';
     };
 
@@ -53,7 +68,16 @@ const SeniorRoom = () => {
                 ) : (
                     approvedRequests.map((r) => (
                         <Link to={`/share/${r.id}/chat`} key={r.id} className="request-card">
-                            <p><strong>신청자 ID:</strong> {r.userId}</p>
+                            {userMap[r.userId] && (
+                                <div className="request-user-profile">
+                                    <img
+                                        src={userMap[r.userId].profileImgUrl || DefaultAvatar}
+                                        alt="프로필"
+                                        className="profile-img"
+                                    />
+                                    <p className="nickname">{userMap[r.userId].nickname || '익명'}</p>
+                                </div>
+                            )}
                         </Link>
                     ))
                 )}
@@ -66,8 +90,21 @@ const SeniorRoom = () => {
                 ) : (
                     otherRequests.map((r) => (
                         <Link to={`/senior/requests/${r.id}`} key={r.id} className="request-card">
-                            <p><strong>신청자 ID:</strong> {r.userId}</p>
-                            <p><strong>상태:</strong> {getStatusText(r.status)}</p>
+                            {userMap[r.userId] && (
+                                <div className="request-user-info">
+                                    <img
+                                        src={userMap[r.userId].profileImgUrl || DefaultAvatar}
+                                        alt="프로필"
+                                        className="profile-img"
+                                    />
+                                    <div className="request-user-texts">
+                                        <p className="nickname">{userMap[r.userId].nickname || '익명'}</p>
+                                        <p className={`status-text ${r.status.toLowerCase()}`}>
+                                            {getStatusText(r.status)}
+                                        </p>
+                                    </div>
+                                </div>
+                            )}
                         </Link>
                     ))
                 )}
