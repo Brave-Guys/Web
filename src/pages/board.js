@@ -4,15 +4,14 @@ import PageTitle from '../components/PageTitle';
 import Tab from '../components/Tab';
 import PostItem from '../components/PostItem';
 import CustomButton from '../components/CustomButton';
+import FloatingInput from '../components/FloatingInput';
 import PopularPostSlider from '../components/PopularPostSlider';
-import Box from '../components/Box';
-import '../styles/Board.css';
-import { ThumbsUp } from 'lucide-react';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { getPostsByPage, getPopularPosts } from '../apis/getPosts';
+import '../styles/Board.css';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -133,19 +132,20 @@ const Board = () => {
                     activeIndex={activeTab}
                     onTabClick={handleTabChange}
                 />
+                <div style={{ width: '350px' }}>
+                    <FloatingInput
+                        id="search"
+                        label="게시글 검색"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' && searchTerm.trim()) {
+                                navigate(`/search?query=${encodeURIComponent(searchTerm.trim())}`);
+                            }
+                        }}
+                    />
+                </div>
                 <PopularPostSlider />
-                <input
-                    type="text"
-                    placeholder="게시글 검색"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter' && searchTerm.trim()) {
-                            navigate(`/search?query=${encodeURIComponent(searchTerm.trim())}`);
-                        }
-                    }}
-                    className="search-input"
-                />
             </div>
 
             <div style={{ display: 'flex' }}>
