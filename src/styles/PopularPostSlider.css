@@ -1,37 +1,61 @@
-.slogan-slider {
+.popular-post-slider {
     position: relative;
-    height: 40px;
+    height: 50px;
     overflow: hidden;
+    padding: 10px;
     border-radius: 6px;
+    border: 1px solid #BBB;
     margin: 20px 0;
 }
 
-.slogan-track {
+.popular-post-track {
     display: flex;
     flex-direction: column;
     height: 80px;
-    transform: translateY(0);
+    transform: translateY(20px);
 }
 
-.slogan-track.animate {
-    transform: translateY(-40px);
+.popular-post-track.animate {
+    transform: translateY(-20px);
     transition: transform 0.4s ease-in-out;
 }
 
-.slogan-slide {
+.popular-post-slide {
     height: 40px;
-    line-height: 40px;
-    font-size: 30px;
-    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 12px;
+    min-width: 300px;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
     color: #333;
+}
+
+.popular-post-title {
+    flex: 1;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.popular-post-likes {
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 4px;
+    font-size: 14px;
+    color: #555;
 }
 
 @media (max-width: 768px) {
-    .slogan-slide {
+    .popular-post-slide {
         font-size: 14px;
+        padding: 0 8px;
+    }
+
+    .popular-post-likes {
+        font-size: 12px;
     }
 }
