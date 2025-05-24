@@ -39,7 +39,7 @@ const PopularPostSlider = () => {
     return (
         <div className="popular-post-slider" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span className="popular-post-label">🔥 인기글:</span>
-            <div >
+            <div>
                 <div className={`popular-post-track ${animate ? 'animate' : ''}`}>
                     {posts.slice(0, 2).map((post, i) => (
                         <div
@@ -47,7 +47,10 @@ const PopularPostSlider = () => {
                             key={i}
                             onClick={() => navigate(`/post/${post.id}`)}
                         >
-                            <span className="popular-post-title">{post.category} {post.name}</span>
+                            <span className="popular-post-title">
+                                <span className={`category-badge ${post.category}`}>{post.category}</span>
+                                {post.name}
+                            </span>
                             <span className="popular-post-likes">
                                 <ThumbsUp size={16} style={{ marginRight: '4px' }} />
                                 {post.likes ?? 0}
