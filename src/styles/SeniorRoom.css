@@ -1,9 +1,15 @@
-/* SeniorRoom.css */
 .senior-room-wrapper {
     max-width: 800px;
     margin: 0 auto;
     /* padding: 24px; */
     font-family: sans-serif;
+}
+
+.rejected-text {
+    font-weight: bold;
+    color: #e53935;
+    font-size: 15px;
+    margin-top: 16px;
 }
 
 .request-list {

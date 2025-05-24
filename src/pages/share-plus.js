@@ -55,14 +55,7 @@ const SharePlus = () => {
                     description="운동에 도움이 필요하신가요? 상급자와 함께해 보세요."
                     showBackArrow={true}
                 />
-                <div className="plan-info">
-                    <span>내 플랜:
-                        <span className={`plan-name ${userPlanType.toLowerCase()}`}>
-                            {userPlanType}
-                        </span>
-                    </span>
-                    <Link to="/share-plan" className="change-plan-btn">변경</Link>
-                </div>
+                <Link to="/share-plan" className="change-plan-btn">내 플랜 업그레이드</Link>
             </div>
 
             <div style={{ margin: '50px' }}></div>

@@ -65,8 +65,14 @@ const SeniorRequestDetail = () => {
                 <p><strong>메시지:</strong> {request.content || '없음'}</p>
             </div>
             <div className="detail-actions">
-                <button className="approve-button" onClick={() => handleUpdateStatus('APPROVED')}>승인</button>
-                <button className="reject-button" onClick={() => handleUpdateStatus('REJECTED')}>거절</button>
+                {request.status === 'REJECTED' ? (
+                    <p className="rejected-text">이 신청을 거절했습니다.</p>
+                ) : (
+                    <>
+                        <button className="approve-button" onClick={() => handleUpdateStatus('APPROVED')}>승인</button>
+                        <button className="reject-button" onClick={() => handleUpdateStatus('REJECTED')}>거절</button>
+                    </>
+                )}
             </div>
         </div>
     );
