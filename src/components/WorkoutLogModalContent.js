@@ -8,6 +8,7 @@ import { format } from 'date-fns';
 import CustomButton from './CustomButton';
 import ConfirmModal from './ConfirmModal';
 import FloatingInput from './FloatingInput';
+import CustomSelect from './CustomSelect';
 import editIcon from '../assets/edit-icon.png';
 import deleteIcon from '../assets/delete-icon.png';
 import addIcon from '../assets/plus.png';
@@ -179,39 +180,48 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
 
             {isAdding ? (
                 <div className="workout-log-form">
-                    <select value={exerciseType} onChange={(e) => { setExerciseType(e.target.value); setExercisePart(''); setExerciseName(''); }}>
-                        <option value="">운동 종류 선택</option>
-                        <option value="유산소">유산소</option>
-                        <option value="웨이트">웨이트</option>
-                    </select>
+                    <CustomSelect
+                        value={exerciseType}
+                        onChange={(val) => {
+                            setExerciseType(val);
+                            setExercisePart('');
+                            setExerciseName('');
+                        }}
+                        options={['유산소', '웨이트']}
+                        placeholder="운동 종류 선택"
+                    />
 
                     {exerciseType === '유산소' && (
-                        <select value={exerciseName} onChange={(e) => setExerciseName(e.target.value)}>
-                            <option value="">운동 이름 선택</option>
-                            {cardioOptions.map((option, idx) => (
-                                <option key={idx} value={option}>{option}</option>
-                            ))}
-                        </select>
+                        <CustomSelect
+                            value={exerciseName}
+                            onChange={setExerciseName}
+                            options={cardioOptions}
+                            placeholder="운동 이름 선택"
+                        />
                     )}
 
                     {exerciseType === '웨이트' && (
                         <>
-                            <select value={exercisePart} onChange={(e) => { setExercisePart(e.target.value); setExerciseName(''); }}>
-                                <option value="">부위 선택</option>
-                                {Object.keys(weightOptions).map((part, idx) => (
-                                    <option key={idx} value={part}>{part}</option>
-                                ))}
-                            </select>
+                            <CustomSelect
+                                value={exercisePart}
+                                onChange={(val) => {
+                                    setExercisePart(val);
+                                    setExerciseName('');
+                                }}
+                                options={Object.keys(weightOptions)}
+                                placeholder="부위 선택"
+                            />
                             {exercisePart && (
-                                <select value={exerciseName} onChange={(e) => setExerciseName(e.target.value)}>
-                                    <option value="">운동 이름 선택</option>
-                                    {weightOptions[exercisePart].map((exercise, idx) => (
-                                        <option key={idx} value={exercise}>{exercise}</option>
-                                    ))}
-                                </select>
+                                <CustomSelect
+                                    value={exerciseName}
+                                    onChange={setExerciseName}
+                                    options={weightOptions[exercisePart]}
+                                    placeholder="운동 이름 선택"
+                                />
                             )}
                         </>
                     )}
+
 
                     {exerciseName && (
                         <>
