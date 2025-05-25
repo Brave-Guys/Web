@@ -132,7 +132,7 @@ const Board = () => {
                     activeIndex={activeTab}
                     onTabClick={handleTabChange}
                 />
-                <div style={{ width: '250px' }}>
+                <div style={{ width: '400px' }}>
                     <FloatingInput
                         id="search"
                         label="게시글 검색"
@@ -148,7 +148,7 @@ const Board = () => {
                 <PopularPostSlider />
             </div>
 
-            <div style={{ display: 'flex' }}>
+            <div >
                 <div className="post-grid" style={{ flexGrow: 2 }}>
                     {filteredPosts.map(post => (
                         <PostItem
@@ -162,24 +162,24 @@ const Board = () => {
                         />
                     ))}
 
-                    <div className="pagination">
-                        <div style={{ flex: 4 }}></div>
-                        <CustomButton
-                            label="이전"
-                            size="small"
-                            color="gray"
-                            onClick={() => setPage(prev => Math.max(prev - 1, 1))}
-                            style={{ marginRight: '8px' }}
-                            disabled={page === 1}
-                        />
-                        <CustomButton
-                            label="다음"
-                            size="small"
-                            color="gray"
-                            onClick={() => setPage(prev => prev + 1)}
-                            disabled={!hasMore}
-                        />
-                    </div>
+
+                </div>
+                <div className="pagination-local">
+                    <CustomButton
+                        label="이전"
+                        size="small"
+                        color="gray"
+                        onClick={() => setPage(prev => Math.max(prev - 1, 1))}
+                        style={{ marginRight: '8px' }}
+                        disabled={page === 1}
+                    />
+                    <CustomButton
+                        label="다음"
+                        size="small"
+                        color="gray"
+                        onClick={() => setPage(prev => prev + 1)}
+                        disabled={!hasMore}
+                    />
                 </div>
             </div>
         </div>
