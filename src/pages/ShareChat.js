@@ -12,7 +12,6 @@ const ShareChat = () => {
     const { id } = useParams();
     const [comments, setComments] = useState([]);
     const [selectedDate, setSelectedDate] = useState(new Date());
-
     const [newContent, setNewContent] = useState('');
     const [newImage, setNewImage] = useState(null);
 
@@ -86,17 +85,8 @@ const ShareChat = () => {
     };
 
     const filteredComments = selectedDate
-        ? comments.filter(c => {
-            const d =
-                selectedDate.getFullYear() +
-                '-' +
-                String(selectedDate.getMonth() + 1).padStart(2, '0') +
-                '-' +
-                String(selectedDate.getDate()).padStart(2, '0');
-            return c.date === d;
-        })
+        ? comments.filter(c => c.date === formatDateToLocalString(selectedDate))
         : comments;
-
 
     return (
         <div className="sharechat-wrapper">
@@ -105,6 +95,7 @@ const ShareChat = () => {
             <div style={{ margin: '50px' }}></div>
 
             <div className="chat-grid">
+                {/* 왼쪽: 캘린더 + 입력 */}
                 <div className="chat-left">
                     <div className="chat-calendar">
                         <Calendar
@@ -142,6 +133,7 @@ const ShareChat = () => {
                     </form>
                 </div>
 
+                {/* 오른쪽: 댓글 목록 */}
                 <div className="chat-right">
                     <div className="feedback-title">📬 피드백 내용</div>
                     <div className="chat-scroll-wrapper">
@@ -152,7 +144,7 @@ const ShareChat = () => {
                                     <div key={c.id} className="chat-item">
                                         <div className="chat-meta">
                                             <img
-                                                src={c.profileImgUrl || '/default-profile.png'}
+                                                src={c.profileImgUrl || DefaultAvatar}
                                                 alt="프로필"
                                                 className="chat-profile-img"
                                             />
@@ -166,26 +158,6 @@ const ShareChat = () => {
                                     </div>
                                 ))}
                         </div>
-                    <div className="chat-list">
-                        {[...filteredComments]
-                            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-                            .map((c) => (
-                                <div key={c.id} className="chat-item">
-                                    <div className="chat-meta">
-                                        <img
-                                            src={c.profileImgUrl || DefaultAvatar}
-                                            alt="프로필"
-                                            className="chat-profile-img"
-                                        />
-                                        <div>
-                                            <p className="chat-writer">{c.nickname || '익명'}</p>
-                                            <p className="chat-time">{formatTime(c.createdAt)}</p>
-                                        </div>
-                                    </div>
-                                    <p>{c.content}</p>
-                                    {c.picture && <img src={c.picture} alt="첨부" className="chat-image" />}
-                                </div>
-                            ))}
                     </div>
                 </div>
             </div>
