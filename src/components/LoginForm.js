@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from '../apis/loginUser';
 import CustomButton from './CustomButton';
 import FloatingInput from './FloatingInput';
@@ -71,6 +71,8 @@ const LoginForm = ({ onSwitchToRegister }) => {
                     />
                 </div>
             </div>
+
+            <Link to='/find-account'>계정 찾기</Link>
 
             <div style={{ marginTop: '20px' }}>
                 <div className="social-buttons">

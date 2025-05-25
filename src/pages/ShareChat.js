@@ -104,31 +104,31 @@ const ShareChat = () => {
             <div style={{ margin: '50px' }}></div>
 
             <div className="chat-grid">
-                <div className="chat-calendar">
-                    <Calendar
-                        onChange={setSelectedDate}
-                        value={selectedDate}
-                        tileClassName={({ date }) => {
-                            const today = new Date();
-                            const isToday =
-                                date.getFullYear() === today.getFullYear() &&
-                                date.getMonth() === today.getMonth() &&
-                                date.getDate() === today.getDate();
+                <div className="chat-left">
+                    <div className="chat-calendar">
+                        <Calendar
+                            onChange={setSelectedDate}
+                            value={selectedDate}
+                            tileClassName={({ date }) => {
+                                const today = new Date();
+                                const isToday =
+                                    date.getFullYear() === today.getFullYear() &&
+                                    date.getMonth() === today.getMonth() &&
+                                    date.getDate() === today.getDate();
 
-                            return isToday ? 'highlight' : null;
-                        }}
-                        tileContent={({ date }) => {
-                            const formatted = formatDateToLocalString(date);
-                            const hasComment = comments.some(c => c.date === formatted);
-                            return hasComment ? <div className="dot" /> : null;
-                        }}
-                        formatDay={(locale, date) => String(date.getDate())}
-                        prev2Label={null}
-                        next2Label={null}
-                    />
-                </div>
+                                return isToday ? 'highlight' : null;
+                            }}
+                            tileContent={({ date }) => {
+                                const formatted = formatDateToLocalString(date);
+                                const hasComment = comments.some(c => c.date === formatted);
+                                return hasComment ? <div className="dot" /> : null;
+                            }}
+                            formatDay={(locale, date) => String(date.getDate())}
+                            prev2Label={null}
+                            next2Label={null}
+                        />
+                    </div>
 
-                <div className="chat-main">
                     <form className="chat-form" onSubmit={handleSubmit}>
                         <textarea
                             value={newContent}
@@ -139,27 +139,32 @@ const ShareChat = () => {
                         <input type="file" accept="image/*" onChange={(e) => setNewImage(e.target.files[0])} />
                         <button type="submit">등록</button>
                     </form>
+                </div>
 
-                    <div className="chat-list">
-                        {[...filteredComments]
-                            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-                            .map((c) => (
-                                <div key={c.id} className="chat-item">
-                                    <div className="chat-meta">
-                                        <img
-                                            src={c.profileImgUrl || '/default-profile.png'}
-                                            alt="프로필"
-                                            className="chat-profile-img"
-                                        />
-                                        <div>
-                                            <p className="chat-writer">{c.nickname || '익명'}</p>
-                                            <p className="chat-time">{formatTime(c.createdAt)}</p>
+                <div className="chat-right">
+                    <div className="feedback-title">📬 피드백 내용</div>
+                    <div className="chat-scroll-wrapper">
+                        <div className="chat-list">
+                            {[...filteredComments]
+                                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                                .map((c) => (
+                                    <div key={c.id} className="chat-item">
+                                        <div className="chat-meta">
+                                            <img
+                                                src={c.profileImgUrl || '/default-profile.png'}
+                                                alt="프로필"
+                                                className="chat-profile-img"
+                                            />
+                                            <div>
+                                                <p className="chat-writer">{c.nickname || '익명'}</p>
+                                                <p className="chat-time">{formatTime(c.createdAt)}</p>
+                                            </div>
                                         </div>
+                                        <p>{c.content}</p>
+                                        {c.picture && <img src={c.picture} alt="첨부" className="chat-image" />}
                                     </div>
-                                    <p>{c.content}</p>
-                                    {c.picture && <img src={c.picture} alt="첨부" className="chat-image" />}
-                                </div>
-                            ))}
+                                ))}
+                        </div>
                     </div>
                 </div>
             </div>

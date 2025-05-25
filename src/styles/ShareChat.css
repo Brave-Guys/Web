@@ -10,7 +10,7 @@
 }
 
 .chat-calendar {
-    width: 40%;
+    width: 420px;
     min-height: 420px;
     max-height: 420px;
     border: 1px solid #ccc;
@@ -165,7 +165,7 @@
 }
 
 .chat-item {
-    background: #f9f9f9;
+background: #f9f9f9;
     padding: 14px 18px;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -205,4 +205,92 @@
 .chat-time {
     font-size: 12px;
     color: gray;
+}
+
+.chat-scroll-wrapper {
+  max-height: 590px; 
+  overflow-y: auto;
+  padding-right: 8px; 
+  margin-top: 0px;
+}
+
+.chat-left {
+  width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.chat-right {
+  flex: 1;
+  max-height: 1000px;
+  overflow-y: auto;
+}
+
+.feedback-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 10px 16px;
+  background-color: #f9f9f9;
+  color: #333;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .chat-calendar {
+    width: 100%;
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    flex-direction: column;
+  }
+
+  .react-calendar {
+    width: 60% !important;   
+    max-width: 100%;
+    height: auto !important;
+  }
+  .chat-grid {
+    flex-direction: column;
+  }
+  .chat-left {
+    width: 100%;
+  }
+  .chat-right {
+    max-height: none;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 390px) {
+  .chat-calendar {
+    width: 100%;
+    min-height: 10%;
+    display: flex;
+    justify-content: flex-start; 
+    align-items: center;     
+    flex-direction: column;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    
+  }
+
+  .react-calendar {
+    width: 100% !important;   
+    max-width: 100%;
+    height: auto !important;
+  }
+  .chat-grid {
+    flex-direction: column;
+  }
+  .chat-left {
+    width: 100%;
+  }
+  .chat-right {
+    max-height: none;
+    max-width: 100%;
+  }
 }
