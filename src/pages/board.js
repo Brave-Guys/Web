@@ -45,7 +45,7 @@ const Board = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [popularPosts, setPopularPosts] = useState([]);
 
-    const POSTS_PER_PAGE = 10;
+    const POSTS_PER_PAGE = 15;
 
     const fetchPosts = async (pageNum = 1, categoryIndex = 0) => {
         const user = JSON.parse(localStorage.getItem('user'));
@@ -155,10 +155,10 @@ const Board = () => {
                             key={post.id}
                             postId={post.id}
                             title={post.name}
-                            content={post.content}
                             trail={`${post.nickname} | ${dayjs.utc(post.createDate).tz('Asia/Seoul').fromNow()}`}
                             likeCount={post.likes || 0}
                             commentCount={post.commentCount || 0}
+                            profileImgUrl={post.profileImgUrl}
                         />
                     ))}
 

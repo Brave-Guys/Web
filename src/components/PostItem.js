@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import DefaultAvatar from '../assets/person.png';
 import '../styles/PostItem.css';
 
-const PostItem = ({ postId, title, content, trail, likeCount, commentCount }) => {
+const PostItem = ({ postId, title, profileImgUrl, trail, likeCount, commentCount }) => {
     const navigate = useNavigate();
     const handleClick = () => {
         navigate(`/post/${postId}`);
@@ -12,13 +12,13 @@ const PostItem = ({ postId, title, content, trail, likeCount, commentCount }) =>
     return (
         <div className="post-card" onClick={handleClick}>
             <div className="post-card-left">
-                <img className="avatar" src={DefaultAvatar} alt="작성자" />
+                <img className="avatar" src={profileImgUrl || DefaultAvatar} alt="작성자" />
             </div>
 
             <div className="post-card-content">
                 <div className="post-header">
                     <div>
-                        <div className="post-title">{title}</div>
+                        <div style={{margin: '0px'}} className="post-title">{title}</div>
                         <div className="post-writer">{trail.split(' | ')[0]}</div>
                     </div>
                     <div className="post-time">{trail.split(' | ')[1]}</div>
