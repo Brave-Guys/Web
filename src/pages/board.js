@@ -132,7 +132,7 @@ const Board = () => {
                     activeIndex={activeTab}
                     onTabClick={handleTabChange}
                 />
-                <div style={{ width: '350px' }}>
+                <div style={{ width: '250px' }}>
                     <FloatingInput
                         id="search"
                         label="게시글 검색"
