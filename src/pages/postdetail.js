@@ -209,7 +209,8 @@ const PostDetail = () => {
                 description='게시글 상세 정보'
                 showBackArrow={true}
             />
-            <div style={{ display: 'flex', gap: '40px' }}>
+            <div style={{margin: '50px'}}></div>
+            <div style={{ display: 'flex', gap: '40px', padding: '30px' }}>
                 <div style={{ flex: 2 }}>
                     <div className="post-detail-wrapper">
                         <div className="profile-info" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
