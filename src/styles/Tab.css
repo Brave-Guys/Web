@@ -1,13 +1,13 @@
 .tab-container {
     display: flex;
-    gap: 24px;
+    gap: 8px;
     align-items: center;
     margin-top: 30px;
     margin-bottom: 30px;
 }
 
 .tab-button {
-    width: 150px;
+    width: 100px;
     height: 50px;
     background: transparent;
     border: none;

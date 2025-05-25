@@ -60,11 +60,26 @@
     width: 240px;
 }
 
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+
 .pagination {
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
     gap: 16px;
+}
+
+.pagination-local {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 104px;
+    padding-right: 8px;
+    gap: 8px;
 }
 
 @media (max-width: 768px) {
@@ -93,7 +108,7 @@
         padding: 8px 12px;
     }
 
-    .pagination {        
+    .pagination {
         align-items: flex-start;
         gap: 8px;
         margin-top: 20px;

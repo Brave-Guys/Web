@@ -1,30 +1,36 @@
 import React from 'react';
-import styles from '../styles/PostItem.module.css';
 import { ThumbsUp, MessageCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import DefaultAvatar from '../assets/person.png';
+import '../styles/PostItem.css';
 
-const PostItem = ({ postId, title, content, trail, likeCount, commentCount }) => {
+const PostItem = ({ postId, title, profileImgUrl, trail, likeCount, commentCount }) => {
     const navigate = useNavigate();
-
     const handleClick = () => {
         navigate(`/post/${postId}`);
     };
-
     return (
-        <div className={styles.postContainer} onClick={handleClick} style={{ cursor: 'pointer' }}>
-            <div className={styles.header}>
-                <div className={styles.title}>{title}</div>
-                <div className={styles.trail}>{trail}</div>
+        <div className="post-card" onClick={handleClick}>
+            <div className="post-card-left">
+                <img className="avatar" src={profileImgUrl || DefaultAvatar} alt="작성자" />
             </div>
-            <div className={styles.content}>{content}</div>
-            <div className={styles.footer}>
-                <div className={styles.iconGroup}>
-                    <ThumbsUp size={25} color="#FF5A5A" />
-                    <span className={styles.count}>{likeCount}</span>
+
+            <div className="post-card-content">
+                <div className="post-header">
+                    <div>
+                        <div style={{margin: '0px'}} className="post-title">{title}</div>
+                        <div className="post-writer">{trail.split(' | ')[0]}</div>
+                    </div>
+                    <div className="post-time">{trail.split(' | ')[1]}</div>
                 </div>
-                <div className={styles.iconGroup}>
-                    <MessageCircle size={25} color="#6C8BFF" />
-                    <span className={styles.count}>{commentCount}</span>
+
+                <div className="post-footer">
+                    <div className="post-icon-group">
+                        <ThumbsUp size={18} />
+                        <span>{likeCount}</span>
+                        <MessageCircle size={18} style={{ marginLeft: '12px' }} />
+                        <span>{commentCount}</span>
+                    </div>
                 </div>
             </div>
         </div>

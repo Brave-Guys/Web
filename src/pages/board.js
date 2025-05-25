@@ -11,6 +11,7 @@ import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { getPostsByPage, getPopularPosts } from '../apis/getPosts';
+import { ClipLoader } from 'react-spinners';
 import '../styles/Board.css';
 
 dayjs.extend(utc);
@@ -44,10 +45,11 @@ const Board = () => {
     const [hasMore, setHasMore] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [popularPosts, setPopularPosts] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const POSTS_PER_PAGE = 10;
-
+    const POSTS_PER_PAGE = 15;
     const fetchPosts = async (pageNum = 1, categoryIndex = 0) => {
+        setIsLoading(true);
         const user = JSON.parse(localStorage.getItem('user'));
         const categoryList = ['잡담', '식단', '루틴', '공지'];
 
@@ -56,13 +58,15 @@ const Board = () => {
 
         try {
             const res = await getPostsByPage(pageNum, category, userId);
-            console.log(res);
             setPosts(res.posts);
             setHasMore(res.posts.length === POSTS_PER_PAGE);
         } catch (err) {
             console.error('게시글 로딩 실패', err);
+        } finally {
+            setIsLoading(false);
         }
     };
+
 
     const handleTabChange = async (index) => {
         const categoryList = ['잡담', '식단', '루틴', '공지'];
@@ -132,7 +136,7 @@ const Board = () => {
                     activeIndex={activeTab}
                     onTabClick={handleTabChange}
                 />
-                <div style={{ width: '350px' }}>
+                <div style={{ width: '400px' }}>
                     <FloatingInput
                         id="search"
                         label="게시글 검색"
@@ -148,38 +152,50 @@ const Board = () => {
                 <PopularPostSlider />
             </div>
 
-            <div style={{ display: 'flex' }}>
-                <div style={{ flexGrow: 2 }}>
-                    {filteredPosts.map(post => (
-                        <PostItem
-                            key={post.id}
-                            postId={post.id}
-                            title={post.name}
-                            content={post.content}
-                            trail={`${post.nickname} | ${dayjs.utc(post.createDate).tz('Asia/Seoul').fromNow()}`}
-                            likeCount={post.likes || 0}
-                            commentCount={post.commentCount || 0}
-                        />
-                    ))}
-
-                    <div className="pagination">
-                        <div style={{ flex: 4 }}></div>
-                        <CustomButton
-                            label="이전"
-                            size="small"
-                            color="gray"
-                            onClick={() => setPage(prev => Math.max(prev - 1, 1))}
-                            style={{ marginRight: '8px' }}
-                            disabled={page === 1}
-                        />
-                        <CustomButton
-                            label="다음"
-                            size="small"
-                            color="gray"
-                            onClick={() => setPage(prev => prev + 1)}
-                            disabled={!hasMore}
-                        />
-                    </div>
+            <div >
+                <div className="post-grid" style={{ flexGrow: 2 }}>
+                    {isLoading ? (
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            height: '300px', // or '60vh' 같은 상대값
+                            width: '500%'
+                        }}>
+                            <ClipLoader size={48} color="#333" />
+                        </div>
+                    ) : filteredPosts.length === 0 ? (
+                        <div className="no-posts">게시글이 없습니다.</div>
+                    ) : (
+                        filteredPosts.map(post => (
+                            <PostItem
+                                key={post.id}
+                                postId={post.id}
+                                title={post.name}
+                                trail={`${post.nickname} | ${dayjs.utc(post.createDate).tz('Asia/Seoul').fromNow()}`}
+                                likeCount={post.likes || 0}
+                                commentCount={post.commentCount || 0}
+                                profileImgUrl={post.profileImgUrl}
+                            />
+                        ))
+                    )}
+                </div>
+                <div className="pagination-local">
+                    <CustomButton
+                        label="이전"
+                        size="small"
+                        color="gray"
+                        onClick={() => setPage(prev => Math.max(prev - 1, 1))}
+                        style={{ marginRight: '8px' }}
+                        disabled={page === 1}
+                    />
+                    <CustomButton
+                        label="다음"
+                        size="small"
+                        color="gray"
+                        onClick={() => setPage(prev => prev + 1)}
+                        disabled={!hasMore}
+                    />
                 </div>
             </div>
         </div>

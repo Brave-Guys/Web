@@ -4,6 +4,7 @@ import axios from 'axios';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import PageTitle from '../components/PageTitle';
+import DefaultAvatar from '../assets/person.png';
 import { uploadImageToFirebase } from '../utils/uploadImageToFirebase';
 import '../styles/ShareChat.css';
 
@@ -165,6 +166,26 @@ const ShareChat = () => {
                                     </div>
                                 ))}
                         </div>
+                    <div className="chat-list">
+                        {[...filteredComments]
+                            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                            .map((c) => (
+                                <div key={c.id} className="chat-item">
+                                    <div className="chat-meta">
+                                        <img
+                                            src={c.profileImgUrl || DefaultAvatar}
+                                            alt="프로필"
+                                            className="chat-profile-img"
+                                        />
+                                        <div>
+                                            <p className="chat-writer">{c.nickname || '익명'}</p>
+                                            <p className="chat-time">{formatTime(c.createdAt)}</p>
+                                        </div>
+                                    </div>
+                                    <p>{c.content}</p>
+                                    {c.picture && <img src={c.picture} alt="첨부" className="chat-image" />}
+                                </div>
+                            ))}
                     </div>
                 </div>
             </div>
