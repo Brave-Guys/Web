@@ -4,6 +4,7 @@ import axios from 'axios';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import PageTitle from '../components/PageTitle';
+import DefaultAvatar from '../assets/person.png';
 import { uploadImageToFirebase } from '../utils/uploadImageToFirebase';
 import '../styles/ShareChat.css';
 
@@ -147,7 +148,7 @@ const ShareChat = () => {
                                 <div key={c.id} className="chat-item">
                                     <div className="chat-meta">
                                         <img
-                                            src={c.profileImgUrl || '/default-profile.png'}
+                                            src={c.profileImgUrl || DefaultAvatar}
                                             alt="프로필"
                                             className="chat-profile-img"
                                         />

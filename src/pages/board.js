@@ -149,7 +149,7 @@ const Board = () => {
             </div>
 
             <div style={{ display: 'flex' }}>
-                <div style={{ flexGrow: 2 }}>
+                <div className="post-grid" style={{ flexGrow: 2 }}>
                     {filteredPosts.map(post => (
                         <PostItem
                             key={post.id}
