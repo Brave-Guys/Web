@@ -20,10 +20,11 @@ const Mypage = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isUnchanged, setIsUnchanged] = useState(true);
     const [isNicknameChecked, setIsNicknameChecked] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleNicknameChange = (e) => {
         setNickname(e.target.value);
-        setIsNicknameChecked(false); // 변경되면 다시 확인 필요
+        setIsNicknameChecked(false);
     };
 
     useEffect(() => {
@@ -47,7 +48,6 @@ const Mypage = () => {
 
     const handleSaveProfileImage = async () => {
         if (!profileImage) {
-            alert('이미지를 선택하세요.');
             return;
         }
         try {
@@ -99,6 +99,7 @@ const Mypage = () => {
     };
 
     const handleSubmit = async () => {
+        setIsLoading(true);
         try {
             await handleNicknameUpdate();
             await handleSaveProfileImage();
@@ -107,8 +108,11 @@ const Mypage = () => {
         } catch (err) {
             console.error('수정 실패:', err);
             alert('정보 수정 중 문제가 발생했습니다.');
+        } finally {
+            setIsLoading(false);
         }
     };
+
 
     return (
         <div className="mypage-container">
@@ -210,9 +214,9 @@ const Mypage = () => {
                 <button
                     onClick={handleSubmit}
                     className="mypage-submit-button"
-                    disabled={isUnchanged || !isNicknameChecked}
+                    disabled={isUnchanged || !isNicknameChecked || isLoading}
                 >
-                    수정
+                    {isLoading ? '수정 중...' : '수정'}
                 </button>
             </div>
         </div>
