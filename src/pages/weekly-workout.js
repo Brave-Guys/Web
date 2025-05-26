@@ -176,19 +176,25 @@ const WeeklyWorkout = () => {
                                 playsInline
                             />
 
+                            {/* 로딩 스피너 */}
                             {loading && (
                                 <div className="spinner-overlay">
                                     <ClipLoader color="#6b46c1" size={48} />
                                 </div>
                             )}
 
+                            {/* 비디오 로딩 완료 후에만 버튼 노출 */}
+                            {!loading && (
+                                <button className="video-overlay-button">버튼</button>
+                            )}
+
+                            {/* 다음 버튼 */}
                             <div className="video-controls">
                                 <button className="next-button" onClick={handleNextVideo}>
                                     <ChevronRight size={20} strokeWidth={3} />
                                 </button>
                             </div>
                         </div>
-
                     )}
                 </div>
 
