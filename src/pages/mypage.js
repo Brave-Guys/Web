@@ -148,12 +148,18 @@ const Mypage = () => {
                     <div className="mypage-name-row">
                         <span className="mypage-name">{nickname}</span>
                         {user?.userPlanType && (
-                            <span className="mypage-plan">{user.userPlanType}</span>
+                            <span className={`mypage-plan ${user.userPlanType.toLowerCase()}`}>
+                                {user.userPlanType}
+                            </span>
                         )}
                     </div>
                     <div className="mypage-email">{`${emailId}@${emailDomain}`}</div>
                     <div style={{ margin: '10px' }}></div>
-                    <Link to="/share-plan" className="change-plan-btn">내 플랜 업그레이드</Link>
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                        <Link to="/share-plan" className="change-plan-btn">내 플랜 업그레이드</Link>
+                        {user.role === 'ADMIN' && <Link to="/admin" className="change-plan-btn">관리자의 방</Link>}
+                        {user.role === 'SENIOR' && <Link to="/senior" className="change-plan-btn">상급자의 방</Link>}
+                    </div>
                 </div>
             </div>
 

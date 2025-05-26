@@ -214,6 +214,25 @@
     font-size: 20px;
 }
 
+.mypage-plan {
+    font-weight: bold;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.mypage-plan.beginner {
+    color: #45c16a;
+}
+
+.mypage-plan.amateur {
+    color: #9b5de5;
+}
+
+.mypage-plan.pro {
+    color: #ef233c;
+}
+
+
 .mypage-email {
     font-size: 16px;
     color: #777;
