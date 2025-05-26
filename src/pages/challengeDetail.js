@@ -4,6 +4,7 @@ import { getChallengeDetail } from '../apis/getChallenges';
 import { deleteChallenge } from '../apis/deleteChallenge';
 import { deleteParticipant, getParticipants, postParticipant, checkParticipation } from '../apis/challengeParticipants';
 import { uploadVideoToFirebase } from '../utils/uploadVideoToFirebase';
+import LoadingOverlay from '../components/LoadingOverlay';
 import DefaultAvatar from '../assets/person.png';
 import PageTitle from '../components/PageTitle';
 import CustomButton from '../components/CustomButton';
@@ -17,6 +18,7 @@ const ChallengeDetail = () => {
     const [commentText, setCommentText] = useState('');
     const [alreadyParticipated, setAlreadyParticipated] = useState(false);
     const [videoFile, setVideoFile] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -34,8 +36,12 @@ const ChallengeDetail = () => {
     };
 
     const handleSubmit = async () => {
+        setIsLoading(true); // 로딩 시작
         const user = JSON.parse(localStorage.getItem('user'));
-        if (!user || !commentText.trim()) return;
+        if (!user || !commentText.trim()) {
+            setIsLoading(false);
+            return;
+        }
 
         let videoUrl = null;
         if (videoFile) {
@@ -44,20 +50,27 @@ const ChallengeDetail = () => {
             } catch (err) {
                 console.error('영상 업로드 실패', err);
                 alert('영상 업로드 중 오류가 발생했습니다.');
+                setIsLoading(false);
                 return;
             }
         }
 
-        await postParticipant({
-            challengeId: id,
-            writerId: user.id,
-            content: commentText.trim(),
-            videoUrl,
-        });
-
-        setCommentText('');
-        setVideoFile(null);
-        fetchAll();
+        try {
+            await postParticipant({
+                challengeId: id,
+                writerId: user.id,
+                content: commentText.trim(),
+                videoUrl,
+            });
+            setCommentText('');
+            setVideoFile(null);
+            await fetchAll();
+        } catch (err) {
+            alert('참가 등록 중 오류가 발생했습니다.');
+            console.error(err);
+        } finally {
+            setIsLoading(false); // 로딩 종료
+        }
     };
 
     useEffect(() => {
@@ -70,6 +83,7 @@ const ChallengeDetail = () => {
 
     return (
         <div className="challenge-detail-container">
+            {isLoading && <LoadingOverlay visible={true} />}
             <div className="challenge-detail-header">
                 <PageTitle
                     title={challenge.name}
