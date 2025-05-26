@@ -61,7 +61,7 @@ const LoginForm = ({ onSwitchToRegister }) => {
                         label="회원가입"
                         size="large"
                         color="gray"
-                        onClick={onSwitchToRegister} // ✨ 여기만 바뀜!
+                        onClick={onSwitchToRegister}
                     />
                     <CustomButton
                         label="로그인"
@@ -72,7 +72,10 @@ const LoginForm = ({ onSwitchToRegister }) => {
                 </div>
             </div>
 
-            <Link to='/find-account'>계정 찾기</Link>
+            <Link to="/find-account" className="forgot-account-link">
+                계정 정보를 잊으셨나요?
+            </Link>
+
 
             <div style={{ marginTop: '20px' }}>
                 <div className="social-buttons">
