@@ -7,6 +7,7 @@ import { postReelsComment } from '../apis/postReelsComment';
 import { ChevronRight, Play } from 'lucide-react';
 import { getReelsComments } from '../apis/getReelsComments';
 import PageTitle from '../components/PageTitle';
+import ClipLoader from 'react-spinners/ClipLoader';
 import '../styles/ParticipantDetail.css';
 
 const WeeklyWorkout = () => {
@@ -71,6 +72,7 @@ const WeeklyWorkout = () => {
         } finally {
             setLoading(false);
         }
+
     };
 
     const fetchComments = async (participantId) => {
@@ -79,6 +81,7 @@ const WeeklyWorkout = () => {
     };
 
     const handleNextVideo = async () => {
+        setLoading(true);
         try {
             const response = await getRandomParticipant(videos.map(v => v.id));
             if (!response) {
@@ -91,11 +94,11 @@ const WeeklyWorkout = () => {
 
             setVideos(updatedVideos);
             await fetchComments(response.id);
-            console.log(updatedVideos);
         } catch (error) {
             console.error('새 영상 로딩 실패', error);
         }
     };
+
 
     const handleReplyClick = (commentId) => {
         setReplyingTo(commentId);
@@ -146,8 +149,6 @@ const WeeklyWorkout = () => {
         fetchInitialVideo();
     }, []);
 
-    if (loading) return <div>로딩 중...</div>;
-
     if (!videos) return <div>참가자가 없습니다.</div>;
 
     return (
@@ -161,22 +162,23 @@ const WeeklyWorkout = () => {
                 />
                 <div className="participant-main">
                     {videos.length > 0 && (
-                        <div className="shorts-wrapper">
+                        <div className="shorts-wrapper" style={{ position: 'relative' }}>
                             <video
+                                key={currentVideo?.id}
                                 ref={videoRef}
-                                src={currentVideo.videoUrl}
+                                src={currentVideo?.videoUrl}
                                 autoPlay
                                 muted
                                 onClick={togglePlayback}
+                                onCanPlay={() => setLoading(false)}
                                 className="shorts-video"
                                 loop
                                 playsInline
                             />
 
-                            {/* 아이콘 오버레이 */}
-                            {!isPlaying && (
-                                <div className="video-play-overlay">
-                                     <Play size={64} color="white" opacity={0.85} />
+                            {loading && (
+                                <div className="spinner-overlay">
+                                    <ClipLoader color="#6b46c1" size={48} />
                                 </div>
                             )}
 
@@ -186,6 +188,7 @@ const WeeklyWorkout = () => {
                                 </button>
                             </div>
                         </div>
+
                     )}
                 </div>
 

@@ -49,15 +49,26 @@
     overflow: hidden;
     position: relative;
     max-height: 90vh;
+    background-color: transparent;
 }
 
 .shorts-video {
     height: 100%;
     width: auto;
+    background-color: transparent;
     max-height: 100%;
     max-width: 100%;
     object-fit: contain;
-    background-color: black;
+}
+
+.spinner-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
 }
 
 .video-play-overlay {
