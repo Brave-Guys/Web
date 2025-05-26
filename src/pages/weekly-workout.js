@@ -6,7 +6,7 @@ import CommentItem from '../components/CommentItem';
 import { postReelsComment } from '../apis/postReelsComment';
 import { getReelsComments } from '../apis/getReelsComments';
 import PageTitle from '../components/PageTitle';
-import dayjs from 'dayjs';
+import { ChevronRight } from 'lucide-react';
 import '../styles/ParticipantDetail.css';
 
 const WeeklyWorkout = () => {
@@ -156,7 +156,9 @@ const WeeklyWorkout = () => {
                                 className="shorts-video"
                             />
                             <div className="video-controls">
-                                <button onClick={handleNextVideo}>다음</button>
+                                <button className="next-button" onClick={handleNextVideo}>
+                                    <ChevronRight size={20} strokeWidth={3} />
+                                </button>
                             </div>
                         </div>
                     )}
