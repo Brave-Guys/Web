@@ -1,5 +1,6 @@
 import '../styles/HeaderMenu.css';
 import logo from '../assets/logo.png';
+import DefaultAvatar from '../assets/person.png'
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -94,7 +95,7 @@ const Header = () => {
                 {showProfileMenu && (
                     <div className="profile-dropdown">
                         <div className="profile-header">
-                            <img src={user.imgUrl} alt="프로필" className="dropdown-profile-image" />
+                            <img src={user.imgUrl || DefaultAvatar} alt="프로필" className="dropdown-profile-image" />
                             <div>
                                 <div className="profile-name">{user.name}</div>
                                 <div className="profile-email">{user.email}</div>

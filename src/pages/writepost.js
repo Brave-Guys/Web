@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageTitle from '../components/PageTitle';
 import CustomButton from '../components/CustomButton';
+import LoadingOverlay from '../components/LoadingOverlay';
 import { XCircle } from 'lucide-react';
 import { createPost } from '../apis/createPost';
 import { uploadMultipleImages } from '../utils/uploadImageToFirebase';
@@ -18,6 +19,7 @@ const WritePost = () => {
 
     const [user, setUser] = useState(null);
     const [imageFiles, setImageFiles] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const userData = localStorage.getItem('user');
@@ -51,6 +53,8 @@ const WritePost = () => {
             return;
         }
 
+        setIsLoading(true);
+
         try {
             let imageUrls = null;
 
@@ -70,11 +74,15 @@ const WritePost = () => {
             navigate('/board');
         } catch (err) {
             alert('글 등록 실패: ' + (err.response?.data?.message || '알 수 없는 오류'));
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
         <div className="write-post-container">
+            {isLoading && <LoadingOverlay visible={true} />}
+
             <PageTitle title="글 작성" description="운동 관련 이야기를 나누어 보세요" showBackArrow={true} />
 
             <div className="write-post-form">
