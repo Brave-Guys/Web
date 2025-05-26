@@ -28,8 +28,8 @@
 }
 
 .mypage-image-button {
-    background-color: #f06de3;
-    color: white;
+    background-color: #D9D9D9;
+    color: black;
     padding: 8px 16px;
     border-radius: 5px;
     cursor: pointer;
@@ -49,11 +49,9 @@
     align-items: center;
     gap: 10px;
     padding: 18px 0;
-    /* 행 높이 증가 */
     border-bottom: 1px solid #ccc;
     flex-wrap: wrap;
     min-height: 70px;
-    /* 행 높이 증가 */
 }
 
 .mypage-label {
@@ -83,10 +81,9 @@
     border-color: #007bff;
 }
 
-/* 닉네임 중복 확인 버튼 */
 .mypage-check-button {
-    background-color: #f06de3;
-    color: white;
+    background-color: #D9D9D9;
+    color: black;
     border: none;
     padding: 10px 16px;
     border-radius: 5px;
@@ -94,14 +91,18 @@
     font-weight: 600;
     white-space: nowrap;
     font-size: 14px;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .mypage-check-button:hover {
-    background-color: #8445f9;
+    filter: brightness(1.1);
 }
 
-/* 이메일 입력 전용 스타일 */
+.mypage-check-button:active {
+    transform: scale(0.96);
+    filter: brightness(0.95);
+}
+
 .mypage-email-input {
     flex: 1.4;
     min-width: 0;
@@ -124,22 +125,34 @@
     cursor: pointer;
 }
 
-/* 수정 버튼 */
 .mypage-submit-button {
     width: 100px;
     margin: 20px auto 0;
     padding: 16px 0;
     display: block;
-    background-color: #f06de3;
+    background-color: #4caf50;
     color: white;
     font-weight: 700;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .mypage-submit-button:hover {
-    background-color: #8445f9;
+    filter: brightness(1.1);
+}
+
+.mypage-submit-button:active {
+    transform: scale(0.96);
+    filter: brightness(0.95);
+}
+
+.mypage-submit-button:disabled {
+    background-color: #ccc;
+    color: #888;
+    cursor: not-allowed;
+    filter: none;
+    transform: none;
 }

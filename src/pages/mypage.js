@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { updateUserNickname, updateUserImage } from '../apis/updateUser';
 import { uploadImageToFirebase } from '../utils/uploadImageToFirebase';
+import { checkNickname } from '../apis/checkDuplicate';
 import PageTitle from '../components/PageTitle';
 import tempImg from '../assets/person.png'
 import '../styles/Mypage.css';
@@ -17,6 +18,24 @@ const Mypage = () => {
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [isUnchanged, setIsUnchanged] = useState(true);
+    const [isNicknameChecked, setIsNicknameChecked] = useState(true);
+
+    const handleNicknameChange = (e) => {
+        setNickname(e.target.value);
+        setIsNicknameChecked(false); // 변경되면 다시 확인 필요
+    };
+
+    useEffect(() => {
+        const hasChanged =
+            nickname !== user?.name ||
+            previewUrl !== (user?.imgUrl || '') ||
+            oldPassword !== '' ||
+            newPassword !== '' ||
+            confirmPassword !== '';
+
+        setIsUnchanged(!hasChanged);
+    }, [nickname, previewUrl, oldPassword, newPassword, confirmPassword, user]);
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -56,6 +75,26 @@ const Mypage = () => {
         } catch (err) {
             alert('닉네임 수정 실패');
             console.error(err);
+        }
+    };
+
+    const handleCheckNickname = async () => {
+        if (!nickname.trim()) {
+            alert('닉네임을 입력하세요.');
+            return;
+        }
+
+        try {
+            await checkNickname(nickname);
+            alert('사용 가능한 닉네임입니다.');
+            setIsNicknameChecked(true);
+        } catch (err) {
+            if (err.response?.status === 409) {
+                alert('이미 사용 중인 닉네임입니다.');
+            } else {
+                alert('중복 확인 중 오류가 발생했습니다.');
+            }
+            setIsNicknameChecked(false);
         }
     };
 
@@ -103,10 +142,12 @@ const Mypage = () => {
                         id="nickname"
                         placeholder="닉네임"
                         value={nickname}
-                        onChange={(e) => setNickname(e.target.value)}
+                        onChange={handleNicknameChange}
                         className="mypage-input"
                     />
-                    <button onClick={handleNicknameUpdate} className="mypage-check-button">중복 확인</button>
+                    <button onClick={handleCheckNickname} className="mypage-check-button">
+                        중복 확인
+                    </button>
                 </div>
 
                 <div className="mypage-input-row">
@@ -166,7 +207,13 @@ const Mypage = () => {
                     />
                 </div>
 
-                <button onClick={handleSubmit} className="mypage-submit-button">수정</button>
+                <button
+                    onClick={handleSubmit}
+                    className="mypage-submit-button"
+                    disabled={isUnchanged || !isNicknameChecked}
+                >
+                    수정
+                </button>
             </div>
         </div>
     );
