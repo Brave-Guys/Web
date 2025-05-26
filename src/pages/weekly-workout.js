@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getRandomParticipant } from '../apis/getParticipantDetail';
 import CustomButton from '../components/CustomButton';
@@ -21,8 +21,16 @@ const WeeklyWorkout = () => {
     const [commentText, setCommentText] = useState('');
     const [replyText, setReplyText] = useState('');
     const [replyingTo, setReplyingTo] = useState(null);
+    const videoRef = useRef(null);
 
     const navigate = useNavigate();
+
+
+    const togglePlayback = () => {
+        const video = videoRef.current;
+        if (!video) return;
+        video.paused ? video.play() : video.pause();
+    };
 
     const nestComments = (comments) => {
         const map = {};
@@ -147,13 +155,14 @@ const WeeklyWorkout = () => {
                     {videos.length > 0 && (
                         <div className="shorts-wrapper">
                             <video
+                                ref={videoRef}
                                 src={currentVideo.videoUrl}
                                 autoPlay
                                 muted
-                                controls
+                                onClick={togglePlayback}
+                                className="shorts-video"
                                 loop
                                 playsInline
-                                className="shorts-video"
                             />
                             <div className="video-controls">
                                 <button className="next-button" onClick={handleNextVideo}>
