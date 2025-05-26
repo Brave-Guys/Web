@@ -7,6 +7,7 @@ import { postReelsComment } from '../apis/postReelsComment';
 import { ChevronRight, Play } from 'lucide-react';
 import { getReelsComments } from '../apis/getReelsComments';
 import PageTitle from '../components/PageTitle';
+import { getChallengeDetail } from '../apis/getChallenges';
 import ClipLoader from 'react-spinners/ClipLoader';
 import '../styles/ParticipantDetail.css';
 
@@ -24,9 +25,18 @@ const WeeklyWorkout = () => {
     const [replyingTo, setReplyingTo] = useState(null);
     const [isPlaying, setIsPlaying] = useState(true);
     const videoRef = useRef(null);
+    const [challengeInfo, setChallengeInfo] = useState(null);
 
     const navigate = useNavigate();
 
+    const fetchChallengeInfo = async (challengeId) => {
+        try {
+            const data = await getChallengeDetail(challengeId);
+            setChallengeInfo(data);
+        } catch (error) {
+            console.error('챌린지 정보 불러오기 실패:', error);
+        }
+    };
 
     const togglePlayback = () => {
         const video = videoRef.current;
@@ -65,6 +75,7 @@ const WeeklyWorkout = () => {
                 setVideos([response]);
                 setExcludeIds([response.id]);
                 await fetchComments(response.id);
+                await fetchChallengeInfo(response.challengeId);
             }
             console.log([response]);
         } catch (err) {
@@ -91,6 +102,7 @@ const WeeklyWorkout = () => {
 
             setVideos(updatedVideos);
             await fetchComments(response.id);
+            await fetchChallengeInfo(response.challengeId);
         } catch (error) {
             console.error('새 영상 로딩 실패', error);
         }
@@ -174,15 +186,22 @@ const WeeklyWorkout = () => {
                                     playsInline
                                 />
 
-                                {!loading && (
+                                {!isPlaying && !loading && (
+                                    <div className="video-play-overlay">
+                                        <Play size={64} />
+                                    </div>
+                                )}
+
+
+                                {!loading && challengeInfo && (
                                     <div className="video-bottom-overlay">
                                         <div className="video-overlay-left">
-                                            <div className="video-overlay-title">챌린지 이름</div>
-                                            <div className="video-overlay-writer">작성자</div>
+                                            <div className="video-overlay-title">{challengeInfo.name}</div>
+                                            <div className="video-overlay-writer">{challengeInfo.nickname}</div>
                                         </div>
                                         <button
                                             className="video-overlay-button"
-                                            onClick={() => navigate(`/challenges/${currentVideo.challengeId}`)}
+                                            onClick={() => navigate(`/challenges/${challengeInfo.id}`)}
                                         >
                                             챌린지 보기
                                         </button>
