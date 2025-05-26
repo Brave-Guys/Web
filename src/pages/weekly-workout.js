@@ -57,7 +57,6 @@ const WeeklyWorkout = () => {
         }
     };
 
-
     const fetchComments = async (participantId) => {
         const data = await getReelsComments(participantId);
         setComments(nestComments(data));
@@ -146,14 +145,15 @@ const WeeklyWorkout = () => {
                 />
                 <div className="participant-main">
                     {videos.length > 0 && (
-                        <div className="participant-video-wrapper">
+                        <div className="shorts-wrapper">
                             <video
                                 src={currentVideo.videoUrl}
                                 autoPlay
                                 muted
                                 controls
-                                preload="metadata"
-                                style={{ width: '100%', maxWidth: '640px' }}
+                                loop
+                                playsInline
+                                className="shorts-video"
                             />
                             <div className="video-controls">
                                 <button onClick={handleNextVideo}>다음</button>
@@ -237,7 +237,7 @@ const WeeklyWorkout = () => {
                     </div>
 
                 </div>
-                <div style={{ flexGrow: '1' }}></div>
+                {/* <div style={{ flexGrow: '1' }}></div> */}
             </div>
         </div>
     );

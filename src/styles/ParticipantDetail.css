@@ -1,7 +1,7 @@
 .participant-detail-wrapper {
     display: flex;
-    gap: 32px;    
-    align-items: flex-start;    
+    gap: 32px;
+    align-items: flex-start;
 }
 
 .participant-main {
@@ -39,6 +39,26 @@
     height: auto;
 }
 
+.shorts-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    aspect-ratio: 9 / 16;    
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    max-height: 90vh;
+}
+
+.shorts-video {
+    height: 100%;
+    width: auto;
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    background-color: black;
+}
 
 .participant-comments {
     flex: 1;
