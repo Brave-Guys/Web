@@ -15,7 +15,6 @@
     position: relative;
     display: flex;
     flex-direction: column;
-
 }
 
 .mypage-profile-image {
@@ -155,4 +154,36 @@
     cursor: not-allowed;
     filter: none;
     transform: none;
+}
+
+.mypage-profile-info-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;    
+}
+
+.mypage-basic-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.mypage-name-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.mypage-plan {
+    color: red;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.mypage-email {
+    font-size: 16px;
+    color: #777;
+    margin-top: 4px;
 }
