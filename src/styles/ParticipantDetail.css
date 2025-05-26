@@ -60,6 +60,18 @@
     background-color: black;
 }
 
+.video-play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 64px;
+    color: white;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 2;
+}
+
 .participant-comments {
     flex: 1;
     background-color: #fafafa;

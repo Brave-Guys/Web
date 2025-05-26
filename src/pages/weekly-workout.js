@@ -21,6 +21,7 @@ const WeeklyWorkout = () => {
     const [commentText, setCommentText] = useState('');
     const [replyText, setReplyText] = useState('');
     const [replyingTo, setReplyingTo] = useState(null);
+    const [isPlaying, setIsPlaying] = useState(true);
     const videoRef = useRef(null);
 
     const navigate = useNavigate();
@@ -29,7 +30,14 @@ const WeeklyWorkout = () => {
     const togglePlayback = () => {
         const video = videoRef.current;
         if (!video) return;
-        video.paused ? video.play() : video.pause();
+
+        if (video.paused) {
+            video.play();
+            setIsPlaying(true);
+        } else {
+            video.pause();
+            setIsPlaying(false);
+        }
     };
 
     const nestComments = (comments) => {
@@ -164,6 +172,14 @@ const WeeklyWorkout = () => {
                                 loop
                                 playsInline
                             />
+
+                            {/* 아이콘 오버레이 */}
+                            {!isPlaying && (
+                                <div className="video-play-overlay">
+                                    ▶
+                                </div>
+                            )}
+
                             <div className="video-controls">
                                 <button className="next-button" onClick={handleNextVideo}>
                                     <ChevronRight size={20} strokeWidth={3} />
