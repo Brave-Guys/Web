@@ -5,6 +5,7 @@ import { uploadImageToFirebase } from '../utils/uploadImageToFirebase';
 import { checkNickname } from '../apis/checkDuplicate';
 import PageTitle from '../components/PageTitle';
 import tempImg from '../assets/person.png'
+import LoadingOverlay from '../components/LoadingOverlay';
 import '../styles/Mypage.css';
 
 const Mypage = () => {
@@ -116,6 +117,7 @@ const Mypage = () => {
 
     return (
         <div className="mypage-container">
+            {isLoading && <LoadingOverlay visible={true} />}
             <div className="mypage-header">
                 <PageTitle
                     title="내 정보"
