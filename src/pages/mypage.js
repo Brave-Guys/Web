@@ -4,6 +4,7 @@ import { updateUserNickname, updateUserImage } from '../apis/updateUser';
 import { uploadImageToFirebase } from '../utils/uploadImageToFirebase';
 import { checkNickname } from '../apis/checkDuplicate';
 import { Link } from 'react-router-dom';
+import { Pencil } from 'lucide-react';
 import PageTitle from '../components/PageTitle';
 import tempImg from '../assets/person.png';
 import LoadingOverlay from '../components/LoadingOverlay';
@@ -119,15 +120,22 @@ const Mypage = () => {
                 <PageTitle title="내 정보" showBackArrow={true} />
             </div>
 
-            {/* 프로필 및 사용자 정보 */}
             <div className="mypage-profile-info-wrapper">
                 <div className="mypage-profile-container">
-                    <img
-                        src={previewUrl || tempImg}
-                        alt="프로필 이미지"
-                        className="mypage-profile-image"
-                    />
-                    <label htmlFor="profileUpload" className="mypage-image-button">이미지 변경</label>
+                    <div
+                        className="profile-image-wrapper"
+                        onClick={() => document.getElementById('profileUpload').click()}
+                    >
+                        <img
+                            src={previewUrl || tempImg}
+                            alt="프로필 이미지"
+                            className="mypage-profile-image"
+                        />
+                        <div className="profile-overlay">
+                            <Pencil className="edit-icon" />
+                            <p>수정</p>
+                        </div>
+                    </div>
                     <input
                         type="file"
                         id="profileUpload"
@@ -141,10 +149,10 @@ const Mypage = () => {
                         <span className="mypage-name">{nickname}</span>
                         {user?.userPlanType && (
                             <span className="mypage-plan">{user.userPlanType}</span>
-                        )}                        
+                        )}
                     </div>
                     <div className="mypage-email">{`${emailId}@${emailDomain}`}</div>
-                    <div style={{margin: '10px'}}></div>
+                    <div style={{ margin: '10px' }}></div>
                     <Link to="/share-plan" className="change-plan-btn">내 플랜 업그레이드</Link>
                 </div>
             </div>
