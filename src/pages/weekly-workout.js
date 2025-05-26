@@ -4,9 +4,9 @@ import { getRandomParticipant } from '../apis/getParticipantDetail';
 import CustomButton from '../components/CustomButton';
 import CommentItem from '../components/CommentItem';
 import { postReelsComment } from '../apis/postReelsComment';
+import { ChevronRight, Play } from 'lucide-react';
 import { getReelsComments } from '../apis/getReelsComments';
 import PageTitle from '../components/PageTitle';
-import { ChevronRight } from 'lucide-react';
 import '../styles/ParticipantDetail.css';
 
 const WeeklyWorkout = () => {
@@ -176,7 +176,7 @@ const WeeklyWorkout = () => {
                             {/* 아이콘 오버레이 */}
                             {!isPlaying && (
                                 <div className="video-play-overlay">
-                                    ▶
+                                     <Play size={64} color="white" opacity={0.85} />
                                 </div>
                             )}
 
