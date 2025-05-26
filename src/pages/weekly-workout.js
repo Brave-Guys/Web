@@ -69,10 +69,7 @@ const WeeklyWorkout = () => {
             console.log([response]);
         } catch (err) {
             console.error('초기 참가자 로드 실패', err);
-        } finally {
-            setLoading(false);
         }
-
     };
 
     const fetchComments = async (participantId) => {
@@ -162,39 +159,50 @@ const WeeklyWorkout = () => {
                 />
                 <div className="participant-main">
                     {videos.length > 0 && (
-                        <div className="shorts-wrapper" style={{ position: 'relative' }}>
-                            <video
-                                key={currentVideo?.id}
-                                ref={videoRef}
-                                src={currentVideo?.videoUrl}
-                                autoPlay
-                                muted
-                                onClick={togglePlayback}
-                                onCanPlay={() => setLoading(false)}
-                                className="shorts-video"
-                                loop
-                                playsInline
-                            />
+                        <div className="shorts-wrapper">
+                            <div className="video-container">
+                                <video
+                                    key={currentVideo?.id}
+                                    ref={videoRef}
+                                    src={currentVideo?.videoUrl}
+                                    autoPlay
+                                    muted
+                                    onClick={togglePlayback}
+                                    onCanPlay={() => setLoading(false)}
+                                    className="shorts-video"
+                                    loop
+                                    playsInline
+                                />
 
-                            {/* 로딩 스피너 */}
-                            {loading && (
-                                <div className="spinner-overlay">
-                                    <ClipLoader color="#6b46c1" size={48} />
-                                </div>
-                            )}
+                                {!loading && (
+                                    <div className="video-bottom-overlay">
+                                        <div className="video-overlay-left">
+                                            <div className="video-overlay-title">챌린지 이름</div>
+                                            <div className="video-overlay-writer">작성자</div>
+                                        </div>
+                                        <button
+                                            className="video-overlay-button"
+                                            onClick={() => navigate(`/challenges/${currentVideo.challengeId}`)}
+                                        >
+                                            챌린지 보기
+                                        </button>
+                                    </div>
+                                )}
 
-                            {/* 비디오 로딩 완료 후에만 버튼 노출 */}
-                            {!loading && (
-                                <button className="video-overlay-button">버튼</button>
-                            )}
+                                {loading && (
+                                    <div className="spinner-overlay">
+                                        <ClipLoader color="#6b46c1" size={48} />
+                                    </div>
+                                )}
+                            </div>
 
-                            {/* 다음 버튼 */}
                             <div className="video-controls">
                                 <button className="next-button" onClick={handleNextVideo}>
                                     <ChevronRight size={20} strokeWidth={3} />
                                 </button>
                             </div>
                         </div>
+
                     )}
                 </div>
 
