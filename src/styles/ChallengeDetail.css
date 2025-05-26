@@ -1,3 +1,4 @@
+/* --- Challenge Detail Header --- */
 .challenge-detail-header {
     display: flex;
     justify-content: space-between;
@@ -14,6 +15,12 @@
     display: flex;
     gap: 40px;
     align-items: flex-start;
+}
+
+@media (max-width: 768px) {
+    .challenge-detail-body {
+        flex-direction: column;
+    }
 }
 
 .challenge-content {
@@ -34,6 +41,7 @@
     white-space: pre-wrap;
 }
 
+/* --- Participant Section --- */
 .participant-section {
     flex: 1;
     max-height: 800px;
@@ -46,8 +54,7 @@
 
 .participant-section h3 {
     font-size: 18px;
-    margin-bottom: 12px;
-    border-bottom: 1px solid #ddd;
+    margin-bottom: 12px;    
     padding-bottom: 4px;
 }
 
@@ -57,7 +64,147 @@
     gap: 14px;
 }
 
-/* 참가자 아이템 */
+/* --- Participant Form (Improved) --- */
+.participant-form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.participant-form-title {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.participant-textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: vertical;
+    font-family: inherit;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+}
+
+.participant-textarea:focus {
+    outline: none;
+    border-color: #6b46c1;
+    background-color: #fefefe;
+}
+
+/* 파일명 표시 */
+.video-filename-box {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #333;
+    background-color: #f5f5f5;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+.video-icon {
+    font-size: 16px;
+}
+
+.video-filename {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.video-remove-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #999;
+}
+
+.video-remove-btn:hover {
+    color: #e53935;
+}
+
+/* 버튼들 */
+.participant-form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+/* 공통 버튼 스타일 */
+.upload-button,
+.participant-submit-button {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+/* 업로드 버튼 */
+.upload-button {
+    background-color: #e0e0e0;
+    color: #333;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.25s ease;
+}
+
+.upload-button input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.upload-button:hover {    
+    filter: brightness(1.05);
+}
+
+.upload-button:active {
+    transform: scale(0.95);
+}
+
+/* 등록 버튼 */
+.participant-submit-button {
+    height: 37px;
+    width: 80px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    background-color: #34a853;
+    line-height: 1;
+    color: white;
+    padding: 5px;
+}
+
+.participant-submit-button:hover {
+    background-color: #2d9448;
+}
+
+/* --- Participant Item --- */
 .participant-item {
     display: flex;
     align-items: flex-start;
@@ -75,7 +222,6 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* 아바타 */
 .participant-avatar {
     width: 48px;
     height: 48px;
@@ -84,7 +230,6 @@
     flex-shrink: 0;
 }
 
-/* 내용 박스 */
 .participant-body {
     flex: 1;
 }
@@ -112,15 +257,6 @@
     color: gray;
 }
 
-.participant-meta {
-    font-size: 14px;
-    color: #666;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 6px;
-}
-
 .participant-content {
     font-size: 15px;
     color: #333;
@@ -128,7 +264,6 @@
     word-break: break-word;
 }
 
-/* 삭제 버튼 */
 .participant-delete {
     background: transparent;
     color: #ff4d4f;
@@ -140,115 +275,4 @@
 
 .participant-delete:hover {
     color: #d9363e;
-}
-
-.participant-form {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.participant-form-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.participant-form-title {
-    font-weight: 600;
-    font-size: 16px;
-}
-
-.participant-form button {
-    padding: 8px 16px;
-    font-size: 14px;
-    background-color: #6b46c1;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.participant-form button:hover {
-    background-color: #5936a8;
-}
-
-.custom-file-upload {
-    display: inline-block;
-    padding: 8px 16px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #6b46c1;
-    border: 1px solid #6b46c1;
-    border-radius: 6px;
-    background-color: white;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.custom-file-upload:hover {
-    background-color: #f3f0ff;
-}
-
-.custom-file-upload input[type="file"] {
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-}
-
-.file-name-display {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 14px;
-    color: #555;
-    background-color: #f0f0f0;
-    padding: 6px 12px;
-    border-radius: 6px;
-}
-
-.file-remove-btn {
-    background: none;
-    border: none;
-    font-size: 16px;
-    color: #888;
-    cursor: pointer;
-}
-
-.file-remove-btn:hover {
-    color: #ff4d4f;
-}
-
-.participant-textarea {
-    width: 100%;
-    min-height: 80px;
-    padding: 12px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    resize: vertical;
-    font-family: inherit;
-    box-sizing: border-box;
-    line-height: 1.5;
-    transition: border-color 0.2s ease;
-}
-
-.participant-textarea:focus {
-    outline: none;
-    border-color: #6b46c1;
-    background-color: #fefefe;
-}
-
-@media (max-width: 768px) {
-    .challenge-detail-body {
-        flex-direction: column;
-    }
 }

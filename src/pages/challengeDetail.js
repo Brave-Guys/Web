@@ -117,54 +117,55 @@ const ChallengeDetail = () => {
                 </div>
 
                 <div className="participant-section">
-                    <h3>참가자</h3>
                     <div className="participant-list">
                         {!alreadyParticipated ? (
                             <div className="participant-form">
-                                <div className="participant-form-header">
-                                    <span className="participant-form-title">챌린지에 도전해보세요!</span>
-                                    <button onClick={handleSubmit}>등록</button>
-                                </div>
+                                <div className="participant-form-title">챌린지에 도전해보세요!</div>
                                 <textarea
                                     className="participant-textarea"
-                                    placeholder="챌린지 수행 내용을 작성하세요."
+                                    placeholder="상세 내용을 작성해보세요"
                                     value={commentText}
                                     onChange={(e) => setCommentText(e.target.value)}
-                                    maxLength={300}
                                 />
 
-                                <label className="custom-file-upload">
-                                    <input
-                                        type="file"
-                                        accept="video/*"
-                                        onChange={(e) => {
-                                            const file = e.target.files[0];
-                                            if (file) {
-                                                setVideoFile(file);
-                                                e.target.value = '';
-                                            }
-                                        }}
-                                    />
-                                    영상 업로드
-                                </label>
-                                {videoFile && (
-                                    <div className="file-name-display">
-                                        <span>
-                                            선택한 파일: <strong>{videoFile.name}</strong>
-                                        </span>
-                                        <button
-                                            type="button"
-                                            className="file-remove-btn"
-                                            onClick={() => setVideoFile(null)}
-                                        >
-                                            ✕
-                                        </button>
-                                    </div>
-                                )}
+                                <div className="participant-form-buttons">
+                                    {videoFile && (
+                                        <div className="video-filename-box">
+                                            <span className="video-icon">🎥</span>
+                                            <span className="video-filename">{videoFile.name}</span>
+                                            <button className="video-remove-btn" onClick={() => setVideoFile(null)}>✕</button>
+                                        </div>
+                                    )}
+                                    <div style={{ flexGrow: '2' }}></div>
+                                    <label className="upload-button">
+                                        영상 추가
+                                        <input
+                                            type="file"
+                                            accept="video/*"
+                                            onChange={(e) => {
+                                                const file = e.target.files[0];
+                                                if (file) {
+                                                    setVideoFile(file);
+                                                    e.target.value = '';
+                                                }
+                                            }}
+                                        />
+                                    </label>
+
+                                    {/* 등록 버튼 */}
+                                    <button
+                                        className="participant-submit-button"
+                                        onClick={handleSubmit}
+                                    >
+                                        등록
+                                    </button>
+                                </div>
                             </div>
                         ) : (
                             <p>챌린지를 수행했습니다!</p>
                         )}
+                        <hr style={{ margin: '0', border: 'none', borderTop: '1px solid #ccc' }} />
+                        <h3>참가자</h3>
                         {participants.map((p) => {
                             const isMine = JSON.parse(localStorage.getItem('user'))?.id === p.writerId;
                             return (
