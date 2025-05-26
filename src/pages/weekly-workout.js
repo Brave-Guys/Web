@@ -137,13 +137,13 @@ const WeeklyWorkout = () => {
 
     return (
         <div className="participant-detail-page">
-            <PageTitle
-                title='금주의 운동'
-                description="릴스"
-                showBackArrow={true}
-                onBack={() => navigate(-1)}
-            />
             <div className="participant-detail-wrapper">
+                <PageTitle
+                    title='금주의 운동'
+                    description="릴스"
+                    showBackArrow={true}
+                    onBack={() => navigate(-1)}
+                />
                 <div className="participant-main">
                     {videos.length > 0 && (
                         <div className="participant-video-wrapper">
@@ -214,8 +214,6 @@ const WeeklyWorkout = () => {
                         )}
                     </div>
 
-                    <div style={{ margin: '20px' }}></div>
-
                     <div className="comment-list">
                         {comments.map((c) => (
                             <CommentItem
@@ -237,7 +235,9 @@ const WeeklyWorkout = () => {
                             />
                         ))}
                     </div>
+
                 </div>
+                <div style={{ flexGrow: '1' }}></div>
             </div>
         </div>
     );
