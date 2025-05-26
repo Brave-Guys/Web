@@ -101,6 +101,7 @@ const WeeklyWorkout = () => {
             if (updatedVideos.length > 10) updatedVideos.shift();
 
             setVideos(updatedVideos);
+            setIsPlaying(true);
             await fetchComments(response.id);
             await fetchChallengeInfo(response.challengeId);
         } catch (error) {
