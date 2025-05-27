@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getParticipantDetail } from '../apis/getParticipantDetail';
+import { getChallengeDetail } from '../apis/getChallenges';
 import { postReelsComment } from '../apis/postReelsComment';
 import { getReelsComments } from '../apis/getReelsComments';
 import PageTitle from '../components/PageTitle';
@@ -17,6 +18,7 @@ const ParticipantDetail = () => {
     const [isFocused, setIsFocused] = useState(false);
     const [replyText, setReplyText] = useState('');
     const [replyingTo, setReplyingTo] = useState(null);
+    const [challengeName, setChallengeName] = useState('');
     const navigate = useNavigate();
 
     const fetchComments = async () => {
@@ -86,9 +88,16 @@ const ParticipantDetail = () => {
             const data = await getParticipantDetail(challengeId, participantId);
             setParticipant(data);
             fetchComments();
+            try {
+                const challenge = await getChallengeDetail(challengeId);
+                setChallengeName(challenge.name);
+            } catch (err) {
+                console.error('챌린지 정보 로딩 실패', err);
+            }
         };
         fetchData();
     }, [challengeId, participantId]);
+
 
     const handleReplyClick = (commentId) => {
         setReplyingTo(commentId);
@@ -99,7 +108,7 @@ const ParticipantDetail = () => {
     return (
         <div className="participant-detail-page">
             <PageTitle
-                title={`${participant.nickname}님의 수행 내역`}
+                title={`${challengeName} → ${participant.nickname}님의 수행 내역`}
                 description={dayjs(participant.writeDate).format('YYYY.MM.DD HH:mm')}
                 showBackArrow={true}
                 onBack={() => navigate(-1)}

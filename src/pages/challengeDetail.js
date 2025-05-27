@@ -88,7 +88,7 @@ const ChallengeDetail = () => {
                 <PageTitle
                     title={challenge.name}
                     showBackArrow={true}
-                    description={`작성자: ${challenge.nickname ?? '익명'} | 생성일: ${dayjs(challenge.createdAt).format('YYYY.MM.DD')}`}
+                    description={`${challenge.nickname ?? '익명'} | ${dayjs(challenge.createdAt).format('YYYY.MM.DD')}`}
                 />
                 {isOwner && (
                     <div className="challenge-action-buttons">
