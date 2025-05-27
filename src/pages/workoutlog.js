@@ -144,7 +144,10 @@ const WorkoutLog = () => {
                                     key={i}
                                     className={`calendar-day ${d.currentMonth ? 'current' : 'inactive'}`}
                                     onClick={() => handleDayClick(d.day, d.currentMonth)}
-                                    style={{ backgroundColor: d.currentMonth ? getCellBackgroundColor(dayScore) : undefined }}
+                                    style={{
+                                        backgroundColor: d.currentMonth ? getCellBackgroundColor(dayScore) : undefined,
+                                        color: getCellBackgroundColor(dayScore) === '#00AA00' ? 'white' : 'black',
+                                    }}
                                 >
                                     {d.day}
                                 </div>
