@@ -54,43 +54,45 @@ const SharePlus = () => {
     };
 
     return (
-        <div>
-            <div className="shareplus-header">
-                <PageTitle
-                    title="Share+"
-                    description="운동에 도움이 필요하신가요? 상급자와 함께해 보세요."
-                    showBackArrow={true}
-                />
-                <Link to="/share-plan" className="change-plan-btn">내 플랜 업그레이드</Link>
+        <div className='shareplus-container'>
+            <div>
+                <div className="shareplus-header">
+                    <PageTitle
+                        title="Share+"
+                        description="운동에 도움이 필요하신가요? 상급자와 함께해 보세요."
+                        showBackArrow={true}
+                    />
+                    <Link to="/share-plan" className="change-plan-btn">내 플랜 업그레이드</Link>
+                </div>
+
+                <div style={{ margin: '50px' }}></div>
+
+                {approved.length > 0 && (
+                    <section>
+                        <div className="my-request-list-grid">
+                            {approved.map((r) => renderCard(r, true))}
+                        </div>
+                    </section>
+                )}
+
+                {pending.length > 0 && (
+                    <section>
+                        <h3 style={{ fontSize: '18px' }} className="section-title">검토 중</h3>
+                        <div className="my-request-list-grid">
+                            {pending.map((r) => renderCard(r))}
+                        </div>
+                    </section>
+                )}
+
+                {rejected.length > 0 && (
+                    <section>
+                        <h3 style={{ fontSize: '18px' }} className="section-title">거절됨</h3>
+                        <div className="my-request-list-grid">
+                            {rejected.map((r) => renderCard(r))}
+                        </div>
+                    </section>
+                )}
             </div>
-
-            <div style={{ margin: '50px' }}></div>
-
-            {approved.length > 0 && (
-                <section>
-                    <div className="my-request-list-grid">
-                        {approved.map((r) => renderCard(r, true))}
-                    </div>
-                </section>
-            )}
-
-            {pending.length > 0 && (
-                <section>
-                    <h3 style={{ fontSize: '18px' }} className="section-title">검토 중</h3>
-                    <div className="my-request-list-grid">
-                        {pending.map((r) => renderCard(r))}
-                    </div>
-                </section>
-            )}
-
-            {rejected.length > 0 && (
-                <section>
-                    <h3 style={{ fontSize: '18px' }} className="section-title">거절됨</h3>
-                    <div className="my-request-list-grid">
-                        {rejected.map((r) => renderCard(r))}
-                    </div>
-                </section>
-            )}
         </div>
     );
 };
