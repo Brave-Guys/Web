@@ -5,6 +5,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import PageTitle from '../components/PageTitle';
 import DefaultAvatar from '../assets/person.png';
+import LoadingOverlay from '../components/LoadingOverlay';
 import { uploadImageToFirebase } from '../utils/uploadImageToFirebase';
 import '../styles/ShareChat.css';
 
@@ -15,6 +16,7 @@ const ShareChat = () => {
     const [newContent, setNewContent] = useState('');
     const [newImage, setNewImage] = useState(null);
     const [masterId, setMasterId] = useState(null);
+    const [submitting, setSubmitting] = useState(false);
 
     const formatDateToLocalString = (date) => {
         const yyyy = date.getFullYear();
@@ -63,6 +65,7 @@ const ShareChat = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setSubmitting(true);
         const user = JSON.parse(localStorage.getItem('user'));
         const token = localStorage.getItem('token');
 
@@ -72,6 +75,7 @@ const ShareChat = () => {
                 pictureUrl = await uploadImageToFirebase(newImage);
             } catch (err) {
                 alert('이미지 업로드 실패');
+                setSubmitting(false);
                 return;
             }
         }
@@ -95,6 +99,8 @@ const ShareChat = () => {
         } catch (err) {
             alert('댓글 등록 실패');
             console.error(err);
+        } finally {
+            setSubmitting(false);
         }
     };
 
@@ -104,6 +110,7 @@ const ShareChat = () => {
 
     return (
         <div className="sharechat-wrapper">
+            {submitting && <LoadingOverlay visible={true} />}
             <PageTitle title="상급자와의 소통" description="질문과 답변을 날짜별로 나눠 확인해보세요." showBackArrow={true} />
 
             <div style={{ margin: '50px' }}></div>
