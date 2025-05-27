@@ -12,6 +12,7 @@ const SharePlus = () => {
         const fetchMyRequests = async () => {
             try {
                 const requests = await getMyShareRequests();
+                console.log(requests);
                 setMyRequests(requests);
             } catch (err) {
                 console.error('나의 Share+ 신청서 불러오기 실패:', err);
@@ -37,7 +38,12 @@ const SharePlus = () => {
                     alt="상급자 이미지"
                     className="my-request-profile2"
                 />
-                <span className="my-request-nickname2">{req.nickname}</span>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <span className="my-request-nickname2">{req.nickname}</span>
+                    {req.parts && (
+                        <span style={{ color: '#333' }} className="my-request-parts2">{req.parts}</span>
+                    )}
+                </div>
                 {statusText && <span className="my-request-status">{statusText}</span>}
             </div>
         );
