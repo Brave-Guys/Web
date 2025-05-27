@@ -14,6 +14,7 @@ const ShareChat = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [newContent, setNewContent] = useState('');
     const [newImage, setNewImage] = useState(null);
+    const [masterId, setMasterId] = useState(null);
 
     const formatDateToLocalString = (date) => {
         const yyyy = date.getFullYear();
@@ -44,6 +45,19 @@ const ShareChat = () => {
     };
 
     useEffect(() => {
+        const fetchMasterId = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const res = await axios.get(`${process.env.REACT_APP_API_URL}/share-requests/${id}`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                setMasterId(res.data.masterId);
+            } catch (err) {
+                console.error('상급자 정보 로딩 실패', err);
+            }
+        };
+
+        fetchMasterId();
         fetchComments();
     }, [id]);
 
@@ -141,7 +155,10 @@ const ShareChat = () => {
                             {[...filteredComments]
                                 .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
                                 .map((c) => (
-                                    <div key={c.id} className="chat-item">
+                                    <div
+                                        key={c.id}
+                                        className={`chat-item ${c.writerId === masterId ? 'chat-master' : 'chat-student'}`}
+                                    >
                                         <div className="chat-meta">
                                             <img
                                                 src={c.profileImgUrl || DefaultAvatar}
@@ -149,7 +166,9 @@ const ShareChat = () => {
                                                 className="chat-profile-img"
                                             />
                                             <div>
-                                                <p className="chat-writer">{c.nickname || '익명'}</p>
+                                                <p className="chat-writer">
+                                                    {c.nickname || '익명'} {c.writerId === masterId && <span className="chat-badge">상급자</span>}
+                                                </p>
                                                 <p className="chat-time">{formatTime(c.createdAt)}</p>
                                             </div>
                                         </div>
