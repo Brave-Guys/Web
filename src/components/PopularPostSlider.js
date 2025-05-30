@@ -37,9 +37,9 @@ const PopularPostSlider = () => {
     }, []);
 
     return (
-        <div className="popular-post-slider" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div className="popular-post-slider">
             <span className="popular-post-label">🔥 인기글:</span>
-            <div>
+            <div className="popular-post-track-wrapper">
                 <div className={`popular-post-track ${animate ? 'animate' : ''}`}>
                     {posts.slice(0, 2).map((post, i) => (
                         <div

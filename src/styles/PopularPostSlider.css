@@ -1,16 +1,43 @@
 .popular-post-slider {
-    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 420px; /* 전체 박스 최대 너비 (원하는 값으로 조정) */
+    min-width: 0;
     height: 50px;
     overflow: hidden;
     padding: 8px;
     border-radius: 6px;
     border: 1px solid #BBB;
     margin: 20px 0;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.popular-post-label {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap;
+    margin-right: 8px;
+}
+
+.popular-post-track-wrapper {
+    flex: 1 1 0;
+    min-width: 0;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
 .popular-post-track {
     display: flex;
     flex-direction: column;
+    min-width: 0;
     height: 80px;
     transform: translateY(20px);
 }
@@ -21,66 +48,88 @@
 }
 
 .popular-post-slide {
-    height: 40px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 0 12px;
-    min-width: 500px;    
-    background-color: #fff;
+    width: 100%;
+    min-width: 0;
+    height: 40px;
+    padding: 0 8px;
+    background: #fff;
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
     color: #333;
+    border-radius: 4px;
+    transition: background 0.2s;
+    gap: 12px;
+    overflow: hidden;
+    box-sizing: border-box;
+    text-overflow: ellipsis;
 }
 
 .popular-post-title {
+    flex: 1 1 0;
+    min-width: 0;
     display: flex;
     align-items: center;
-}
-
-.popular-post-likes {
-    display: flex;
-    align-items: center;
-    gap: 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     font-size: 14px;
-    color: #555;
+    gap: 6px;
 }
 
 .category-badge {
-    vertical-align: middle;
-    transform: translateY(1px)
+    flex: 0 0 auto;
+    margin-right: 4px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #fff;
+    font-weight: bold;
 }
 
 .category-badge.공지 {
     background-color: #f44336;
 }
-
 .category-badge.루틴 {
     background-color: #4caf50;
 }
-
 .category-badge.식단 {
     background-color: #ff9800;
 }
-
 .category-badge.잡담 {
     background-color: #607d8b;
 }
 
-.popular-post-label {
+.popular-post-likes {
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
+    gap: 4px;
     font-size: 14px;
-    font-weight: bold;
+    color: #555;
+    margin-left: 8px;
+    white-space: nowrap;
 }
 
 @media (max-width: 768px) {
-    .popular-post-slide {
-        font-size: 14px;
-        padding: 0 8px;
+    .popular-post-slider {
+        max-width: 100%;
+        padding: 6px;
+        gap: 6px;
     }
-
+    .popular-post-slide {
+        font-size: 13px;
+        padding: 0 4px;
+    }
+    .popular-post-title {
+        font-size: 13px;
+    }
+    .category-badge {
+        font-size: 11px;
+        padding: 1px 4px;
+    }
     .popular-post-likes {
         font-size: 12px;
     }
