@@ -131,13 +131,15 @@ const Board = () => {
             </div>
 
             <div className="tab-search-row">
-                <Tab
-                    tabs={['잡담', '식단', '루틴', '공지', '내 게시글']}
-                    activeIndex={activeTab}
-                    onTabClick={handleTabChange}
-                />
-                <div className="popular-post-slider-wrapper">
-                    <PopularPostSlider />
+                <div className="tab-popular-group">
+                    <Tab
+                        tabs={['잡담', '식단', '루틴', '공지', '내 게시글']}
+                        activeIndex={activeTab}
+                        onTabClick={handleTabChange}
+                    />
+                    <div className="popular-post-slider-wrapper">
+                        <PopularPostSlider />
+                    </div>
                 </div>
                 <div className="search-wrapper">
                     <FloatingInput
@@ -150,12 +152,12 @@ const Board = () => {
                                 navigate(`/search?query=${encodeURIComponent(searchTerm.trim())}`);
                             }
                         }}
-                        style={{ width: '100%' }} // 항상 100%로
+                        style={{ width: '100%' }}
                     />
                 </div>
             </div>
 
-            <div >
+            <div>
                 <div className="post-grid" style={{ flexGrow: 2 }}>
                     {isLoading ? (
                         <div style={{

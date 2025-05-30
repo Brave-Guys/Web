@@ -45,19 +45,43 @@
     font-size: 14px;
 }
 
+/* === 탭 + 인기글 좌측, 검색창 우측 === */
 .tab-search-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    gap: 0;
+    width: 100%;
+}
+
+.tab-popular-group {
+    display: flex;
+    align-items: center;
+    gap: 0; /* 탭과 인기글 딱 붙게 */
+}
+
+.popular-post-slider-wrapper {
+    margin-left: 8px; /* 탭과 인기글 사이 약간 띄움, 필요시 조정 */
+    display: flex;
+    align-items: center;
+}
+
+.search-wrapper {
+    width: 320px;
+    max-width: 100%;
+    margin-left: auto; /* 우측 끝으로 */
+    display: flex;
+    align-items: center;
 }
 
 .search-input {
+    width: 100%;
+    box-sizing: border-box;
     padding: 8px 12px;
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    width: 240px;
 }
 
 .post-grid {
@@ -65,7 +89,6 @@
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
 }
-
 
 .pagination {
     display: flex;
@@ -82,6 +105,121 @@
     gap: 8px;
 }
 
+/* === 인기글 슬라이더(가로 길이 고정/최대, 내부 ellipsis) === */
+.popular-post-slider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 420px;
+    min-width: 0;
+    height: 50px;
+    overflow: hidden;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #BBB;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.popular-post-label {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap;
+    margin-right: 8px;
+}
+
+.popular-post-track-wrapper {
+    flex: 1 1 0;
+    min-width: 0;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.popular-post-track {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 80px;
+    transform: translateY(20px);
+}
+
+.popular-post-track.animate {
+    transform: translateY(-20px);
+    transition: transform 0.4s ease-in-out;
+}
+
+.popular-post-slide {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    height: 40px;
+    padding: 0 8px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    border-radius: 4px;
+    transition: background 0.2s;
+    gap: 12px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.popular-post-title {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    gap: 6px;
+}
+
+.category-badge {
+    flex: 0 0 auto;
+    margin-right: 4px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.category-badge.공지 {
+    background-color: #f44336;
+}
+.category-badge.루틴 {
+    background-color: #4caf50;
+}
+.category-badge.식단 {
+    background-color: #ff9800;
+}
+.category-badge.잡담 {
+    background-color: #607d8b;
+}
+
+.popular-post-likes {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    color: #555;
+    margin-left: 8px;
+    white-space: nowrap;
+}
+
+/* === 모바일 === */
 @media (max-width: 768px) {
     .desktop {
         display: none;
@@ -101,27 +239,59 @@
         gap: 12px;
         margin-top: 16px;
     }
-
+    .tab-popular-group {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        width: 100%;
+        max-width: 100%;
+        margin-left: 0;
+    }
+    .popular-post-slider-wrapper {
+        margin-left: 0;
+        margin-top: 8px;
+        order: 2; /* 탭 아래로 이동 */
+        width: 100%;
+    }
+    .search-wrapper {
+        order: 3;
+        width: 100%;
+        max-width: 100%;
+        margin-left: 0;
+    }
     .search-input {
         width: 100%;
-        font-size: 14px;
-        padding: 8px 12px;
     }
-
+    .popular-post-slider {
+        max-width: 100%;
+        padding: 6px;
+        gap: 6px;
+    }
+    .popular-post-slide {
+        font-size: 13px;
+        padding: 0 4px;
+    }
+    .popular-post-title {
+        font-size: 13px;
+    }
+    .category-badge {
+        font-size: 11px;
+        padding: 1px 4px;
+    }
+    .popular-post-likes {
+        font-size: 12px;
+    }
     .pagination {
         align-items: flex-start;
         gap: 8px;
         margin-top: 20px;
     }
-
     .popular-preview {
         margin-top: 24px;
     }
-
     .boardContent .pagination {
         justify-content: flex-start;
     }
-
     .write-button {
         min-width: 100px;
         max-width: 100px;
