@@ -113,9 +113,9 @@ const WorkoutLog = () => {
                 showBackArrow={true}
             />
 
-            <div style={{ margin: '50px' }}></div>
+            <div className='blank'></div>
 
-            <div style={{ display: 'flex', gap: '40px' }}>
+            <div style={{ display: 'flex', gap: '40px' }} className='workoutlog-content'>
                 <div style={{ flex: 3 }}>
                     <div className="calendar-header">
                         <button onClick={goToPrevMonth}><ChevronLeft /></button>
@@ -169,7 +169,7 @@ const WorkoutLog = () => {
                         </Modal>
                     )}
                 </div>
-                <div style={{ flex: 1 }} className='desktop'>
+                <div style={{ flex: 1 }}>
                     <div className="score-legend-box">
                         <h3>운동 강도</h3>
                         <ul className="score-legend-list">

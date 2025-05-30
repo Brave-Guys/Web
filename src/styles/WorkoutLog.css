@@ -1,4 +1,4 @@
-.calendar-container {    
+.calendar-container {
     max-width: 1000px;
     margin: 0 auto;
     gap: 40px;
@@ -114,6 +114,10 @@
     text-align: right;
 }
 
+.blank {
+    margin: 50px;
+}
+
 @media (max-width: 768px) {
     .calendar-container {
         padding: 40px 16px;
@@ -142,6 +146,10 @@
         font-size: 14px;
     }
 
+    .blank {
+        margin: 30px;
+    }
+
     .score-legend-box {
         width: 100%;
         max-width: 100%;
@@ -162,5 +170,9 @@
     .score-legend-list .legend-text .score {
         font-size: 12px;
         width: auto;
+    }
+
+    .workoutlog-content {
+        flex-direction: column;
     }
 }
