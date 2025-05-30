@@ -73,7 +73,6 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    /* 우측 정렬 */
 }
 
 
@@ -317,5 +316,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    .pagination-local {
+        margin-top: 50px;
     }
 }
