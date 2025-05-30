@@ -149,3 +149,9 @@
     color: #999;
     margin-top: 4px;
 }
+
+@media (max-width: 768px) {
+    .write-post-container {
+        padding: 15px;
+    }
+}
