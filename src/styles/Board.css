@@ -58,11 +58,13 @@
 .tab-popular-group {
     display: flex;
     align-items: center;
-    gap: 0; /* 탭과 인기글 딱 붙게 */
+    gap: 0;
+    /* 탭과 인기글 딱 붙게 */
 }
 
 .popular-post-slider-wrapper {
-    margin-left: 8px; /* 탭과 인기글 사이 약간 띄움, 필요시 조정 */
+    margin-left: 8px;
+    /* 탭과 인기글 사이 약간 띄움, 필요시 조정 */
     display: flex;
     align-items: center;
 }
@@ -70,7 +72,8 @@
 .search-wrapper {
     width: 320px;
     max-width: 100%;
-    margin-left: auto; /* 우측 끝으로 */
+    margin-left: auto;
+    /* 우측 끝으로 */
     display: flex;
     align-items: center;
 }
@@ -198,12 +201,15 @@
 .category-badge.공지 {
     background-color: #f44336;
 }
+
 .category-badge.루틴 {
     background-color: #4caf50;
 }
+
 .category-badge.식단 {
     background-color: #ff9800;
 }
+
 .category-badge.잡담 {
     background-color: #607d8b;
 }
@@ -239,6 +245,7 @@
         gap: 12px;
         margin-top: 16px;
     }
+
     .tab-popular-group {
         flex-direction: column;
         align-items: stretch;
@@ -247,51 +254,64 @@
         max-width: 100%;
         margin-left: 0;
     }
+
     .popular-post-slider-wrapper {
         margin-left: 0;
         margin-top: 8px;
-        order: 2; /* 탭 아래로 이동 */
+        order: 2;
+        /* 탭 아래로 이동 */
         width: 100%;
     }
+
     .search-wrapper {
         order: 3;
         width: 100%;
         max-width: 100%;
         margin-left: 0;
     }
+
     .search-input {
         width: 100%;
     }
+
     .popular-post-slider {
         max-width: 100%;
         padding: 6px;
         gap: 6px;
     }
+
     .popular-post-slide {
         font-size: 13px;
         padding: 0 4px;
     }
+
     .popular-post-title {
         font-size: 13px;
     }
+
     .category-badge {
         font-size: 11px;
         padding: 1px 4px;
     }
+
     .popular-post-likes {
         font-size: 12px;
     }
+
     .pagination {
         align-items: flex-start;
         gap: 8px;
         margin-top: 20px;
     }
+
     .popular-preview {
         margin-top: 24px;
     }
+
     .boardContent .pagination {
         justify-content: flex-start;
     }
+
     .write-button {
         min-width: 100px;
         max-width: 100px;
