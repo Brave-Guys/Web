@@ -164,7 +164,7 @@ const Board = () => {
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
-                            height: '300px', // or '60vh' 같은 상대값
+                            height: '300px',
                             width: '500%'
                         }}>
                             <ClipLoader size={48} color="#333" />

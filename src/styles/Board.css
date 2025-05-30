@@ -63,8 +63,7 @@
 }
 
 .popular-post-slider-wrapper {
-    margin-left: 8px;
-    /* 탭과 인기글 사이 약간 띄움, 필요시 조정 */
+    margin-left: 50px;    
     display: flex;
     align-items: center;
 }
