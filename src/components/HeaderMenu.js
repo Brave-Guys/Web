@@ -161,12 +161,28 @@ const Header = () => {
                             {user ? (
                                 <>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-                                        <img src={user.imgUrl || DefaultAvatar} alt="프로필" className="dropdown-profile-image" style={{ width: 36, height: 36 }} />
+                                        <img
+                                            src={user.imgUrl || DefaultAvatar}
+                                            alt="프로필"
+                                            className="dropdown-profile-image"
+                                            style={{ width: 36, height: 36 }}
+                                        />
                                         <div>
-                                            <div className="profile-name">{user.name}</div>
+                                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                <div className="profile-name">{user.name}</div>
+                                                {user.userPlanType && (
+                                                    <span
+                                                        className={`plan-badge ${user.userPlanType.toLowerCase()}`}
+                                                        style={{ marginLeft: '4px' }}
+                                                    >
+                                                        {user.userPlanType}
+                                                    </span>
+                                                )}
+                                            </div>
                                             <div className="profile-email">{user.email}</div>
                                         </div>
                                     </div>
+
                                     <div
                                         className="icon-btn"
                                         onClick={() => {
