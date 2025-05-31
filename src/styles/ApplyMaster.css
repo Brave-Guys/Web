@@ -1,11 +1,9 @@
-/* 기본 레이아웃 */
 .apply-wrapper {
     max-width: 600px;
     margin: 0 auto;
     padding: 24px;
 }
 
-/* 섹션 스타일 */
 .form-section {
     margin-bottom: 32px;
     background-color: #fff;
@@ -28,10 +26,80 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 70px;
+    width: 40px;
     height: 3px;
     background-color: #22c55e;
     border-radius: 3px;
+}
+
+/* ApplyMaster 폼 전용 input */
+.apply-input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #f8fafc;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+
+.apply-input:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+}
+
+.apply-input[type="file"] {
+    padding: 8px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.apply-input[type="file"]::file-selector-button {
+    background-color: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.apply-input[type="file"]::file-selector-button:hover {
+    background-color: #e2e8f0;
+}
+
+/* ApplyMaster 폼 전용 textarea */
+.apply-textarea {
+    width: 100%;
+    height: 100px;
+    padding: 12px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #f8fafc;
+    resize: vertical;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    line-height: 1.5;
+}
+
+.apply-textarea:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #334155;
 }
 
 .checkbox-group {
@@ -53,7 +121,6 @@
 .checkbox-group-item input[type="checkbox"] {
     margin: 0;
     margin-top: 3px;
-    /* accent-color: #22c55e; */
     cursor: pointer;
     flex-shrink: 0;
 }
@@ -62,84 +129,6 @@
     flex-grow: 1;
     word-break: keep-all;
     cursor: default;
-}
-
-
-/* 입력 요소 스타일 */
-input[type="text"],
-input[type="file"],
-select {
-    width: 100%;
-    padding: 12px;
-    margin-top: 6px;
-    margin-bottom: 6px;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 14px;
-    background-color: #f8fafc;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    outline: none;
-}
-
-input[type="text"]:focus,
-input[type="file"]:focus,
-select:focus {
-    border-color: #22c55e;
-    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
-}
-
-input[type="file"] {
-    padding: 8px;
-    background-color: #fff;
-    cursor: pointer;
-}
-
-/* textarea 스타일 */
-textarea {
-    width: 100%;
-    height: 100px;
-    padding: 12px;
-    margin-top: 6px;
-    margin-bottom: 6px;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 14px;
-    background-color: #f8fafc;
-    resize: vertical;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    outline: none;
-    line-height: 1.5;
-}
-
-textarea:focus {
-    border-color: #22c55e;
-    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
-}
-
-/* 라벨 스타일 */
-label {
-    display: block;
-    margin-bottom: 6px;
-    margin-top: 12px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #334155;
-}
-
-/* 체크박스 그룹 스타일 */
-.checkbox-group label {
-    display: flex;
-    align-items: flex-start;
-    font-size: 13px;
-    gap: 8px;
-    margin-bottom: 12px;
-    line-height: 1.5;
-    color: #64748b;
-}
-
-input[type="checkbox"] {
-    margin-top: 2px;
-    /* accent-color: #22c55e; */
 }
 
 /* 멀티 체크박스 스타일 */
@@ -170,21 +159,6 @@ input[type="checkbox"] {
 
 .multi-checkbox input[type="checkbox"] {
     margin: 0;
-}
-
-/* 파일 업로드 힌트 스타일 */
-input[type="file"]::file-selector-button {
-    background-color: #f1f5f9;
-    border: 1px solid #cbd5e1;
-    border-radius: 4px;
-    padding: 6px 12px;
-    font-size: 13px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-input[type="file"]::file-selector-button:hover {
-    background-color: #e2e8f0;
 }
 
 /* 제출 버튼 스타일 */

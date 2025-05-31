@@ -74,16 +74,39 @@ const ApplyMaster = () => {
 
             <section className="form-section">
                 <h3>기본 정보</h3>
-                <input type="text" placeholder="이름" value={name} onChange={(e) => setName(e.target.value)} />
-                <input type="text" placeholder="010-XXXX-XXXX" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                <input
+                    className="apply-input"
+                    type="text"
+                    placeholder="이름"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+                <input
+                    className="apply-input"
+                    type="text"
+                    placeholder="010-XXXX-XXXX"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                />
             </section>
 
             <section className="form-section">
                 <h3>경력 정보</h3>
                 <label>보유 자격증</label>
-                <input type="file" multiple onChange={(e) => setCertFiles(Array.from(e.target.files))} />
+                <input
+                    className="apply-input"
+                    type="file"
+                    multiple
+                    onChange={(e) => setCertFiles(Array.from(e.target.files))}
+                />
                 <label>경력사항</label>
-                <input type="text" placeholder="트레이너/강사" value={career} onChange={(e) => setCareer(e.target.value)} />
+                <input
+                    className="apply-input"
+                    type="text"
+                    placeholder="트레이너/강사"
+                    value={career}
+                    onChange={(e) => setCareer(e.target.value)}
+                />
                 <label>주력 부위</label>
                 <div className="multi-checkbox">
                     {['코어', '유산소', '상체', '하체', '전신'].map((part) => (
@@ -102,10 +125,25 @@ const ApplyMaster = () => {
 
             <section className="form-section">
                 <h3>추가 정보</h3>
-                <textarea placeholder="자기 소개 및 트레이닝 관련 철학" value={intro} onChange={(e) => setIntro(e.target.value)} />
-                <textarea placeholder="SNS 또는 개인 웹사이트 링크 (선택 사항)" value={link} onChange={(e) => setLink(e.target.value)} />
+                <textarea
+                    className="apply-textarea"
+                    placeholder="자기 소개 및 트레이닝 관련 철학"
+                    value={intro}
+                    onChange={(e) => setIntro(e.target.value)}
+                />
+                <textarea
+                    className="apply-textarea"
+                    placeholder="SNS 또는 개인 웹사이트 링크 (선택 사항)"
+                    value={link}
+                    onChange={(e) => setLink(e.target.value)}
+                />
                 <label>트레이너 활동 관련 포트폴리오 (선택 사항)</label>
-                <input type="file" multiple onChange={(e) => setPortfolioFiles(Array.from(e.target.files))} />
+                <input
+                    className="apply-input"
+                    type="file"
+                    multiple
+                    onChange={(e) => setPortfolioFiles(Array.from(e.target.files))}
+                />
             </section>
 
             <section className="form-section checkbox-group">
@@ -130,7 +168,6 @@ const ApplyMaster = () => {
                     </span>
                 </div>
             </section>
-
 
             <div className="form-footer">
                 <button className="submit-button" onClick={handleSubmit}>
