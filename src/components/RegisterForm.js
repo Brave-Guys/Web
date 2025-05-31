@@ -127,7 +127,7 @@ const RegisterForm = ({ onSwitchToLogin }) => {
             <div className="input-with-button">
                 <FloatingInput
                     id="username"
-                    label="아이디"
+                    label="아이디 (6-20자)"
                     value={formData.username}
                     onChange={handleChange('username')}
                 />
@@ -137,7 +137,7 @@ const RegisterForm = ({ onSwitchToLogin }) => {
 
             <FloatingInput
                 id="password"
-                label="비밀번호"
+                label="비밀번호 (문자, 숫자, 특수문자 포함 8-20자)"
                 type="password"
                 value={formData.password}
                 onChange={handleChange('password')}
@@ -156,7 +156,7 @@ const RegisterForm = ({ onSwitchToLogin }) => {
             <div className="input-with-button">
                 <FloatingInput
                     id="nickname"
-                    label="닉네임"
+                    label="닉네임 (3-20자)"
                     value={formData.nickname}
                     onChange={handleChange('nickname')}
                 />

@@ -276,4 +276,9 @@
     .error-message {
         text-align: center;
     }
+
+    .temp {
+        margin-right: 0;
+    }
+
 }
