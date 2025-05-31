@@ -109,23 +109,28 @@ const ApplyMaster = () => {
             </section>
 
             <section className="form-section checkbox-group">
-                <label>
+                <div className="checkbox-group-item">
                     <input
                         type="checkbox"
                         checked={agreePublish}
                         onChange={(e) => setAgreePublish(e.target.checked)}
                     />
-                    제출한 정보가 사실이며, 허위 기재 시 승인이 거절될 수 있음에 동의합니다.
-                </label>
-                <label>
+                    <span className="checkbox-text">
+                        제출한 정보가 사실이며, 허위 기재 시 승인이 거절될 수 있음에 동의합니다.
+                    </span>
+                </div>
+                <div className="checkbox-group-item">
                     <input
                         type="checkbox"
                         checked={agreePrivacy}
                         onChange={(e) => setAgreePrivacy(e.target.checked)}
                     />
-                    개인정보 처리 방침에 동의합니다.
-                </label>
+                    <span className="checkbox-text">
+                        개인정보 처리 방침에 동의합니다.
+                    </span>
+                </div>
             </section>
+
 
             <div className="form-footer">
                 <button className="submit-button" onClick={handleSubmit}>

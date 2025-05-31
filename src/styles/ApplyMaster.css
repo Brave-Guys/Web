@@ -1,35 +1,132 @@
+/* 기본 레이아웃 */
 .apply-wrapper {
     max-width: 600px;
     margin: 0 auto;
+    padding: 24px;
 }
 
+/* 섹션 스타일 */
 .form-section {
     margin-bottom: 32px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .form-section h3 {
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #1e293b;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+.form-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 70px;
+    height: 3px;
+    background-color: #22c55e;
+    border-radius: 3px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.checkbox-group-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.5;
     margin-bottom: 12px;
 }
 
+.checkbox-group-item input[type="checkbox"] {
+    margin: 0;
+    margin-top: 3px;
+    /* accent-color: #22c55e; */
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.checkbox-text {
+    flex-grow: 1;
+    word-break: keep-all;
+    cursor: default;
+}
+
+
+/* 입력 요소 스타일 */
+input[type="text"],
+input[type="file"],
 select {
-    background-color: #fff;
-}
-
-textarea {
-    height: 100px;
-    resize: vertical;
-}
-
-label {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
     font-size: 14px;
-    font-weight: 500;
+    background-color: #f8fafc;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+
+input[type="text"]:focus,
+input[type="file"]:focus,
+select:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+}
+
+input[type="file"] {
+    padding: 8px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+/* textarea 스타일 */
+textarea {
+    width: 100%;
+    height: 100px;
+    padding: 12px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #f8fafc;
+    resize: vertical;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    line-height: 1.5;
+}
+
+textarea:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+}
+
+/* 라벨 스타일 */
+label {
     display: block;
     margin-bottom: 6px;
     margin-top: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #334155;
 }
 
+/* 체크박스 그룹 스타일 */
 .checkbox-group label {
     display: flex;
     align-items: flex-start;
@@ -37,12 +134,68 @@ label {
     gap: 8px;
     margin-bottom: 12px;
     line-height: 1.5;
+    color: #64748b;
+}
+
+input[type="checkbox"] {
+    margin-top: 2px;
+    /* accent-color: #22c55e; */
+}
+
+/* 멀티 체크박스 스타일 */
+.multi-checkbox {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+}
+
+.multi-checkbox label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #475569;
+    background-color: #f1f5f9;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.multi-checkbox label:hover {
+    background-color: #e2e8f0;
+}
+
+.multi-checkbox input[type="checkbox"] {
+    margin: 0;
+}
+
+/* 파일 업로드 힌트 스타일 */
+input[type="file"]::file-selector-button {
+    background-color: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background-color: #e2e8f0;
+}
+
+/* 제출 버튼 스타일 */
+.form-footer {
+    margin-top: 40px;
 }
 
 .submit-button {
     background-color: #22c55e;
     color: white;
-    padding: 12px 20px;
+    padding: 14px 24px;
     font-size: 16px;
     font-weight: bold;
     border: none;
@@ -50,6 +203,7 @@ label {
     cursor: pointer;
     width: 100%;
     transition: background-color 0.2s;
+    box-shadow: 0 2px 6px rgba(34, 197, 94, 0.2);
 }
 
 .submit-button:hover {
