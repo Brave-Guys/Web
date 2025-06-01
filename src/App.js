@@ -61,11 +61,12 @@ const PrivateRoute = ({ children }) => {
 function App() {
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';
+  const isExerciseTipPage = location.pathname.startsWith('/exercise-tip');
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {!isLoginPage && <Header />}
-      <div className={`content ${isLoginPage ? 'no-padding' : ''}`} style={{ flex: 1 }}>
+      <div className={`content ${(isLoginPage || isExerciseTipPage) ? 'no-padding' : ''}`} style={{ flex: 1 }}>
         <Routes>
           {/* 공개 페이지 */}
           <Route path="/login" element={<Login />} />

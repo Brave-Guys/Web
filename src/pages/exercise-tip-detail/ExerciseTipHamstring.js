@@ -2,15 +2,26 @@ import React, { useState } from 'react';
 import '../../styles/ExerciseTipHamstring.css';
 import hamstringImage from '../../assets/thigh_back_detail.png';
 import { lowerBackExerciseDetails } from '../../constants/exerciseScript';
+import ExerciseModal from '../../components/ExerciseModal';
+import PageTitle from '../../components/PageTitle';
 
 const ExerciseTipHamstring = () => {
     const [selectedPart, setSelectedPart] = useState('');
+    const [selectedExercise, setSelectedExercise] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = (exercise) => {
+        setSelectedExercise(exercise);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => setIsModalOpen(false);
 
     return (
         <div className="hamstring-wrapper">
+            <PageTitle title="하체 후면 부위" showBackArrow={true} />
             <div className="hamstring-page">
                 <div className="left-section">
-                    <h2 className="section-title">하체 후면 부위</h2>
                     <div className="hamstring-image-wrapper">
                         <img src={hamstringImage} alt="Hamstring Detail" className="hamstring-image" />
                         <div className="area front" onClick={() => setSelectedPart('햄스트링')} />
@@ -26,22 +37,18 @@ const ExerciseTipHamstring = () => {
                     {selectedPart && (
                         <div className="exercise-list">
                             {lowerBackExerciseDetails[selectedPart].map((exercise, idx) => (
-                                <div key={idx} className="exercise-card">
+                                <div key={idx} className="exercise-card" onClick={() => openModal(exercise)}>
                                     <div className="exercise-image" />
-                                    <div className="exercise-description">
-                                        <p className="exercise-title">{exercise.name}</p>
-                                        <div className="exercise-steps">
-                                            {exercise.steps.map((step, i) => (
-                                                <div key={i}>{step}</div>
-                                            ))}
-                                        </div>
-                                    </div>
+                                    <p className="exercise-title">{exercise.name}</p>
                                 </div>
                             ))}
                         </div>
                     )}
                 </div>
             </div>
+            {isModalOpen && selectedExercise && (
+                <ExerciseModal exercise={selectedExercise} onClose={closeModal} />
+            )}
         </div>
     );
 };

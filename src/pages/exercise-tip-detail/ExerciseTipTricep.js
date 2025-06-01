@@ -2,18 +2,28 @@ import React, { useState } from 'react';
 import '../../styles/ExerciseTipTricep.css';
 import TricepImage from '../../assets/tricep_detail.png';
 import { armExerciseDetails } from '../../constants/exerciseScript'; 
+import ExerciseModal from '../../components/ExerciseModal';
+import PageTitle from '../../components/PageTitle';
 
 const ExerciseTipTricep = () => {
     const [selectedPart, setSelectedPart] = useState('');
+    const [selectedExercise, setSelectedExercise] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = (exercise) => {
+        setSelectedExercise(exercise);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => setIsModalOpen(false);
 
     return (
         <div className="tricep-wrapper">
+            <PageTitle title="삼두 부위" showBackArrow={true} />
             <div className="tricep-page">
                 <div className="left-section">
-                    <h2 className="section-title">삼두 부위</h2>
                     <div className="tricep-image-wrapper">
                         <img src={TricepImage} alt="tricep Detail" className="tricep-image" />
-                        {/* 문자열로 정확히 지정 */}
                         <div className="area front" onClick={() => setSelectedPart('장두')} />
                         <div className="area side" onClick={() => setSelectedPart('외측두')} />
                         <div className="area rear" onClick={() => setSelectedPart('내측두')} />
@@ -27,22 +37,18 @@ const ExerciseTipTricep = () => {
                     {selectedPart && (
                         <div className="exercise-list">
                             {armExerciseDetails['삼두'][selectedPart].map((exercise, idx) => (
-                                <div key={idx} className="exercise-card">
+                                <div key={idx} className="exercise-card" onClick={() => openModal(exercise)}>
                                     <div className="exercise-image" />
-                                    <div className="exercise-description">
-                                        <p className="exercise-title">{exercise.name}</p>
-                                        <div className="exercise-steps">
-                                            {exercise.steps.map((step, i) => (
-                                                <div key={i}>{step}</div>
-                                            ))}
-                                        </div>
-                                    </div>
+                                    <p className="exercise-title">{exercise.name}</p>
                                 </div>
                             ))}
                         </div>
                     )}
                 </div>
             </div>
+            {isModalOpen && selectedExercise && (
+                <ExerciseModal exercise={selectedExercise} onClose={closeModal} />
+            )}
         </div>
     );
 };

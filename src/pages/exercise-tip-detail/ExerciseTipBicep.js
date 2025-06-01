@@ -1,19 +1,29 @@
 import React, { useState } from 'react';
 import '../../styles/ExerciseTipBicep.css';
 import BicepImage from '../../assets/bicep_detail.png';
-import { armExerciseDetails } from '../../constants/exerciseScript'; 
+import { armExerciseDetails } from '../../constants/exerciseScript';
+import ExerciseModal from '../../components/ExerciseModal'; 
+import PageTitle from '../../components/PageTitle';
 
 const ExerciseTipBicep = () => {
     const [selectedPart, setSelectedPart] = useState('');
+    const [selectedExercise, setSelectedExercise] = useState(null);
+
+    const handleCardClick = (exercise) => {
+        setSelectedExercise(exercise);
+    };
+
+    const closeModal = () => {
+        setSelectedExercise(null);
+    };
 
     return (
         <div className="bicep-wrapper">
+            <PageTitle title="이두 부위" showBackArrow={true} />
             <div className="bicep-page">
                 <div className="left-section">
-                    <h2 className="section-title">이두 부위</h2>
                     <div className="bicep-image-wrapper">
                         <img src={BicepImage} alt="Bicep Detail" className="bicep-image" />
-                        {/* 문자열로 정확히 지정 */}
                         <div className="area front" onClick={() => setSelectedPart('장두')} />
                         <div className="area side" onClick={() => setSelectedPart('단두')} />
                         <div className="area rear" onClick={() => setSelectedPart('상완요골근')} />
@@ -27,22 +37,23 @@ const ExerciseTipBicep = () => {
                     {selectedPart && (
                         <div className="exercise-list">
                             {armExerciseDetails['이두'][selectedPart].map((exercise, idx) => (
-                                <div key={idx} className="exercise-card">
+                                <div
+                                    key={idx}
+                                    className="exercise-card"
+                                    onClick={() => handleCardClick(exercise)}
+                                >
                                     <div className="exercise-image" />
-                                    <div className="exercise-description">
-                                        <p className="exercise-title">{exercise.name}</p>
-                                        <div className="exercise-steps">
-                                            {exercise.steps.map((step, i) => (
-                                                <div key={i}>{step}</div>
-                                            ))}
-                                        </div>
-                                    </div>
+                                    <p className="exercise-title">{exercise.name}</p>
                                 </div>
                             ))}
                         </div>
                     )}
                 </div>
             </div>
+
+            {selectedExercise && (
+                <ExerciseModal exercise={selectedExercise} onClose={closeModal} />
+            )}
         </div>
     );
 };

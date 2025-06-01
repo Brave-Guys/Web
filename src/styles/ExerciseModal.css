@@ -1,0 +1,121 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    width: 100%;
+    max-width: 1000px;  /* 기존 500px에서 확장 */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    display: flex;       /* 좌우 레이아웃 */
+    gap: 24px;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3e6ff; /* 연한 보라색 배경으로 포인트 */
+    border-radius: 12px;
+    padding: 12px;
+    min-height: 300px;
+}
+
+.exercise-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(195, 126, 188, 0.5);
+}
+
+.exercise-image-placeholder {
+    color: #999;
+    font-size: 1rem;
+}
+
+.modal-right {
+    flex: 2;
+    overflow-y: auto;
+    max-height: 400px; 
+}
+
+.modal-title {
+    padding-bottom: 20px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #5a2e82;
+    align-self: flex-start;   
+}
+
+.modal-steps {
+    list-style-type: none !important;
+    padding-left: 0 !important;
+    margin: 0 !important;
+}
+
+.modal-steps li {
+    list-style-type: none !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    margin-bottom: 8px;       
+}
+
+
+.close-button {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    border: none;
+    background: transparent;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #5a2e82;
+    transition: color 0.2s;
+}
+
+.close-button:hover {
+    color: #b64ca0;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .modal-content {
+        flex-direction: column;
+        max-width: 90%;
+        max-height: 80vh;
+        padding: 16px;
+    }
+    .modal-left {
+        min-height: 200px;
+    }
+    .modal-right {
+        max-height: none;
+    }
+}
