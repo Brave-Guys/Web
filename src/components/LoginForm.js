@@ -7,7 +7,7 @@ import kakaoIcon from '../assets/kakao.png';
 import naverIcon from '../assets/naver.png';
 import googleIcon from '../assets/google.png';
 
-const LoginForm = ({ onSwitchToRegister }) => {
+const LoginForm = ({ onSwitchToRegister, onSwitchToFind }) => {
     const [loginData, setLoginData] = useState({ username: '', password: '' });
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
@@ -72,9 +72,24 @@ const LoginForm = ({ onSwitchToRegister }) => {
                 </div>
             </div>
 
-            <Link to="/find-account" className="forgot-account-link">
+            {/* 계정 찾기 버튼 */}
+            <button
+                type="button"
+                className="forgot-account-link"
+                onClick={onSwitchToFind}
+                style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#1E53B5',
+                    fontWeight: 'bold',
+                    fontSize: '14px',
+                    cursor: 'pointer',
+                    textDecoration: 'underline',
+                    marginTop: '16px'
+                }}
+            >
                 계정 정보를 잊으셨나요?
-            </Link>
+            </button>
 
 
             <div style={{ marginTop: '20px' }}>

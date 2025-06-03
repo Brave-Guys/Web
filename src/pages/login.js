@@ -3,6 +3,7 @@ import '../styles/login.css';
 import appIcon from '../assets/logo.png';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
+import FindAccountForm from '../components/FindAccountForm';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const LoginPage = () => {
@@ -51,9 +52,12 @@ const LoginPage = () => {
                                     exit={{ opacity: 0 }}
                                     transition={{ duration: 0.1 }}
                                 >
-                                    <LoginForm onSwitchToRegister={() => setMode('register')} />
+                                    <LoginForm
+                                        onSwitchToRegister={() => setMode('register')}
+                                        onSwitchToFind={() => setMode('find')}
+                                    />
                                 </motion.div>
-                            ) : (
+                            ) : mode === 'register' ? (
                                 <motion.div
                                     key="register"
                                     initial={{ opacity: 0 }}
@@ -62,6 +66,16 @@ const LoginPage = () => {
                                     transition={{ duration: 0.1 }}
                                 >
                                     <RegisterForm onSwitchToLogin={() => setMode('login')} />
+                                </motion.div>
+                            ) : (
+                                <motion.div
+                                    key="find"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.1 }}
+                                >
+                                    <FindAccountForm onSwitchToLogin={() => setMode('login')} />
                                 </motion.div>
                             )}
                         </AnimatePresence>
