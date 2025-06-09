@@ -1,13 +1,24 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const FindAccountForm = ({ onSwitchToLogin }) => {
     const [email, setEmail] = useState('');
     const [submitted, setSubmitted] = useState(false);
+    const [error, setError] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // 실제 서비스에서는 이메일로 비밀번호 재설정 링크를 보내는 API 호출 필요
-        setSubmitted(true);
+        setError('');
+
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/email/send`, null, {
+                params: { email }
+            });
+            setSubmitted(true);
+        } catch (err) {
+            console.error(err);
+            setError('메일 전송에 실패했습니다. 이메일 주소를 다시 확인해주세요.');
+        }
     };
 
     return (
@@ -52,6 +63,7 @@ const FindAccountForm = ({ onSwitchToLogin }) => {
                     >
                         비밀번호 재설정 메일 받기
                     </button>
+                    {error && <div style={{ color: 'red', fontSize: '13px' }}>{error}</div>}
                 </form>
             )}
             <button
