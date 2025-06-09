@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../../styles/ExerciseTipBicep.css';
 import BicepImage from '../../assets/bicep_detail.png';
+import Image from '../../assets/person.png'; // 기본 이미지 대체용
 import { armExerciseDetails } from '../../constants/exerciseScript';
 import ExerciseModal from '../../components/ExerciseModal'; 
 import PageTitle from '../../components/PageTitle';
@@ -32,7 +33,7 @@ const ExerciseTipBicep = () => {
 
                 <div className="right-section">
                     <h2 className="section-title">
-                        {selectedPart ? `이두 (${selectedPart}) 운동` : '이두 부위를 선택해보세요!'}
+                        {selectedPart ? `이두 ${selectedPart} 운동` : '이두 부위를 선택해보세요!'}
                     </h2>
                     {selectedPart && (
                         <div className="exercise-list">
@@ -42,7 +43,11 @@ const ExerciseTipBicep = () => {
                                     className="exercise-card"
                                     onClick={() => handleCardClick(exercise)}
                                 >
-                                    <div className="exercise-image" />
+                                    <img
+                                        src={exercise.image || Image}
+                                        alt={exercise.name}
+                                        className="exercise-image"
+                                    />
                                     <p className="exercise-title">{exercise.name}</p>
                                 </div>
                             ))}

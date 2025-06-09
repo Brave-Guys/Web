@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../../styles/ExerciseTipHamstring.css';
 import hamstringImage from '../../assets/thigh_back_detail.png';
+import Image from '../../assets/person.png'; // 기본 이미지 대체용
 import { lowerBackExerciseDetails } from '../../constants/exerciseScript';
 import ExerciseModal from '../../components/ExerciseModal';
 import PageTitle from '../../components/PageTitle';
@@ -32,13 +33,17 @@ const ExerciseTipHamstring = () => {
 
                 <div className="right-section">
                     <h2 className="section-title">
-                        {selectedPart ? `${selectedPart} 하체 후면 운동` : '하체 후면 부위를 선택해보세요!'}
+                        {selectedPart ? `${selectedPart} 운동` : '하체 후면 부위를 선택해보세요!'}
                     </h2>
                     {selectedPart && (
                         <div className="exercise-list">
                             {lowerBackExerciseDetails[selectedPart].map((exercise, idx) => (
                                 <div key={idx} className="exercise-card" onClick={() => openModal(exercise)}>
-                                    <div className="exercise-image" />
+                                    <img
+                                        src={exercise.image || Image}
+                                        alt={exercise.name}
+                                        className="exercise-image"
+                                    />
                                     <p className="exercise-title">{exercise.name}</p>
                                 </div>
                             ))}

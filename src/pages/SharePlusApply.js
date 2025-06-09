@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { postSharePlusRequest } from '../apis/applySharePlus';
 import '../styles/SharePlusApply.css';
 import axios from 'axios';
+import PageTitle from '../components/PageTitle';
 
 const SharePlusApply = () => {
     const { seniorId } = useParams();
@@ -36,12 +37,17 @@ const SharePlusApply = () => {
 
     return (
         <div className="shareplus-wrapper">
-            <h2>Share+ 신청서</h2>
+            <PageTitle title={`Share+ 신청`} showBackArrow={true} />
             <form className="shareplus-form" onSubmit={handleSubmit}>
                 <div className="row">
                     <div className="form-group">
                         <label>나이</label>
-                        <input type="text" value={age} onChange={(e) => setAge(e.target.value)} placeholder="25세" />
+                        <input
+                            type="text"
+                            value={age}
+                            onChange={(e) => setAge(e.target.value)}
+                            placeholder="25세"
+                        />
                     </div>
                     <div className="form-group">
                         <label>성별</label>
@@ -80,6 +86,7 @@ const SharePlusApply = () => {
             </form>
         </div>
     );
+
 };
 
 export default SharePlusApply;

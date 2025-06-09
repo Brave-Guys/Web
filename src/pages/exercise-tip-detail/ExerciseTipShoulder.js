@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../../styles/ExerciseTipShoulder.css';
 import ShoulderImage from '../../assets/shoulder_detail.png';
+import Image from '../../assets/person.png'; // 기본 이미지 대체용
 import { shoulderExerciseDetails } from '../../constants/exerciseScript'; 
 import PageTitle from '../../components/PageTitle';
 import ExerciseModal from '../../components/ExerciseModal';
@@ -38,7 +39,11 @@ const ExerciseTipShoulder = () => {
                         <div className="exercise-list">
                             {shoulderExerciseDetails[selectedPart].map((exercise, idx) => (
                                 <div key={idx} className="exercise-card" onClick={() => openModal(exercise)}>
-                                    <div className="exercise-image" />
+                                    <img
+                                        src={exercise.image || Image}
+                                        alt={exercise.name}
+                                        className="exercise-image"
+                                    />
                                     <p className="exercise-title">{exercise.name}</p>
                                 </div>
                             ))}

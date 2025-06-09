@@ -1,19 +1,39 @@
-/* SharePlusApply.css */
 .shareplus-wrapper {
+    margin: 10px auto; /* top & bottom 여백 조절 */
     max-width: 640px;
-    font-family: sans-serif;
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    font-family: 'Segoe UI', sans-serif;
 }
 
+body {
+    background-color: #f7f8fa;
+}
+
+
+.shareplus-wrapper h2 {
+    text-align: center;
+    margin-bottom: 32px;
+    font-size: 26px;
+    font-weight: 600;
+    color: #2d2d2d;
+}
+
+
+/* 폼 레이아웃 */
 .shareplus-form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
 }
 
 .row {
     display: flex;
     gap: 16px;
     flex-wrap: wrap;
+    margin-top: 20px;
 }
 
 .form-group {
@@ -26,6 +46,22 @@
 .form-group label {
     margin-bottom: 6px;
     font-weight: 500;
+    color: #444;
+}
+
+input,
+textarea {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    transition: border-color 0.2s ease;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #7c3aed;
+    outline: none;
 }
 
 textarea {
@@ -37,8 +73,10 @@ textarea {
     display: flex;
     gap: 12px;
     margin-top: 4px;
+    font-size: 14px;
 }
 
+/* 가로 꽉 채우기 */
 .full-width {
     width: 100%;
 }
@@ -48,20 +86,21 @@ textarea {
     margin-top: 20px;
 }
 
+/* 제출 버튼 */
 .submit-button {
-    background-color: #bb77ff;
+    background-color: #7c3aed;
     border: none;
-    border-radius: 20px;
-    padding: 10px 28px;
+    border-radius: 24px;
+    padding: 12px 36px;
     color: white;
-    font-weight: bold;
-    font-size: 15px;
+    font-weight: 600;
+    font-size: 16px;
     cursor: pointer;
     transition: background-color 0.2s, transform 0.2s;
 }
 
 .submit-button:hover {
-    background-color: #a760e6;
+    background-color: #6b21a8;
     transform: translateY(-2px);
 }
 

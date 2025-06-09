@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../../styles/ExerciseTipChest.css';
 import ChestImage from '../../assets/chest_detail.png';
+import Image from '../../assets/person.png'; // 기본 이미지 대체용
 import { chestExerciseDetails } from '../../constants/exerciseScript';
 import ExerciseModal from '../../components/ExerciseModal'; 
 import PageTitle from '../../components/PageTitle';
@@ -19,10 +20,10 @@ const ExerciseTipChest = () => {
 
     return (
         <div className="chest-wrapper">
-            
+            <PageTitle title="가슴 부위" showBackArrow={true} />
             <div className="chest-page">
                 <div className="left-section">
-                    <PageTitle title="가슴 부위" showBackArrow={true} />
+        
                     <div className="chest-image-wrapper">
                         <img src={ChestImage} alt="Chest Detail" className="chest-image" />
                         <div className="area front" onClick={() => setSelectedPart('윗 가슴')} />
@@ -33,7 +34,7 @@ const ExerciseTipChest = () => {
 
                 <div className="right-section">
                     <h2 className="section-title">
-                        {selectedPart ? `${selectedPart} 가슴 운동` : '가슴 부위를 선택해보세요!'}
+                        {selectedPart ? `${selectedPart} 운동` : '가슴 부위를 선택해보세요!'}
                     </h2>
                     {selectedPart && (
                         <div className="exercise-list">
@@ -43,7 +44,11 @@ const ExerciseTipChest = () => {
                                     className="exercise-card"
                                     onClick={() => handleCardClick(exercise)}
                                 >
-                                    <div className="exercise-image" />
+                                    <img
+                                        src={exercise.image || Image}
+                                        alt={exercise.name}
+                                        className="exercise-image"
+                                    />
                                     <p className="exercise-title">{exercise.name}</p>
                                 </div>
                             ))}

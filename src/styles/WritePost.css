@@ -75,17 +75,40 @@
 .write-post-form .footer-buttons {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 20px;
     margin-top: 20px;
 }
 
+.title-category-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+/* 제목 input이 더 넓게 보이도록 */
+.title-label {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 카테고리 드롭다운 너비 고정 */
 .write-post-form .post-category-select {
-    min-width: 100px;
-    padding: 10px 14px;
+    width: 150px;
+    padding: 12px 14px;
     border-radius: 10px;
     border: 1px solid #ccc;
     font-size: 16px;
+}
+
+.write-post-form .post-category-select {
+    width: 150px;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-bottom: 5px;
 }
 
 .write-post-form .post-button-group {

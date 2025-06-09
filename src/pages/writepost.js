@@ -86,15 +86,28 @@ const WritePost = () => {
             <PageTitle title="글 작성" description="운동 관련 이야기를 나누어 보세요" showBackArrow={true} />
 
             <div className="write-post-form">
-                <label>
-                    제목
-                    <input
-                        type="text"
-                        value={form.title}
-                        onChange={handleChange('title')}
-                        placeholder="제목을 입력하세요"
-                    />
-                </label>
+                <div className="title-category-row">
+                    <label className="title-label">
+                        제목
+                        <input
+                            type="text"
+                            value={form.title}
+                            onChange={handleChange('title')}
+                            placeholder="제목을 입력하세요"
+                        />
+                    </label>
+
+                    <select
+                        className="post-category-select"
+                        value={form.category}
+                        onChange={handleChange('category')}
+                    >
+                        <option value="잡담">잡담</option>
+                        <option value="식단">식단</option>
+                        <option value="루틴">루틴</option>
+                        <option value="공지">공지</option>
+                    </select>
+                </div>
 
                 <label>
                     내용
@@ -135,17 +148,6 @@ const WritePost = () => {
                 </div>
 
                 <div className="footer-buttons">
-                    <select
-                        className="post-category-select"
-                        value={form.category}
-                        onChange={handleChange('category')}
-                    >
-                        <option value="잡담">잡담</option>
-                        <option value="식단">식단</option>
-                        <option value="루틴">루틴</option>
-                        <option value="공지">공지</option>
-                    </select>
-
                     {/* 버튼 묶음 */}
                     <div className="post-button-group">
                         <CustomButton
