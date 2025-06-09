@@ -17,7 +17,7 @@ const Modal = ({ title, visible, onClose, children }) => {
                     <h3>{title}</h3>
                     <button className="modal-close" onClick={onClose}>&times;</button>
                 </div>
-                <div className="modal-content">
+                <div className="workoutlog-modal-content">
                     {children}
                 </div>
             </div>
