@@ -114,7 +114,7 @@ const LoginForm = ({ onSwitchToRegister, onSwitchToFind }) => {
                         </div>
                     </button>
 
-                    <button className="social-button google">
+                    <button className="social-button google" onClick={() => window.location.href = `${process.env.REACT_APP_API_URL}/oauth2/authorization/google`}>
                         <div className="social-content">
                             <div className="icon-area">
                                 <img src={googleIcon} alt="Google" className="social-icon" />

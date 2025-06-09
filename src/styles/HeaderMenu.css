@@ -91,7 +91,7 @@
 }
 
 /* 프로필 이미지 */
-.profile-image {
+.header-profile-image {
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -134,7 +134,7 @@
     padding: 16px;
 }
 
-.profile-header {
+.headermenu-profile-header {
     display: flex;
     align-items: center;
     /*gap: 16px;*/

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import '../styles/HeaderMenu.css';
 import logo from '../assets/logo.png';
 import DefaultAvatar from '../assets/person.png';
@@ -95,7 +96,7 @@ const Header = () => {
             <div className="nav-right" ref={menuRef}>
                 <div className="icon-btn profile-btn" onClick={() => setShowProfileMenu(prev => !prev)}>
                     {user?.imgUrl ? (
-                        <img src={user.imgUrl} alt="프로필" className="profile-image" />
+                        <img src={user.imgUrl} alt="프로필" className="header-profile-image" />
                     ) : (
                         <FaUserCircle className="icon" />
                     )}
@@ -108,8 +109,9 @@ const Header = () => {
                 </div>
                 {showProfileMenu && (
                     <div className="profile-dropdown">
-                        <div className="profile-header">
+                        <div className="headermenu-profile-header">
                             <img src={user?.imgUrl || DefaultAvatar} alt="프로필" className="dropdown-profile-image" />
+                            <div style={{margin: `5px`}}></div>
                             <div>
                                 <div className="profile-name">{user?.name}</div>
                                 <div className="profile-email">{user?.email}</div>

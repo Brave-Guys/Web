@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Box from '../components/Box';
@@ -23,6 +24,25 @@ const Main = () => {
     const [tooltip, setTooltip] = useState(null);
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const res = await axios.get(`${process.env.REACT_APP_API_URL}/users/me`, {
+                    withCredentials: true
+                });
+                localStorage.setItem('user', JSON.stringify(res.data));
+            } catch (err) {
+                console.error("자동 로그인 사용자 정보 불러오기 실패", err);
+                navigate('/login'); // 로그인 만료된 경우 등
+            }
+        };
+
+        if (!localStorage.getItem('user')) {
+            fetchUser();
+        }
+
+    }, []);
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
