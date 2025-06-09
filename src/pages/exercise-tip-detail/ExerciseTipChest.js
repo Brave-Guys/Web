@@ -3,7 +3,7 @@ import '../../styles/ExerciseTipChest.css';
 import ChestImage from '../../assets/chest_detail.png';
 import Image from '../../assets/person.png'; // 기본 이미지 대체용
 import { chestExerciseDetails } from '../../constants/exerciseScript';
-import ExerciseModal from '../../components/ExerciseModal'; 
+import ExerciseModal from '../../components/ExerciseModal';
 import PageTitle from '../../components/PageTitle';
 
 const ExerciseTipChest = () => {
@@ -21,9 +21,10 @@ const ExerciseTipChest = () => {
     return (
         <div className="chest-wrapper">
             <PageTitle title="가슴 부위" showBackArrow={true} />
+            <div style={{ margin: `30px` }}></div>
             <div className="chest-page">
                 <div className="left-section">
-        
+
                     <div className="chest-image-wrapper">
                         <img src={ChestImage} alt="Chest Detail" className="chest-image" />
                         <div className="area front" onClick={() => setSelectedPart('윗 가슴')} />

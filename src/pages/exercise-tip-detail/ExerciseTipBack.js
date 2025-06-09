@@ -21,6 +21,7 @@ const ExerciseTipBack = () => {
     return (
         <div className="back-wrapper">
             <PageTitle title="등 부위" showBackArrow={true} />
+            <div style={{ margin: `30px` }}></div>
             <div className="back-page">
                 <div className="left-section">
                     <div className="back-image-wrapper">

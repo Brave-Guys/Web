@@ -37,8 +37,9 @@ a:visited {
   color: inherit;
 }
 
-.content {
+.app-content {
   padding: 24px;
+  background-color: #FFF !important;
 }
 
 .no-padding {

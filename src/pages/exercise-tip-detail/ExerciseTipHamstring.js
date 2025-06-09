@@ -21,6 +21,7 @@ const ExerciseTipHamstring = () => {
     return (
         <div className="hamstring-wrapper">
             <PageTitle title="하체 후면 부위" showBackArrow={true} />
+            <div style={{ margin: `30px` }}></div>
             <div className="hamstring-page">
                 <div className="left-section">
                     <div className="hamstring-image-wrapper">

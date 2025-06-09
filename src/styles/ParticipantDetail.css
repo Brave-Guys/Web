@@ -7,7 +7,8 @@
 .participant-main {
     flex: 2;
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .participant-detail-date {
@@ -21,7 +22,7 @@
     line-height: 1.6;
     white-space: pre-wrap;
     margin-bottom: 20px;
-    color: #333;
+    color: #333;    
 }
 
 .participant-video-wrapper {

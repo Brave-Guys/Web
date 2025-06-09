@@ -65,7 +65,7 @@ function App() {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {!isLoginPage && <Header />}
-      <div className={`content ${(isLoginPage || isExerciseTipPage) ? 'no-padding' : ''}`} style={{ flex: 1 }}>
+      <div className={`app-content ${(isLoginPage || isExerciseTipPage) ? 'no-padding' : ''}`} style={{ flex: 1 }}>
         <Routes>
           {/* 공개 페이지 */}
           <Route path="/login" element={<Login />} />

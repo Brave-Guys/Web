@@ -21,6 +21,7 @@ const ExerciseTipAbs = () => {
     return (
         <div className="abs-wrapper">
             <PageTitle title="복근 부위" showBackArrow={true} />
+            <div style={{ margin: `30px` }}></div>
             <div className="abs-page">
                 <div className="left-section">
                     <div className="abs-image-wrapper">

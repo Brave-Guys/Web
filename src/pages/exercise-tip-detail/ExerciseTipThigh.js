@@ -21,6 +21,7 @@ const ExerciseTipThigh = () => {
     return (
         <div className="thigh-wrapper">
             <PageTitle title="하체 전면 부위" showBackArrow={true} />
+            <div style={{ margin: `30px` }}></div>
             <div className="thigh-page">
                 <div className="left-section">
                     <div className="thigh-image-wrapper">

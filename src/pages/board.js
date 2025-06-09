@@ -144,7 +144,7 @@ const Board = () => {
                 <div className="search-wrapper">
                     <FloatingInput
                         id="search"
-                        label="게시글 검색"
+                        label="🔍 게시글 검색"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         onKeyDown={(e) => {

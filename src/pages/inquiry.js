@@ -16,7 +16,7 @@ const Inquiry = () => {
     };
 
     return (
-        <div className="inquiry-container">
+        <div className="inquiry-container">            
             <h2>고객센터 / 문의하기</h2>
             <p className="inquiry-description">
                 서비스 이용 중 궁금한 점이나 불편한 사항이 있다면 언제든지 문의해주세요.

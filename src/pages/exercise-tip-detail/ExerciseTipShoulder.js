@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../../styles/ExerciseTipShoulder.css';
 import ShoulderImage from '../../assets/shoulder_detail.png';
 import Image from '../../assets/person.png'; // 기본 이미지 대체용
-import { shoulderExerciseDetails } from '../../constants/exerciseScript'; 
+import { shoulderExerciseDetails } from '../../constants/exerciseScript';
 import PageTitle from '../../components/PageTitle';
 import ExerciseModal from '../../components/ExerciseModal';
 
@@ -21,6 +21,7 @@ const ExerciseTipShoulder = () => {
     return (
         <div className="shoulder-wrapper">
             <PageTitle title="어깨 부위" showBackArrow={true} />
+            <div style={{ margin: `30px` }}></div>
             <div className="shoulder-page">
                 <div className="left-section">
                     <div className="shoulder-image-wrapper">

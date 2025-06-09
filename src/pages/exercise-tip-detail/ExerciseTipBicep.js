@@ -21,6 +21,7 @@ const ExerciseTipBicep = () => {
     return (
         <div className="bicep-wrapper">
             <PageTitle title="이두 부위" showBackArrow={true} />
+            <div style={{ margin: `30px` }}></div>
             <div className="bicep-page">
                 <div className="left-section">
                     <div className="bicep-image-wrapper">

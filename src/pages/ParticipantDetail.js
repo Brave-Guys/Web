@@ -113,9 +113,9 @@ const ParticipantDetail = () => {
                 showBackArrow={true}
                 onBack={() => navigate(-1)}
             />
+            <div style={{ margin: `50px` }}></div>
             <div className="participant-detail-wrapper">
                 <div className="participant-main">
-                    <p className="participant-detail-content">{participant.content}</p>
                     {participant.videoUrl && (
                         <div className="participant-video-wrapper">
                             <video
@@ -128,6 +128,7 @@ const ParticipantDetail = () => {
                             />
                         </div>
                     )}
+                    <p className="participant-detail-content">{participant.content}</p>
                 </div>
 
                 <div className="participant-comments">
