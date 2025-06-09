@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getMasterRequestById } from '../apis/getMasterRequest';
 import { getMyShareRequests } from '../apis/getSharePlus';
+import DefaultAvatar from '../assets/person.png'
 import PageTitle from '../components/PageTitle';
 import '../styles/SeniorDetail.css';
 
@@ -34,7 +35,7 @@ const SeniorDetail = () => {
 
             <div className="profile-card">
                 <div className="profile-header">
-                    <img src={profile.imageUrl || '/default-profile.png'} alt="상급자 프로필" className="profile-image" />
+                    <img src={profile.imageUrl || DefaultAvatar} alt="상급자 프로필" className="profile-image" />
                     <div className="profile-basic">
                         <h2>{profile.name}</h2>
                         <p className="tag">{profile.parts}</p>

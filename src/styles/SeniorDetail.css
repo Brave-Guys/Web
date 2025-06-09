@@ -37,8 +37,8 @@
 }
 
 .profile-basic .tag {
-    background-color: #d980d2;
-    color: #3730a3;
+    background-color: lightgray;
+    color: black;
     font-size: 14px;
     padding: 4px 5px;
     border-radius: 12px;
