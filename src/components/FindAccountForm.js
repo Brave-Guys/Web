@@ -161,7 +161,7 @@ const FindAccountForm = ({ onSwitchToLogin }) => {
                 </div>
             )}
 
-            <button type="button" className="back-to-login" onClick={onSwitchToLogin}>
+            <button type="button" className="back-to-login-findaccount" onClick={onSwitchToLogin}>
                 로그인으로 돌아가기
             </button>
         </div>

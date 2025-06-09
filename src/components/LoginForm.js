@@ -94,7 +94,9 @@ const LoginForm = ({ onSwitchToRegister, onSwitchToFind }) => {
 
             <div style={{ marginTop: '20px' }}>
                 <div className="social-buttons">
-                    <button className="social-button kakao">
+                    <button className="social-button kakao" onClick={() => {
+                        window.location.href = `${process.env.REACT_APP_API_URL}/oauth2/authorization/kakao`;
+                    }}>
                         <div className="social-content">
                             <div className="icon-area">
                                 <img src={kakaoIcon} alt="Kakao" className="social-icon" />
@@ -105,7 +107,12 @@ const LoginForm = ({ onSwitchToRegister, onSwitchToFind }) => {
                         </div>
                     </button>
 
-                    <button className="social-button naver">
+                    <button
+                        className="social-button naver"
+                        onClick={() => {
+                            window.location.href = `${process.env.REACT_APP_API_URL}/oauth2/authorization/naver`;
+                        }}
+                    >
                         <div className="social-content">
                             <div className="icon-area">
                                 <img src={naverIcon} alt="Naver" className="social-icon" />
