@@ -5,10 +5,12 @@ import '../styles/FindAccountForm.css';
 const FindAccountForm = ({ onSwitchToLogin }) => {
     const [email, setEmail] = useState('');
     const [code, setCode] = useState('');
-    const [step, setStep] = useState('inputEmail'); // inputEmail → inputCode → verified
+    const [step, setStep] = useState('inputEmail'); // inputEmail → inputCode → verified → resetPassword
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
-    const [userInfo, setUserInfo] = useState(null); // 가입자 정보 저장
+    const [userInfo, setUserInfo] = useState(null);
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleSendEmail = async (e) => {
         e.preventDefault();
@@ -37,12 +39,34 @@ const FindAccountForm = ({ onSwitchToLogin }) => {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/email/verify`, null, {
                 params: { email, code },
             });
-
-            setUserInfo(response.data); // userInfo에 사용자 정보 저장
+            setUserInfo(response.data);
             setStep('verified');
         } catch (err) {
             console.error(err);
             setError('인증 코드가 유효하지 않거나 만료되었습니다.');
+        }
+    };
+
+    const handlePasswordReset = async (e) => {
+        e.preventDefault();
+        setError('');
+        setMessage('');
+
+        if (newPassword !== confirmPassword) {
+            setError('비밀번호가 일치하지 않습니다.');
+            return;
+        }
+
+        try {
+            await axios.post(`${process.env.REACT_APP_API_URL}/users/reset-password`, {
+                email,
+                newPassword
+            });
+            setMessage('비밀번호가 성공적으로 변경되었습니다.');
+            setStep('done');
+        } catch (err) {
+            console.error(err);
+            setError('비밀번호 변경에 실패했습니다.');
         }
     };
 
@@ -90,17 +114,50 @@ const FindAccountForm = ({ onSwitchToLogin }) => {
                     <div className="success-message">✅ 인증 완료! 아래는 가입자 정보입니다.</div>
                     <div className="user-summary">
                         {userInfo.profileImgUrl && (
-                            <img
-                                src={userInfo.profileImgUrl}
-                                alt="프로필"
-                                className="user-profile-img"
-                            />
+                            <img src={userInfo.profileImgUrl} alt="프로필" className="user-profile-img" />
                         )}
                         <p><strong>아이디:</strong> {userInfo.userId}</p>
                         <p><strong>닉네임:</strong> {userInfo.nickname}</p>
                         <p><strong>이메일:</strong> {userInfo.email}</p>
                         <p><strong>플랜:</strong> {userInfo.userPlanType}</p>
                     </div>
+                    <button
+                        className="submit-button"
+                        onClick={() => setStep('resetPassword')}
+                        style={{ marginTop: '16px' }}
+                    >
+                        비밀번호 재설정
+                    </button>
+                </div>
+            )}
+
+            {step === 'resetPassword' && (
+                <form onSubmit={handlePasswordReset}>
+                    <input
+                        type="password"
+                        placeholder="새 비밀번호"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        required
+                        className="input-field"
+                    />
+                    <input
+                        type="password"
+                        placeholder="새 비밀번호 확인"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        required
+                        className="input-field"
+                    />
+                    <button type="submit" className="submit-button">비밀번호 변경하기</button>
+                    {error && <div className="error-message">{error}</div>}
+                    {message && <div className="success-message">{message}</div>}
+                </form>
+            )}
+
+            {step === 'done' && (
+                <div className="success-message">
+                    🎉 비밀번호가 변경되었습니다. 로그인 화면으로 이동해주세요.
                 </div>
             )}
 
