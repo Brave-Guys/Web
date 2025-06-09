@@ -213,7 +213,7 @@ const PostDetail = () => {
             <div style={{ display: 'flex', gap: '40px', padding: '30px' }}>
                 <div style={{ flex: 2 }}>
                     <div className="post-detail-wrapper">
-                        <div className="profile-info" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
+                        <div className="post-profile-info" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
                             {post.profileImgUrl ? (
                                 <img
                                     src={post.profileImgUrl}
