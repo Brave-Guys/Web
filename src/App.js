@@ -5,7 +5,6 @@ import RegisterSuccess from './pages/register-success.js';
 import Login from './pages/login.js';
 import Main from './pages/main.js';
 import Board from './pages/board.js';
-import FindAccount from './pages/find-accout.js';
 import Challenges from './pages/challenges.js';
 import Mypage from './pages/mypage.js';
 import WeeklyWorkout from './pages/weekly-workout.js';
@@ -71,8 +70,7 @@ function App() {
           {/* 공개 페이지 */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/register-success" element={<RegisterSuccess />} />
-          <Route path="/find-account" element={<FindAccount />} />
+          <Route path="/register-success" element={<RegisterSuccess />} />          
 
           {/* 보호된 페이지 */}
           <Route path="/" element={<PrivateRoute><Main /></PrivateRoute>} />
