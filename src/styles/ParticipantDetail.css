@@ -352,3 +352,91 @@
 .comment-reply {
     cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .participant-detail-wrapper {
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 12px;
+  }
+
+  .shorts-wrapper {
+    aspect-ratio: 9 / 16;
+    width: 100%;
+    max-height: none;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .participant-comments {
+    padding: 12px;
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  .video-container {
+    width: 100%;
+    max-height: none;
+  }
+
+  .video-bottom-overlay {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .video-overlay-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 12px;
+  }
+
+  .video-controls {
+    bottom: 12px;
+    right: 12px;
+  }
+
+  .comment-textarea.expanded {
+    min-height: 80px;
+    max-height: 80px;
+  }
+
+  .comment-textarea {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .comment-submit-btn {
+    font-size: 13px;
+    padding: 5px 12px;
+  }
+
+  .comment-item {
+    padding: 10px 12px;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .comment-header {
+    flex-wrap: wrap;
+  }
+
+  .comment-actions {
+    font-size: 12px;
+    gap: 8px;
+  }
+
+  .comment-reply {
+    font-size: 12px;
+  }
+
+  .comment-action-buttons button {
+    font-size: 12px !important;
+    height: 30px !important;
+    padding: 4px 8px !important;
+  }
+}
