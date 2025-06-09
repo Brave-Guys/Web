@@ -8,11 +8,13 @@ const FindAccountForm = ({ onSwitchToLogin }) => {
     const [step, setStep] = useState('inputEmail'); // inputEmail → inputCode → verified
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
+    const [userInfo, setUserInfo] = useState(null); // 가입자 정보 저장
 
     const handleSendEmail = async (e) => {
         e.preventDefault();
         setError('');
         setMessage('');
+        setUserInfo(null);
 
         try {
             await axios.post(`${process.env.REACT_APP_API_URL}/api/email/send`, null, {
@@ -35,8 +37,9 @@ const FindAccountForm = ({ onSwitchToLogin }) => {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/email/verify`, null, {
                 params: { email, code },
             });
+
+            setUserInfo(response.data); // userInfo에 사용자 정보 저장
             setStep('verified');
-            setMessage('인증에 성공했습니다.');
         } catch (err) {
             console.error(err);
             setError('인증 코드가 유효하지 않거나 만료되었습니다.');
@@ -82,9 +85,22 @@ const FindAccountForm = ({ onSwitchToLogin }) => {
                 </form>
             )}
 
-            {step === 'verified' && (
-                <div className="success-message">
-                    ✅ 이메일 인증이 완료되었습니다. <br />비밀번호 재설정은 관리자에게 문의하세요.
+            {step === 'verified' && userInfo && (
+                <div className="verified-info">
+                    <div className="success-message">✅ 인증 완료! 아래는 가입자 정보입니다.</div>
+                    <div className="user-summary">
+                        {userInfo.profileImgUrl && (
+                            <img
+                                src={userInfo.profileImgUrl}
+                                alt="프로필"
+                                className="user-profile-img"
+                            />
+                        )}
+                        <p><strong>아이디:</strong> {userInfo.userId}</p>
+                        <p><strong>닉네임:</strong> {userInfo.nickname}</p>
+                        <p><strong>이메일:</strong> {userInfo.email}</p>
+                        <p><strong>플랜:</strong> {userInfo.userPlanType}</p>
+                    </div>
                 </div>
             )}
 
