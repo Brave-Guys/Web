@@ -226,6 +226,7 @@ export const shoulderExerciseDetails = {
     '중간 가슴': [
       {
         name: '벤치 프레스',
+        image: 'bench_press',
         steps: [
           '1. 벤치에 누워 두 발을 바닥에 고정한다.',
           '2. 어깨를 뒤로 당긴 후 고정하여 어깨가 가슴보다 뒤에 위치하게 한다.',
