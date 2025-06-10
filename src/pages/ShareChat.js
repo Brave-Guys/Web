@@ -179,9 +179,14 @@ const ShareChat = () => {
                             placeholder="질문이나 의견을 입력하세요."
                             required
                         />
-                        <input type="file" accept="image/*" onChange={(e) => setNewImage(e.target.files[0])} />
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => setNewImage(e.target.files[0])}
+                        />
                         <button type="submit">등록</button>
                     </form>
+
                 </div>
 
                 {/* 오른쪽: 댓글 목록 */}
