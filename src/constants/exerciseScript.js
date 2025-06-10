@@ -506,6 +506,7 @@ export const absExerciseDetails = {
   상부: [
     {
       name: "크런치",
+      image: 'crunch',
       steps: [
         "1. 바닥에 바로 누워 무릎을 세운다.",
         "2. 등 윗부분과 머리가 바닥에 닿지 않도록 들어준다.",
@@ -516,6 +517,7 @@ export const absExerciseDetails = {
     },
     {
       name: "케이블 크런치",
+      image: 'cable_crunch',
       steps: [
         "1. 케이블 앞에서 무릎을 꿇고 앉는다.",
         "2. 두 손으로 루프를 잡고, 양손을 귀 앞에 위치시킨다.",
@@ -529,6 +531,7 @@ export const absExerciseDetails = {
   중부: [
     {
       name: "시티드 니업",
+      image: 'seated_knee_up',
       steps: [
         "1. 벤치의 끝에 앉아 다리를 앞으로 뻗는다.",
         "2. 상체는 자연스럽게 뒤로 보내고, 두 손으로 벤치를 잡아 몸이 흔들리지 않게 한다.",
@@ -540,6 +543,7 @@ export const absExerciseDetails = {
     },
     {
       name: "플랭크",
+      image: 'plank',
       steps: [
         "1. 양팔을 어깨너비로 벌리고 무릎은 편 상태로 엎드린다.",
         "2. 몸이 일직선이 되도록 엉덩이와 코어에 힘을 준다.",
@@ -553,6 +557,7 @@ export const absExerciseDetails = {
   하부: [
     {
       name: "행잉 레그레이즈",
+      image: 'hanging_leg_raise',
       steps: [
         "1. 두 손으로 철봉을 잡고 매달려 준다.",
         "2. 다리를 편 채로 허리까지 다리를 들어 올린다.",
@@ -562,6 +567,7 @@ export const absExerciseDetails = {
     },
     {
       name: "리버스 크런치",
+      image: 'reverse_crunch',
       steps: [
         "1. 바닥에 편하게 눕는다.",
         "2. 무릎을 접어 허벅지가 바닥과 수직이 되도록 다리를 들어준다.",
@@ -576,6 +582,7 @@ export const absExerciseDetails = {
   옆구리: [
     {
       name: "바이시클 크런치",
+      image: 'bicycle_crunch',
       steps: [
         "1. 바닥에 편하게 눕는다.",
         "2. 무릎을 구부리고, 허벅지가 지면과 수평이 되도록 다리를 들어올린다.",
@@ -588,6 +595,7 @@ export const absExerciseDetails = {
     },
     {
       name: "러시안 트위스트",
+      image: 'russian_twist',
       steps: [
         "1. 무릎을 세우고 바닥에 앉는다.",
         "2. 코어에 힘이 들어갈 수 있게 상체를 살짝 뒤로 보낸다.",
@@ -600,6 +608,7 @@ export const absExerciseDetails = {
     },
     {
       name: "덤벨 사이드 밴드",
+      image: 'dumbbell_side_bend',
       steps: [
         "1. 한쪽 손에 덤벨을 들고 바로 선다.",
         "2. 덤벨이 허벅지에 옆에 오게 위치한다.",

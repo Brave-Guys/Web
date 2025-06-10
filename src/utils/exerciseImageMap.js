@@ -30,15 +30,15 @@ import barbell_tricep_extension from '../assets/exercise_thumbnail/barbell_trice
 import one_arm_cable_tricep_pushdown from '../assets/exercise_thumbnail/one_arm_cable_tricep_pushdown.jpg';
 import cable_rope_tricep_extension from '../assets/exercise_thumbnail/cable_rope_tricep_extension.jpg';
 import one_arm_cable_tricep_extension from '../assets/exercise_thumbnail/one_arm_cable_tricep_extension.jpg';
-// import crunch from '../assets/exercise_thumbnail/crunch.jpg';
-// import cable_crunch from '../assets/exercise_thumbnail/cable_crunch.jpg';
-// import seated_knee_up from '../assets/exercise_thumbnail/seated_knee_up.jpg';
-// import plank from '../assets/exercise_thumbnail/plank.jpg';
-// import hanging_leg_raise from '../assets/exercise_thumbnail/hanging_leg_raise.jpg';
-// import reverse_crunch from '../assets/exercise_thumbnail/reverse_crunch.jpg';
-// import bicycle_crunch from '../assets/exercise_thumbnail/bicycle_crunch.jpg';
-// import russian_twist from '../assets/exercise_thumbnail/russian_twist.jpg';
-// import dumbbell_side_bend from '../assets/exercise_thumbnail/dumbbell_side_bend.jpg';
+import crunch from '../assets/exercise_thumbnail/crunch.jpg';
+import cable_crunch from '../assets/exercise_thumbnail/cable_crunch.jpg';
+import seated_knee_up from '../assets/exercise_thumbnail/seated_knee_up.jpg';
+import plank from '../assets/exercise_thumbnail/plank.jpg';
+import hanging_leg_raise from '../assets/exercise_thumbnail/hanging_leg_raise.jpg';
+import reverse_crunch from '../assets/exercise_thumbnail/reverse_crunch.jpg';
+import bicycle_crunch from '../assets/exercise_thumbnail/bicycle_crunch.jpg';
+import russian_twist from '../assets/exercise_thumbnail/russian_twist.jpg';
+import dumbbell_side_bend from '../assets/exercise_thumbnail/dumbbell_side_bend.jpg';
 // import side_lunge from '../assets/exercise_thumbnail/side_lunge.jpg';
 // import hip_adduction_machine from '../assets/exercise_thumbnail/hip_adduction_machine.jpg';
 // import barbell_squat from '../assets/exercise_thumbnail/barbell_squat.jpg';
@@ -85,15 +85,15 @@ export const exerciseImageMap = {
   "one_arm_cable_tricep_pushdown": one_arm_cable_tricep_pushdown,
   "cable_rope_tricep_extension": cable_rope_tricep_extension,
   "one_arm_cable_tricep_extension": one_arm_cable_tricep_extension,
-  //   "crunch": crunch,
-  //   "cable_crunch": cable_crunch,
-  //   "seated_knee_up": seated_knee_up,
-  //   "plank": plank,
-  //   "hanging_leg_raise": hanging_leg_raise,
-  //   "reverse_crunch": reverse_crunch,
-  //   "bicycle_crunch": bicycle_crunch,
-  //   "russian_twist": russian_twist,
-  //   "dumbbell_side_bend": dumbbell_side_bend,
+  "crunch": crunch,
+  "cable_crunch": cable_crunch,
+  "seated_knee_up": seated_knee_up,
+  "plank": plank,
+  "hanging_leg_raise": hanging_leg_raise,
+  "reverse_crunch": reverse_crunch,
+  "bicycle_crunch": bicycle_crunch,
+  "russian_twist": russian_twist,
+  "dumbbell_side_bend": dumbbell_side_bend,
   //   "side_lunge": side_lunge,
   //   "hip_adduction_machine": hip_adduction_machine,
   //   "barbell_squat": barbell_squat,
