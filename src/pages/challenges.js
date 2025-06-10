@@ -12,22 +12,29 @@ const ChallengeBoard = () => {
     const navigate = useNavigate();
     const [challenges, setChallenges] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isSenior, setIsSenior] = useState(false);
 
     useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user?.role === 'SENIOR') {
+            setIsSenior(true);
+        }
+
         const fetchChallenges = async () => {
             try {
-                setIsLoading(true); // 시작
+                setIsLoading(true);
                 const data = await getChallenges();
                 setChallenges(data);
             } catch (err) {
                 console.error('챌린지 불러오기 실패', err);
             } finally {
-                setIsLoading(false); // 완료
+                setIsLoading(false);
             }
         };
 
         fetchChallenges();
     }, []);
+
     return (
         <div className="challenge-board">
             <div className="challenge-header">
@@ -36,12 +43,14 @@ const ChallengeBoard = () => {
                     showBackArrow={true}
                     description="다른 사람들과 함께 도전하고, 기록을 남겨보세요!"
                 />
-                <CustomButton
-                    label="챌린지 만들기"
-                    size="small"
-                    color="purple"
-                    onClick={() => navigate('/create-challenge')}
-                />
+                {isSenior && (
+                    <CustomButton
+                        label="챌린지 만들기"
+                        size="small"
+                        color="purple"
+                        onClick={() => navigate('/create-challenge')}
+                    />
+                )}
             </div>
 
             <div className="challenge-link-wrapper">
@@ -51,7 +60,7 @@ const ChallengeBoard = () => {
                 </div>
             </div>
 
-            <div className='desktop' style={{ margin: '70px' }}></div>
+            <div className="desktop" style={{ margin: '70px' }}></div>
 
             <div className={isLoading ? 'challenge-list loading' : 'challenge-list'}>
                 {isLoading ? (
