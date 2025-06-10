@@ -1,45 +1,77 @@
+.challenge-write-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 24px;
+    font-family: 'Segoe UI', 'Apple SD Gothic Neo', sans-serif;
+}
+
 .challenge-form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    margin-top: 30px;
+    gap: 20px;
+    background-color: #fff;
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-.challenge-input {
-    font-size: 20px;
-    padding: 12px;
-    border-radius: 8px;
+.challenge-input,
+.challenge-textarea,
+.challenge-video-input {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 15px;
     border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.2s;
+}
+
+.challenge-input:focus,
+.challenge-textarea:focus,
+.challenge-video-input:focus {
+    outline: none;
+    border-color: #22c55e;
 }
 
 .challenge-textarea {
-    height: 160px;
-    font-size: 16px;
-    padding: 12px;
-    border-radius: 8px;
-    resize: none;
-    border: 1px solid #ccc;
-}
-
-.challenge-date-row {
-    display: flex;
-    gap: 16px;
-}
-
-.challenge-date-input {
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    flex: 1;
-}
-
-.challenge-submit-row {
-    margin-top: 30px;
-    display: flex;
-    justify-content: flex-end;
+    min-height: 120px;
+    resize: vertical;
 }
 
 .challenge-date-display {
-    font-size: 16px;
-    color: #555;
+    font-size: 14px;
+    color: #666;
+    padding-left: 2px;
+}
+
+.challenge-submit-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+}
+
+.challenge-video-input {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #f7f7f7;
+    font-size: 14px;
+    cursor: pointer;
+    color: #333;
+}
+
+.challenge-video-input::file-selector-button {
+    padding: 8px 14px;
+    border: 1px solid #999;
+    border-radius: 6px;
+    background-color: #eee;
+    color: black;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.challenge-video-input::file-selector-button:hover {
+    background-color: #ddd;
 }

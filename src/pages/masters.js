@@ -45,8 +45,7 @@ const Masters = () => {
                             style={{ cursor: 'pointer' }}
                         >
                             <p className="card-name"><strong>{user.name}</strong></p>
-                            <p className="card-part">{user.parts}</p>
-                            <p className="card-intro">{user.intro}</p>
+                            <p className="card-part">{user.parts}</p>                            
                         </div>
                     ))
                 )}

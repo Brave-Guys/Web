@@ -1,22 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import CustomSelect from '../components/CustomSelect';
 import '../styles/Inquiry.css';
 
 const Inquiry = () => {
-    const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+    const [formData, setFormData] = useState({
+        category: '',
+        email: '',
+        message: ''
+    });
     const [submitted, setSubmitted] = useState(false);
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user?.email) {
+            setFormData((prev) => ({ ...prev, email: user.email }));
+        }
+    }, []);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const handleCategoryChange = (selected) => {
+        setFormData({ ...formData, category: selected });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setSubmitted(true);
-        // 실제 서비스에서는 이곳에서 API 호출
+        // API 호출 로직 위치
     };
 
+    const categories = ['계정 관련', '결제/환불', '버그 제보', '기능 제안', '기타'];
+
     return (
-        <div className="inquiry-container">            
+        <div className="inquiry-container">
             <h2>고객센터 / 문의하기</h2>
             <p className="inquiry-description">
                 서비스 이용 중 궁금한 점이나 불편한 사항이 있다면 언제든지 문의해주세요.
@@ -25,14 +43,12 @@ const Inquiry = () => {
             {!submitted ? (
                 <form className="inquiry-form" onSubmit={handleSubmit}>
                     <div className="inquiry-field">
-                        <label htmlFor="name">이름</label>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            required
+                        <label htmlFor="category">문의 종류</label>
+                        <CustomSelect
+                            options={categories}
+                            value={formData.category}
+                            onChange={handleCategoryChange}
+                            placeholder="문의 종류를 선택하세요"
                         />
                     </div>
 

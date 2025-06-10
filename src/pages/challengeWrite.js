@@ -62,7 +62,12 @@ const ChallengeWrite = () => {
 
     return (
         <div className="challenge-write-container">
-            <PageTitle title="챌린지 등록" showBackArrow={true} />
+            <PageTitle
+                title="챌린지 등록"
+                description={"챌린지를 등록해보세요."}
+                showBackArrow={true} />
+
+            <div style={{ margin: '30px' }}></div>
 
             <div className="challenge-form">
                 <input
