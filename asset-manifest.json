@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Web/static/css/main.ae348fb4.css",
-    "main.js": "/Web/static/js/main.e798ff18.js",
+    "main.js": "/Web/static/js/main.695bd7be.js",
     "static/js/453.8ab44547.chunk.js": "/Web/static/js/453.8ab44547.chunk.js",
     "static/media/temp.gif": "/Web/static/media/temp.563be9e678abc5a33b20.gif",
     "static/media/bg1.png": "/Web/static/media/bg1.42a935a638e7c2a4654d.png",
@@ -17,6 +17,7 @@
     "static/media/body_front.png": "/Web/static/media/body_front.bead0a00f0378ecd91fa.png",
     "static/media/body_back.png": "/Web/static/media/body_back.700adef9d88526b36927.png",
     "static/media/shoulder_detail.png": "/Web/static/media/shoulder_detail.4162e9a09f22c120649d.png",
+    "static/media/overhead_press.jpg": "/Web/static/media/overhead_press.3a7dd8a39976c640b13b.jpg",
     "static/media/logo.png": "/Web/static/media/logo.5d436e07ed6752fe419b.png",
     "static/media/abs.png": "/Web/static/media/abs.d0f52ae9007607037395.png",
     "static/media/naver.png": "/Web/static/media/naver.21ba3519751ccc5472bb.png",
@@ -25,11 +26,11 @@
     "static/media/lowerBody.png": "/Web/static/media/lowerBody.3368cfe5819b31eed816.png",
     "index.html": "/Web/index.html",
     "main.ae348fb4.css.map": "/Web/static/css/main.ae348fb4.css.map",
-    "main.e798ff18.js.map": "/Web/static/js/main.e798ff18.js.map",
+    "main.695bd7be.js.map": "/Web/static/js/main.695bd7be.js.map",
     "453.8ab44547.chunk.js.map": "/Web/static/js/453.8ab44547.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ae348fb4.css",
-    "static/js/main.e798ff18.js"
+    "static/js/main.695bd7be.js"
   ]
 }
