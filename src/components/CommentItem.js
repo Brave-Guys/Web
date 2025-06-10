@@ -153,15 +153,38 @@ const CommentItem = ({
                     <div className="comment-header">
                         <span className="comment-nickname">{name}</span>
                         <span className="comment-time">{formattedTime}</span>
+                        {isMine && (
+                            <span
+                                style={{
+                                    marginLeft: 'auto',
+                                    fontSize: '12px',
+                                    color: '#999',
+                                    cursor: 'pointer',
+                                }}
+                                onClick={() => {
+                                    if (isEditing) {
+                                        setEditText(content); // 복원
+                                        setIsEditing(false);
+                                    } else {
+                                        setIsEditing(true);
+                                    }
+                                }}
+                            >
+                                {isEditing ? '수정 취소' : '수정'}
+                            </span>
+                        )}
                         {isMine && !isEditing && (
-                            <>
-                                <span style={{ marginLeft: 'auto', fontSize: '12px', color: '#999', cursor: 'pointer' }} onClick={() => setIsEditing(true)}>
-                                    수정
-                                </span>
-                                <span style={{ fontSize: '12px', color: '#999', cursor: 'pointer', marginLeft: '8px' }} onClick={handleDelete}>
-                                    삭제
-                                </span>
-                            </>
+                            <span
+                                style={{
+                                    fontSize: '12px',
+                                    color: '#999',
+                                    cursor: 'pointer',
+                                    marginLeft: '8px',
+                                }}
+                                onClick={handleDelete}
+                            >
+                                삭제
+                            </span>
                         )}
                     </div>
 
@@ -172,19 +195,8 @@ const CommentItem = ({
                                 value={editText}
                                 onChange={(e) => setEditText(e.target.value)}
                                 placeholder="댓글을 수정하세요"
+                                onBlur={handleEdit}
                             />
-                            <div className="comment-reply-buttons">
-                                <button onClick={handleEdit} className="comment-button save">저장</button>
-                                <button
-                                    onClick={() => {
-                                        setEditText(content);
-                                        setIsEditing(false);
-                                    }}
-                                    className="comment-button cancel"
-                                >
-                                    취소
-                                </button>
-                            </div>
                         </div>
                     ) : (
                         <div className="comment-content">{content}</div>

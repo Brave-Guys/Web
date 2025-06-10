@@ -117,14 +117,14 @@ const ParticipantDetail = () => {
             <div className="participant-detail-wrapper">
                 <div className="participant-main">
                     {participant.videoUrl && (
-                        <div className="participant-video-wrapper">
+                        <div className="video-container">
                             <video
                                 src={participant.videoUrl}
                                 autoPlay
                                 muted
                                 controls
                                 preload="metadata"
-                                style={{ width: '100%', maxWidth: '640px' }}
+                                className="shorts-video"
                             />
                         </div>
                     )}

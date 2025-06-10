@@ -278,6 +278,8 @@ const WeeklyWorkout = () => {
                         )}
                     </div>
 
+                    <div style={{ margin: '30px' }}></div>
+
                     <div className="comment-list">
                         {comments.map((c) => (
                             <CommentItem
