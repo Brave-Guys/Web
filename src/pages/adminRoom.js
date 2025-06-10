@@ -19,7 +19,7 @@ const AdminRoom = () => {
         <div className="admin-wrapper">
             <PageTitle
                 title='관리자의 방'
-                description='운영자만 들어올 수 있는 곳'
+                description='회원을 관리해보세요.'
                 showBackArrow={true}
             />
 

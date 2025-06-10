@@ -70,6 +70,7 @@ const SeniorDetail = () => {
                 </button>
                 {limitReached && (
                     <p className="shareplus-limit-message">
+                        <br></br>
                         현재 플랜에서는 최대 신청 수를 초과했습니다.
                     </p>
                 )}

@@ -61,6 +61,7 @@ const SeniorRequestDetail = () => {
                 description="신청자의 요청 내용을 확인하세요."
                 showBackArrow={true}
             />
+            <div style={{ margin: '30px' }}></div>
             <div className="request-card">
                 {user && (
                     <div className="request-user-profile">
