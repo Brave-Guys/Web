@@ -7,8 +7,8 @@ import one_arm_cable_side_lateral_raise from '../assets/exercise_thumbnail/one_a
 import bent_over_lateral_raise from '../assets/exercise_thumbnail/bent_over_lateral_raise.jpg';
 import reverse_pecdeck_fly from '../assets/exercise_thumbnail/reverse_pecdeck_fly.jpg';
 import face_pull from '../assets/exercise_thumbnail/face_pull.jpg';
-// import incline_bench_press from '../assets/exercise_thumbnail/incline_bench_press.jpg';
-// import incline_dumbbell_press from '../assets/exercise_thumbnail/incline_dumbbell_press.jpg';
+import incline_bench_press from '../assets/exercise_thumbnail/incline_bench_press.jpg';
+import incline_dumbbell_press from '../assets/exercise_thumbnail/incline_dumbbell_press.jpg';
 // import low_cable_crossover from '../assets/exercise_thumbnail/low_cable_crossover.jpg';
 // import bench_press from '../assets/exercise_thumbnail/bench_press.jpg';
 // import dumbbell_press from '../assets/exercise_thumbnail/dumbbell_press.jpg';
@@ -62,8 +62,8 @@ export const exerciseImageMap = {
   "bent_over_lateral_raise": bent_over_lateral_raise,
   "reverse_pecdeck_fly": reverse_pecdeck_fly,
   "face_pull": face_pull,
-//   "incline_bench_press": incline_bench_press,
-//   "incline_dumbbell_press": incline_dumbbell_press,
+  "incline_bench_press": incline_bench_press,
+  "incline_dumbbell_press": incline_dumbbell_press,
 //   "low_cable_crossover": low_cable_crossover,
 //   "bench_press": bench_press,
 //   "dumbbell_press": dumbbell_press,

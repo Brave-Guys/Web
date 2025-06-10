@@ -183,6 +183,7 @@ export const shoulderExerciseDetails = {
     '윗 가슴': [
       {
         name: '인클라인 벤치 프레스',
+        image: 'incline_bench_press',
         steps: [
           '1. 벤치를 15~45도 정도로 조절한다.',
           '2. 벤치에 누워 두 발을 바닥에 고정한다.',
@@ -197,6 +198,7 @@ export const shoulderExerciseDetails = {
       },
       {
         name: '인클라인 덤벨 프레스',
+        image: 'incline_dumbbell_press',
         steps: [
           '1. 벤치를 15~45도 정도로 조절한다.',
           '2. 덤벨을 두 손에 든 채로 벤치에 누워 두 발을 바닥에 고정한다.',
