@@ -83,3 +83,38 @@
   object-fit: cover;
   margin-bottom: 10px;
 }
+
+.verified-info {
+  margin-top: 24px;
+  padding: 24px;
+  background-color: white;
+  border: 1px solid #34d399;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.success-message {
+  font-size: 18px;
+  font-weight: 600;
+  color: #059669;
+  margin-bottom: 12px;
+}
+
+.user-summary {
+  margin-bottom: 16px;
+}
+
+.user-id-display {
+  font-size: 20px;
+  font-weight: bold;
+  color: #111827;
+  padding: 8px 12px;
+  background: #eee;
+  border-radius: 8px;
+  display: inline-block;
+  border: 1px solid #d1fae5;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+}

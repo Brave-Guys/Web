@@ -111,20 +111,13 @@ const FindAccountForm = ({ onSwitchToLogin }) => {
 
             {step === 'verified' && userInfo && (
                 <div className="verified-info">
-                    <div className="success-message">✅ 인증 완료! 아래는 가입자 정보입니다.</div>
+                    <div className="success-message">가입자 정보</div>
                     <div className="user-summary">
-                        {userInfo.profileImgUrl && (
-                            <img src={userInfo.profileImgUrl} alt="프로필" className="user-profile-img" />
-                        )}
-                        <p><strong>아이디:</strong> {userInfo.userId}</p>
-                        <p><strong>닉네임:</strong> {userInfo.nickname}</p>
-                        <p><strong>이메일:</strong> {userInfo.email}</p>
-                        <p><strong>플랜:</strong> {userInfo.userPlanType}</p>
+                        <p className="user-id-display">{userInfo.userId}</p>
                     </div>
                     <button
                         className="submit-button"
                         onClick={() => setStep('resetPassword')}
-                        style={{ marginTop: '16px' }}
                     >
                         비밀번호 재설정
                     </button>
