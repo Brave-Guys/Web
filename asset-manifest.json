@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Web/static/css/main.ae348fb4.css",
-    "main.js": "/Web/static/js/main.91a28811.js",
-    "static/js/453.8ab44547.chunk.js": "/Web/static/js/453.8ab44547.chunk.js",
+    "main.js": "/Web/static/js/main.9c911710.js",
+    "static/js/453.d855a71b.chunk.js": "/Web/static/js/453.d855a71b.chunk.js",
     "static/media/temp.gif": "/Web/static/media/temp.563be9e678abc5a33b20.gif",
     "static/media/bg1.png": "/Web/static/media/bg1.42a935a638e7c2a4654d.png",
     "static/media/bg3.png": "/Web/static/media/bg3.66cb22669c1d32869d91.png",
@@ -17,21 +17,28 @@
     "static/media/body_front.png": "/Web/static/media/body_front.bead0a00f0378ecd91fa.png",
     "static/media/body_back.png": "/Web/static/media/body_back.700adef9d88526b36927.png",
     "static/media/shoulder_detail.png": "/Web/static/media/shoulder_detail.4162e9a09f22c120649d.png",
+    "static/media/reverse_pecdeck_fly.jpg": "/Web/static/media/reverse_pecdeck_fly.84491d581079b08e2568.jpg",
     "static/media/overhead_press.jpg": "/Web/static/media/overhead_press.3a7dd8a39976c640b13b.jpg",
     "static/media/logo.png": "/Web/static/media/logo.5d436e07ed6752fe419b.png",
+    "static/media/barbell_upright_row.jpg": "/Web/static/media/barbell_upright_row.092a9a3ca82537de27cd.jpg",
+    "static/media/face_pull.jpg": "/Web/static/media/face_pull.e1d07886d068c8b53e25.jpg",
+    "static/media/one_arm_cable_side_lateral_raise.jpg": "/Web/static/media/one_arm_cable_side_lateral_raise.cfde6a00ca54daedbd1e.jpg",
+    "static/media/bent_over_lateral_raise.jpg": "/Web/static/media/bent_over_lateral_raise.004f9195da37ab8f6326.jpg",
     "static/media/abs.png": "/Web/static/media/abs.d0f52ae9007607037395.png",
     "static/media/naver.png": "/Web/static/media/naver.21ba3519751ccc5472bb.png",
     "static/media/shoulder.png": "/Web/static/media/shoulder.972b48ed57022384ea14.png",
+    "static/media/dumbbell_side_lateral_raise.jpg": "/Web/static/media/dumbbell_side_lateral_raise.b2ae4c9a6dfc285f0ebf.jpg",
     "static/media/dumbbell_shoulder_press.jpg": "/Web/static/media/dumbbell_shoulder_press.54b5cfe1edebcc01f8a7.jpg",
     "static/media/person.png": "/Web/static/media/person.40285f3ab1675d2348ef.png",
     "static/media/lowerBody.png": "/Web/static/media/lowerBody.3368cfe5819b31eed816.png",
+    "static/media/cable_front_raise.jpg": "/Web/static/media/cable_front_raise.53d99b3125cd082fdf5b.jpg",
     "index.html": "/Web/index.html",
     "main.ae348fb4.css.map": "/Web/static/css/main.ae348fb4.css.map",
-    "main.91a28811.js.map": "/Web/static/js/main.91a28811.js.map",
-    "453.8ab44547.chunk.js.map": "/Web/static/js/453.8ab44547.chunk.js.map"
+    "main.9c911710.js.map": "/Web/static/js/main.9c911710.js.map",
+    "453.d855a71b.chunk.js.map": "/Web/static/js/453.d855a71b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ae348fb4.css",
-    "static/js/main.91a28811.js"
+    "static/js/main.9c911710.js"
   ]
 }
