@@ -20,14 +20,15 @@ const ExerciseTipBack = () => {
 
     return (
         <div className="back-wrapper">
+            <div style = {{padding:'10px', backgroundColor : '#f7f7f7'}}></div>
             <PageTitle title="등 부위" showBackArrow={true} />
             <div style={{ margin: `30px` }}></div>
             <div className="back-page">
                 <div className="left-section">
                     <div className="back-image-wrapper">
                         <img src={BackImage} alt="Back Detail" className="back-image" />
-                        <div className="area front" onClick={() => setSelectedPart('등 상부')} />
-                        <div className="area side" onClick={() => setSelectedPart('등 하부')} />
+                        <div className="area upperback" onClick={() => setSelectedPart('등 상부')} />
+                        <div className="area lowerback" onClick={() => setSelectedPart('등 하부')} />
                     </div>
                 </div>
 

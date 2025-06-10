@@ -9,7 +9,7 @@
 .chest-page {
   display: flex;
   background-color: #f7f7f7;
-  height: 92vh;
+  height: 80vh;
   gap: 24px;
 }
 
@@ -70,7 +70,7 @@
 .area {
   position: absolute;
   cursor: pointer;
-  background-color: rgba(179, 111, 182, 0.15); /* 연하게 시각화 */
+  background-color: rgba(132, 23, 138, 0.7); /* 연하게 시각화 */
   border: 2px solid rgba(179, 111, 182, 0.3);
   border-radius: 8px;
   transition: background-color 0.25s ease, box-shadow 0.25s ease;
@@ -82,25 +82,25 @@
   border-color: #b36fb6;
 }
 
-.area.front {
-  top: 22%;
-  left: 33%;
-  width: 20%;
-  height: 25%;
+.area.upperchest {
+  top: 30%;  /*위 기준점, 왼쪽에서 오른쪽으로 증가, 높이 위에서 아래로 증가, 너비는 왼쪽에서 증가*/
+  left: 15%;
+  width: 70%;
+  height: 10%;
 }
 
-.area.side {
-  top: 22%;
-  left: 55%;
-  width: 20%;
-  height: 25%;
+.area.midchest {
+  top: 41%;
+  left: 15%;
+  width: 70%;
+  height: 17%;
 }
 
-.area.rear {
-  top: 22%;
-  left: 75%;
-  width: 10%;
-  height: 25%;
+.area.lowerchest {
+  top: 60%;
+  left: 17%;
+  width: 66%;
+  height: 5%;
 }
 
 .exercise-image {
@@ -220,9 +220,9 @@
     border-width: 2px;
   }
 
-  .area.front,
-  .area.side,
-  .area.rear {
+  .area.upperchest,
+  .area.midchest,
+  .area.lowerchest {
     top: auto;
     left: auto;
     width: 30%;

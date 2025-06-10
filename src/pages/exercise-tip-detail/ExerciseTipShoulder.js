@@ -20,15 +20,16 @@ const ExerciseTipShoulder = () => {
 
     return (
         <div className="shoulder-wrapper">
+            <div style = {{padding:'10px', backgroundColor : '#f7f7f7'}}></div>
             <PageTitle title="어깨 부위" showBackArrow={true} />
             <div style={{ margin: `30px` }}></div>
             <div className="shoulder-page">
                 <div className="left-section">
                     <div className="shoulder-image-wrapper">
                         <img src={ShoulderImage} alt="Shoulder Detail" className="shoulder-image" />
-                        <div className="area front" onClick={() => setSelectedPart('전면')} />
-                        <div className="area side" onClick={() => setSelectedPart('측면')} />
-                        <div className="area rear" onClick={() => setSelectedPart('후면')} />
+                        <div className="area fronts" onClick={() => setSelectedPart('전면')} />
+                        <div className="area sides" onClick={() => setSelectedPart('측면')} />
+                        <div className="area rears" onClick={() => setSelectedPart('후면')} />
                     </div>
                 </div>
 

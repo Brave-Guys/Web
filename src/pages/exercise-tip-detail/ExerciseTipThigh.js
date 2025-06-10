@@ -5,6 +5,7 @@ import { exerciseImageMap } from '../../utils/exerciseImageMap';
 import { thighExerciseDetails } from '../../constants/exerciseScript';
 import PageTitle from '../../components/PageTitle';
 import ExerciseModal from '../../components/ExerciseModal';
+import { color } from 'framer-motion';
 
 const ExerciseTipThigh = () => {
     const [selectedPart, setSelectedPart] = useState('');
@@ -20,14 +21,15 @@ const ExerciseTipThigh = () => {
 
     return (
         <div className="thigh-wrapper">
+            <div style = {{padding:'10px', backgroundColor : '#f7f7f7'}}></div>
             <PageTitle title="하체 전면 부위" showBackArrow={true} />
             <div style={{ margin: `30px` }}></div>
             <div className="thigh-page">
                 <div className="left-section">
                     <div className="thigh-image-wrapper">
                         <img src={ThighImage} alt="Thigh Detail" className="thigh-image" />
-                        <div className="area front" onClick={() => setSelectedPart('내전근')} />
-                        <div className="area side" onClick={() => setSelectedPart('대퇴사두근')} />
+                        <div className="area upperthigh" onClick={() => setSelectedPart('내전근')} />
+                        <div className="area lowerthigh" onClick={() => setSelectedPart('대퇴사두근')} />
                     </div>
                 </div>
 

@@ -70,7 +70,7 @@
 .area {
   position: absolute;
   cursor: pointer;
-  background-color: rgba(179, 111, 182, 0.15); /* 연하게 시각화 */
+  background-color: rgba(179, 111, 182, 0.7); /* 연하게 시각화 */
   border: 2px solid rgba(179, 111, 182, 0.3);
   border-radius: 8px;
   transition: background-color 0.25s ease, box-shadow 0.25s ease;
@@ -82,25 +82,25 @@
   border-color: #b36fb6;
 }
 
-.area.front {
+.area.fronts {
   top: 22%;
   left: 33%;
-  width: 20%;
-  height: 25%;
+  width: 17%;
+  height: 55%;
 }
 
-.area.side {
+.area.sides {
   top: 22%;
-  left: 55%;
-  width: 20%;
-  height: 25%;
+  left: 51%;
+  width: 13%;
+  height: 55%;
 }
 
-.area.rear {
+.area.rears {
   top: 22%;
-  left: 75%;
+  left: 65%;
   width: 10%;
-  height: 25%;
+  height: 55%;
 }
 
 .exercise-image {
@@ -220,9 +220,9 @@
     border-width: 2px;
   }
 
-  .area.front,
-  .area.side,
-  .area.rear {
+  .area.fronts,
+  .area.sides,
+  .area.rears {
     top: auto;
     left: auto;
     width: 30%;

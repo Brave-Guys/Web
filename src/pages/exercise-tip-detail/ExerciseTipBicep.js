@@ -20,15 +20,16 @@ const ExerciseTipBicep = () => {
 
     return (
         <div className="bicep-wrapper">
+            <div style = {{padding:'10px', backgroundColor : '#f7f7f7'}}></div>
             <PageTitle title="이두 부위" showBackArrow={true} />
             <div style={{ margin: `30px` }}></div>
             <div className="bicep-page">
                 <div className="left-section">
                     <div className="bicep-image-wrapper">
                         <img src={BicepImage} alt="Bicep Detail" className="bicep-image" />
-                        <div className="area front" onClick={() => setSelectedPart('장두')} />
-                        <div className="area side" onClick={() => setSelectedPart('단두')} />
-                        <div className="area rear" onClick={() => setSelectedPart('상완요골근')} />
+                        <div className="area lbicep" onClick={() => setSelectedPart('장두')} />
+                        <div className="area sbicep" onClick={() => setSelectedPart('단두')} />
+                        <div className="area upperbicep" onClick={() => setSelectedPart('상완요골근')} />
                     </div>
                 </div>
 

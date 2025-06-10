@@ -20,15 +20,16 @@ const ExerciseTipHamstring = () => {
 
     return (
         <div className="hamstring-wrapper">
+            <div style = {{padding:'10px', backgroundColor : '#f7f7f7'}}></div>
             <PageTitle title="하체 후면 부위" showBackArrow={true} />
             <div style={{ margin: `30px` }}></div>
             <div className="hamstring-page">
                 <div className="left-section">
                     <div className="hamstring-image-wrapper">
                         <img src={hamstringImage} alt="Hamstring Detail" className="hamstring-image" />
-                        <div className="area front" onClick={() => setSelectedPart('햄스트링')} />
-                        <div className="area side" onClick={() => setSelectedPart('둔근')} />
-                        <div className="area rear" onClick={() => setSelectedPart('비복근')} />
+                        <div className="area dhamstring" onClick={() => setSelectedPart('햄스트링')} />
+                        <div className="area hip" onClick={() => setSelectedPart('둔근')} />
+                        <div className="area cal" onClick={() => setSelectedPart('비복근')} />
                     </div>
                 </div>
 

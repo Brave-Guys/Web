@@ -9,7 +9,7 @@
 .tricep-page {
   display: flex;
   background-color: #f7f7f7;
-  height: 92vh;
+  height: 80vh;
   gap: 24px;
 }
 
@@ -70,7 +70,7 @@
 .area {
   position: absolute;
   cursor: pointer;
-  background-color: rgba(179, 111, 182, 0.15); /* 연하게 시각화 */
+  background-color: rgba(179, 111, 182, 0.7); /* 연하게 시각화 */
   border: 2px solid rgba(179, 111, 182, 0.3);
   border-radius: 8px;
   transition: background-color 0.25s ease, box-shadow 0.25s ease;
@@ -82,25 +82,25 @@
   border-color: #b36fb6;
 }
 
-.area.front {
-  top: 22%;
-  left: 33%;
-  width: 20%;
-  height: 25%;
-}
-
-.area.side {
-  top: 22%;
-  left: 55%;
-  width: 20%;
-  height: 25%;
-}
-
-.area.rear {
-  top: 22%;
-  left: 75%;
+.area.ltricep {
+  top: 25%;
+  left: 41%;
   width: 10%;
-  height: 25%;
+  height: 36%;
+}
+
+.area.otricep {
+  top: 35%;
+  left: 30%;
+  width: 10%;
+  height: 30%;
+}
+
+.area.itricep {
+  top: 62%;
+  left: 41%;
+  width: 10%;
+  height: 10%;
 }
 
 .exercise-image {
@@ -220,9 +220,9 @@
     border-width: 2px;
   }
 
-  .area.front,
-  .area.side,
-  .area.rear {
+  .area.ltricep,
+  .area.otricep,
+  .area.itricep {
     top: auto;
     left: auto;
     width: 30%;

@@ -20,6 +20,7 @@ const ExerciseTipChest = () => {
 
     return (
         <div className="chest-wrapper">
+            <div style = {{padding:'10px', backgroundColor : '#f7f7f7'}}></div>
             <PageTitle title="가슴 부위" showBackArrow={true} />
             <div style={{ margin: `30px` }}></div>
             <div className="chest-page">
@@ -27,9 +28,9 @@ const ExerciseTipChest = () => {
 
                     <div className="chest-image-wrapper">
                         <img src={ChestImage} alt="Chest Detail" className="chest-image" />
-                        <div className="area front" onClick={() => setSelectedPart('윗 가슴')} />
-                        <div className="area side" onClick={() => setSelectedPart('중간 가슴')} />
-                        <div className="area rear" onClick={() => setSelectedPart('밑 가슴')} />
+                        <div className="area upperchest" onClick={() => setSelectedPart('윗 가슴')} />
+                        <div className="area midchest" onClick={() => setSelectedPart('중간 가슴')} />
+                        <div className="area lowerchest" onClick={() => setSelectedPart('밑 가슴')} />
                     </div>
                 </div>
 

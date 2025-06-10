@@ -20,16 +20,17 @@ const ExerciseTipAbs = () => {
 
     return (
         <div className="abs-wrapper">
+            <div style = {{padding:'10px', backgroundColor : '#f7f7f7'}}></div>
             <PageTitle title="복근 부위" showBackArrow={true} />
             <div style={{ margin: `30px` }}></div>
             <div className="abs-page">
                 <div className="left-section">
                     <div className="abs-image-wrapper">
                         <img src={AbsImage} alt="Abs Detail" className="abs-image" />
-                        <div className="area front" onClick={() => setSelectedPart('상부')} />
-                        <div className="area side" onClick={() => setSelectedPart('중부')} />
-                        <div className="area rear" onClick={() => setSelectedPart('하부')} />
-                        <div className="area middle" onClick={() => setSelectedPart('옆구리')} />
+                        <div className="area upperabs" onClick={() => setSelectedPart('상부')} />
+                        <div className="area middleabs" onClick={() => setSelectedPart('중부')} />
+                        <div className="area lowerabs" onClick={() => setSelectedPart('하부')} />
+                        <div className="area sideabs" onClick={() => setSelectedPart('옆구리')} />
                     </div>
                 </div>
 

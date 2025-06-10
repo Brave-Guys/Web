@@ -9,7 +9,7 @@
 .back-page {
   display: flex;
   background-color: #f7f7f7;
-  height: 92vh;
+  height: 80vh;
   gap: 24px;
 }
 
@@ -70,7 +70,7 @@
 .area {
   position: absolute;
   cursor: pointer;
-  background-color: rgba(179, 111, 182, 0.15); /* 연하게 시각화 */
+  background-color: rgba(179, 111, 182, 0.7); /* 연하게 시각화 */
   border: 2px solid rgba(179, 111, 182, 0.3);
   border-radius: 8px;
   transition: background-color 0.25s ease, box-shadow 0.25s ease;
@@ -82,17 +82,17 @@
   border-color: #b36fb6;
 }
 
-.area.front {
-  top: 22%;
-  left: 33%;
-  width: 20%;
-  height: 25%;
+.area.upperback {
+  top: 18%;
+  left: 26%;
+  width: 48%;
+  height: 35%;
 }
 
-.area.side {
-  top: 22%;
-  left: 55%;
-  width: 20%;
+.area.lowerback {
+  top: 54%;
+  left: 26%;
+  width: 48%;
   height: 25%;
 }
 
@@ -213,8 +213,8 @@
     border-width: 2px;
   }
 
-  .area.front,
-  .area.side {
+  .area.upperback,
+  .area.lowerback {
     top: auto;
     left: auto;
     width: 30%;
