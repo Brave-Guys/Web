@@ -25,6 +25,10 @@
     .challenge-detail-body {
         flex-direction: column;
     }
+
+    .challenge-action-buttons {
+        width: 20%
+    }
 }
 
 .challenge-content {
