@@ -73,6 +73,7 @@ export const shoulderExerciseDetails = {
     전면: [
       {
         name: '오버헤드 프레스',
+        image: 'overhead_press',
         steps: [
           '1. 바벨을 쇄골 바로 위에 위치시킨다.',
           '2. 팔꿈치는 바벨보다 앞에 위치해야 한다.',

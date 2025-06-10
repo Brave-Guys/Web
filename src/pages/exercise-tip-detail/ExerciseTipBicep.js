@@ -49,7 +49,7 @@ const ExerciseTipBicep = () => {
                                         alt={exercise.name}
                                         className="exercise-image"
                                     />
-                                    <p className="exercise-title">{exercise.name}</p>
+                                    <p className="exercise-title">{exercise.name}</p>                                    
                                 </div>
                             ))}
                         </div>
