@@ -111,7 +111,37 @@ const ShareChat = () => {
     return (
         <div className="sharechat-wrapper">
             {submitting && <LoadingOverlay visible={true} />}
-            <PageTitle title="상급자와의 소통" description="질문과 답변을 날짜별로 나눠 확인해보세요." showBackArrow={true} />
+            <div className="page-header-row">
+                <PageTitle
+                    title="상급자와의 소통"
+                    description="질문과 답변을 날짜별로 나눠 확인해보세요."
+                    showBackArrow={true}
+                />
+
+                <button
+                    className="terminate-button"
+                    onClick={async () => {
+                        const confirm = window.confirm('정말로 이 상급자로부터 가이드를 그만 받으시겠습니까?');
+                        if (!confirm) return;
+
+                        try {
+                            const token = localStorage.getItem('token');
+                            const user = JSON.parse(localStorage.getItem('user'));
+                            await await axios.delete(`${process.env.REACT_APP_API_URL}/share-requests/connection/${id}`, {
+                                headers: { Authorization: `Bearer ${token}` }
+                            });
+                            alert('이 상급자와의 Share+가 해제되었습니다.');
+                            window.history.back();
+                        } catch (err) {
+                            alert('계약 종료에 실패했습니다.');
+                            console.error(err);
+                        }
+                    }}
+                >
+                    Share+ 끊기
+                </button>
+
+            </div>
 
             <div style={{ margin: '50px' }}></div>
 
@@ -134,8 +164,18 @@ const ShareChat = () => {
                             tileContent={({ date }) => {
                                 const formatted = formatDateToLocalString(date);
                                 const hasComment = comments.some(c => c.date === formatted);
-                                return hasComment ? <div className="dot" /> : null;
+
+                                const today = new Date();
+                                const isToday =
+                                    date.getFullYear() === today.getFullYear() &&
+                                    date.getMonth() === today.getMonth() &&
+                                    date.getDate() === today.getDate();
+
+                                return hasComment ? (
+                                    <div className={`dot ${isToday ? 'today' : ''}`} />
+                                ) : null;
                             }}
+
                             formatDay={(locale, date) => String(date.getDate())}
                             prev2Label={null}
                             next2Label={null}
@@ -149,9 +189,14 @@ const ShareChat = () => {
                             placeholder="질문이나 의견을 입력하세요."
                             required
                         />
-                        <input type="file" accept="image/*" onChange={(e) => setNewImage(e.target.files[0])} />
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => setNewImage(e.target.files[0])}
+                        />
                         <button type="submit">등록</button>
                     </form>
+
                 </div>
 
                 {/* 오른쪽: 댓글 목록 */}
@@ -159,30 +204,35 @@ const ShareChat = () => {
                     <div className="feedback-title">📬 피드백 내용</div>
                     <div className="chat-scroll-wrapper">
                         <div className="chat-list">
-                            {[...filteredComments]
-                                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-                                .map((c) => (
-                                    <div
-                                        key={c.id}
-                                        className={`chat-item ${c.writerId === masterId ? 'chat-master' : 'chat-student'}`}
-                                    >
-                                        <div className="chat-meta">
-                                            <img
-                                                src={c.profileImgUrl || DefaultAvatar}
-                                                alt="프로필"
-                                                className="chat-profile-img"
-                                            />
-                                            <div>
-                                                <p className="chat-writer">
-                                                    {c.nickname || '익명'} {c.writerId === masterId && <span className="chat-badge">상급자</span>}
-                                                </p>
-                                                <p className="chat-time">{formatTime(c.createdAt)}</p>
+                            {filteredComments.length === 0 ? (
+                                <p className="empty-feedback">선택한 날짜에 피드백이 없습니다.</p>
+                            ) : (
+                                [...filteredComments]
+                                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                                    .map((c) => (
+                                        <div
+                                            key={c.id}
+                                            className={`chat-item ${c.writerId === masterId ? 'chat-master' : 'chat-student'}`}
+                                        >
+                                            <div className="chat-meta">
+                                                <img
+                                                    src={c.profileImgUrl || DefaultAvatar}
+                                                    alt="프로필"
+                                                    className="chat-profile-img"
+                                                />
+                                                <div>
+                                                    <p className="chat-writer">
+                                                        {c.nickname || '익명'}{' '}
+                                                        {c.writerId === masterId && <span className="chat-badge">상급자</span>}
+                                                    </p>
+                                                    <p className="chat-time">{formatTime(c.createdAt)}</p>
+                                                </div>
                                             </div>
+                                            <p>{c.content}</p>
+                                            {c.picture && <img src={c.picture} alt="첨부" className="chat-image" />}
                                         </div>
-                                        <p>{c.content}</p>
-                                        {c.picture && <img src={c.picture} alt="첨부" className="chat-image" />}
-                                    </div>
-                                ))}
+                                    ))
+                            )}
                         </div>
                     </div>
                 </div>

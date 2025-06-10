@@ -385,6 +385,7 @@
   .participant-comments {
     padding: 12px;
     max-height: none;
+    width: 100%;
     overflow-y: visible;
   }
 

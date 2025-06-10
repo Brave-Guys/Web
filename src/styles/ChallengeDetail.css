@@ -18,8 +18,16 @@
 }
 
 @media (max-width: 768px) {
+    .participant-section {
+        width: 100%;
+    }
+
     .challenge-detail-body {
         flex-direction: column;
+    }
+
+    .challenge-action-buttons {
+        width: 20%
     }
 }
 
