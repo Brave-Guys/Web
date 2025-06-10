@@ -111,7 +111,37 @@ const ShareChat = () => {
     return (
         <div className="sharechat-wrapper">
             {submitting && <LoadingOverlay visible={true} />}
-            <PageTitle title="상급자와의 소통" description="질문과 답변을 날짜별로 나눠 확인해보세요." showBackArrow={true} />
+            <div className="page-header-row">
+                <PageTitle
+                    title="상급자와의 소통"
+                    description="질문과 답변을 날짜별로 나눠 확인해보세요."
+                    showBackArrow={true}
+                />
+
+                <button
+                    className="terminate-button"
+                    onClick={async () => {
+                        const confirm = window.confirm('정말로 이 상급자로부터 가이드를 그만 받으시겠습니까?');
+                        if (!confirm) return;
+
+                        try {
+                            const token = localStorage.getItem('token');
+                            const user = JSON.parse(localStorage.getItem('user'));
+                            await await axios.delete(`${process.env.REACT_APP_API_URL}/share-requests/connection/${id}`, {
+                                headers: { Authorization: `Bearer ${token}` }
+                            });
+                            alert('이 상급자와의 Share+가 해제되었습니다.');
+                            window.history.back();
+                        } catch (err) {
+                            alert('계약 종료에 실패했습니다.');
+                            console.error(err);
+                        }
+                    }}
+                >
+                    Share+ 끊기
+                </button>
+
+            </div>
 
             <div style={{ margin: '50px' }}></div>
 
