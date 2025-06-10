@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Web/static/css/main.ae348fb4.css",
-    "main.js": "/Web/static/js/main.91daadbd.js",
+    "main.js": "/Web/static/js/main.29de3848.js",
     "static/js/453.d855a71b.chunk.js": "/Web/static/js/453.d855a71b.chunk.js",
     "static/media/temp.gif": "/Web/static/media/temp.563be9e678abc5a33b20.gif",
     "static/media/bg1.png": "/Web/static/media/bg1.42a935a638e7c2a4654d.png",
@@ -24,23 +24,27 @@
     "static/media/low_cable_crossover.jpg": "/Web/static/media/low_cable_crossover.cbd5b767285adcafbd0b.jpg",
     "static/media/face_pull.jpg": "/Web/static/media/face_pull.e1d07886d068c8b53e25.jpg",
     "static/media/one_arm_cable_side_lateral_raise.jpg": "/Web/static/media/one_arm_cable_side_lateral_raise.cfde6a00ca54daedbd1e.jpg",
+    "static/media/dumbbell_press.jpg": "/Web/static/media/dumbbell_press.d1d79dbe08901148c9ce.jpg",
     "static/media/bent_over_lateral_raise.jpg": "/Web/static/media/bent_over_lateral_raise.004f9195da37ab8f6326.jpg",
     "static/media/abs.png": "/Web/static/media/abs.d0f52ae9007607037395.png",
+    "static/media/pecdeck_fly.jpg": "/Web/static/media/pecdeck_fly.0721452e9d2d5e3e3579.jpg",
     "static/media/naver.png": "/Web/static/media/naver.21ba3519751ccc5472bb.png",
     "static/media/bench_press.jpg": "/Web/static/media/bench_press.ef9952364a907140cfb9.jpg",
     "static/media/shoulder.png": "/Web/static/media/shoulder.972b48ed57022384ea14.png",
     "static/media/dumbbell_side_lateral_raise.jpg": "/Web/static/media/dumbbell_side_lateral_raise.b2ae4c9a6dfc285f0ebf.jpg",
+    "static/media/dips.jpg": "/Web/static/media/dips.906b79518ba14b6806f3.jpg",
     "static/media/dumbbell_shoulder_press.jpg": "/Web/static/media/dumbbell_shoulder_press.54b5cfe1edebcc01f8a7.jpg",
+    "static/media/dumbbell_pullover.jpg": "/Web/static/media/dumbbell_pullover.cb2d310d52fd7db1ce1a.jpg",
     "static/media/person.png": "/Web/static/media/person.40285f3ab1675d2348ef.png",
     "static/media/lowerBody.png": "/Web/static/media/lowerBody.3368cfe5819b31eed816.png",
     "static/media/cable_front_raise.jpg": "/Web/static/media/cable_front_raise.53d99b3125cd082fdf5b.jpg",
     "index.html": "/Web/index.html",
     "main.ae348fb4.css.map": "/Web/static/css/main.ae348fb4.css.map",
-    "main.91daadbd.js.map": "/Web/static/js/main.91daadbd.js.map",
+    "main.29de3848.js.map": "/Web/static/js/main.29de3848.js.map",
     "453.d855a71b.chunk.js.map": "/Web/static/js/453.d855a71b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ae348fb4.css",
-    "static/js/main.91daadbd.js"
+    "static/js/main.29de3848.js"
   ]
 }
