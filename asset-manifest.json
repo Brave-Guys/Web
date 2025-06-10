@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Web/static/css/main.ae348fb4.css",
-    "main.js": "/Web/static/js/main.29de3848.js",
+    "main.js": "/Web/static/js/main.4ce7367b.js",
     "static/js/453.d855a71b.chunk.js": "/Web/static/js/453.d855a71b.chunk.js",
     "static/media/temp.gif": "/Web/static/media/temp.563be9e678abc5a33b20.gif",
     "static/media/bg1.png": "/Web/static/media/bg1.42a935a638e7c2a4654d.png",
@@ -35,16 +35,18 @@
     "static/media/dips.jpg": "/Web/static/media/dips.906b79518ba14b6806f3.jpg",
     "static/media/dumbbell_shoulder_press.jpg": "/Web/static/media/dumbbell_shoulder_press.54b5cfe1edebcc01f8a7.jpg",
     "static/media/dumbbell_pullover.jpg": "/Web/static/media/dumbbell_pullover.cb2d310d52fd7db1ce1a.jpg",
+    "static/media/underhand_barbell_row.jpg": "/Web/static/media/underhand_barbell_row.5addd8242c35a3ed96bc.jpg",
     "static/media/person.png": "/Web/static/media/person.40285f3ab1675d2348ef.png",
     "static/media/lowerBody.png": "/Web/static/media/lowerBody.3368cfe5819b31eed816.png",
+    "static/media/overgrip_lat_pulldown.jpg": "/Web/static/media/overgrip_lat_pulldown.4778e377f2cb757f18a6.jpg",
     "static/media/cable_front_raise.jpg": "/Web/static/media/cable_front_raise.53d99b3125cd082fdf5b.jpg",
     "index.html": "/Web/index.html",
     "main.ae348fb4.css.map": "/Web/static/css/main.ae348fb4.css.map",
-    "main.29de3848.js.map": "/Web/static/js/main.29de3848.js.map",
+    "main.4ce7367b.js.map": "/Web/static/js/main.4ce7367b.js.map",
     "453.d855a71b.chunk.js.map": "/Web/static/js/453.d855a71b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ae348fb4.css",
-    "static/js/main.29de3848.js"
+    "static/js/main.4ce7367b.js"
   ]
 }
