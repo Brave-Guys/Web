@@ -32,6 +32,7 @@ import SeniorRoom from './pages/SeniorRoom.js';
 import SeniorRequestDetail from './pages/SeniorRequestDetail.js';
 import ShareChat from './pages/ShareChat.js';
 import SharePlan from './pages/SharePlan.js';
+import OAuth2Success from './pages/OAuth2Success.js';
 
 import ExerciseTipChest from './pages/exercise-tip-detail/ExerciseTipChest';
 import ExerciseTipShoulder from './pages/exercise-tip-detail/ExerciseTipShoulder';
@@ -50,7 +51,7 @@ import Footer from './components/Footer';
 import MasterRequestDetail from './pages/MasterRequestDetail.js';
 
 const isAuthenticated = () => {
-  return !!localStorage.getItem('token');
+  return !!localStorage.getItem('user');
 };
 
 const PrivateRoute = ({ children }) => {
@@ -70,7 +71,7 @@ function App() {
           {/* 공개 페이지 */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/register-success" element={<RegisterSuccess />} />          
+          <Route path="/register-success" element={<RegisterSuccess />} />
 
           {/* 보호된 페이지 */}
           <Route path="/" element={<PrivateRoute><Main /></PrivateRoute>} />
@@ -113,6 +114,7 @@ function App() {
           <Route path="/senior/requests/:id" element={<PrivateRoute><SeniorRequestDetail /></PrivateRoute>} />
           <Route path="/share/:id/chat" element={<PrivateRoute><ShareChat /></PrivateRoute>} />
           <Route path="/share-plan" element={<PrivateRoute><SharePlan /></PrivateRoute>} />
+          <Route path="/oauth2/success" element={<OAuth2Success />} />
 
           {/* 404 */}
           <Route path="*" element={<Error />} />

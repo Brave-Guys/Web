@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FloatingInput from '../components/FloatingInput';
+import CustomSelect from './CustomSelect';
 import { registerUser } from '../apis/registerUser';
 import { checkNickname, checkUsername } from '../apis/checkDuplicate';
 import '../styles/Register.css';
@@ -87,7 +88,14 @@ const RegisterForm = ({ onSwitchToLogin }) => {
             newStatus.nickname = 'error';
             newMessages.nickname = '3~20자의 닉네임을 입력해주세요.';
         }
-        if (!/^\S+@\S+\.\S+$/.test(`${formData.emailId}@${formData.emailDomain === 'custom' ? formData.customEmailDomain : formData.emailDomain}`)) {
+        if (
+            !/^\S+@\S+\.\S+$/.test(
+                `${formData.emailId}@${formData.emailDomain === '직접 입력'
+                    ? formData.customEmailDomain
+                    : formData.emailDomain
+                }`
+            )
+        ) {
             newStatus.emailId = 'error';
             newMessages.emailId = '이메일 형식으로 입력해주세요.';
         }
@@ -100,8 +108,23 @@ const RegisterForm = ({ onSwitchToLogin }) => {
                 alert('아이디 또는 닉네임 중복 확인을 완료해주세요.');
                 return;
             }
+
             try {
-                await registerUser(formData);
+                const actualDomain = formData.emailDomain === 'custom'
+                    ? formData.customEmailDomain
+                    : formData.emailDomain;
+
+                const email = `${formData.emailId}@${actualDomain}`;
+
+                const payload = {
+                    username: formData.username,
+                    password: formData.password,
+                    confirmPassword: formData.confirmPassword,
+                    nickname: formData.nickname,
+                    email: email
+                };
+
+                await registerUser(payload);
                 navigate('/register-success');
             } catch (err) {
                 alert('회원가입 실패: ' + (err.response?.data?.message || '알 수 없는 오류'));
@@ -116,7 +139,7 @@ const RegisterForm = ({ onSwitchToLogin }) => {
     );
 
     return (
-        <div className='register-form'>
+        <div className='register-container'>
             <div className="register-header">
                 <button className="back-to-login" onClick={onSwitchToLogin}>
                     <img src={backArrow} alt="뒤로가기" className="back-arrow-icon" />
@@ -164,44 +187,48 @@ const RegisterForm = ({ onSwitchToLogin }) => {
             </div>
             {renderMessage('nickname')}
 
-            <div className="email-input-row">
-                <FloatingInput
-                    id="emailId"
-                    label="이메일 아이디"
-                    value={formData.emailId}
-                    onChange={handleChange('emailId')}
-                />
-                <span className="email-at">@</span>
-                {formData.emailDomain === 'custom' ? (
+            <div className="email-input-wrapper">
+                {/* 상단: 아이디 입력 + @ + 도메인 표시 */}
+                <div className="email-input-top">
                     <FloatingInput
-                        id="customDomain"
-                        label="도메인"
-                        value={formData.customEmailDomain || ''}
-                        onChange={handleChange('customEmailDomain')}
+                        id="emailId"
+                        label="이메일 아이디"
+                        value={formData.emailId}
+                        onChange={handleChange('emailId')}
                     />
-                ) : (
-                    <span className="email-domain">{formData.emailDomain}</span>
-                )}
-                <select
-                    value={formData.emailDomain}
-                    onChange={handleChange('emailDomain')}
-                    className="email-select"
-                >
-                    <option value="naver.com">naver.com</option>
-                    <option value="gmail.com">gmail.com</option>
-                    <option value="daum.net">daum.net</option>
-                    <option value="nate.com">nate.com</option>
-                    <option value="yahoo.com">yahoo.com</option>
-                    <option value="hotmail.com">hotmail.com</option>
-                    <option value="outlook.com">outlook.com</option>
-                    <option value="icloud.com">icloud.com</option>
-                    <option value="kakao.com">kakao.com</option>
-                    <option value="hanmail.net">hanmail.net</option>
-                    <option value="proton.me">proton.me</option>
-                    <option value="tistory.com">tistory.com</option>
-                    <option value="custom">직접 입력</option>
-                </select>
+                    <span className="email-at">@</span>
+                    {formData.emailDomain === '직접 입력' ? (
+                        <FloatingInput
+                            id="customDomain"
+                            label="도메인"
+                            value={formData.customEmailDomain || ''}
+                            onChange={handleChange('customEmailDomain')}
+                        />
+                    ) : (
+                        <span className="email-domain">{formData.emailDomain}</span>
+                    )}
+                </div>
+
+                {/* 하단: 드롭다운 메뉴 */}
+                <div className="email-input-bottom">
+                    <CustomSelect
+                        options={[
+                            "naver.com", "gmail.com", "daum.net", "nate.com", "yahoo.com",
+                            "hotmail.com", "outlook.com", "icloud.com", "kakao.com",
+                            "hanmail.net", "proton.me", "tistory.com", "직접 입력"
+                        ]}
+                        value={formData.emailDomain}
+                        onChange={(value) => {
+                            setFormData(prev => ({
+                                ...prev,
+                                emailDomain: value,
+                                customEmailDomain: value === "custom" ? "" : prev.customEmailDomain
+                            }));
+                        }}
+                    />
+                </div>
             </div>
+
             {renderMessage('emailId')}
 
             <div className="submit-button-wrapper">

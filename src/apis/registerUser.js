@@ -6,7 +6,7 @@ export const registerUser = async (formData) => {
         username: formData.username,
         password: formData.password,
         nickname: formData.nickname,
-        email: email
+        email: formData.email,
     };
 
     const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, payload);

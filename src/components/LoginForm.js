@@ -85,7 +85,7 @@ const LoginForm = ({ onSwitchToRegister, onSwitchToFind }) => {
                     fontSize: '14px',
                     cursor: 'pointer',
                     textDecoration: 'underline',
-                    marginTop: '16px'
+                    margin: '16px auto 0 auto',
                 }}
             >
                 계정 정보를 잊으셨나요?
