@@ -164,8 +164,18 @@ const ShareChat = () => {
                             tileContent={({ date }) => {
                                 const formatted = formatDateToLocalString(date);
                                 const hasComment = comments.some(c => c.date === formatted);
-                                return hasComment ? <div className="dot" /> : null;
+
+                                const today = new Date();
+                                const isToday =
+                                    date.getFullYear() === today.getFullYear() &&
+                                    date.getMonth() === today.getMonth() &&
+                                    date.getDate() === today.getDate();
+
+                                return hasComment ? (
+                                    <div className={`dot ${isToday ? 'today' : ''}`} />
+                                ) : null;
                             }}
+
                             formatDay={(locale, date) => String(date.getDate())}
                             prev2Label={null}
                             next2Label={null}

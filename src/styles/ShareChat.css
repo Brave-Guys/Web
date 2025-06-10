@@ -45,6 +45,10 @@
   background-color: #4caf50;
 }
 
+.react-calendar .dot.today {
+  background-color: white;
+}
+
 .react-calendar {
   width: 100% !important;
   border: none !important;
