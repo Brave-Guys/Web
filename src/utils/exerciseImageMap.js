@@ -14,22 +14,22 @@ import bench_press from '../assets/exercise_thumbnail/bench_press.jpg';
 import dumbbell_press from '../assets/exercise_thumbnail/dumbbell_press.jpg';
 import pecdeck_fly from '../assets/exercise_thumbnail/pecdeck_fly.jpg';
 import dips from '../assets/exercise_thumbnail/dips.jpg';
+import cable_arm_pulldown from '../assets/exercise_thumbnail/cable_arm_pulldown.jpg';
 import dumbbell_pullover from '../assets/exercise_thumbnail/dumbbell_pullover.jpg';
 import overgrip_lat_pulldown from '../assets/exercise_thumbnail/overgrip_lat_pulldown.jpg';
 import underhand_barbell_row from '../assets/exercise_thumbnail/underhand_barbell_row.jpg';
-// import cable_arm_pulldown from '../assets/exercise_thumbna1il/cable_arm_pulldown.jpg';
-// import one_arm_dumbbell_row from '../assets/exercise_thumbnail/one_arm_dumbbell_row.jpg';
-// import seated_cable_row from '../assets/exercise_thumbnail/seated_cable_row.jpg';
-// import ezbar_curl from '../assets/exercise_thumbnail/ezbar_curl.jpg';
-// import cable_curl from '../assets/exercise_thumbnail/cable_curl.jpg';
-// import barbell_curl from '../assets/exercise_thumbnail/barbell_curl.jpg';
-// import dumbbell_curl from '../assets/exercise_thumbnail/dumbbell_curl.jpg';
-// import barbell_reverse_curl from '../assets/exercise_thumbnail/barbell_reverse_curl.jpg';
-// import dumbbell_hammer_curl from '../assets/exercise_thumbnail/dumbbell_hammer_curl.jpg';
-// import barbell_tricep_extension from '../assets/exercise_thumbnail/barbell_tricep_extension.jpg';
-// import one_arm_cable_tricep_pushdown from '../assets/exercise_thumbnail/one_arm_cable_tricep_pushdown.jpg';
-// import cable_rope_tricep_extension from '../assets/exercise_thumbnail/cable_rope_tricep_extension.jpg';
-// import one_arm_cable_tricep_extension from '../assets/exercise_thumbnail/one_arm_cable_tricep_extension.jpg';
+import one_arm_dumbbell_row from '../assets/exercise_thumbnail/one_arm_dumbbell_row.jpg';
+import seated_cable_row from '../assets/exercise_thumbnail/seated_cable_row.jpg';
+import ezbar_curl from '../assets/exercise_thumbnail/ezbar_curl.jpg';
+import cable_curl from '../assets/exercise_thumbnail/cable_curl.jpg';
+import barbell_curl from '../assets/exercise_thumbnail/barbell_curl.jpg';
+import dumbbell_curl from '../assets/exercise_thumbnail/dumbbell_curl.jpg';
+import barbell_reverse_curl from '../assets/exercise_thumbnail/barbell_reverse_curl.jpg';
+import dumbbell_hammer_curl from '../assets/exercise_thumbnail/dumbbell_hammer_curl.jpg';
+import barbell_tricep_extension from '../assets/exercise_thumbnail/barbell_tricep_extension.jpg';
+import one_arm_cable_tricep_pushdown from '../assets/exercise_thumbnail/one_arm_cable_tricep_pushdown.jpg';
+import cable_rope_tricep_extension from '../assets/exercise_thumbnail/cable_rope_tricep_extension.jpg';
+import one_arm_cable_tricep_extension from '../assets/exercise_thumbnail/one_arm_cable_tricep_extension.jpg';
 // import crunch from '../assets/exercise_thumbnail/crunch.jpg';
 // import cable_crunch from '../assets/exercise_thumbnail/cable_crunch.jpg';
 // import seated_knee_up from '../assets/exercise_thumbnail/seated_knee_up.jpg';
@@ -72,19 +72,19 @@ export const exerciseImageMap = {
   "dumbbell_pullover": dumbbell_pullover,
   "overgrip_lat_pulldown": overgrip_lat_pulldown,
   "underhand_barbell_row": underhand_barbell_row,
-  // "cable_arm_pulldown": cable_arm_pulldown,
-  //   "one_arm_dumbbell_row": one_arm_dumbbell_row,
-  //   "seated_cable_row": seated_cable_row,
-  //   "ezbar_curl": ezbar_curl,
-  //   "cable_curl": cable_curl,
-  //   "barbell_curl": barbell_curl,
-  //   "dumbbell_curl": dumbbell_curl,
-  //   "barbell_reverse_curl": barbell_reverse_curl,
-  //   "dumbbell_hammer_curl": dumbbell_hammer_curl,
-  //   "barbell_tricep_extension": barbell_tricep_extension,
-  //   "one_arm_cable_tricep_pushdown": one_arm_cable_tricep_pushdown,
-  //   "cable_rope_tricep_extension": cable_rope_tricep_extension,
-  //   "one_arm_cable_tricep_extension": one_arm_cable_tricep_extension,
+  "cable_arm_pulldown": cable_arm_pulldown,
+  "one_arm_dumbbell_row": one_arm_dumbbell_row,
+  "seated_cable_row": seated_cable_row,
+  "ezbar_curl": ezbar_curl,
+  "cable_curl": cable_curl,
+  "barbell_curl": barbell_curl,
+  "dumbbell_curl": dumbbell_curl,
+  "barbell_reverse_curl": barbell_reverse_curl,
+  "dumbbell_hammer_curl": dumbbell_hammer_curl,
+  "barbell_tricep_extension": barbell_tricep_extension,
+  "one_arm_cable_tricep_pushdown": one_arm_cable_tricep_pushdown,
+  "cable_rope_tricep_extension": cable_rope_tricep_extension,
+  "one_arm_cable_tricep_extension": one_arm_cable_tricep_extension,
   //   "crunch": crunch,
   //   "cable_crunch": cable_crunch,
   //   "seated_knee_up": seated_knee_up,

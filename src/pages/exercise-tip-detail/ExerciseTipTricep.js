@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import '../../styles/ExerciseTipTricep.css';
 import TricepImage from '../../assets/tricep_detail.png';
-import Image from '../../assets/person.png'; // 기본 이미지 대체용
-import { armExerciseDetails } from '../../constants/exerciseScript'; 
+import { exerciseImageMap } from '../../utils/exerciseImageMap';
+import { armExerciseDetails } from '../../constants/exerciseScript';
 import ExerciseModal from '../../components/ExerciseModal';
 import PageTitle from '../../components/PageTitle';
 
@@ -41,9 +41,9 @@ const ExerciseTipTricep = () => {
                             {armExerciseDetails['삼두'][selectedPart].map((exercise, idx) => (
                                 <div key={idx} className="exercise-card" onClick={() => openModal(exercise)}>
                                     <img
-                                        src={exercise.image || Image}
+                                        src={exercise.image ? exerciseImageMap[exercise.image] : '/assets/default.jpg'}
                                         alt={exercise.name}
-                                        className="exercise-image"
+                                        className='exercise-image'
                                     />
                                     <p className="exercise-title">{exercise.name}</p>
                                 </div>

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import '../../styles/ExerciseTipBicep.css';
 import BicepImage from '../../assets/bicep_detail.png';
-import Image from '../../assets/person.png'; // 기본 이미지 대체용
+import { exerciseImageMap } from '../../utils/exerciseImageMap';
 import { armExerciseDetails } from '../../constants/exerciseScript';
-import ExerciseModal from '../../components/ExerciseModal'; 
+import ExerciseModal from '../../components/ExerciseModal';
 import PageTitle from '../../components/PageTitle';
 
 const ExerciseTipBicep = () => {
@@ -45,11 +45,11 @@ const ExerciseTipBicep = () => {
                                     onClick={() => handleCardClick(exercise)}
                                 >
                                     <img
-                                        src={exercise.image || Image}
+                                        src={exercise.image ? exerciseImageMap[exercise.image] : '/assets/default.jpg'}
                                         alt={exercise.name}
-                                        className="exercise-image"
+                                        className='exercise-image'
                                     />
-                                    <p className="exercise-title">{exercise.name}</p>                                    
+                                    <p className="exercise-title">{exercise.name}</p>
                                 </div>
                             ))}
                         </div>

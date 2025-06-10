@@ -339,6 +339,7 @@ export const backExerciseDetails = {
   '등 하부': [
     {
       name: '원 암 덤벨 로우',
+      image: 'one_arm_dumbbell_row',
       steps: [
         '1. 덤벨을 든 팔의 반대쪽 무릎을 벤치에 올린다.',
         '2. 덤벨을 들지 않은 팔은 쭉 펴서 상체를 지지한다.',
@@ -351,6 +352,7 @@ export const backExerciseDetails = {
     },
     {
       name: '시티드 케이블 로우',
+      image: 'seated_cable_row',
       steps: [
         '1. 무릎이 살짝 굽혀지는 위치에 앉는다.',
         '2. 다리를 고정하고 그립을 잡는다.',
@@ -369,6 +371,7 @@ export const armExerciseDetails = {
     장두: [
       {
         name: '이지바 컬',
+        image: 'ezbar_curl',
         steps: [
           '1. 어깨너비로 서서, 팔을 자연스럽게 아래로 내려 이지바를 잡아준다.',
           '2. 이지바를 허벅지 바로 앞에 위치시킨다.',
@@ -380,6 +383,7 @@ export const armExerciseDetails = {
       },
       {
         name: '케이블 컬',
+        image: 'cable_curl',
         steps: [
           '1. 서서 케이블 손잡이를 잡는다.',
           '2. 케이블을 잡고 팔을 펴며 내려놓는다.',
@@ -392,6 +396,7 @@ export const armExerciseDetails = {
     단두: [
       {
         name: '바벨 컬',
+        image: 'barbell_curl',
         steps: [
           '1. 어깨너비로 서서, 팔을 자연스럽게 아래로 내려 바벨을 잡아준다.',
           '2. 바벨을 허벅지 바로 앞에 위치시킨다.',
@@ -403,6 +408,7 @@ export const armExerciseDetails = {
       },
       {
         name: '덤벨 컬',
+        image: 'dumbbell_curl',
         steps: [
           '1. 어깨너비로 서서, 손바닥이 앞을 향하도록 덤벨을 잡고 허벅지 옆에 위치시켜 준다.',
           '2. 가슴을 펴고 허리를 세운다.',
@@ -416,6 +422,7 @@ export const armExerciseDetails = {
     상완요골근: [
       {
         name: '바벨 리버스 컬',
+        image: 'barbell_reverse_curl',
         steps: [
           '1. 어깨너비로 서서, 팔을 자연스럽게 아래로 내려 손바닥이 몸을 향하게 바벨을 잡는다.',
           '2. 가슴을 펴고 허리를 세워준다.',
@@ -426,6 +433,7 @@ export const armExerciseDetails = {
       },
       {
         name: '덤벨 해머 컬',
+        image: 'dumbbell_hammer_curl',
         steps: [
           '1. 어깨너비로 서서, 손바닥이 몸을 향하도록 덤벨을 잡고 허벅지 옆에 위치시킨다.',
           '2. 가슴을 펴고 허리를 세워준다.',
@@ -441,6 +449,7 @@ export const armExerciseDetails = {
     장두: [
       {
         name: '바벨 트라이셉 익스텐션',
+        image: 'barbell_tricep_extension',
         steps: [
           '1. 바벨을 어깨너비로 잡아준다.',
           '2. 가슴을 펴고, 코어에 힘을 준 상태에서 바벨을 머리 위로 들어올린다.',
@@ -453,6 +462,7 @@ export const armExerciseDetails = {
     외측두: [
       {
         name: '원 암 케이블 트라이셉 푸쉬다운',
+        image: 'one_arm_cable_tricep_pushdown',
         steps: [
           '1. 케이블을 어깨라인에 위치시킨다.',
           '2. 다리는 어깨너비로 벌리고, 손바닥이 머신을 향하도록 그립을 잡는다.',
@@ -464,6 +474,7 @@ export const armExerciseDetails = {
       },
       {
         name: '케이블 로프 트라이셉 익스텐션',
+        image: 'cable_rope_tricep_extension',
         steps: [
           '1. 케이블을 어깨라인에 위치시킨다.',
           '2. 다리는 어깨너비로 벌리고, 무릎을 살짝 굽힌다.',
@@ -477,6 +488,7 @@ export const armExerciseDetails = {
     내측두: [
       {
         name: '원 암 케이블 트라이셉 익스텐션',
+        image: 'one_arm_cable_tricep_extension',
         steps: [
           '1. 케이블을 어깨라인에 위치시킨다.',
           '2. 다리는 어깨너비로 벌리고, 손바닥이 몸을 향하도록 그립을 잡는다.',
