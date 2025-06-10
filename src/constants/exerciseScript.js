@@ -212,6 +212,7 @@ export const shoulderExerciseDetails = {
       },
       {
         name: '로우 케이블 크로스오버',
+        image: 'low_cable_crossover',
         steps: [
           '1. 케이블을 가슴보다 낮은 위치에 고정한다.',
           '2. 어깨너비로 서서 가슴을 펴고 허리를 세워준다.',

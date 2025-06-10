@@ -9,7 +9,7 @@ import reverse_pecdeck_fly from '../assets/exercise_thumbnail/reverse_pecdeck_fl
 import face_pull from '../assets/exercise_thumbnail/face_pull.jpg';
 import incline_bench_press from '../assets/exercise_thumbnail/incline_bench_press.jpg';
 import incline_dumbbell_press from '../assets/exercise_thumbnail/incline_dumbbell_press.jpg';
-// import low_cable_crossover from '../assets/exercise_thumbnail/low_cable_crossover.jpg';
+import low_cable_crossover from '../assets/exercise_thumbnail/low_cable_crossover.jpg';
 // import bench_press from '../assets/exercise_thumbnail/bench_press.jpg';
 // import dumbbell_press from '../assets/exercise_thumbnail/dumbbell_press.jpg';
 // import pecdeck_fly from '../assets/exercise_thumbnail/pecdeck_fly.jpg';
@@ -64,7 +64,7 @@ export const exerciseImageMap = {
   "face_pull": face_pull,
   "incline_bench_press": incline_bench_press,
   "incline_dumbbell_press": incline_dumbbell_press,
-//   "low_cable_crossover": low_cable_crossover,
+  "low_cable_crossover": low_cable_crossover,
 //   "bench_press": bench_press,
 //   "dumbbell_press": dumbbell_press,
 //   "pecdeck_fly": pecdeck_fly,
