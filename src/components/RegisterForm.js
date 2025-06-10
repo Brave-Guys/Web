@@ -110,7 +110,7 @@ const RegisterForm = ({ onSwitchToLogin }) => {
             }
 
             try {
-                const actualDomain = formData.emailDomain === 'custom'
+                const actualDomain = formData.emailDomain === '직접 입력'
                     ? formData.customEmailDomain
                     : formData.emailDomain;
 
@@ -222,7 +222,7 @@ const RegisterForm = ({ onSwitchToLogin }) => {
                             setFormData(prev => ({
                                 ...prev,
                                 emailDomain: value,
-                                customEmailDomain: value === "custom" ? "" : prev.customEmailDomain
+                                customEmailDomain: value === "직접 입력" ? "" : prev.customEmailDomain
                             }));
                         }}
                     />
