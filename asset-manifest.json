@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Web/static/css/main.ae348fb4.css",
-    "main.js": "/Web/static/js/main.695bd7be.js",
+    "main.js": "/Web/static/js/main.91a28811.js",
     "static/js/453.8ab44547.chunk.js": "/Web/static/js/453.8ab44547.chunk.js",
     "static/media/temp.gif": "/Web/static/media/temp.563be9e678abc5a33b20.gif",
     "static/media/bg1.png": "/Web/static/media/bg1.42a935a638e7c2a4654d.png",
@@ -22,15 +22,16 @@
     "static/media/abs.png": "/Web/static/media/abs.d0f52ae9007607037395.png",
     "static/media/naver.png": "/Web/static/media/naver.21ba3519751ccc5472bb.png",
     "static/media/shoulder.png": "/Web/static/media/shoulder.972b48ed57022384ea14.png",
+    "static/media/dumbbell_shoulder_press.jpg": "/Web/static/media/dumbbell_shoulder_press.54b5cfe1edebcc01f8a7.jpg",
     "static/media/person.png": "/Web/static/media/person.40285f3ab1675d2348ef.png",
     "static/media/lowerBody.png": "/Web/static/media/lowerBody.3368cfe5819b31eed816.png",
     "index.html": "/Web/index.html",
     "main.ae348fb4.css.map": "/Web/static/css/main.ae348fb4.css.map",
-    "main.695bd7be.js.map": "/Web/static/js/main.695bd7be.js.map",
+    "main.91a28811.js.map": "/Web/static/js/main.91a28811.js.map",
     "453.8ab44547.chunk.js.map": "/Web/static/js/453.8ab44547.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ae348fb4.css",
-    "static/js/main.695bd7be.js"
+    "static/js/main.91a28811.js"
   ]
 }
