@@ -204,30 +204,35 @@ const ShareChat = () => {
                     <div className="feedback-title">📬 피드백 내용</div>
                     <div className="chat-scroll-wrapper">
                         <div className="chat-list">
-                            {[...filteredComments]
-                                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-                                .map((c) => (
-                                    <div
-                                        key={c.id}
-                                        className={`chat-item ${c.writerId === masterId ? 'chat-master' : 'chat-student'}`}
-                                    >
-                                        <div className="chat-meta">
-                                            <img
-                                                src={c.profileImgUrl || DefaultAvatar}
-                                                alt="프로필"
-                                                className="chat-profile-img"
-                                            />
-                                            <div>
-                                                <p className="chat-writer">
-                                                    {c.nickname || '익명'} {c.writerId === masterId && <span className="chat-badge">상급자</span>}
-                                                </p>
-                                                <p className="chat-time">{formatTime(c.createdAt)}</p>
+                            {filteredComments.length === 0 ? (
+                                <p className="empty-feedback">선택한 날짜에 피드백이 없습니다.</p>
+                            ) : (
+                                [...filteredComments]
+                                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                                    .map((c) => (
+                                        <div
+                                            key={c.id}
+                                            className={`chat-item ${c.writerId === masterId ? 'chat-master' : 'chat-student'}`}
+                                        >
+                                            <div className="chat-meta">
+                                                <img
+                                                    src={c.profileImgUrl || DefaultAvatar}
+                                                    alt="프로필"
+                                                    className="chat-profile-img"
+                                                />
+                                                <div>
+                                                    <p className="chat-writer">
+                                                        {c.nickname || '익명'}{' '}
+                                                        {c.writerId === masterId && <span className="chat-badge">상급자</span>}
+                                                    </p>
+                                                    <p className="chat-time">{formatTime(c.createdAt)}</p>
+                                                </div>
                                             </div>
+                                            <p>{c.content}</p>
+                                            {c.picture && <img src={c.picture} alt="첨부" className="chat-image" />}
                                         </div>
-                                        <p>{c.content}</p>
-                                        {c.picture && <img src={c.picture} alt="첨부" className="chat-image" />}
-                                    </div>
-                                ))}
+                                    ))
+                            )}
                         </div>
                     </div>
                 </div>

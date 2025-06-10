@@ -57,6 +57,13 @@
   background: transparent !important;
 }
 
+.empty-feedback {
+  text-align: center;
+  color: #777;
+  padding: 40px 0;
+  font-size: 15px;
+}
+
 .react-calendar__tile {
   position: relative !important;
   padding: 16px 0 !important;
