@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Web/static/css/main.ae348fb4.css",
-    "main.js": "/Web/static/js/main.d7a1a89e.js",
+    "main.js": "/Web/static/js/main.714746fa.js",
     "static/js/453.d855a71b.chunk.js": "/Web/static/js/453.d855a71b.chunk.js",
     "static/media/temp.gif": "/Web/static/media/temp.563be9e678abc5a33b20.gif",
     "static/media/bg1.png": "/Web/static/media/bg1.42a935a638e7c2a4654d.png",
@@ -21,6 +21,7 @@
     "static/media/overhead_press.jpg": "/Web/static/media/overhead_press.3a7dd8a39976c640b13b.jpg",
     "static/media/logo.png": "/Web/static/media/logo.5d436e07ed6752fe419b.png",
     "static/media/barbell_upright_row.jpg": "/Web/static/media/barbell_upright_row.092a9a3ca82537de27cd.jpg",
+    "static/media/low_cable_crossover.jpg": "/Web/static/media/low_cable_crossover.cbd5b767285adcafbd0b.jpg",
     "static/media/face_pull.jpg": "/Web/static/media/face_pull.e1d07886d068c8b53e25.jpg",
     "static/media/one_arm_cable_side_lateral_raise.jpg": "/Web/static/media/one_arm_cable_side_lateral_raise.cfde6a00ca54daedbd1e.jpg",
     "static/media/bent_over_lateral_raise.jpg": "/Web/static/media/bent_over_lateral_raise.004f9195da37ab8f6326.jpg",
@@ -34,11 +35,11 @@
     "static/media/cable_front_raise.jpg": "/Web/static/media/cable_front_raise.53d99b3125cd082fdf5b.jpg",
     "index.html": "/Web/index.html",
     "main.ae348fb4.css.map": "/Web/static/css/main.ae348fb4.css.map",
-    "main.d7a1a89e.js.map": "/Web/static/js/main.d7a1a89e.js.map",
+    "main.714746fa.js.map": "/Web/static/js/main.714746fa.js.map",
     "453.d855a71b.chunk.js.map": "/Web/static/js/453.d855a71b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ae348fb4.css",
-    "static/js/main.d7a1a89e.js"
+    "static/js/main.714746fa.js"
   ]
 }
