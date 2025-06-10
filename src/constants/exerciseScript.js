@@ -97,6 +97,7 @@ export const shoulderExerciseDetails = {
       },
       {
         name: '케이블 프론트 레이즈',
+        image: 'cable_front_raise',
         steps: [
           '1. 양손으로 그립을 잡고 어깨너비로 선다.',
           '2. 손은 허벅지 앞에 위치시키고 가슴을 열고 허리를 세운다.',
@@ -109,6 +110,7 @@ export const shoulderExerciseDetails = {
     측면: [
       {
         name: '덤벨 사이드 레터럴 레이즈',
+        image: 'dumbbell_side_lateral_raise',
         steps: [
           '1. 양손에 덤벨을 들고 어깨 너비로 선 다음 가슴을 열고 허리를 세운다.',
           '2. 팔꿈치를 살짝 구부린 채로 덤벨을 어깨높이까지 천천히 들어올린다.',
@@ -118,6 +120,7 @@ export const shoulderExerciseDetails = {
       },
       {
         name: '바벨 업 라이트 로우',
+        image: 'barbell_upright_row',
         steps: [
           '1. 어깨너비로 서서 바벨을 어깨너비보다 조금 넓게 잡고, 바벨을 허벅지 앞에 위치시킨다.',
           '2. 가슴을 열고 허리를 세운다.',
@@ -128,6 +131,7 @@ export const shoulderExerciseDetails = {
       },
       {
         name: '원 암 케이블 사이드 레터럴 레이즈',
+        image: 'one_arm_cable_side_lateral_raise',
         steps: [
           '1. 한 손으로 그립을 잡고 어깨너비로 선다.',
           '2. 가슴을 열고 허리를 세운다.',
@@ -140,6 +144,7 @@ export const shoulderExerciseDetails = {
     후면: [
       {
         name: '벤트 오버 레터럴 레이즈',
+        image: 'bent_over_lateral_raise',
         steps: [
           '1. 양손에 덤벨을 들고 어깨너비로 선다.',
           '2. 엉덩이를 뒤로 빼고 상체를 앞으로 굽힌다.',
@@ -150,6 +155,7 @@ export const shoulderExerciseDetails = {
       },
       {
         name: '리버스 펙덱 플라이',
+        image: 'reverse_pecdeck_fly',
         steps: [
           '1. 펙덱 플라이 머신에 반대로 앉아 팔꿈치를 살짝 구부리고 그립을 잡는다.',
           '2. 가슴, 허리, 목을 곧게 펴고 자세를 유지한다.',
@@ -159,6 +165,7 @@ export const shoulderExerciseDetails = {
       },
       {
         name: '페이스 풀',
+        image: 'face_pull',
         steps: [
           '1. 케이블이 얼굴 앞에 오도록 조정한다.',
           '2. 두 손으로 그립을 잡고, 팔을 쭉 펴서 얼굴 앞에 위치시킨다.',

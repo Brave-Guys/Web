@@ -1,12 +1,12 @@
 import overhead_press from '../assets/exercise_thumbnail/overhead_press.jpg';
 import dumbbell_shoulder_press from '../assets/exercise_thumbnail/dumbbell_shoulder_press.jpg';
-// import cable_front_raise from '../assets/exercise_thumbnail/cable_front_raise.jpg';
-// import dumbbell_side_lateral_raise from '../assets/exercise_thumbnail/dumbbell_side_lateral_raise.jpg';
-// import barbell_upright_row from '../assets/exercise_thumbnail/barbell_upright_row.jpg';
-// import one_arm_cable_side_lateral_raise from '../assets/exercise_thumbnail/one_arm_cable_side_lateral_raise.jpg';
-// import bent_over_lateral_raise from '../assets/exercise_thumbnail/bent_over_lateral_raise.jpg';
-// import reverse_pecdeck_fly from '../assets/exercise_thumbnail/reverse_pecdeck_fly.jpg';
-// import face_pull from '../assets/exercise_thumbnail/face_pull.jpg';
+import cable_front_raise from '../assets/exercise_thumbnail/cable_front_raise.jpg';
+import dumbbell_side_lateral_raise from '../assets/exercise_thumbnail/dumbbell_side_lateral_raise.jpg';
+import barbell_upright_row from '../assets/exercise_thumbnail/barbell_upright_row.jpg';
+import one_arm_cable_side_lateral_raise from '../assets/exercise_thumbnail/one_arm_cable_side_lateral_raise.jpg';
+import bent_over_lateral_raise from '../assets/exercise_thumbnail/bent_over_lateral_raise.jpg';
+import reverse_pecdeck_fly from '../assets/exercise_thumbnail/reverse_pecdeck_fly.jpg';
+import face_pull from '../assets/exercise_thumbnail/face_pull.jpg';
 // import incline_bench_press from '../assets/exercise_thumbnail/incline_bench_press.jpg';
 // import incline_dumbbell_press from '../assets/exercise_thumbnail/incline_dumbbell_press.jpg';
 // import low_cable_crossover from '../assets/exercise_thumbnail/low_cable_crossover.jpg';
@@ -55,13 +55,13 @@ import dumbbell_shoulder_press from '../assets/exercise_thumbnail/dumbbell_shoul
 export const exerciseImageMap = {
   "overhead_press": overhead_press,
   "dumbbell_shoulder_press": dumbbell_shoulder_press,
-//   "cable_front_raise": cable_front_raise,
-//   "dumbbell_side_lateral_raise": dumbbell_side_lateral_raise,
-//   "barbell_upright_row": barbell_upright_row,
-//   "one_arm_cable_side_lateral_raise": one_arm_cable_side_lateral_raise,
-//   "bent_over_lateral_raise": bent_over_lateral_raise,
-//   "reverse_pecdeck_fly": reverse_pecdeck_fly,
-//   "face_pull": face_pull,
+  "cable_front_raise": cable_front_raise,
+  "dumbbell_side_lateral_raise": dumbbell_side_lateral_raise,
+  "barbell_upright_row": barbell_upright_row,
+  "one_arm_cable_side_lateral_raise": one_arm_cable_side_lateral_raise,
+  "bent_over_lateral_raise": bent_over_lateral_raise,
+  "reverse_pecdeck_fly": reverse_pecdeck_fly,
+  "face_pull": face_pull,
 //   "incline_bench_press": incline_bench_press,
 //   "incline_dumbbell_press": incline_dumbbell_press,
 //   "low_cable_crossover": low_cable_crossover,
