@@ -54,6 +54,7 @@ const SearchResult = () => {
     return (
         <div style={{ padding: '90px 265px' }}>
             <PageTitle title={`"${query}" 검색 결과`} showBackArrow={true} />
+            <div style={{ margin: '30px' }}></div>
             {results.length === 0 ? (
                 <div style={{ marginTop: '30px', color: 'gray' }}>검색 결과가 없습니다.</div>
             ) : (
