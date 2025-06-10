@@ -4,6 +4,7 @@ import { getMasterRequestById } from '../apis/getMasterRequest';
 import { approveMasterRequest, rejectMasterRequest } from '../apis/updateMasterRequest';
 import '../styles/MasterRequestDetail.css';
 import axios from 'axios';
+import PageTitle from '../components/PageTitle';
 
 const MasterRequestDetail = () => {
     const { id } = useParams();
@@ -42,7 +43,12 @@ const MasterRequestDetail = () => {
 
     return (
         <div className="detail-wrapper">
-            <h2>상급자 신청 상세보기</h2>
+            <PageTitle
+                title={'상급자 신청 상세보기'}
+                description={'승인 여부를 결정해주세요.'}
+                showBackArrow
+            />
+            <div style={{ margin: '30px' }}></div>
             <div className="detail-box">
                 <p><strong>이름:</strong> {request.name}</p>
                 <p><strong>연락처:</strong> {request.phone}</p>
