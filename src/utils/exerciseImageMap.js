@@ -1,5 +1,5 @@
 import overhead_press from '../assets/exercise_thumbnail/overhead_press.jpg';
-// import dumbbell_shoulder_press from '../assets/exercise_thumbnail/dumbbell_shoulder_press.jpg';
+import dumbbell_shoulder_press from '../assets/exercise_thumbnail/dumbbell_shoulder_press.jpg';
 // import cable_front_raise from '../assets/exercise_thumbnail/cable_front_raise.jpg';
 // import dumbbell_side_lateral_raise from '../assets/exercise_thumbnail/dumbbell_side_lateral_raise.jpg';
 // import barbell_upright_row from '../assets/exercise_thumbnail/barbell_upright_row.jpg';
@@ -54,7 +54,7 @@ import overhead_press from '../assets/exercise_thumbnail/overhead_press.jpg';
 
 export const exerciseImageMap = {
   "overhead_press": overhead_press,
-//   "dumbbell_shoulder_press": dumbbell_shoulder_press,
+  "dumbbell_shoulder_press": dumbbell_shoulder_press,
 //   "cable_front_raise": cable_front_raise,
 //   "dumbbell_side_lateral_raise": dumbbell_side_lateral_raise,
 //   "barbell_upright_row": barbell_upright_row,

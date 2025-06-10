@@ -85,6 +85,7 @@ export const shoulderExerciseDetails = {
       },
       {
         name: '덤벨 숄더 프레스',
+        image: 'dumbbell_shoulder_press',
         steps: [
           '1. 등받이의 각도를 70~90도로 조절한 후 앉아서 가슴을 펴고 허리를 세운다.',
           '2. 덤벨을 양손에 들고 귀 옆에 위치시킨다.',
