@@ -624,6 +624,7 @@ export const thighExerciseDetails = {
   내전근: [
     {
       name: "사이드 런지",
+      image: 'side_lunge',
       steps: [
         "1. 다리는 골반 너비로 벌려주고, 양손을 앞으로 모아준다.",
         "2. 가슴을 펴고, 허리를 세운다.",
@@ -636,6 +637,7 @@ export const thighExerciseDetails = {
     },
     {
       name: "힙 어덕션 머신",
+      image: 'hip_adduction_machine',
       steps: [
         "1. 다리를 최대한 벌릴 수 있는 위치로 패드를 맞춘다.",
         "2. 엉덩이와 등을 밀착시켜 앉는다.",
@@ -649,6 +651,7 @@ export const thighExerciseDetails = {
   대퇴사두근: [
     {
       name: "바벨 스쿼트",
+      image: 'barbell_squat',
       steps: [
         "1. 바벨을 어깨 높이에 거치하고, 어깨너비보다 넓게 잡아 승모근에 올려준다.",
         "2. 다리는 어깨너비로 벌리고, 발끝은 30도 정도 벌려준다.",
@@ -662,6 +665,7 @@ export const thighExerciseDetails = {
     },
     {
       name: "레그 프레스",
+      image: 'leg_press',
       steps: [
         "1. 몸을 머신 중앙에 두고, 발판 중앙에 발을 올린다.",
         "2. 다리는 어깨너비로 벌리고, 발끝은 30도 벌려준다.",
@@ -674,6 +678,7 @@ export const thighExerciseDetails = {
     },
     {
       name: "레그 익스텐션",
+      image: 'leg_extension',
       steps: [
         "1. 머신에 앉아 무릎 뒤쪽이 패드 끝에 닿도록 조절한다.",
         "2. 발목 패드는 발목보다 위쪽에 오게 설정한다.",
@@ -692,6 +697,7 @@ export const lowerBackExerciseDetails = {
   햄스트링: [
     {
       name: "레그 컬 머신",
+      image: 'leg_curl_machine',
       steps: [
         "1. 몸을 머신 중앙에 위치시키고, 무릎이 패드 끝부분에 닿도록 조절해서 앉는다.",
         "2. 발목 패드가 아킬레스건 위쪽에 닿도록 설정한다.",
@@ -704,6 +710,7 @@ export const lowerBackExerciseDetails = {
     },
     {
       name: "루마니안 데드리프트",
+      image: 'romanian_deadlift',
       steps: [
         "1. 다리를 어깨너비만큼 벌려준다.",
         "2. 바벨을 어깨너비로 잡아준다.",
@@ -718,6 +725,7 @@ export const lowerBackExerciseDetails = {
   둔근: [
     {
       name: "힙 쓰러스트 머신",
+      image: 'hip_thrust_machine',
       steps: [
         "1. 머신에 등을 밀착하고, 패드를 골반 위치에 맞게 조절한다.",
         "2. 다리는 어깨너비로 벌리고, 움직이지 않게 고정해준다.",
@@ -728,6 +736,7 @@ export const lowerBackExerciseDetails = {
     },
     {
       name: "원 암 케이블 킥백",
+      image: 'one_arm_cable_kickback',
       steps: [
         "1. 케이블을 허리 높이에 위치시킨다.",
         "2. 한쪽 다리는 뒤로 빼고, 반대쪽 다리 위에 손을 지탱하여 상체를 숙여준다.",
@@ -739,6 +748,7 @@ export const lowerBackExerciseDetails = {
     },
     {
       name: "덤벨 스텝 업",
+      image: 'dumbbell_step_up',
       steps: [
         "1. 덤벨을 들고 서서 발을 어깨너비로 벌린다.",
         "2. 덤벨을 들고 박스에 한 발을 올린다.",
@@ -751,6 +761,7 @@ export const lowerBackExerciseDetails = {
   비복근: [
     {
       name: "스탠딩 카프 레이즈 머신",
+      image: 'standing_calf_raise_machine',
       steps: [
         "1. 발판 위에 두 발의 앞꿈치를 올려준다.",
         "2. 어깨너비로 다리를 벌려준다.",
@@ -762,6 +773,7 @@ export const lowerBackExerciseDetails = {
     },
     {
       name: "시티드 카프 레이즈",
+      image: 'seated_calf_raise',
       steps: [
         "1. 무릎 높이로 무릎 패드를 조절한다.",
         "2. 발판 위에 두 발의 앞꿈치를 올려준다.",

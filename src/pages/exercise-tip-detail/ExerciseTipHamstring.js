@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../../styles/ExerciseTipHamstring.css';
 import hamstringImage from '../../assets/thigh_back_detail.png';
-import Image from '../../assets/person.png'; // 기본 이미지 대체용
+import { exerciseImageMap } from '../../utils/exerciseImageMap';
 import { lowerBackExerciseDetails } from '../../constants/exerciseScript';
 import ExerciseModal from '../../components/ExerciseModal';
 import PageTitle from '../../components/PageTitle';
@@ -28,7 +28,7 @@ const ExerciseTipHamstring = () => {
                         <img src={hamstringImage} alt="Hamstring Detail" className="hamstring-image" />
                         <div className="area front" onClick={() => setSelectedPart('햄스트링')} />
                         <div className="area side" onClick={() => setSelectedPart('둔근')} />
-                        <div className="area rear" onClick={() => setSelectedPart('비복근근')} />
+                        <div className="area rear" onClick={() => setSelectedPart('비복근')} />
                     </div>
                 </div>
 
@@ -41,9 +41,9 @@ const ExerciseTipHamstring = () => {
                             {lowerBackExerciseDetails[selectedPart].map((exercise, idx) => (
                                 <div key={idx} className="exercise-card" onClick={() => openModal(exercise)}>
                                     <img
-                                        src={exercise.image || Image}
+                                        src={exercise.image ? exerciseImageMap[exercise.image] : '/assets/default.jpg'}
                                         alt={exercise.name}
-                                        className="exercise-image"
+                                        className='exercise-image'
                                     />
                                     <p className="exercise-title">{exercise.name}</p>
                                 </div>

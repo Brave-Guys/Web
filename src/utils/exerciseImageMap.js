@@ -39,18 +39,18 @@ import reverse_crunch from '../assets/exercise_thumbnail/reverse_crunch.jpg';
 import bicycle_crunch from '../assets/exercise_thumbnail/bicycle_crunch.jpg';
 import russian_twist from '../assets/exercise_thumbnail/russian_twist.jpg';
 import dumbbell_side_bend from '../assets/exercise_thumbnail/dumbbell_side_bend.jpg';
-// import side_lunge from '../assets/exercise_thumbnail/side_lunge.jpg';
-// import hip_adduction_machine from '../assets/exercise_thumbnail/hip_adduction_machine.jpg';
-// import barbell_squat from '../assets/exercise_thumbnail/barbell_squat.jpg';
-// import leg_press from '../assets/exercise_thumbnail/leg_press.jpg';
-// import leg_extension from '../assets/exercise_thumbnail/leg_extension.jpg';
-// import leg_curl_machine from '../assets/exercise_thumbnail/leg_curl_machine.jpg';
-// import romanian_deadlift from '../assets/exercise_thumbnail/romanian_deadlift.jpg';
-// import hip_thrust_machine from '../assets/exercise_thumbnail/hip_thrust_machine.jpg';
-// import one_arm_cable_kickback from '../assets/exercise_thumbnail/one_arm_cable_kickback.jpg';
-// import dumbbell_step_up from '../assets/exercise_thumbnail/dumbbell_step_up.jpg';
-// import standing_calf_raise_machine from '../assets/exercise_thumbnail/standing_calf_raise_machine.jpg';
-// import seated_calf_raise from '../assets/exercise_thumbnail/seated_calf_raise.jpg';
+import side_lunge from '../assets/exercise_thumbnail/side_lunge.jpg';
+import hip_adduction_machine from '../assets/exercise_thumbnail/hip_adduction_machine.jpg';
+import barbell_squat from '../assets/exercise_thumbnail/barbell_squat.jpg';
+import leg_press from '../assets/exercise_thumbnail/leg_press.jpg';
+import leg_extension from '../assets/exercise_thumbnail/leg_extension.jpg';
+import leg_curl_machine from '../assets/exercise_thumbnail/leg_curl_machine.jpg';
+import romanian_deadlift from '../assets/exercise_thumbnail/romanian_deadlift.jpg';
+import hip_thrust_machine from '../assets/exercise_thumbnail/hip_thrust_machine.jpg';
+import one_arm_cable_kickback from '../assets/exercise_thumbnail/one_arm_cable_kickback.jpg';
+import dumbbell_step_up from '../assets/exercise_thumbnail/dumbbell_step_up.jpg';
+import standing_calf_raise_machine from '../assets/exercise_thumbnail/standing_calf_raise_machine.jpg';
+import seated_calf_raise from '../assets/exercise_thumbnail/seated_calf_raise.jpg';
 
 export const exerciseImageMap = {
   "overhead_press": overhead_press,
@@ -94,16 +94,16 @@ export const exerciseImageMap = {
   "bicycle_crunch": bicycle_crunch,
   "russian_twist": russian_twist,
   "dumbbell_side_bend": dumbbell_side_bend,
-  //   "side_lunge": side_lunge,
-  //   "hip_adduction_machine": hip_adduction_machine,
-  //   "barbell_squat": barbell_squat,
-  //   "leg_press": leg_press,
-  //   "leg_extension": leg_extension,
-  //   "leg_curl_machine": leg_curl_machine,
-  //   "romanian_deadlift": romanian_deadlift,
-  //   "hip_thrust_machine": hip_thrust_machine,
-  //   "one_arm_cable_kickback": one_arm_cable_kickback,
-  //   "dumbbell_step_up": dumbbell_step_up,
-  //   "standing_calf_raise_machine": standing_calf_raise_machine,
-  //   "seated_calf_raise": seated_calf_raise,
+  "side_lunge": side_lunge,
+  "hip_adduction_machine": hip_adduction_machine,
+  "barbell_squat": barbell_squat,
+  "leg_press": leg_press,
+  "leg_extension": leg_extension,
+  "leg_curl_machine": leg_curl_machine,
+  "romanian_deadlift": romanian_deadlift,
+  "hip_thrust_machine": hip_thrust_machine,
+  "one_arm_cable_kickback": one_arm_cable_kickback,
+  "dumbbell_step_up": dumbbell_step_up,
+  "standing_calf_raise_machine": standing_calf_raise_machine,
+  "seated_calf_raise": seated_calf_raise,
 };
