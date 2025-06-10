@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import '../../styles/ExerciseTipBack.css';
 import BackImage from '../../assets/back_detail.png';
-import Image from '../../assets/person.png'; // 기본 이미지 대체용
+import { exerciseImageMap } from '../../utils/exerciseImageMap';
 import { backExerciseDetails } from '../../constants/exerciseScript';
-import ExerciseModal from '../../components/ExerciseModal'; 
+import ExerciseModal from '../../components/ExerciseModal';
 import PageTitle from '../../components/PageTitle';
 
 const ExerciseTipBack = () => {
@@ -44,9 +44,9 @@ const ExerciseTipBack = () => {
                                     onClick={() => handleCardClick(exercise)}
                                 >
                                     <img
-                                        src={exercise.image || Image}
+                                        src={exercise.image ? exerciseImageMap[exercise.image] : '/assets/default.jpg'}
                                         alt={exercise.name}
-                                        className="exercise-image"
+                                        className='exercise-image'
                                     />
                                     <p className="exercise-title">{exercise.name}</p>
                                 </div>

@@ -15,9 +15,9 @@ import dumbbell_press from '../assets/exercise_thumbnail/dumbbell_press.jpg';
 import pecdeck_fly from '../assets/exercise_thumbnail/pecdeck_fly.jpg';
 import dips from '../assets/exercise_thumbnail/dips.jpg';
 import dumbbell_pullover from '../assets/exercise_thumbnail/dumbbell_pullover.jpg';
-// import overgrip_lat_pulldown from '../assets/exercise_thumbnail/overgrip_lat_pulldown.jpg';
-// import underhand_barbell_row from '../assets/exercise_thumbnail/underhand_barbell_row.jpg';
-// import cable_arm_pulldown from '../assets/exercise_thumbnail/cable_arm_pulldown.jpg';
+import overgrip_lat_pulldown from '../assets/exercise_thumbnail/overgrip_lat_pulldown.jpg';
+import underhand_barbell_row from '../assets/exercise_thumbnail/underhand_barbell_row.jpg';
+// import cable_arm_pulldown from '../assets/exercise_thumbna1il/cable_arm_pulldown.jpg';
 // import one_arm_dumbbell_row from '../assets/exercise_thumbnail/one_arm_dumbbell_row.jpg';
 // import seated_cable_row from '../assets/exercise_thumbnail/seated_cable_row.jpg';
 // import ezbar_curl from '../assets/exercise_thumbnail/ezbar_curl.jpg';
@@ -70,9 +70,9 @@ export const exerciseImageMap = {
   "pecdeck_fly": pecdeck_fly,
   "dips": dips,
   "dumbbell_pullover": dumbbell_pullover,
-  //   "overgrip_lat_pulldown": overgrip_lat_pulldown,
-  //   "underhand_barbell_row": underhand_barbell_row,
-  //   "cable_arm_pulldown": cable_arm_pulldown,
+  "overgrip_lat_pulldown": overgrip_lat_pulldown,
+  "underhand_barbell_row": underhand_barbell_row,
+  // "cable_arm_pulldown": cable_arm_pulldown,
   //   "one_arm_dumbbell_row": one_arm_dumbbell_row,
   //   "seated_cable_row": seated_cable_row,
   //   "ezbar_curl": ezbar_curl,

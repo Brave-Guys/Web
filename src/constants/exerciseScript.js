@@ -296,6 +296,7 @@ export const backExerciseDetails = {
   '등 상부': [
     {
       name: '오버그립 렛 풀 다운',
+      image: 'overgrip_lat_pulldown',
       steps: [
         '1. 무릎이 조이지 않도록 무릎 패드 높이를 조절한다.',
         '2. 어깨너비보다 조금 넓게 바를 잡는다.',
@@ -309,6 +310,7 @@ export const backExerciseDetails = {
     },
     {
       name: '언더 핸드 바벨로우',
+      image: 'underhand_barbell_row',
       steps: [
         '1. 바벨이 정강이에 위치할 수 있게 높이를 조절한다.',
         '2. 다리는 어깨너비만큼 벌려준다.',
@@ -322,6 +324,7 @@ export const backExerciseDetails = {
     },
     {
       name: '케이블 암풀다운',
+      image: 'cable_arm_pulldown',
       steps: [
         '1. 바를 눈높이에 맞춰준다.',
         '2. 어깨너비보다 조금 넓게 바를 잡는다.',
