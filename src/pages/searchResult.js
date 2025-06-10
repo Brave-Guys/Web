@@ -63,7 +63,7 @@ const SearchResult = () => {
                         key={post.id}
                         postId={post.id}
                         title={post.name}
-                        content={post.content}
+                        content={post.content}                                          
                         trail={`${post.nickname} | ${dayjs.utc(post.createDate).tz('Asia/Seoul').fromNow()}`}
                         likeCount={post.likes || 0}
                         commentCount={post.comment || 0}
