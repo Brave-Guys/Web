@@ -1,215 +1,142 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState, useRef } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getParticipantDetail } from '../apis/getParticipantDetail';
 import { getChallengeDetail } from '../apis/getChallenges';
 import { postReelsComment } from '../apis/postReelsComment';
 import { getReelsComments } from '../apis/getReelsComments';
+import LoadingOverlay from '../components/LoadingOverlay';
+import DefaultAvatar from '../assets/person.png';
 import PageTitle from '../components/PageTitle';
-import CustomButton from '../components/CustomButton';
-import CommentItem from '../components/CommentItem';
 import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import '../styles/ParticipantDetail.css';
 
+dayjs.extend(relativeTime);
+
 const ParticipantDetail = () => {
-    const { challengeId, participantId } = useParams();
-    const [participant, setParticipant] = useState(null);
-    const [comments, setComments] = useState([]);
-    const [commentText, setCommentText] = useState('');
-    const [isFocused, setIsFocused] = useState(false);
-    const [replyText, setReplyText] = useState('');
-    const [replyingTo, setReplyingTo] = useState(null);
-    const [challengeName, setChallengeName] = useState('');
-    const navigate = useNavigate();
+  const { challengeId, participantId } = useParams();
+  const navigate = useNavigate();
 
-    const fetchComments = async () => {
-        const data = await getReelsComments(participantId);
-        setComments(nestComments(data));
-    };
+  const [challenge, setChallenge] = useState(null);
+  const [participant, setParticipant] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [commentText, setCommentText] = useState('');
+  const [loading, setLoading] = useState(false);
 
+  const commentListRef = useRef(null);
 
-    const handleSubmitComment = async (parentId = null) => {
-        const user = JSON.parse(localStorage.getItem('user'));
-        if (!user || !commentText.trim()) return;
+  // 데이터 로드
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const challengeData = await getChallengeDetail(challengeId);
+      const participantData = await getParticipantDetail(challengeId, participantId);
+      const commentsData = await getReelsComments(participantId);
 
-        try {
-            await postReelsComment({
-                reelsId: participantId,
-                writerId: user.id,
-                content: commentText,
-                parentId: parentId,
-            });
-            setCommentText('');
-            fetchComments();
-        } catch (err) {
-            console.error('댓글 등록 실패', err);
-            alert('댓글 등록 중 오류가 발생했습니다.');
-        }
-    };
+      setChallenge(challengeData);
+      setParticipant(participantData);
+      setComments(commentsData);
+    } catch (error) {
+      console.error(error);
+      alert('데이터 로드 중 오류가 발생했습니다.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const handleSubmitReply = async (parentId, replyText) => {
-        const user = JSON.parse(localStorage.getItem('user'));
-        if (!user || !replyText.trim()) return;
+  useEffect(() => {
+    fetchData();
+  }, [challengeId, participantId]);
 
-        try {
-            await postReelsComment({
-                reelsId: participantId,
-                writerId: user.id,
-                content: replyText,
-                parentId: parentId,
-            });
-            setReplyText('');
-            setReplyingTo(null);
-            fetchComments();
-        } catch (err) {
-            console.error('답글 등록 실패', err);
-            alert('답글 등록 중 오류가 발생했습니다.');
-        }
-    };
+  // 댓글 등록
+  const handleCommentSubmit = async () => {
+    if (!commentText.trim()) return;
+    setLoading(true);
+    try {
+      await postReelsComment({
+        participantId,
+        content: commentText.trim(),
+      });
+      setCommentText('');
+      const updatedComments = await getReelsComments(participantId);
+      setComments(updatedComments);
 
-    const nestComments = (comments) => {
-        const map = {};
-        const roots = [];
-        comments.forEach((c) => {
-            c.replies = [];
-            map[c.rcommentId] = c;
-        });
-        comments.forEach((c) => {
-            if (c.parentId) {
-                if (map[c.parentId]) map[c.parentId].replies.push(c);
-            } else {
-                roots.push(c);
-            }
-        });
-        return roots;
-    };
+      // 댓글 리스트 스크롤 최하단 이동
+      commentListRef.current?.scrollTo({
+        top: commentListRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
+    } catch (error) {
+      console.error(error);
+      alert('댓글 등록에 실패했습니다.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const data = await getParticipantDetail(challengeId, participantId);
-            setParticipant(data);
-            fetchComments();
-            try {
-                const challenge = await getChallengeDetail(challengeId);
-                setChallengeName(challenge.name);
-            } catch (err) {
-                console.error('챌린지 정보 로딩 실패', err);
-            }
-        };
-        fetchData();
-    }, [challengeId, participantId]);
+  if (loading && !challenge) return <div>로딩 중...</div>;
+  if (!challenge || !participant) return <div>데이터가 없습니다.</div>;
 
+  return (
+    <div className="participant-detail-page">
+      {loading && <LoadingOverlay visible={true} />}
 
-    const handleReplyClick = (commentId) => {
-        setReplyingTo(commentId);
-    };
+      <PageTitle
+        title={`${challenge.name} / 참가자 상세`}
+        showBackArrow={true}
+        onBack={() => navigate(-1)}
+        description={`참가자: ${participant.nickname} | ${dayjs(participant.writeDate).fromNow()}`}
+      />
 
-    if (!participant) return <div>로딩 중...</div>;
-
-    return (
-        <div className="participant-detail-page">
-            <PageTitle
-                title={`${challengeName} → ${participant.nickname}님의 수행 내역`}
-                description={dayjs(participant.writeDate).format('YYYY.MM.DD HH:mm')}
-                showBackArrow={true}
-                onBack={() => navigate(-1)}
-            />
-            <div style={{ margin: `50px` }}></div>
-            <div className="participant-detail-wrapper">
-                <div className="participant-main">
-                    {participant.videoUrl && (
-                        <div className="video-container">
-                            <video
-                                src={participant.videoUrl}
-                                autoPlay
-                                muted
-                                controls
-                                preload="metadata"
-                                className="shorts-video"
-                            />
-                        </div>
-                    )}
-                    <p className="participant-detail-content">{participant.content}</p>
-                </div>
-
-                <div className="participant-comments">
-                    <div className="comment-form">
-                        <textarea
-                            className={`comment-textarea ${isFocused || commentText ? 'expanded' : ''}`}
-                            placeholder="댓글을 입력하세요"
-                            value={commentText}
-                            onFocus={() => setIsFocused(true)}
-                            onBlur={() => {
-                                if (!commentText.trim()) setIsFocused(false);
-                            }}
-                            onChange={(e) => setCommentText(e.target.value)}
-                            maxLength={300}
-                        />
-                        {isFocused && (
-                            <div
-                                className="comment-action-buttons visible"
-                                style={{
-                                    justifyContent: 'flex-end',
-                                    gap: '6px',
-                                    marginTop: '6px'
-                                }}
-                            >
-                                <CustomButton
-                                    label="취소"
-                                    size="small"
-                                    color="gray"
-                                    onClick={() => {
-                                        setCommentText('');
-                                        setIsFocused(false);
-                                    }}
-                                    style={{
-                                        padding: '4px 10px',
-                                        fontSize: '13px',
-                                        height: '32px',
-                                        maxWidth: '20%',
-                                    }}
-                                />
-                                <CustomButton
-                                    label="등록"
-                                    size="small"
-                                    onClick={() => handleSubmitComment()}
-                                    style={{
-                                        padding: '4px 10px',
-                                        fontSize: '13px',
-                                        height: '32px',
-                                        maxWidth: '20%',
-                                    }}
-                                />
-                            </div>
-                        )}
-                    </div>
-
-                    <div style={{ margin: '20px' }}></div>
-
-                    <div className="comment-list">
-                        {comments.map((c) => (
-                            <CommentItem
-                                key={c.rcommentId}
-                                commentId={c.rcommentId}
-                                name={c.nickname}
-                                time={c.writeDate}
-                                content={c.content}
-                                likes={c.likes || 0}
-                                replies={c.replies || []}
-                                onReplySubmit={(replyText) => handleSubmitReply(c.rcommentId, replyText)}
-                                depth={0}
-                                writerId={c.writerId}
-                                onDeleteSuccess={fetchComments}
-                                onEditSuccess={fetchComments}
-                                profileImgUrl={c.profileImgUrl}
-                                isChallenge={true}
-                                onReplyClick={() => handleReplyClick(c.rcommentId)}
-                            />
-                        ))}
-                    </div>
-                </div>
+      <div className="participant-detail-wrapper">
+        {/* 좌측: 비디오 + 참가자 콘텐츠 */}
+        <section className="participant-main">
+          {participant.videoUrl && (
+            <div className="participant-video-wrapper">
+              <video src={participant.videoUrl} controls muted autoPlay preload="metadata" />
             </div>
-        </div>
-    );
+          )}
+          <div className="participant-detail-content">{participant.content}</div>
+        </section>
+
+        {/* 우측: 댓글 */}
+        <section className="participant-comments">
+          <div className="comment-form">
+            <textarea
+              className="comment-textarea"
+              placeholder="댓글을 입력하세요."
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+              rows={2}
+            />
+            <button className="comment-submit-btn" onClick={handleCommentSubmit}>
+              등록
+            </button>
+          </div>
+
+          <div className="comment-list" ref={commentListRef}>
+            {comments.length === 0 && <p className="no-comments">등록된 댓글이 없습니다.</p>}
+            {comments.map((comment) => (
+              <div key={comment.id} className="comment-item">
+                <img
+                  src={comment.profileImgUrl || DefaultAvatar}
+                  alt="profile"
+                  className="comment-avatar"
+                />
+                <div className="comment-body">
+                  <div className="comment-header">
+                    <strong className="comment-nickname">{comment.nickname}</strong>
+                    <span className="comment-date">{dayjs(comment.writeDate).fromNow()}</span>
+                  </div>
+                  <p className="comment-content">{comment.content}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+    </div>
+  );
 };
 
 export default ParticipantDetail;

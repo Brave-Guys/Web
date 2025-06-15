@@ -60,8 +60,7 @@ const ChallengeBoard = () => {
                 </div>
             </div>
 
-            <div className="desktop" style={{ margin: '70px' }}></div>
-
+            
             <div className={isLoading ? 'challenge-list loading' : 'challenge-list'}>
                 {isLoading ? (
                     <ClipLoader size={40} color="#6b46c1" />
