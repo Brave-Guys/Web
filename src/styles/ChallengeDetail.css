@@ -73,7 +73,7 @@
 }
 
 .challenge-desc {
-  max-width: 400px; /* 추가 */
+  max-width: 700px; /* 추가 */
   width: 100%; /* 부모 기준 */
   margin-top: 16px;
   font-size: 16px;

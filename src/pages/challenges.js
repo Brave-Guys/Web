@@ -60,18 +60,21 @@ const ChallengeBoard = () => {
                 </div>
             </div>
 
-            
-            <div className={isLoading ? 'challenge-list loading' : 'challenge-list'}>
-                {isLoading ? (
-                    <ClipLoader size={40} color="#6b46c1" />
-                ) : challenges.length > 0 ? (
-                    challenges.map((item) => (
-                        <ChallengeItem key={item.id} challenge={item} />
-                    ))
-                ) : (
-                    <p>등록된 챌린지가 없습니다.</p>
-                )}
+
+            <div className="challenge-scroll-wrapper">
+                <div className={isLoading ? 'challenge-list loading' : 'challenge-list'}>
+                    {isLoading ? (
+                        <ClipLoader size={40} color="#6b46c1" />
+                    ) : challenges.length > 0 ? (
+                        challenges.map((item) => (
+                            <ChallengeItem key={item.id} challenge={item} />
+                        ))
+                    ) : (
+                        <p>등록된 챌린지가 없습니다.</p>
+                    )}
+                </div>
             </div>
+
         </div>
     );
 };

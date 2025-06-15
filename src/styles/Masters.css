@@ -4,28 +4,46 @@
     align-items: flex-start;
     gap: 16px;
     flex-wrap: wrap;
+    padding-left: 350px;
+    padding-right: 355px;
+    margin-top: 30px;
 }
 
 .help-link {
     font-size: 14px;
-    color: #535353;
+    font-weight: 600;         
+    color: #333;               
     cursor: pointer;
     white-space: nowrap;
-    margin-top: 8px;
-    text-decoration: none;
+    margin-top: 18px;
+    text-decoration: underline; 
+    text-underline-offset: 2px; 
 }
 
 .help-link:hover {
-    text-decoration: underline;
+    color: #6b46c1;                
 }
 
+/* 리스트 전체 박스를 감싸는 wrapper 추가 */
+.senior-user-list-wrapper {
+    max-height: 500px;         
+    overflow-y: auto;          
+    border: 2px solid #e5e7eb; 
+    padding: 20px;
+    margin: 26px 350px;            
+    border-radius: 16px;       
+    background-color: #ffffff; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04); 
+}
+
+/* 기존 리스트 스타일은 그대로 유지 */
 .senior-user-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 16px;
-    margin-top: 20px;
 }
 
+/* 카드 개별 디자인도 유지 */
 .senior-user-card {
     background: #f9f9f9;
     border-radius: 12px;
@@ -40,6 +58,7 @@
 .senior-user-card:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+
 
 .card-name {
     font-size: 18px;
