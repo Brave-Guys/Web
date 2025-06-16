@@ -10,7 +10,7 @@ const ExerciseModal = ({ exercise, onClose }) => {
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 <button className="close-button" onClick={onClose}>✖</button>
                 <div className="modal-left">
-                    <img src={tempImg} alt={exercise.name}/>
+                    <img className="exercise-gif" src={tempImg} alt={exercise.name}/>
                 </div>
                 <div className="modal-right">
                     <h2 className="modal-title">{exercise.name}</h2>

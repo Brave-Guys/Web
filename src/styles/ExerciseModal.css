@@ -34,6 +34,8 @@
     padding: 12px;
     width: 100%;
     box-sizing: border-box;
+    max-height: 50vh; 
+    overflow: hidden; 
 }
 
 .exercise-image {
@@ -44,6 +46,11 @@
     object-fit: contain;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(195, 126, 188, 0.5);
+}
+
+.exercise-gif {
+    border-radius: 16px;
+    border: 2px solid #ccc;
 }
 
 .exercise-image-placeholder {
@@ -123,11 +130,13 @@
         padding: 10px;
         background-color: #f3e6ff;
         border-radius: 12px;
+        max-height: 40vh;
     }
 
     .exercise-image {
         width: 100%;
         max-width: 100%;
+        max-height: 100%;
         height: auto;
         object-fit: contain;
         border-radius: 10px;
