@@ -210,7 +210,7 @@ const PostDetail = () => {
                 showBackArrow={true}
             />
             <div clasName='temp-blank'></div>
-            <div style={{ display: 'flex', gap: '40px', padding: '30px' }}>
+            <div className='tempasdf'>
                 <div style={{ flex: 2 }}>
                     <div className="post-detail-wrapper">
                         <div className="post-profile-info" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
