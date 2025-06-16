@@ -378,6 +378,30 @@
 }
 
 @media (max-width: 768px) {
+  .mini-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 80px;
+  }
+
+  .mini-profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ccc;
+  }
+
+  .mini-profile-name {
+    margin-top: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+  }
+
   .main-page {
     padding: 16px;
   }
