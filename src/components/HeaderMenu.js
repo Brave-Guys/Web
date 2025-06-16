@@ -52,13 +52,13 @@ const Header = () => {
     }, [mobileMenuOpen]);
 
     const menuItems = [
-        { icon: <FaVideo className="icon" />, label: '금주의 운동', path: '/weekly-workout' },
-        { icon: <FaShareAlt className="icon" />, label: 'Share+', path: '/share-plus' },
-        { icon: <FaBookOpen className="icon" />, label: '운동 설명서', path: '/exercise-tip' },
-        { icon: <FaComments className="icon" />, label: '커뮤니티', path: '/board' },
         { icon: <FaClipboardList className="icon" />, label: '운동 기록', path: '/workoutlog' },
         { icon: <FaCrown className="icon" />, label: '상급자', path: '/masters' },
+        { icon: <FaShareAlt className="icon" />, label: 'Share+', path: '/share-plus' },
         { icon: <FaTrophy className="icon" />, label: '챌린지', path: '/challenges' },
+        { icon: <FaVideo className="icon" />, label: '금주의 운동', path: '/weekly-workout' },
+        { icon: <FaComments className="icon" />, label: '커뮤니티', path: '/board' },
+        { icon: <FaBookOpen className="icon" />, label: '운동 설명서', path: '/exercise-tip' },
         { icon: <FaQuestionCircle className="icon" />, label: '문의하기', path: '/inquiry' }
     ];
 
@@ -111,7 +111,7 @@ const Header = () => {
                     <div className="profile-dropdown">
                         <div className="headermenu-profile-header">
                             <img src={user?.imgUrl || DefaultAvatar} alt="프로필" className="dropdown-profile-image" />
-                            <div style={{margin: `5px`}}></div>
+                            <div style={{ margin: `5px` }}></div>
                             <div>
                                 <div className="profile-name">{user?.name}</div>
                                 <div className="profile-email">{user?.email}</div>
