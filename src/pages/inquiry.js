@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import CustomSelect from '../components/CustomSelect';
 import '../styles/Inquiry.css';
@@ -25,10 +26,46 @@ const Inquiry = () => {
         setFormData({ ...formData, category: selected });
     };
 
-    const handleSubmit = (e) => {
+    const sendInquiryEmail = async ({ receiverEmail, subject, content }) => {
+        const token = localStorage.getItem('token');
+
+        try {
+            const subject = `[문의]`;
+            const content = `보낸 사람: ${formData.email}\n\n문의 내용:\n${formData.message}`;
+
+            await axios.post(`${process.env.REACT_APP_API_URL}/api/email/send-message`, null, {
+                params: {
+                    email: 'kangcombi@gmail.com',
+                    subject: encodeURIComponent(subject),
+                    content: encodeURIComponent(content)
+                },
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        } catch (err) {
+            console.error('이메일 전송 실패:', err);
+            throw err;
+        }
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setSubmitted(true);
-        // API 호출 로직 위치
+
+        const { category, email, message } = formData;
+        const subject = `[문의] ${category}`;
+        const content = `보낸 사람: ${email}\n\n문의 내용:\n${message}`;
+
+        try {
+            await sendInquiryEmail({
+                receiverEmail: 'kangcombi@gmail.com',
+                subject,
+                content
+            });
+            setSubmitted(true);
+        } catch (err) {
+            alert('문의 전송에 실패했습니다.');
+        }
     };
 
     const categories = ['계정 관련', '결제/환불', '버그 제보', '기능 제안', '기타'];
