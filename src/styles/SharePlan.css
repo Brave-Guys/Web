@@ -71,6 +71,11 @@
     cursor: not-allowed;
 }
 
+.plan-button.beginner {
+    background-color: #45C16A;
+    color: white;
+}
+
 .plan-button.amateur {
     background-color: #9b5de5;
     color: white;

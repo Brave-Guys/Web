@@ -37,6 +37,11 @@ const ChallengeDetail = () => {
 
     const handleSubmit = async () => {
         setIsLoading(true); // 로딩 시작
+        if (!videoFile) {
+            alert('영상을 추가해야 등록할 수 있습니다.');
+            setIsLoading(false);
+            return;
+        }
         const user = JSON.parse(localStorage.getItem('user'));
         if (!user || !commentText.trim()) {
             setIsLoading(false);

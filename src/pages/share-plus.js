@@ -92,6 +92,13 @@ const SharePlus = () => {
                         </div>
                     </section>
                 )}
+
+                {approved.length === 0 && pending.length === 0 && rejected.length === 0 && (
+                    <div style={{ textAlign: 'center', color: '#777', fontSize: '16px', marginTop: '40px' }}>
+                        현재 신청한 Share+가 없습니다.
+                    </div>
+                )}
+
             </div>
         </div>
     );
