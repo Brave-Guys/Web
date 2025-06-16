@@ -70,7 +70,7 @@
 .area {
   position: absolute;
   cursor: pointer;
-  background-color: rgba(179, 111, 182, 0.7); /* 연하게 시각화 */
+  background-color: rgba(146, 43, 169, 0.7); /* 연하게 시각화 */
   border: 2px solid rgba(179, 111, 182, 0.3);
   border-radius: 8px;
   transition: background-color 0.25s ease, box-shadow 0.25s ease;
@@ -212,15 +212,7 @@
   .back-image-wrapper {
     border-width: 2px;
   }
-
-  .area.upperback,
-  .area.lowerback {
-    top: auto;
-    left: auto;
-    width: 30%;
-    height: 100px;
-    position: absolute;
-    transform: scale(0.85);
-    border-radius: 6px;
-  }
+ 
+  .area.upperback { top: 90px; left: 125px; width: 350px; height: 280px; }
+  .area.lowerback { top: 335px; left: 125px; width: 350px; height: 180px; }
 }

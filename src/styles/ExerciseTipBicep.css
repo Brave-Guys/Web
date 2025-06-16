@@ -220,15 +220,7 @@
     border-width: 2px;
   }
 
-  .area.lbicep,
-  .area.sbicep,
-  .area.upperbicep {
-    top: auto;
-    left: auto;
-    width: 30%;
-    height: 100px;
-    position: absolute;
-    transform: scale(0.85);
-    border-radius: 6px;
-  }
+  .area.lbicep { top: 140px; left: 210px; width: 100px; height: 300px; }
+  .area.sbicep { top: 175px; left: 300px; width: 60px; height: 240px; }
+  .area.upperbicep { top: 455px; left: 225px; width: 135px; height: 87px; }
 }

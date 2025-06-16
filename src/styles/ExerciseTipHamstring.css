@@ -70,8 +70,8 @@
 .area {
   position: absolute;
   cursor: pointer;
-  background-color: rgba(179, 111, 182, 0.7); /* 연하게 시각화 */
-  border: 2px solid rgba(179, 111, 182, 0.3);
+  background-color: rgba(235, 57, 125, 0.7); /* 연하게 시각화 */
+  border: 2px solid rgba(228, 57, 237, 0.3);
   border-radius: 8px;
   transition: background-color 0.25s ease, box-shadow 0.25s ease;
 }
@@ -220,15 +220,7 @@
     border-width: 2px;
   }
 
-  .area.dhamstring,
-  .area.hip,
-  .area.cal {
-    top: auto;
-    left: auto;
-    width: 30%;
-    height: 100px;
-    position: absolute;
-    transform: scale(0.85);
-    border-radius: 6px;
-  }
+  .area.dhamstring { top: 180px; left: 145px; width: 155px; height: 270px; }
+  .area.hip { top: 100px; left: 295px; width: 145px; height: 140px; }
+  .area.cal { top: 460px; left: 320px; width: 140px; height: 170px; }
 }
