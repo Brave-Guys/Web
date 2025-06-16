@@ -213,14 +213,6 @@
     border-width: 2px;
   }
 
-  .area.upperthigh,
-  .area.lowerthigh {
-    top: auto;
-    left: auto;
-    width: 30%;
-    height: 100px;
-    position: absolute;
-    transform: scale(0.85);
-    border-radius: 6px;
-  }
+  .area.upperthigh { top: 135px; left: 240px; width: 122px; height: 150px; }
+  .area.lowerthigh { top: 150px; left: 348px; width: 60px; height: 125px; }
 }

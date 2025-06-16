@@ -220,15 +220,7 @@
     border-width: 2px;
   }
 
-  .area.upperchest,
-  .area.midchest,
-  .area.lowerchest {
-    top: auto;
-    left: auto;
-    width: 30%;
-    height: 100px;
-    position: absolute;
-    transform: scale(0.85);
-    border-radius: 6px;
-  }
+  .area.upperchest { top: 170px; left: 50px; width: 500px; height: 80px; }
+  .area.midchest { top: 245px; left: 50px; width: 500px; height: 80px; }
+  .area.lowerchest { top: 325px; left: 50px; width: 500px; height: 80px; }
 }

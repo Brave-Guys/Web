@@ -227,16 +227,8 @@
     border-width: 2px;
   }
 
-  .area.upperabs,
-  .area.midleabs,
-  .area.lowerabs,
-  .area.sideabs {
-    top: auto;
-    left: auto;
-    width: 30%;
-    height: 100px;
-    position: absolute;
-    transform: scale(0.85);
-    border-radius: 6px;
-  }
+  .area.upperabs { top: 285px; left: 110px; width: 177px; height: 50px; }
+  .area.middleabs { top: 335px; left: 110px; width: 177px; height: 50px; }
+  .area.lowerabs { top: 385px; left: 110px; width: 177px; height: 50px; }
+  .area.sideabs { top: 300px; left: 270px; width: 55px; height: 150px; }
 }

@@ -93,7 +93,7 @@
   top: 22%;
   left: 51%;
   width: 13%;
-  height: 55%;
+  height: 66%;
 }
 
 .area.rears {
@@ -220,15 +220,7 @@
     border-width: 2px;
   }
 
-  .area.fronts,
-  .area.sides,
-  .area.rears {
-    top: auto;
-    left: auto;
-    width: 30%;
-    height: 100px;
-    position: absolute;
-    transform: scale(0.85);
-    border-radius: 6px;
-  }
+  .area.fronts { top: 40px; left: 220px; width: 120px; height: 200px; }
+  .area.sides { top: 40px; left: 330px; width: 70px; height: 220px; }
+  .area.rears { top: 40px; left: 397px; width: 50px; height: 190px; }
 }
