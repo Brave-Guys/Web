@@ -11,29 +11,29 @@
 
 .help-link {
     font-size: 14px;
-    font-weight: 600;         
-    color: #333;               
+    font-weight: 600;
+    color: #333;
     cursor: pointer;
     white-space: nowrap;
     margin-top: 18px;
-    text-decoration: underline; 
-    text-underline-offset: 2px; 
+    text-decoration: underline;
+    text-underline-offset: 2px;
 }
 
 .help-link:hover {
-    color: #6b46c1;                
+    color: #6b46c1;
 }
 
 /* 리스트 전체 박스를 감싸는 wrapper 추가 */
 .senior-user-list-wrapper {
-    max-height: 500px;         
-    overflow-y: auto;          
-    border: 2px solid #e5e7eb; 
+    max-height: 500px;
+    overflow-y: auto;
+    border: 2px solid #e5e7eb;
     padding: 20px;
-    margin: 26px 350px;            
-    border-radius: 16px;       
-    background-color: #ffffff; 
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04); 
+    margin: 26px 350px;
+    border-radius: 16px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
 /* 기존 리스트 스타일은 그대로 유지 */
@@ -69,4 +69,43 @@
 .card-email {
     font-size: 14px;
     color: #888;
+}
+
+/* 모바일 대응: 화면 너비가 768px 이하일 때 */
+@media (max-width: 768px) {
+    .title-row {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 16px;
+        padding-right: 16px;
+        margin-top: 20px;
+    }
+
+    .help-link {
+        margin-top: 10px;
+        font-size: 13px;
+    }
+
+    .senior-user-list-wrapper {
+        margin: 20px 16px;
+        padding: 16px;
+        max-height: none;
+        /* 모바일에서는 스크롤 없도록 */
+    }
+
+    .senior-user-list {
+        grid-template-columns: 1fr;
+    }
+
+    .senior-user-card {
+        padding: 14px 16px;
+    }
+
+    .card-name {
+        font-size: 16px;
+    }
+
+    .card-part {
+        font-size: 14px;
+    }
 }
