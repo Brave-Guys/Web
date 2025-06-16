@@ -213,6 +213,6 @@
     border-width: 2px;
   }
  
-  .area.upperback { top: 90px; left: 125px; width: 350px; height: 280px; }
-  .area.lowerback { top: 335px; left: 125px; width: 350px; height: 180px; }
+  .area.upperback { top: 15%; left: 20.5%; width: 59.5%; height: 46%; }
+  .area.lowerback { top: 56%; left: 20.5%; width: 59.5%; height: 33%; }
 }

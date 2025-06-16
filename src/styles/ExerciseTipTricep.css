@@ -220,7 +220,7 @@
     border-width: 2px;
   }
 
-  .area.ltricep { top: 130px; left: 230px; width: 90px; height: 230px; }
-  .area.otricep { top: 190px; left: 167px; width: 75px; height: 200px; }
-  .area.itricep { top: 335px; left: 230px; width: 80px; height: 87px; }
+  .area.ltricep { top: 21%; left: 39%; width: 13%; height: 38%; }
+  .area.otricep { top: 31%; left: 28%; width: 12%; height: 33%; }
+  .area.itricep { top: 55.5%; left: 39%; width: 13%; height: 15%; }
 }

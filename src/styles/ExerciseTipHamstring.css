@@ -220,7 +220,7 @@
     border-width: 2px;
   }
 
-  .area.dhamstring { top: 180px; left: 145px; width: 155px; height: 270px; }
-  .area.hip { top: 100px; left: 295px; width: 145px; height: 140px; }
-  .area.cal { top: 460px; left: 320px; width: 140px; height: 170px; }
+  .area.dhamstring { top: 20%; left: 24%; width: 27%; height: 30%; }
+  .area.hip { top: 11%; left: 48%; width: 26%; height: 16%; }
+  .area.cal { top: 52%; left: 53%; width: 23%; height: 18%; }
 }

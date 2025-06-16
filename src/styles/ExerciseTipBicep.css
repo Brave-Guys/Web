@@ -220,7 +220,7 @@
     border-width: 2px;
   }
 
-  .area.lbicep { top: 140px; left: 210px; width: 100px; height: 300px; }
-  .area.sbicep { top: 175px; left: 300px; width: 60px; height: 240px; }
-  .area.upperbicep { top: 455px; left: 225px; width: 135px; height: 87px; }
+  .area.lbicep { top: 25%; left: 35%; width: 16%; height: 50%; }
+  .area.sbicep { top: 30%; left: 49%; width: 13%; height: 40%; }
+  .area.upperbicep { top: 73%; left: 37%; width: 23%; height: 17%; }
 }
