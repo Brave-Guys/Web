@@ -91,7 +91,7 @@ const Inquiry = () => {
                     </div>
 
                     <div className="inquiry-field">
-                        <label htmlFor="email">이메일</label>
+                        <label htmlFor="email">답변 받을 이메일</label>
                         <input
                             type="email"
                             id="email"
