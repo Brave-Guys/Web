@@ -24,7 +24,7 @@ const CustomSelect = ({ options, value, onChange, placeholder = '선택하세요
         <div className={`custom-select-ios ${open ? 'open' : ''}`} ref={ref}>
             <div className="selected" onClick={() => setOpen(!open)}>
                 {value || <span className="placeholder">{placeholder}</span>}
-                <span className="arrow">▾</span>
+                <span style={{fontSize: "26px"}} className="arrow">▾</span>
             </div>
             {open && (
                 <ul className="options">
