@@ -32,6 +32,7 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
 
     useEffect(() => {
         setLogs(initialLogs);
+        console.log(initialLogs);
     }, [initialLogs]);
 
     const resetForm = () => {
@@ -96,8 +97,8 @@ const WorkoutLogModalContent = ({ selectedDate, initialLogs = [], onLogSaved }) 
                     )
                 );
             } else {
-                await saveWorkoutLog(logData);
-                setLogs(prevLogs => [...prevLogs, logData]);
+                const savedLog = await saveWorkoutLog(logData);
+                setLogs(prevLogs => [...prevLogs, savedLog]);
             }
 
             resetForm();
