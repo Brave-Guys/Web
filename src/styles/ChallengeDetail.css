@@ -1,8 +1,14 @@
 /* --- 전체 컨테이너 여백 개선 --- */
 .challenge-detail-container {
-    padding: 0 32px; /* 좌우 여백 추가 */
+    padding: 0 32px;
+    /* 좌우 여백 추가 */
     max-width: 1200px;
     margin: 0 auto;
+}
+
+.challenge-detail-header {
+    display: flex;
+    justify-content: space-between;
 }
 
 /* --- 상세 본문 정렬 개선 --- */
@@ -11,7 +17,8 @@
     align-items: flex-start;
     justify-content: space-between;
     gap: 24px;
-    margin-top: 16px; /* 영상과 댓글 사이 간격 줄이기 */
+    margin-top: 16px;
+    /* 영상과 댓글 사이 간격 줄이기 */
 }
 
 
@@ -52,37 +59,40 @@
 }
 
 .challenge-video-wrapper {
-  width: 100%;
-  max-width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  aspect-ratio: 15 / 9;
-  background-color: black;
-  border-radius: 12px;
-  overflow: hidden;
-  padding: 0 16px; /* 좌우 여백 최소화 */
-  box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 15 / 9;
+    background-color: black;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 0 16px;
+    /* 좌우 여백 최소화 */
+    box-sizing: border-box;
 }
 
 .challenge-video-wrapper video {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  border-radius: 12px;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
 }
 
 .challenge-desc {
-  max-width: 700px; /* 추가 */
-  width: 100%; /* 부모 기준 */
-  margin-top: 16px;
-  font-size: 16px;
-  color: #444;
-  line-height: 1.6;
-  padding: 12px 16px;
-  background-color: #f9f9f9;
-  border-left: 4px solid #e65bd3;
-  border-radius: 8px;
+    max-width: 700px;
+    /* 추가 */
+    width: 100%;
+    /* 부모 기준 */
+    margin-top: 16px;
+    font-size: 16px;
+    color: #444;
+    line-height: 1.6;
+    padding: 12px 16px;
+    background-color: #f9f9f9;
+    border-left: 4px solid #e65bd3;
+    border-radius: 8px;
 }
 
 
@@ -100,7 +110,7 @@
 
 .participant-section h3 {
     font-size: 18px;
-    margin-bottom: 12px;    
+    margin-bottom: 12px;
     padding-bottom: 4px;
 }
 
@@ -217,7 +227,7 @@
     cursor: pointer;
 }
 
-.upload-button:hover {    
+.upload-button:hover {
     filter: brightness(1.05);
 }
 

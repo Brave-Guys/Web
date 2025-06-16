@@ -1,0 +1,27 @@
+.search-result-page {
+    padding: 40px 265px;
+    box-sizing: border-box;
+}
+
+.no-result {
+    margin-top: 30px;
+    color: gray;
+}
+
+@media (max-width: 1024px) {
+    .search-result-page {
+        padding: 80px 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-result-page {
+        padding: 30px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-result-page {
+        padding: 30px 12px;
+    }
+}

@@ -89,3 +89,38 @@
     color: #555;
     font-size: 15px;
 }
+
+@media (max-width: 768px) {
+    .inquiry-container {
+        padding: 24px 16px;
+        margin: 16px;
+        border-radius: 10px;
+    }
+
+    .inquiry-container h2 {
+        font-size: 22px;
+    }
+
+    .inquiry-description {
+        font-size: 14px;
+    }
+
+    .inquiry-field input,
+    .inquiry-field textarea {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .submit-button {
+        font-size: 15px;
+        padding: 12px 0;
+    }
+
+    .inquiry-thankyou h3 {
+        font-size: 20px;
+    }
+
+    .inquiry-thankyou p {
+        font-size: 14px;
+    }
+}

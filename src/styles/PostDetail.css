@@ -2,11 +2,17 @@
     margin: 50px;
 }
 
+.tempasdf {
+    display: flex;
+    gap: 40px;
+    padding: 30px;
+}
+
 .post-detail-container {
     font-family: 'Arial', sans-serif;
 }
 
-.post-title {    
+.post-title {
     font-weight: bold;
     margin-bottom: 20px;
 }
@@ -118,6 +124,11 @@
 }
 
 @media (max-width: 768px) {
+
+    .tempasdf {
+        padding: 30px 0;
+    }
+
     .post-detail-container {
         padding: 16px;
     }
