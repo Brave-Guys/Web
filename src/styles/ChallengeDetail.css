@@ -170,10 +170,12 @@
 }
 
 .video-filename {
-    flex-grow: 1;
+    max-width: 80px;    
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .video-remove-btn {
