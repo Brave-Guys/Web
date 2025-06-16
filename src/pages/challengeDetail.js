@@ -122,6 +122,7 @@ const ChallengeDetail = () => {
                             />
                         </div>
                     )}
+                    <div style={{ margin: '20px' }}></div>
                     <p className="challenge-desc">{challenge.description}</p>
                 </div>
 

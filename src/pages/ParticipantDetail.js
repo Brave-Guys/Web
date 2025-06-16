@@ -95,8 +95,7 @@ const ParticipantDetail = () => {
                         <div className="participant-video-wrapper">
                             <video src={participant.videoUrl} controls muted autoPlay preload="metadata" />
                         </div>
-                    )}
-                    
+                    )}                    
                     <div className="participant-detail-content">{participant.content}</div>
                     
                 </section>
