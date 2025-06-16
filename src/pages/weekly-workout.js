@@ -175,7 +175,7 @@ const WeeklyWorkout = () => {
                 <div className="participant-main">
                     {videos.length > 0 && (
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            <div style={{ width: '50%' }} className="reels-container">
+                            <div style={{ width: '50%', position: 'relative' }} className="reels-container">
                                 <video
                                     key={currentVideo?.id}
                                     ref={videoRef}
@@ -189,13 +189,14 @@ const WeeklyWorkout = () => {
                                     playsInline
                                 />
 
+                                {/* ▶ 재생 버튼 */}
                                 {!isPlaying && !loading && (
                                     <div className="video-play-overlay">
                                         <Play size={64} />
                                     </div>
                                 )}
 
-
+                                {/* ▼ 하단 오버레이 */}
                                 {!loading && challengeInfo && (
                                     <div className="video-bottom-overlay">
                                         <div className="video-overlay-left">
@@ -211,16 +212,16 @@ const WeeklyWorkout = () => {
                                     </div>
                                 )}
 
+                                <button className="next-button-full" onClick={handleNextVideo}>
+                                    <span>다음 영상</span>
+                                    <ChevronRight size={20} />
+                                </button>
+
                                 {loading && (
                                     <div className="spinner-overlay">
                                         <ClipLoader color="#6b46c1" size={48} />
                                     </div>
                                 )}
-                            </div>
-                            <div className="video-controls">
-                                <button className="next-button" onClick={handleNextVideo}>
-                                    <ChevronRight size={20} strokeWidth={3} />
-                                </button>
                             </div>
                         </div>
 
