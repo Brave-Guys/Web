@@ -8,6 +8,7 @@ import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/ko';
+import '../styles/SearchResult.css'
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -52,18 +53,18 @@ const SearchResult = () => {
     }, [query]);
 
     return (
-        <div style={{ padding: '90px 265px' }}>
+        <div className="search-result-page">
             <PageTitle title={`"${query}" 검색 결과`} showBackArrow={true} />
             <div style={{ margin: '30px' }}></div>
             {results.length === 0 ? (
-                <div style={{ marginTop: '30px', color: 'gray' }}>검색 결과가 없습니다.</div>
+                <div className="no-result">검색 결과가 없습니다.</div>
             ) : (
                 results.map((post) => (
                     <PostItem
                         key={post.id}
                         postId={post.id}
                         title={post.name}
-                        content={post.content}                                          
+                        content={post.content}
                         trail={`${post.nickname} | ${dayjs.utc(post.createDate).tz('Asia/Seoul').fromNow()}`}
                         likeCount={post.likes || 0}
                         commentCount={post.comment || 0}

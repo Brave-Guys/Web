@@ -62,6 +62,10 @@ function App() {
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';
   const isExerciseTipPage = location.pathname.startsWith('/exercise-tip');
+  const isParticipantPage = (
+    (location.pathname.includes('/challenges/') && location.pathname.includes('/participants/')) ||
+    location.pathname === '/weekly-workout'
+  );
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -120,7 +124,7 @@ function App() {
           <Route path="*" element={<Error />} />
         </Routes>
       </div>
-      {!isLoginPage && <Footer />}
+      {!isLoginPage && !isParticipantPage && <Footer />}
     </div>
   );
 }
