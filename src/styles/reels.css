@@ -116,3 +116,68 @@
 .next-button:hover {
     background-color: rgba(230, 230, 230, 1);
 }
+
+.spinner-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    pointer-events: none;
+}
+
+.reels-main {
+    flex: 2;
+    background: #fff;
+    border-radius: 8px;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    box-shadow: none;
+    max-width: 500px;
+    max-height: 80vh;
+}
+
+.reels-container {
+    position: relative;
+    width: min(100%, 420px);
+    height: calc(100vh - 200px);
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: black;
+    margin: 0 auto;
+}
+
+.reels-comments {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 8px;
+    padding: 12px 16px;
+    box-sizing: border-box;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+    height: 80vh;
+    max-width: 50vh;
+}
+
+.reels-page {
+    height: 100vh;
+    padding: 16px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.reels-wrapper {
+    flex: 1;
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    padding: 0 290px;
+    height: calc(100vh - 120px);
+    justify-content: center;
+}

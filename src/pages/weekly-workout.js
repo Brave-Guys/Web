@@ -164,18 +164,18 @@ const WeeklyWorkout = () => {
     if (!videos) return <div>참가자가 없습니다.</div>;
 
     return (
-        <div className="participant-detail-page">
+        <div className="reels-page">
             <PageTitle
                 title='금주의 운동'
                 description="릴스"
                 showBackArrow={true}
                 onBack={() => navigate(-1)}
             />
-            <div className="participant-detail-wrapper">
-                <div className="participant-main">
+            <div className="reels-wrapper">
+                <div className="reels-main">
                     {videos.length > 0 && (
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            <div style={{ width: '50%', position: 'relative' }} className="reels-container">
+                            <div className="reels-container">
                                 <video
                                     key={currentVideo?.id}
                                     ref={videoRef}
@@ -228,7 +228,7 @@ const WeeklyWorkout = () => {
                     )}
                 </div>
 
-                <div className="participant-comments">
+                <div className="reels-comments">
                     <div className="comment-form">
                         <textarea
                             className={`comment-textarea ${isFocused || commentText ? 'expanded' : ''}`}
