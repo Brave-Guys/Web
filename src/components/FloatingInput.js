@@ -16,6 +16,7 @@ const FloatingInput = ({
     return (
         <div className="floating-input">
             <input
+                style={{ background: '#FFF' }}
                 id={id}
                 ref={inputRef}
                 type={type}

@@ -7,7 +7,7 @@ import exerciseTips from '../constants/exerciseTips';
 import DefaultAvatar from '../assets/person.png';
 import { getWorkoutLogsByDateRange } from '../apis/getWorkoutLogs';
 import { getMyShareRequests } from '../apis/getSharePlus.js';
-import { getPosts } from '../apis/getPosts';
+import { getRecentPosts } from '../apis/getPosts';
 import { calculateCardioScore } from '../utils/calculateCardioScore';
 import { calculateWeightScore } from '../utils/calculateWeightscore';
 import SloganSlider from '../components/SloganSlider';
@@ -52,7 +52,7 @@ const Main = () => {
 
         const fetchPosts = async () => {
             try {
-                const allPosts = await getPosts();
+                const allPosts = await getRecentPosts();
                 setLatestPosts(allPosts.reverse().slice(0, 7));
             } catch (err) {
                 console.error('게시글을 불러오는 데 실패했습니다.', err);
