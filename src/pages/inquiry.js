@@ -26,23 +26,24 @@ const Inquiry = () => {
         setFormData({ ...formData, category: selected });
     };
 
-    const sendInquiryEmail = async ({ receiverEmail, subject, content }) => {
+    const sendInquiryEmail = async ({ email, subject, content }) => {
         const token = localStorage.getItem('token');
 
         try {
-            const subject = `[문의]`;
-            const content = `보낸 사람: ${formData.email}\n\n문의 내용:\n${formData.message}`;
-
-            await axios.post(`${process.env.REACT_APP_API_URL}/api/email/send-message`, null, {
-                params: {
-                    email: 'kangcombi@gmail.com',
-                    subject: encodeURIComponent(subject),
-                    content: encodeURIComponent(content)
+            await axios.post(
+                `${process.env.REACT_APP_API_URL}/api/email/send-message`,
+                {
+                    email,
+                    subject,
+                    content,
                 },
-                headers: {
-                    Authorization: `Bearer ${token}`
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
                 }
-            });
+            );
         } catch (err) {
             console.error('이메일 전송 실패:', err);
             throw err;
@@ -58,7 +59,7 @@ const Inquiry = () => {
 
         try {
             await sendInquiryEmail({
-                receiverEmail: 'kangcombi@gmail.com',
+                email: 'kangcombi@gmail.com', // 수신자 주소 (운영자)
                 subject,
                 content
             });
