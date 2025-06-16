@@ -307,6 +307,7 @@ const PostDetail = () => {
                                     >
                                         취소
                                     </button>
+                                    <span style={{margin: '4px'}}></span>
                                     <button
                                         className="comment-button save"
                                         onClick={handleRootCommentSubmit}
