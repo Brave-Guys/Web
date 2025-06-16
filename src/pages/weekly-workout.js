@@ -9,7 +9,7 @@ import { getReelsComments } from '../apis/getReelsComments';
 import PageTitle from '../components/PageTitle';
 import { getChallengeDetail } from '../apis/getChallenges';
 import ClipLoader from 'react-spinners/ClipLoader';
-import '../styles/ParticipantDetail.css';
+import '../styles/reels.css'
 
 const WeeklyWorkout = () => {
     const [videos, setVideos] = useState([])
@@ -100,6 +100,8 @@ const WeeklyWorkout = () => {
             const updatedVideos = [...videos, response];
             if (updatedVideos.length > 10) updatedVideos.shift();
 
+            console.log(updatedVideos);
+
             setVideos(updatedVideos);
             setIsPlaying(true);
             await fetchComments(response.id);
@@ -163,17 +165,17 @@ const WeeklyWorkout = () => {
 
     return (
         <div className="participant-detail-page">
+            <PageTitle
+                title='금주의 운동'
+                description="릴스"
+                showBackArrow={true}
+                onBack={() => navigate(-1)}
+            />
             <div className="participant-detail-wrapper">
-                <PageTitle
-                    title='금주의 운동'
-                    description="릴스"
-                    showBackArrow={true}
-                    onBack={() => navigate(-1)}
-                />
                 <div className="participant-main">
                     {videos.length > 0 && (
-                        <div className="shorts-wrapper">
-                            <div className="video-container">
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                            <div style={{ width: '50%' }} className="reels-container">
                                 <video
                                     key={currentVideo?.id}
                                     ref={videoRef}
@@ -182,7 +184,7 @@ const WeeklyWorkout = () => {
                                     muted
                                     onClick={togglePlayback}
                                     onCanPlay={() => setLoading(false)}
-                                    className="shorts-video"
+                                    className="reels-video"
                                     loop
                                     playsInline
                                 />
@@ -215,7 +217,6 @@ const WeeklyWorkout = () => {
                                     </div>
                                 )}
                             </div>
-
                             <div className="video-controls">
                                 <button className="next-button" onClick={handleNextVideo}>
                                     <ChevronRight size={20} strokeWidth={3} />
@@ -301,9 +302,7 @@ const WeeklyWorkout = () => {
                             />
                         ))}
                     </div>
-
                 </div>
-                {/* <div style={{ flexGrow: '1' }}></div> */}
             </div>
         </div>
     );
