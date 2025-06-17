@@ -53,7 +53,7 @@ const Main = () => {
         const fetchPosts = async () => {
             try {
                 const allPosts = await getRecentPosts();
-                setLatestPosts(allPosts.reverse().slice(0, 7));
+                setLatestPosts(allPosts.slice(0, 7));
             } catch (err) {
                 console.error('게시글을 불러오는 데 실패했습니다.', err);
             }
