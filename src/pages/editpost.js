@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import PageTitle from '../components/PageTitle';
+import CustomSelect from '../components/CustomSelect';  // Custom Select Component
 import '../styles/WritePost.css';
 import { getPostDetail } from '../apis/getPostDetail';
 import { updatePost } from '../apis/updatePost';
+import CustomButton from '../components/CustomButton';
 
 const EditPost = () => {
     const { id: postId } = useParams();
@@ -73,7 +75,7 @@ const EditPost = () => {
             <PageTitle title="글 수정" description="게시글 내용을 수정하세요" showBackArrow={true} />
 
             <div className="write-post-form">
-                <label>
+                <label className="title-label">
                     제목
                     <input
                         type="text"
@@ -85,12 +87,12 @@ const EditPost = () => {
 
                 <label>
                     분류
-                    <select value={form.category} onChange={handleChange('category')}>
-                        <option value="잡담">잡담</option>
-                        <option value="식단">식단</option>
-                        <option value="루틴">루틴</option>
-                        <option value="공지">공지</option>
-                    </select>
+                    <CustomSelect
+                        options={['잡담', '식단', '루틴', '공지']}
+                        value={form.category}
+                        onChange={handleChange('category')}
+                        placeholder="분류를 선택하세요"
+                    />
                 </label>
 
                 <label>
@@ -103,9 +105,22 @@ const EditPost = () => {
                     />
                 </label>
 
-                <button className="submit-btn" onClick={handleSubmit}>
-                    수정 완료
-                </button>
+                <div className="footer-buttons">
+                    <div className="post-button-group">
+                        <CustomButton
+                            label="취소"
+                            size="small"
+                            color="gray"
+                            onClick={() => navigate(-1)}
+                        />
+                        <CustomButton
+                            label="수정 완료"
+                            size="small"
+                            color="purple"
+                            onClick={handleSubmit}
+                        />
+                    </div>
+                </div>
             </div>
         </div>
     );
