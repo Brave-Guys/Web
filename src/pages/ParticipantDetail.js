@@ -53,10 +53,20 @@ const ParticipantDetail = () => {
         if (!commentText.trim()) return;
         setLoading(true);
         try {
+            const user = JSON.parse(localStorage.getItem('user'));
             await postReelsComment({
-                participantId,
+                reelsId: participantId,
                 content: commentText.trim(),
+                writerId: user.id,
             });
+
+            // await postReelsComment({
+            //     reelsId: currentVideo.id,
+            //     writerId: user.id,
+            //     content: commentText,
+            //     parentId: parentId,
+            // });
+
             setCommentText('');
             const updatedComments = await getReelsComments(participantId);
             setComments(updatedComments);
@@ -95,9 +105,9 @@ const ParticipantDetail = () => {
                         <div className="participant-video-wrapper">
                             <video src={participant.videoUrl} controls muted autoPlay preload="metadata" />
                         </div>
-                    )}                    
+                    )}
                     <div className="participant-detail-content">{participant.content}</div>
-                    
+
                 </section>
 
                 {/* 우측: 댓글 */}
